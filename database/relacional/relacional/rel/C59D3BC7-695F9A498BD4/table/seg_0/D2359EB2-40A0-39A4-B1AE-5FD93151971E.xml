@@ -1,0 +1,111 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D2359EB2-40A0-39A4-B1AE-5FD93151971E" name="USR_USUARIO">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 00:57:28 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="USR_COD" id="9DD338E3-EC95-024D-DEB8-D62B13EA8E24">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 00:58:43 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_NOME" id="09C972E1-8DD8-61AC-E36D-1686D22E7AFF">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 01:00:42 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_SOBRENOME" id="95BE04B1-F57B-8BDA-3CE1-CA323335169E">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 01:00:42 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_EMAIL" id="278AE8A8-AFF1-FFD1-C73C-5D6FA58465D4">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 01:00:42 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_DATA_NASC" id="FF0A5EA9-572D-3F5F-1778-833AEB099221">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 01:00:42 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_CIDADE" id="15E14358-4354-F7DA-CF97-0C33EBC9E0ED">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 01:00:42 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_ESTADO " id="360AAECB-86ED-6A78-D5B3-C37F6B651229">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 01:01:18 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_PAÍS" id="9CBBB5E3-E370-0796-DDE2-757035D3D9CD">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 01:01:18 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3AB6D6BE-31B7-E964-0CF4-20BBD1F4A2A4" name="USR_USUARIO_PK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-04 00:58:43 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9DD338E3-EC95-024D-DEB8-D62B13EA8E24"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
