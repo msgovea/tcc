@@ -18,28 +18,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="USR_NOME" id="09C972E1-8DD8-61AC-E36D-1686D22E7AFF">
-<createdBy>Cacilda</createdBy>
-<createdTime>2017-03-04 01:00:42 UTC</createdTime>
-<ownerDesignName>Relacional</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 CHAR</dataTypeSize>
-<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="USR_SOBRENOME" id="95BE04B1-F57B-8BDA-3CE1-CA323335169E">
-<createdBy>Cacilda</createdBy>
-<createdTime>2017-03-04 01:00:42 UTC</createdTime>
-<ownerDesignName>Relacional</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 CHAR</dataTypeSize>
-<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="USR_EMAIL" id="278AE8A8-AFF1-FFD1-C73C-5D6FA58465D4">
 <createdBy>Cacilda</createdBy>
 <createdTime>2017-03-04 01:00:42 UTC</createdTime>
@@ -47,56 +25,78 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 CHAR</dataTypeSize>
-<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="USR_DATA_NASC" id="FF0A5EA9-572D-3F5F-1778-833AEB099221">
+<Column name="USR_SENHA" id="F6F6030C-936A-421C-9013-440815B5CED1">
 <createdBy>Cacilda</createdBy>
-<createdTime>2017-03-04 01:00:42 UTC</createdTime>
+<createdTime>2017-03-08 21:46:48 UTC</createdTime>
 <ownerDesignName>Relacional</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT007</logicalDatatype>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USD_COD_CONEXAO" id="EFA4F943-D152-DFDA-6901-96D9DA97D5BF">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:47:40 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USR_TPC_TIPO_CONEXAO" id="50EF4B64-3BB3-C8AA-8B6E-46DC1E2DA245">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:55:39 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3DA02D3D-89FD-CE07-E7A9-3D86DF226F76" referredColumn="21DB64D4-E3D9-E0D1-2C38-4442A446F8E1"/>
+</associations>
 </Column>
-<Column name="USR_CIDADE" id="15E14358-4354-F7DA-CF97-0C33EBC9E0ED">
+<Column name="USR_STC_SITUACAO_CONTA" id="B8FF7065-0ECC-0999-BB30-663CE9B262E0">
 <createdBy>Cacilda</createdBy>
-<createdTime>2017-03-04 01:00:42 UTC</createdTime>
+<createdTime>2017-03-08 21:58:39 UTC</createdTime>
 <ownerDesignName>Relacional</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 CHAR</dataTypeSize>
-<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8F99FA15-6E3B-1606-09A7-AA98C81D0459" referredColumn="B35CA497-40E1-B90F-275C-9281AE31A2BC"/>
+</associations>
 </Column>
-<Column name="USR_ESTADO " id="360AAECB-86ED-6A78-D5B3-C37F6B651229">
+<Column name="USR_NVU_NIVEL_USUARIO" id="36E9461D-3E08-8A93-561F-EB7E516FF623">
 <createdBy>Cacilda</createdBy>
-<createdTime>2017-03-04 01:01:18 UTC</createdTime>
+<createdTime>2017-03-08 22:01:18 UTC</createdTime>
 <ownerDesignName>Relacional</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 CHAR</dataTypeSize>
-<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="USR_PAÍS" id="9CBBB5E3-E370-0796-DDE2-757035D3D9CD">
-<createdBy>Cacilda</createdBy>
-<createdTime>2017-03-04 01:01:18 UTC</createdTime>
-<ownerDesignName>Relacional</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>200 CHAR</dataTypeSize>
-<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2A31B50E-CDA9-DFE1-3C16-873120A0C837" referredColumn="2F32A3E4-AD18-2009-9D7C-7FF1DA4B8B41"/>
+</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="3AB6D6BE-31B7-E964-0CF4-20BBD1F4A2A4" name="USR_USUARIO_PK">
+<ind_PK_UK id="3AB6D6BE-31B7-E964-0CF4-20BBD1F4A2A4" name="USR_PK">
 <createdBy>Cacilda</createdBy>
 <createdTime>2017-03-04 00:58:43 UTC</createdTime>
 <ownerDesignName>Relacional</ownerDesignName>
@@ -105,6 +105,36 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="9DD338E3-EC95-024D-DEB8-D62B13EA8E24"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1ED22920-C6F8-49DC-FDF9-7DC93301CBE3" name="USR_X_TPC_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:55:39 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="50EF4B64-3BB3-C8AA-8B6E-46DC1E2DA245"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CB5EE2E7-D38F-4C15-51BD-19CB58927102" name="USR_X_STC_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:58:39 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B8FF7065-0ECC-0999-BB30-663CE9B262E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EA95CBF9-421E-4A82-1FCA-BA054AB5B814" name="USR_X_NVU_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 22:01:18 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="36E9461D-3E08-8A93-561F-EB7E516FF623"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

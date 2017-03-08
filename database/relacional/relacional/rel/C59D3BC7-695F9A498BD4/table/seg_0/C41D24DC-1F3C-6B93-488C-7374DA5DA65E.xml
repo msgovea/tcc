@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C41D24DC-1F3C-6B93-488C-7374DA5DA65E" name="USD_USUARIO_DETALHE">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:49:17 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<ordsAlias>table_2</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="USD_USR_CODIGO" id="D1B05A4F-62D0-E7A3-2A70-15E0A4B92EF7">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:16 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="565DF267-3375-2723-552D-F6D69BFAC6FB" referredColumn="9DD338E3-EC95-024D-DEB8-D62B13EA8E24"/>
+</associations>
+</Column>
+<Column name="USD_NICKNAME " id="C8F70663-2D14-E9A1-4637-1ECB453703B2">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USD_NOME" id="0F24FA11-AAD1-9B63-316C-2DEB241F48AB">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USD_DATA_NASC" id="D1CD36C5-F94F-B401-75CA-8C8793D54052">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USD_CIDADE" id="EA84CDB6-4614-592F-FF6C-43BAE748C39B">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USD_ESTADO" id="933186AA-7755-0906-B33F-8EA7A9674566">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USD_PAIS" id="00C509D1-D47F-9472-AEDA-FAB66D44B095">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D2FC42E0-66F3-F3B7-9702-9C2E66C25722" name="USD_PK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:52:21 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D1B05A4F-62D0-E7A3-2A70-15E0A4B92EF7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BFCBBE92-9EB0-CE41-0754-4D207371F948" name="USD_X_USR_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-03-08 21:51:16 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D1B05A4F-62D0-E7A3-2A70-15E0A4B92EF7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
