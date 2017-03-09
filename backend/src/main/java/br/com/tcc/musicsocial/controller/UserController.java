@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tcc.musicsocial.dto.LoginRequest;
 import br.com.tcc.musicsocial.dto.Response;
 import br.com.tcc.musicsocial.entity.NivelUsuario;
 import br.com.tcc.musicsocial.entity.SituacaoConta;
@@ -30,6 +31,28 @@ public class UserController {
 	public @ResponseBody Response<?> cadastrarUsuario(@RequestBody Usuario usuario) {
 		try {
 			return new Response<Usuario>("Sucesso!", usuarioService.cadastrarUsuario(usuario));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>("Falha!", e);
+		}
+	}
+	
+	@RequestMapping(
+			value = "/usuario/login",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			method = RequestMethod.POST
+		)
+	public @ResponseBody Response<?> efetuarLogin(@RequestBody LoginRequest loginRequest) {
+		try {
+			Usuario usuario = usuarioService.efetuarLogin(loginRequest.getEmail(), loginRequest.getSenha());
+			String mensagem;
+			if (usuario == null) {
+				mensagem = "Invalido!";
+			} else {
+				mensagem = "Sucesso!";
+			}
+			return new Response<Usuario>(mensagem, usuario);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Exception>("Falha!", e);

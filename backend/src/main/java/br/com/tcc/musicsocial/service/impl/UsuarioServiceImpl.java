@@ -22,4 +22,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuario;
 	}
 
+	@Override
+	public Usuario efetuarLogin(String email, String senha) {
+		Usuario usuario = usuarioDAO.consultarPorEmail(email);
+		if (usuario != null && usuario.getSenha() == senha) {
+			return usuario;
+		}
+		return null;
+	}
+
 }
