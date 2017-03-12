@@ -529,19 +529,21 @@ angular.module('app')
                 })
                 .state('access.404', {
                     url: '/404',
-                    templateUrl: 'tpl/extra_404.html'
+                    templateUrl: 'tpl/404.html'
                 })
                 .state('access.500', {
                     url: '/500',
-                    templateUrl: 'tpl/extra_500.html'
+                    templateUrl: 'tpl/500.html'
                 })
                 .state('access.login', {
                     url: '/login',
-                    templateUrl: 'tpl/extra_login.html'
+                    templateUrl: 'tpl/login.html'
                 })
                 .state('access.register', {
                     url: '/register',
-                    templateUrl: 'tpl/extra_register.html'
+                    controller: 'registerCtrl',
+                    templateUrl: 'tpl/register.html'
+                    
                 })
                 .state('access.lock_screen', {
                     url: '/lock_screen',
