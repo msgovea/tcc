@@ -537,13 +537,13 @@ angular.module('app')
                 })
                 .state('access.login', {
                     url: '/login',
+                    controller: 'LoginCtrl',
                     templateUrl: 'tpl/login.html'
                 })
                 .state('access.register', {
                     url: '/register',
-                    controller: 'registerCtrl',
+                    controller: 'RegisterCtrl',
                     templateUrl: 'tpl/register.html'
-                    
                 })
                 .state('access.lock_screen', {
                     url: '/lock_screen',

@@ -3,6 +3,9 @@ package br.edu.puccamp.app;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,9 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import br.edu.puccamp.app.async.SincronizaCadastro;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Validation;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements SincronizaCadastro.Listener{
 
 
     /**
@@ -45,6 +50,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private View mProgressView;
     private View mLoginFormView;
+
+    public static Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +124,10 @@ public class RegisterActivity extends AppCompatActivity {
         Validation validation = new Validation();
         validation.context = getApplicationContext();
 
-
 //        mNameView = Validation.isFieldValid(mNameView, getApplicationContext(), cancel, focusView);
 
-        mNameView            = validation.isFieldValid(mNameView);
-        mEmailView           = validation.isFieldValid(mEmailView);
+        mNameView  = validation.isFieldValid(mNameView);
+        mEmailView = validation.isFieldValid(mEmailView);
 
         if (!Validation.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
@@ -143,15 +150,10 @@ public class RegisterActivity extends AppCompatActivity {
             validation.error = true;
         }
 
-        mBirthdayView        = validation.isFieldValid(mBirthdayView);
-        mCountryView         = validation.isFieldValid(mCountryView);
-        mStateView           = validation.isFieldValid(mStateView);
-        mCityView            = validation.isFieldValid(mCityView);
-
-
-
-
-
+        mBirthdayView = validation.isFieldValid(mBirthdayView);
+        mCountryView  = validation.isFieldValid(mCountryView);
+        mStateView    = validation.isFieldValid(mStateView);
+        mCityView     = validation.isFieldValid(mCityView);
 
         if (validation.error) {
             validation.focusView.requestFocus();
@@ -159,8 +161,12 @@ public class RegisterActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            SincronizaCadastro sinc = new SincronizaCadastro(this);
+            sinc.execute(mNameView.getText().toString(), mEmailView.getText().toString(), mPasswordView.getText().toString(), "A");
+//
+//            mAuthTask = new UserLoginTask(email, password);
+//            mAuthTask.execute((Void) null);
+//
         }
     }
 
@@ -198,6 +204,28 @@ public class RegisterActivity extends AppCompatActivity {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onLoaded(String string) {
+        if (string == "true") {
+            showProgress(false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.context);
+            builder.setTitle("Conta registrada");
+            builder.setMessage("Cadastro realizado, confirme o acesso via e-mail");
+            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    //finishActivity(1);
+                    finish();
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
+        } else {
+            showProgress(false);
         }
     }
 
