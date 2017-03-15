@@ -11,7 +11,8 @@ angular.module('app')
         }
 
         $scope.createAccount = function(user) { 
-            //alert("Account created :)");
+            //alert("Account created :)")
+
             
         }
 

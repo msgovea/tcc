@@ -11,6 +11,3 @@ angular.module('app', [
     'ui.utils',
     'oc.lazyLoad'
 ]);
-
-
- 

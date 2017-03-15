@@ -8,7 +8,7 @@ angular.module('app')
 
         // App globals
         $scope.app = {
-            name: 'Pages',
+            name: 'Music Social',
             description: 'Admin Dashboard UI kit',
             layout: {
                 menuPin: false,
