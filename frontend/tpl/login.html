@@ -40,6 +40,7 @@
                     </div>
                 </div>
                 <label class="error" for="password" ng-show="login.password.$invalid && !login.password.$pristine">This field is required.</label>
+                
                 <!-- START Form Control-->
                 <div class="row">
                     <div class="col-md-6 no-padding">
@@ -53,7 +54,8 @@
                     </div>
                 </div>
                 <!-- END Form Control-->
-                <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="login.$invalid" ng-click="validateLogin()" ui-sref="app.dashboard">Sign in</button>
+                <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="login.$invalid" ng-click="validateLogin(login)">Sign in</button>
+                 <label class="error" for="login" ng-show="!login.valid">Login inválido</label>
             </form>
             <!--END Login Form-->
             <div class="pull-bottom sm-pull-bottom">
