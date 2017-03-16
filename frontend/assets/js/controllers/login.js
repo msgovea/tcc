@@ -24,7 +24,9 @@ angular.module('app')
         }
     })
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', function($scope, apiLogin) {
+
+
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', function($scope, apiLogin, $state) {
 
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
