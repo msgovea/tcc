@@ -10,11 +10,20 @@ import javax.persistence.Table;
 public class SituacaoConta {
 	
 	@Id
-	@Column(name = "STC_COD")
+	@Column(name = "STC_CODIGO")
 	private Integer codigoSituacaoConta;
 	
 	@Column(name = "STC_TIPO")
 	private String tipo;
+	
+	public SituacaoConta(Integer codigo, String tipo) {
+		this.codigoSituacaoConta = codigo;
+		this.tipo = tipo;
+	}
+
+	public SituacaoConta() {
+		//empty
+	}
 
 	public Integer getCodigoSituacaoConta() {
 		return codigoSituacaoConta;

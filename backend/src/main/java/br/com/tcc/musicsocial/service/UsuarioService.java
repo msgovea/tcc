@@ -1,8 +1,8 @@
 package br.com.tcc.musicsocial.service;
 
-import br.com.tcc.musicsocial.entity.Usuario;
+import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 
 public interface UsuarioService {
-	Usuario cadastrarUsuario(Usuario usuario);
-	Usuario efetuarLogin(String email, String senha);
+	UsuarioDetalhe cadastrarUsuario(UsuarioDetalhe usuario);
+	UsuarioDetalhe efetuarLogin(String email, String senha);
 }

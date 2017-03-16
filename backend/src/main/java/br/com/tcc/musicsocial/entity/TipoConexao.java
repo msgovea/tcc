@@ -10,11 +10,21 @@ import javax.persistence.Table;
 public class TipoConexao {
 	
 	@Id
-	@Column(name = "TPC_COD")
+	@Column(name = "TPC_CODIGO")
 	private Integer codigoTipoConexao;
 	
 	@Column(name = "TPC_TIPO")
 	private String tipo;
+	
+	public TipoConexao(Integer codigoTipoConexao, String tipo) {
+		super();
+		this.codigoTipoConexao = codigoTipoConexao;
+		this.tipo = tipo;
+	}
+
+	public TipoConexao() {
+		super();
+	}
 
 	public Integer getCodigoTipoConexao() {
 		return codigoTipoConexao;

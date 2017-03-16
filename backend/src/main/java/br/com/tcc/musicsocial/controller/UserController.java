@@ -2,6 +2,7 @@ package br.com.tcc.musicsocial.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import br.com.tcc.musicsocial.entity.NivelUsuario;
 import br.com.tcc.musicsocial.entity.SituacaoConta;
 import br.com.tcc.musicsocial.entity.TipoConexao;
 import br.com.tcc.musicsocial.entity.Usuario;
+import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 import br.com.tcc.musicsocial.service.UsuarioService;
 
 @RestController
@@ -22,21 +24,23 @@ public class UserController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@CrossOrigin
 	@RequestMapping(
 				value = "/usuario/cadastro",
 				consumes = MediaType.APPLICATION_JSON_VALUE,
 				produces = MediaType.APPLICATION_JSON_VALUE,
 				method = RequestMethod.POST
 			)
-	public @ResponseBody Response<?> cadastrarUsuario(@RequestBody Usuario usuario) {
+	public @ResponseBody Response<?> cadastrarUsuario(@RequestBody UsuarioDetalhe usuario) {
 		try {
-			return new Response<Usuario>("Sucesso!", usuarioService.cadastrarUsuario(usuario));
+			return new Response<UsuarioDetalhe>("Sucesso!", usuarioService.cadastrarUsuario(usuario));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Exception>("Falha!", e);
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(
 			value = "/usuario/login",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -60,8 +64,8 @@ public class UserController {
 	}
 	
 	@RequestMapping("/usuario/teste")
-	public @ResponseBody Usuario teste() {
-		Usuario u = new Usuario();
+	public @ResponseBody UsuarioDetalhe teste() {
+		UsuarioDetalhe u = new UsuarioDetalhe();
 		u.setTipoConexao(new TipoConexao());
 		u.setNivelUsuario(new NivelUsuario());
 		u.setSituacaoConta(new SituacaoConta());

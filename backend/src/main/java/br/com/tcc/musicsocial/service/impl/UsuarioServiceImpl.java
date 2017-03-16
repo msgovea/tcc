@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
-import br.com.tcc.musicsocial.entity.Usuario;
+import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 import br.com.tcc.musicsocial.service.UsuarioService;
+import br.com.tcc.musicsocial.util.SituacaoConta;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -17,15 +18,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	@Transactional
-	public Usuario cadastrarUsuario(Usuario usuario) {
+	public UsuarioDetalhe cadastrarUsuario(UsuarioDetalhe usuario) {
+		usuario.setSituacaoConta(SituacaoConta.ATIVA.getEntity());
 		usuarioDAO.save(usuario);
 		return usuario;
 	}
 
 	@Override
-	public Usuario efetuarLogin(String email, String senha) {
-		Usuario usuario = usuarioDAO.consultarPorEmail(email);
-		if (usuario != null && usuario.getSenha() == senha) {
+	public UsuarioDetalhe efetuarLogin(String email, String senha) {
+		UsuarioDetalhe usuario = usuarioDAO.consultarPorEmail(email);
+		if (usuario != null && usuario.getSenha().equals(senha)) {
 			return usuario;
 		}
 		return null;
