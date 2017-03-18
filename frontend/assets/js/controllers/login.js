@@ -42,7 +42,7 @@ angular.module('app')
                     //redireciona
                     console.log("sucesso");
                     $scope.login.invalid = false;   
-
+                    $state.go('app.dashboard');
                 }
                 else {
                     $scope.login.invalid = true;   
