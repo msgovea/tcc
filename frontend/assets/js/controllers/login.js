@@ -46,7 +46,7 @@ angular.module('app')
                 }
                 else {
                     $('body').pgNotification({
-                        style: 'circle',
+                        style: 'simple',
                         title: 'Login incorreto',
                         message: 'Usuário ou senha inválidos',
                         position: 'top-right',
