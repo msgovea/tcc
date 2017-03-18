@@ -45,6 +45,15 @@ angular.module('app')
                     $state.go('app.dashboard');
                 }
                 else {
+                    $('body').pgNotification({
+                        style: 'circle',
+                        title: 'Login incorreto',
+                        message: 'Usuário ou senha inválidos',
+                        position: 'top-right',
+                        timeout: 6000,
+                        type: 'danger',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show();
                     $scope.login.invalid = true;   
                 }
             })
