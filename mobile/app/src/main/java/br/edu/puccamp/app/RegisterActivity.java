@@ -6,12 +6,11 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -19,62 +18,65 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import br.edu.puccamp.app.async.SincronizaCadastro;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.Validation;
 
-/**
- * A login screen that offers login via email/password.
- */
-public class RegisterActivity extends AppCompatActivity implements SincronizaCadastro.Listener {
+public class RegisterActivity extends AppCompatActivity implements SincronizaCadastro.Listener{
 
-    private EditText mPasswordView, mEmailView, mNameView, mConfirmPasswordView;
-    public static View mProgressView;
-    private View mRegisterFormView;
-    private StringRequest request;
-    private RequestQueue requestQueue;
+
+    /**
+     * A dummy authentication store containing known user names and passwords.
+     * TODO: remove after connecting to a real authentication system.
+     */
+    private static final String[] DUMMY_CREDENTIALS = new String[]{
+            "foo@example.com:hello", "bar@example.com:world"
+    };
+    /**
+     * Keep track of the login task to ensure we can cancel it if requested.
+     */
+    private UserLoginTask mAuthTask = null;
+
+    // UI references.
+    private EditText mEmailView;
+    private EditText mPasswordView;
+    private EditText mConfirmPasswordView;
+    private EditText mNameView;
+    private EditText mBirthdayView;
+    private EditText mCountryView;
+    private EditText mStateView;
+    private EditText mCityView;
+    private Button mEmailSignInButton;
+
+    private View mProgressView;
+    private View mLoginFormView;
+
     public static Context context;
-    private static final String URL = "http://www.listbuy.me/api/user_control.php";
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
-        switch (item.getItemId()) {
-            case android.R.id.home:  //ID do seu botão (gerado automaticamente pelo android, usando como está, deve funcionar
-                /*startActivity(new Intent(this, SuaActivity.class));  //O efeito ao ser pressionado do botão (no caso abre a activity)
-                finishAffinity();  //Método para matar a activity e não deixa-lá indexada na pilhagem*/
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        //finishActivity(0);
-        finish();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        setupActionBar();
 
-        context = this;
+        // Set up the register form.
+        mEmailView           = (EditText) findViewById(R.id.email);
+        mPasswordView        = (EditText) findViewById(R.id.password);
+        mConfirmPasswordView = (EditText) findViewById(R.id.confirm_password);
+        mNameView            = (EditText) findViewById(R.id.name);
+        mBirthdayView        = (EditText) findViewById(R.id.birthday);
+        mCountryView         = (EditText) findViewById(R.id.country);
+        mStateView           = (EditText) findViewById(R.id.state);
+        mCityView            = (EditText) findViewById(R.id.city);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Mostrar o botão
-        getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
-        getSupportActionBar().setTitle("Cadastro ListBuy");
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 
-        mNameView = (EditText) findViewById(R.id.name);
-        mEmailView = (EditText) findViewById(R.id.emailRegister);
-        mPasswordView = (EditText) findViewById(R.id.passwordRegister);
-        mConfirmPasswordView = (EditText) findViewById(R.id.passwordConfirm);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView  = findViewById(R.id.login_progress);
 
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+        mCityView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -85,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,101 +94,82 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
             }
         });
 
-        mRegisterFormView = findViewById(R.id.register_form);
-        mProgressView = findViewById(R.id.register_progress);
-
-        requestQueue = Volley.newRequestQueue(this);
     }
 
 
+    /**
+     * Set up the {@link android.app.ActionBar}, if the API is available.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void setupActionBar() {
+        // Show the Up button in the action bar.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     private void attemptLogin() {
+        if (mAuthTask != null) {
+            return;
+        }
 
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
+
         // Store values at the time of the login attempt.
-        String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         String confirmPassword = mConfirmPasswordView.getText().toString();
 
+        Validation validation = new Validation();
+        validation.context = getApplicationContext();
 
-        // Check for a valid name, if the user entered one.
-        if (TextUtils.isEmpty(name)) {
-            mNameView.setError(getString(R.string.error_field_required));
-            requestFocus(mNameView);
-            return;
-        } else if (!isNameValid(name)) {
-            mNameView.setError(getString(R.string.error_invalid_name));
-            requestFocus(mNameView);
-            return;
-        }
+//        mNameView = Validation.isFieldValid(mNameView, getApplicationContext(), cancel, focusView);
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            requestFocus(mEmailView);
-            return;
-        } else if (!isEmailValid(email)) {
+        mNameView  = validation.isFieldValid(mNameView);
+        mEmailView = validation.isFieldValid(mEmailView);
+
+        if (!Validation.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
-            requestFocus(mEmailView);
-            return;
+            validation.focusView = (validation.focusView == null) ? mEmailView : validation.focusView;
+            validation.error = true;
         }
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            requestFocus(mPasswordView);
-            return;
-        } else if (!isPasswordValid(password)) {
+        // Check for a valid password
+        if (!Validation.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
-            requestFocus(mPasswordView);
-            return;
+            validation.focusView = (validation.focusView == null) ? mPasswordView : validation.focusView;
+            validation.error = true;
         }
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(confirmPassword)) {
-            mConfirmPasswordView.setError(getString(R.string.error_field_required));
-            requestFocus(mConfirmPasswordView);
-            return;
-        } else if (!isConfirmPassword(password, confirmPassword)) {
+        mConfirmPasswordView = validation.isFieldValid(mConfirmPasswordView);
+
+        if (!password.equals(confirmPassword)){
             mConfirmPasswordView.setError(getString(R.string.error_confirm_password));
-            requestFocus(mConfirmPasswordView);
-            return;
+            validation.focusView = (validation.focusView == null) ? mConfirmPasswordView : validation.focusView;
+            validation.error = true;
         }
-        showProgress(true);
-        SincronizaCadastro sinc = new SincronizaCadastro(this);
-        sinc.execute(mNameView.getText().toString(), mEmailView.getText().toString(), mPasswordView.getText().toString(), "A");
 
-        //showProgress(true);
-        //request();
-    }
+        mBirthdayView = validation.isFieldValid(mBirthdayView);
+        mCountryView  = validation.isFieldValid(mCountryView);
+        mStateView    = validation.isFieldValid(mStateView);
+        mCityView     = validation.isFieldValid(mCityView);
 
-
-    private void requestFocus(View focusView) {
-        focusView.requestFocus();
-    }
-
-    private boolean isNameValid(String name) {
-        return name.length() > 5;
-    }
-
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
-    }
-
-    private boolean isConfirmPassword(String password, String confirmPassword) {
-        return password.equals(confirmPassword);
-    }
-
-    private boolean isEmailValid(String email) {
-        if (email.contains("@")) {
-            String[] validacao = email.split("@");
-            return (validacao.length > 1);
+        if (validation.error) {
+            validation.focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            SincronizaCadastro sinc = new SincronizaCadastro(this);
+            sinc.execute(mNameView.getText().toString(), mEmailView.getText().toString(), mPasswordView.getText().toString(), "A");
+//
+//            mAuthTask = new UserLoginTask(email, password);
+//            mAuthTask.execute((Void) null);
+//
         }
-        return false;
     }
+
 
     /**
      * Shows the progress UI and hides the login form.
@@ -200,12 +182,12 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mRegisterFormView.animate().setDuration(shortAnimTime).alpha(
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
@@ -221,7 +203,7 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -243,6 +225,64 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
             builder.setCancelable(false);
             builder.show();
         } else {
+            showProgress(false);
+        }
+    }
+
+
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+        UserLoginTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            for (String credential : DUMMY_CREDENTIALS) {
+                String[] pieces = credential.split(":");
+                if (pieces[0].equals(mEmail)) {
+                    // Account exists, return true if the password matches.
+                    return pieces[1].equals(mPassword);
+                }
+            }
+
+            // TODO: register the new account here.
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
             showProgress(false);
         }
     }
