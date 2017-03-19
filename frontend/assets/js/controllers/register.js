@@ -13,16 +13,16 @@ angular.module('app').factory('apiRegister', function($http) {
                     },
                     data: {
                         
-                        email: usuario.email.$viewValue,
-                        senha: usuario.password.$viewValue,
+                        email: usuario.email,
+                        senha: usuario.password,
                         nivelUsuario: {
                             codigoNivel: 1
                         },
                         tipoConexao: {
                             codigoTipoConexao: 1
                         },
-                        nome: usuario.name.$viewValue,
-                        apelido: usuario.username.$viewValue,
+                        nome: usuario.name,
+                        apelido: usuario.username,
                         dataNascimento: '1995-10-10',
                         cidade: 'Campinas',
                         estado: 'SP',

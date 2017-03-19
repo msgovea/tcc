@@ -10,6 +10,26 @@ angular.module('app')
             $urlRouterProvider
                 .otherwise('/access/login');
 
+            $rootScope.$on('$stateChangeStart', function(event, toState, toParam, fromState, fromParam) {
+                /*
+                    Precisa ser no $stateChangeStart para evitar que o state seja carregado
+                    antes de verificar se ele possui permissão
+                */
+                if(toState == 'app.dashboard') { //Identifica se ele está acessando o `usuario`
+                    /*
+                        Sua função de autenticação vai aqui
+                        Exemplo:
+                        val = 1; -> usuario autenticado;
+                        val = 2; -> usuario não autenticado;
+                    */
+                    if(true/*val == 2*/) {
+                        //Usuario não está autenticado
+                        event.preventDefault(); //Evita que o state continue o serviço
+                        return $state.go('access.login'); //Redireciona para o inicio
+                    }
+                }
+            });
+
             $stateProvider
 
                 .state('app', {

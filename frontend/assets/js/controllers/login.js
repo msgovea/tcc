@@ -5,7 +5,7 @@
 angular.module('app')
     .factory('apiLogin', function($http){
         return {
-            getApi: function(usuario){
+            getApi: function(user){
                 
                 return $http({
                     method:'POST',
@@ -16,8 +16,8 @@ angular.module('app')
                     },
                     //headers: "Content-Type: application/json;charset=UTF-8",
                     data: {
-                        email: usuario.username.$viewValue,
-                        senha: usuario.password.$viewValue
+                        email: user.username,
+                        senha: user.password
                     }
                 })
             }
@@ -33,9 +33,9 @@ angular.module('app')
             //alert("Wizard finished :)");
         }
 
-        $scope.validateLogin = function(login) { 
+        $scope.validateLogin = function(user) { 
             //alert("Login Success :)");
-            apiLogin.getApi(login).then(function(result){
+            apiLogin.getApi(user).then(function(result){
                 console.log(result);
                 console.log("oi");
                 if (result.data.message == "Sucesso!") {
