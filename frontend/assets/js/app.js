@@ -9,5 +9,7 @@
 angular.module('app', [
     'ui.router',
     'ui.utils',
-    'oc.lazyLoad'
+    'oc.lazyLoad',
+    'facebook',
+    'ngCookies'
 ]);

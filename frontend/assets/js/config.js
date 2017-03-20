@@ -15,12 +15,17 @@ angular.module('app')
                 .state('app', {
                     abstract: true,
                     url: "/app",
+                    data: {
+                        requireLogin: true,
+                        requireAdmin: false
+                    },
                     templateUrl: "tpl/app.html"
                 })
                 .state('app.dashboard', {
                     url: "/dashboard",
                     templateUrl: "tpl/dashboard.html",
                     controller: 'DashboardCtrl',
+                    
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
@@ -48,6 +53,10 @@ angular.module('app')
                     abstract: true,
                     url: '/email',
                     templateUrl: 'tpl/apps/email/email.html',
+                    data: {
+                        requireLogin: false,
+                        requireAdmin: false
+                    },
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
@@ -76,6 +85,9 @@ angular.module('app')
             // Social app
             .state('app.social', {
                 url: '/social',
+                data: {
+                        requireLogin: false
+                },
                 templateUrl: 'tpl/apps/social/social.html',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -526,6 +538,9 @@ angular.module('app')
             // Extra - Others
             .state('access', {
                     url: '/access',
+                    data: {
+                        requireLogin: false
+                    },
                     template: '<div class="full-height" ui-view></div>'
                 })
                 .state('access.404', {
@@ -538,6 +553,9 @@ angular.module('app')
                 })
                 .state('access.login', {
                     url: '/login',
+                    data: {
+                        requireLogin: false
+                    },
                     controller: 'LoginCtrl',
                     templateUrl: 'tpl/login.html'
                 })
