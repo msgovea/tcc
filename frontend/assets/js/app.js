@@ -10,7 +10,5 @@ angular.module('app', [
     'ui.router',
     'ui.utils',
     'oc.lazyLoad',
-    'facebook',
-    'ngCookies',
-    'socialLogin'
+    'ngCookies'
 ]);

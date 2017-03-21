@@ -4,7 +4,9 @@
 
 angular.module('app')
     // Chart controller 
-    .controller('DashboardCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+    .controller('DashboardCtrl', ['$scope', '$http', '$timeout','$cookies', function($scope, $http, $timeout, $cookies) {
+
+         console.log($cookies.usuario);
 
         $scope.refreshTest = function(portlet) {
             console.log("Refreshing...");
