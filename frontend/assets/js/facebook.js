@@ -3,6 +3,10 @@
  * Configure facebook application
  * ============================================================ */
 
+angular.module('app').config(function(socialProvider){
+  socialProvider.setFbKey({appId: "1585654564782253", apiVersion: "v2.8"});
+});
+
 angular.module('app')
 
   .config([
