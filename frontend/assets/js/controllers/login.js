@@ -47,7 +47,7 @@ angular.module('app')
                     $cookies.usuario = {
                        id: result.data.object.email
                     };
-                    console.log(result.data.object);
+                    console.log($cookies.usuario);
 
                     console.log($cookies.usuario);
 
