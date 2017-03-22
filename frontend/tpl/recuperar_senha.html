@@ -1,0 +1,33 @@
+<div class="register-container full-height sm-p-t-30" >
+    <div class="container-sm-height full-height">
+        <div class="row row-sm-height">
+            <div class="col-sm-12 col-sm-height col-middle">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+                <h3>Recover your account</h3>
+                <p>
+                    <small>Fill in your email below to receive the account recovery link.</small>
+                </p>
+                <form id="form-register" class="p-t-15" role="form" name="register">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.email.$invalid && !register.email.$pristine }">
+                                <label>Email</label>
+                                <input type="email" name="email" placeholder="john.wherley@email.com" class="form-control" ng-model="user.email" required>
+                            </div>
+                            <label class="error" for="email" ng-show="register.email.$invalid && !register.email.$pristine">Enter a valid email.</label>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-md-6">
+                            <p>I agree to the <a href="" class="text-info small">Pages Terms</a> and <a href="" class="text-info small">Privacy</a>.</p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="" class="text-info small">Help? Contact Support</a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid" ng-click="createAccount(user)">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
