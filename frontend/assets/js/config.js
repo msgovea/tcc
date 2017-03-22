@@ -569,6 +569,10 @@ angular.module('app')
                     url: '/lock_screen',
                     templateUrl: 'tpl/extra_lock_screen.html'
                 })
+                .state('access.recuperarSenha', {
+                    url: '/recuperarSenha',
+                    templateUrl: 'tpl/recuperar_senha.html'
+                })
 
         }
     ]);
