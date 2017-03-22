@@ -3,14 +3,14 @@
     <!-- START Login Background Pic Wrapper-->
     <div class="bg-pic">
         <!-- START Background Pic-->
-        <img src="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" data-src="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" ui-jq="unveil" data-src-retina="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" alt="" class="lazy">
+        <img src="{{bg}}" data-src="{{bg}}" ui-jq="unveil" data-src-retina="{{bg}}" alt="" class="lazy">
         <!-- END Background Pic-->
         <!-- START Background Caption-->
         <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
             <h2 class="semi-bold text-white">
-          Pages make it easy to enjoy what matters the most in the life</h2>
+          {{app.name}}</h2>
             <p class="small">
-                images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2013-2014 REVOX.
+                Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 {{app.name}}.
             </p>
         </div>
         <!-- END Background Caption-->
@@ -44,13 +44,13 @@
                 <!-- START Form Control-->
                 <div class="row">
                     <div class="col-md-6 no-padding">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <input type="checkbox" value="1" id="checkbox1">
                             <label for="checkbox1">Keep Me Signed in</label>
                         </div>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a href="" class="text-info small">Help? Contact Support</a>
+                        <a class="text-info small" ui-sref="access.recuperarSenha"><label>Recover Account</label></a>
                     </div>
                 </div>
                 <!-- END Form Control-->

@@ -28,7 +28,7 @@ angular.module('app')
 
     .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore', function($scope, apiLogin, $state, $timeout, $cookieStore) {
 
-
+        $scope.bg = 'assets/img/headphone' + Math.floor((Math.random()*4)+1) + '.jpg';
 
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
