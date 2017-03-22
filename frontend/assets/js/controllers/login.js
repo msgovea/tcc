@@ -38,16 +38,13 @@ angular.module('app')
         $scope.validateLogin = function(user3) { 
             //alert("Login Success :)");
             apiLogin.getApi(user3).then(function(result){
-                console.log(result);
-                console.log("oi");
+                //console.log(result);
                 if (result.data.message == "Sucesso!") {
                     //redireciona
-                    console.log("sucesso");
-                    console.log($cookieStore.usuario);
-                    $cookieStore.put('usuario', {
-                       id: result.data.object.codigoUsuario
-                    });
-                    console.log($cookieStore.usuario);
+                    //console.log("sucesso");
+                    //console.log($cookieStore.usuario);
+                    $cookieStore.put('usuario', result.data.object);
+                    //console.log($cookieStore.usuario);
 
                     $state.go('app.dashboard');
                 }

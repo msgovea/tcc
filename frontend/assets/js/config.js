@@ -15,6 +15,7 @@ angular.module('app')
                 .state('app', {
                     abstract: true,
                     url: "/app",
+                    controller: 'HeaderCtrl',
                     data: {
                         requireLogin: true,
                         requireAdmin: false

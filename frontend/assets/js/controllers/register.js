@@ -27,13 +27,12 @@ angular.module('app').factory('apiRegister', function($http) {
                         cidade: 'Campinas',
                         estado: 'SP',
                         pais: 'Brasil'
-
                     }
                 })
             }
         }
     })
-    .controller('RegisterCtrl', ['$scope', 'apiRegister', function($scope, apiRegister) {
+    .controller('RegisterCtrl', ['$scope', 'apiRegister', '$cookieStore', '$state', function($scope, apiRegister, $cookieStore, $state) {
 
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
@@ -46,9 +45,11 @@ angular.module('app').factory('apiRegister', function($http) {
                 console.log("oi");
                 if (result.data.message == "Sucesso!") {
                     //redireciona
-                    console.log("sucesso");
-                    $scope.register.invalid = false;   
+                    //console.log("sucesso");
+                    $cookieStore.put('usuario', result.data.object);
+                    //console.log($cookieStore.usuario);
 
+                    $state.go('app.dashboard');
                 }
                 else {
                     $scope.register.invalid = true;   

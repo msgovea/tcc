@@ -54,10 +54,15 @@
                     </div>
                 </div>
                 <!-- END Form Control-->
-                <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="login.$invalid" ng-click="validateLogin(user3)">Sign in</button>
-
+                <button class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login.$invalid" ng-click="validateLogin(user3)">Log in</button>
+                
+                
 
             </form>
+            <hr>
+            <label>New to {{app.name}}? </label>
+            <button class="btn btn-success btn-block" ui-sref="access.register">Sign up</button>
+
             <!--END Login Form-->
             <div class="pull-bottom sm-pull-bottom">
                 <div class="m-b-30 p-r-80 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix">
