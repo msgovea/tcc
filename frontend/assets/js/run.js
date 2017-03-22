@@ -4,7 +4,7 @@
  * ============================================================ */
 
 angular.module('app')
-    .run(['$rootScope', '$state', function($rootScope, $state){
+    .run(['$rootScope', '$state','$cookieStore', function($rootScope, $state, $cookieStore){
         $rootScope.$on('$stateChangeStart', function(event, toState, toParam, fromState, fromParam) {
 
             //console.log(event);
@@ -15,7 +15,12 @@ angular.module('app')
 
         if(toState.data.requireLogin) {
             function validarAutenticacao() {
-                return true;
+                if ($cookieStore.get('usuario').id == undefined){
+                   return false;
+                }
+                else{
+                    return true;
+                }                    
                 //TODO 
                 /*
                 FAZER A VALIDAÇÃO COM OS DADOS QUE ESTÃO SALVOS NO COOKIE OU SEI LA!

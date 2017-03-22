@@ -26,7 +26,7 @@ angular.module('app')
 
 
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookies', function($scope, apiLogin, $state, $timeout, $cookies) {
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore', function($scope, apiLogin, $state, $timeout, $cookieStore) {
 
 
 
@@ -43,13 +43,11 @@ angular.module('app')
                 if (result.data.message == "Sucesso!") {
                     //redireciona
                     console.log("sucesso");
-
-                    $cookies.usuario = {
-                       id: result.data.object.email
+                    console.log($cookieStore.usuario);
+                    $cookieStore.usuario = {
+                       id: result.data.object.codigoUsuario
                     };
-                    console.log($cookies.usuario);
-
-                    console.log($cookies.usuario);
+                    console.log($cookieStore.usuario);
 
                     $state.go('app.dashboard');
                 }
