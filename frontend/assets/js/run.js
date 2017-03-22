@@ -15,10 +15,10 @@ angular.module('app')
 
         if(toState.data.requireLogin) {
             function validarAutenticacao() {
-                if ($cookieStore.get('usuario').id == undefined){
+                if ($cookieStore.get('usuario') == undefined){
                    return false;
                 }
-                else{
+                else {
                     return true;
                 }                    
                 //TODO 

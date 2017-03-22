@@ -8,7 +8,7 @@ angular.module('app')
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/access/login');
+                .otherwise('/app/dashboard');
 
             $stateProvider
 

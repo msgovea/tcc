@@ -44,9 +44,9 @@ angular.module('app')
                     //redireciona
                     console.log("sucesso");
                     console.log($cookieStore.usuario);
-                    $cookieStore.usuario = {
+                    $cookieStore.put('usuario', {
                        id: result.data.object.codigoUsuario
-                    };
+                    });
                     console.log($cookieStore.usuario);
 
                     $state.go('app.dashboard');
