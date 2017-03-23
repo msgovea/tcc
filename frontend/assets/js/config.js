@@ -571,6 +571,7 @@ angular.module('app')
                 })
                 .state('access.recuperarSenha', {
                     url: '/recuperarSenha',
+                    controller: 'RecuperarSenhaCtrl',
                     templateUrl: 'tpl/recuperar_senha.html'
                 })
 
