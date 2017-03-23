@@ -6,9 +6,9 @@ angular.module('app')
     .factory('apiRecuperarSenha', function($http){
         return{
             getApi: function(usuario){
-                return $htpp({
+                return $http({
                     method: 'POST',
-                    url: 'xxx',
+                    url: 'assets/js/apps/email/testes.json',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -23,16 +23,16 @@ angular.module('app')
 
     .controller('RecuperarSenhaCtrl', ['$scope', '$state','apiRecuperarSenha', function($scope, $state, apiRecuperarSenha) {
         $scope.recuperarSenha = function(user){
-            //apiRecuperarSenha.getApi(user).then(function(result)){
-                result.data.message = "Sucesso"
-                if (result.data.message == "Sucesso!") {
+            var message = "lala!"
+            //apiRecuperarSenha.getApi(user).then(function(result){
+                if (message == "Sucesso!") {
                      $('body').pgNotification({
                         style: 'simple',
                         title: 'Right email',
                         message: 'Password recovery sent to the informed email',
                         position: 'top-right',
                         timeout: 6000,
-                        type: 'Success',
+                        type: 'success',
                         thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
                     }).show();    
                 }
@@ -48,5 +48,7 @@ angular.module('app')
                     }).show();
                 }
 
+           // })
         }
+        
     }]);
