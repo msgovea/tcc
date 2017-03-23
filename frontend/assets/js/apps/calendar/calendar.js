@@ -10,7 +10,7 @@ angular.module('app')
         // For demo purposes only. Changes the theme back to pages default when switching the state. 
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams) {
-                $scope.app.layout.theme = 'pages/css/pages.css';
+                $scope.app.layout.theme = 'pages/css/themes/simple.css';
             })
 
     }]);

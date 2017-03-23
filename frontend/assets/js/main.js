@@ -12,8 +12,9 @@ angular.module('app')
             description: 'Rede social musical',
             layout: {
                 menuPin: false,
-                menuBehind: false,
-                theme: 'pages/css/pages.css'
+                menuBehind: true,
+                theme: 'pages/css/themes/simple.css'
+                //theme: 'pages/css/pages.css'
             },
             author: 'Music Social'
         }

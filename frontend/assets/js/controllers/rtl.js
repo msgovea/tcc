@@ -8,7 +8,7 @@ angular.module('app')
         $scope.app.layout.theme = 'pages/css/pages.rtl.css'
 
          $scope.$on("$destroy", function(){
-            $scope.app.layout.theme = 'pages/css/pages.css'
+            $scope.app.layout.theme = 'pages/css/themes/simple.css'
         });
 
     }]);
