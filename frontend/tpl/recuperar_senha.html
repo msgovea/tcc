@@ -7,14 +7,14 @@
                 <p>
                     <small>Fill in your email below to receive the account recovery link.</small>
                 </p>
-                <form id="form-register" class="p-t-15" role="form" name="register">
+                <form id="form-recuperar" class="p-t-15" role="form" name="recuperar">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.email.$invalid && !register.email.$pristine }">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': recuperar.email.$invalid && !recuperar.email.$pristine }">
                                 <label>Email</label>
                                 <input type="email" name="email" placeholder="john.wherley@email.com" class="form-control" ng-model="user.email" required>
                             </div>
-                            <label class="error" for="email" ng-show="register.email.$invalid && !register.email.$pristine">Enter a valid email.</label>
+                            <label class="error" for="email" ng-show="recuperar.email.$invalid && !recuperar.email.$pristine">Enter a valid email.</label>
                         </div>
                     </div>
                     <div class="row m-t-10">
@@ -25,7 +25,7 @@
                             <a href="" class="text-info small">Help? Contact Support</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid" ng-click="recuperarSenha(user)">Send</button>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="recuperar.$invalid" ng-click="recuperarSenha(user)">Send</button>
                 </form>
             </div>
         </div>

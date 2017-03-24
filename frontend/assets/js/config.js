@@ -574,6 +574,11 @@ angular.module('app')
                     controller: 'RecuperarSenhaCtrl',
                     templateUrl: 'tpl/recuperar_senha.html'
                 })
+                .state('access.redefinirSenha', {
+                    url: '/redefinirSenha/:id',
+                    controller: 'RedefinirSenhaCtrl',
+                    templateUrl: 'tpl/redefinir_senha.html'
+                })
 
         }
     ]);

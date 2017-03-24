@@ -7,13 +7,13 @@ angular.module('app')
         return{
             getApi: function(usuario){
                 return $http({
-                    method: 'POST',
+                    method: 'GET',
                     url: 'assets/js/apps/email/testes.json',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     data:{
-                        email: usuario.email
+                       email: usuario.email
                     }
                 })
             }
@@ -23,13 +23,12 @@ angular.module('app')
 
     .controller('RecuperarSenhaCtrl', ['$scope', '$state','apiRecuperarSenha', function($scope, $state, apiRecuperarSenha) {
         $scope.recuperarSenha = function(user){
-            var message = "lala!"
-            //apiRecuperarSenha.getApi(user).then(function(result){
-                if (message == "Sucesso!") {
+            apiRecuperarSenha.getApi(user).then(function(result){
+                if (result.data.message == "Sucesso!") {
                      $('body').pgNotification({
-                        style: 'simple',
+                        style: 'bar',
                         title: 'Right email',
-                        message: 'Password recovery sent to the informed email',
+                        message: 'Password recovery sent to the informed email.',
                         position: 'top-right',
                         timeout: 6000,
                         type: 'success',
@@ -38,9 +37,9 @@ angular.module('app')
                 }
                 else{
                      $('body').pgNotification({
-                        style: 'simple',
+                        style: 'bar',
                         title: 'Wrong email',
-                        message: 'Email not found ',
+                        message: 'Email not found.',
                         position: 'top-right',
                         timeout: 6000,
                         type: 'danger',
@@ -48,7 +47,7 @@ angular.module('app')
                     }).show();
                 }
 
-           // })
+           })
         }
         
     }]);

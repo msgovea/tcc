@@ -1,6 +1,4 @@
 {
-            "message": "Sucesso!",
-            "object": {
-                "email": "jane@email.com.br"
-            }
+            "message": "Fracasso!",
+            "object": null
 }
