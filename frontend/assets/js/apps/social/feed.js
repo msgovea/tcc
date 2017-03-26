@@ -4,7 +4,7 @@
 
 angular.module('app')
     // Social controller 
-    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', function($scope, $stateParams, $rootScope, $http) {
+    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter', function($scope, $stateParams, $rootScope, $http, $filter) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
 
@@ -16,7 +16,14 @@ angular.module('app')
         $http.get('assets/js/api/mock_social.json').success(function(data) {
             $scope.publicacoes = data.object;
         });
-
+        $scope.filtrarNumero = function(numero) {
+            var nu = String(numero);
+            if (nu.length <= 4) {
+                return $filter('number')(nu);
+            } else {
+                return $filter('limitTo')(nu,nu.length - 3) + 'K';
+            }
+        };
     }]);
 
 /* Directives */
