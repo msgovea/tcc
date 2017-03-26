@@ -3,7 +3,22 @@
  * Configure routing
  * ============================================================ */
 
+var translations = {
+  HEADLINE: 'Recover Account',
+  PARAGRAPH: 'Srsly!',
+  NAMESPACE: {
+    PARAGRAPH: 'And it comes with awesome features!'
+  }
+};
+
 angular.module('app')
+    .config(['$translateProvider', function ($translateProvider) {
+        //utilizado para garantir a segurança
+        $translateProvider.useSanitizeValueStrategy('escaped');
+        $translateProvider
+        .translations('en', translations)
+        .preferredLanguage('en');
+    }])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {

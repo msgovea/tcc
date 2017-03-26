@@ -10,5 +10,6 @@ angular.module('app', [
     'ui.router',
     'ui.utils',
     'oc.lazyLoad',
-    'ngCookies'
+    'ngCookies',
+    'pascalprecht.translate'
 ]);
