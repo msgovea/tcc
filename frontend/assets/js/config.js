@@ -107,6 +107,30 @@ angular.module('app')
                     }]
                 }
             })
+            .state('app.feed', {
+                url: '/feed',
+                data: {
+                        requireLogin: false
+                },
+                templateUrl: 'tpl/apps/social/feed.html',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                                'isotope',
+                                'stepsForm'
+                            ], {
+                                insertBefore: '#lazyload_placeholder'
+                            })
+                            .then(function() {
+                                return $ocLazyLoad.load([
+                                    'pages/js/pages.social.min.js',
+                                    'assets/js/apps/social/feed.js'
+                                ])
+                            });
+                    }]
+                }
+            })
+            
             //Calendar app
             .state('app.calendar', {
                 url: '/calendar',
