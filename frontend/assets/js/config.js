@@ -3,12 +3,36 @@
  * Configure routing
  * ============================================================ */
 
-var translations = {
-  HEADLINE: 'Recover Account',
-  PARAGRAPH: 'Srsly!',
-  NAMESPACE: {
-    PARAGRAPH: 'And it comes with awesome features!'
-  }
+var translationsEN = {
+  LOGIN_HEADLINE:   "Sign into your pages account",
+  LOGIN2:{
+      USERNAME:     "Login",
+      ERROR:        "This field is required.",
+      PASSWORD:     "Password"
+  },
+  LOGIN_RECOVER:    "Recover Account",
+  LOGIN_SIGNED:     "Keep Me Signed in",
+  LOGIN_LOG_IN:     "Log in",
+  LOGIN_FOOTER1:    "Create a pages account.",
+  LOGIN_FOOTER2:    "Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 Music Social.",
+  LOGIN_SIGN_UP:    "Sign up",  
+  LOGIN_REGISTER:   "New to Music Social?"
+};
+
+var translationsBR = {
+    LOGIN_HEADLINE:   "Conecte-se em sua conta",
+    LOGIN2:{
+        USERNAME:     "Usuário",
+        ERROR:        "Este campo é obrigatório.",
+        PASSWORD:     "Senha"
+    },
+    LOGIN_RECOVER:    "Recuperar a conta",
+    LOGIN_SIGNED:     "Mantenha-me conectado",
+    LOGIN_LOG_IN:     "Entrar",
+    LOGIN_FOOTER1:    "Crie uma conta.",
+    LOGIN_FOOTER2:    "As imagens exibidas são exclusivamente para fins de representação. © 2017 Music Social.",
+    LOGIN_SIGN_UP:    "Inscrever-se",  
+    LOGIN_REGISTER:   "Novo em Music Social?"
 };
 
 angular.module('app')
@@ -16,7 +40,8 @@ angular.module('app')
         //utilizado para garantir a segurança
         $translateProvider.useSanitizeValueStrategy('escaped');
         $translateProvider
-        .translations('en', translations)
+        .translations('en', translationsEN)
+        .translations('br', translationsBR)
         .preferredLanguage('en');
     }])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
