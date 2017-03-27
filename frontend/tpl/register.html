@@ -30,6 +30,42 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.birthday.$invalid && !register.birthday.$pristine }">
+                                <label>Birthday</label>
+                                <input type="date" name="birthday" placeholder="johnw" class="form-control" ng-model="user.birthday" required ng-change="validateDate()">
+                            </div>
+                            <label class="error" for="birthday" ng-show="register.birthday.$invalid.date && !register.city.$pristine">Enter a valid date.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.city.$invalid && !register.city.$pristine }">
+                                <label>City</label>
+                                <input type="text" name="city" placeholder="San Francisco" class="form-control" ng-model="user.city" required>
+                            </div>
+                            <label class="error" for="city" ng-show="register.city.$invalid && !register.city.$pristine">Enter a valid city.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.state.$invalid && !register.state.$pristine }">
+                                <label>State</label>
+                                <input type="text" name="state" placeholder="California" class="form-control" ng-model="user.state" required>
+                            </div>
+                            <label class="error" for="state" ng-show="register.state.$invalid && !register.state.$pristine">Enter a valid state.</label>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.country.$invalid && !register.country.$pristine }">
+                                <label>Country</label>
+                                <input type="text" name="country" placeholder="United States" class="form-control" ng-model="user.country" required>
+                            </div>
+                            <label class="error" for="country" ng-show="register.country.$invalid && !register.country.$pristine">Enter a valid country.</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.email.$invalid && !register.email.$pristine }">
                                 <label>Email</label>
                                 <input type="email" name="email" placeholder="john.wherley@email.com" class="form-control" ng-model="user.email" required>
