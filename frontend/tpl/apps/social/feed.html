@@ -5,9 +5,8 @@
             <div class="feed">
                 <!-- START DAY -->
                 <div class="day" data-social="day">
-                    <!-- START ITEM -->
+                    <!--
                     <div class="card no-border bg-transparent full-width" data-social="item">
-                        <!-- START CONTAINER FLUID -->
                         <div class="container-fluid p-t-30 p-b-30 ">
                             <div class="row">
                                 <div class="col-md-4">
@@ -82,9 +81,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- END CONTAINER FLUID -->
-                    </div>
+                    </div>-->
                     <!-- END ITEM -->
+                    <div class="card col3 m-t-30 no-border" data-social="item"></div>
                     <!-- START ITEM -->
                     <div class="card col2 padding-20" data-social="item">
                         <form class="simform no-margin" autocomplete="off" data-social="status">
@@ -134,6 +133,54 @@
                         <!-- /simform -->
                     </div>
                     <!-- END ITEM -->
+                    <div class="card col-md-4 p-t-5" style="background: #eef0f0;" data-social="item">
+                        <p class="m-b-5 small">1,435 Mutual Friends</p>
+                        <ul class="list-unstyled ">
+                            <li class="m-r-10">
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg" alt="Profile Image" src="assets/img/profiles/1.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/2x.jpg" data-src="assets/img/profiles/2.jpg" alt="Profile Image" src="assets/img/profiles/2.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/3x.jpg" data-src="assets/img/profiles/3.jpg" alt="Profile Image" src="assets/img/profiles/3.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" alt="Profile Image" src="assets/img/profiles/4.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg" alt="Profile Image" src="assets/img/profiles/5.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6.jpg" alt="Profile Image" src="assets/img/profiles/6.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/7x.jpg" data-src="assets/img/profiles/7.jpg" alt="Profile Image" src="assets/img/profiles/7.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white">
+                                    <div class="bg-master text-center text-white"><span>+34</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <br>
+                        <p class="m-t-5 small">More friends</p>
+                    </div>
                     <!-- START ITEM -->
                     <div class="card status col2" data-social="item">
                         <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
@@ -150,12 +197,12 @@
                     </div>
                     <!-- END ITEM -->
                     <!-- START ITEM -->
-                    <div class="card share  col1" data-social="item" ng-repeat="publicacao in publicacoes">
+                    <div class="card share col1" data-social="item" ng-repeat="publicacao in publicacoes">
                         <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
                         </div>
                         <div class="card-header clearfix">
                             <div class="user-pic">
-                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg" src="assets/img/profiles/5x.jpg">
+                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="{{publicacao.profileImg}}" data-src="{{publicacao.profileImg}}" ng-src="{{publicacao.profileImg}}">
                             </div>
                             <h5>{{publicacao.autor}}</h5>
                             <h6>{{publicacao.date | date}}
@@ -164,7 +211,6 @@
                         </div>
                         <div class="card-description">
                             <p>{{publicacao.texto}}</p>
-                            <div class="via">via themeforest</div>
                         </div>
                         <div class="card-content" ng-show="publicacao.img.length" >
                             <ul class="buttons ">
@@ -177,7 +223,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <img alt="Social post" src="{{publicacao.img}}">
+                            <img alt="Social post" ng-src="{{publicacao.img}}">
                         </div>
                         <div class="card-footer clearfix">
                             <div class="time">few seconds ago</div>
