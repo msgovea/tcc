@@ -3,24 +3,70 @@
  * Configure routing
  * ============================================================ */
 
+var translationsEN = {
+  LOGIN_HEADLINE:   "Sign into your pages account",
+  LOGIN2:{
+      USERNAME:     "Login",
+      ERROR:        "This field is required.",
+      PASSWORD:     "Password"
+  },
+  LOGIN_RECOVER:    "Recover Account",
+  LOGIN_SIGNED:     "Keep Me Signed in",
+  LOGIN_LOG_IN:     "Log in",
+  LOGIN_FOOTER1:    "Create a pages account.",
+  LOGIN_FOOTER2:    "Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 Music Social.",
+  LOGIN_SIGN_UP:    "Sign up",  
+  LOGIN_REGISTER:   "New to Music Social?"
+};
+
+var translationsBR = {
+    LOGIN_HEADLINE:   "Conecte-se em sua conta",
+    LOGIN2:{
+        USERNAME:     "Usuário",
+        ERROR:        "Este campo é obrigatório.",
+        PASSWORD:     "Senha"
+    },
+    LOGIN_RECOVER:    "Recuperar a conta",
+    LOGIN_SIGNED:     "Mantenha-me conectado",
+    LOGIN_LOG_IN:     "Entrar",
+    LOGIN_FOOTER1:    "Crie uma conta.",
+    LOGIN_FOOTER2:    "As imagens exibidas são exclusivamente para fins de representação. © 2017 Music Social.",
+    LOGIN_SIGN_UP:    "Inscrever-se",  
+    LOGIN_REGISTER:   "Novo em Music Social?"
+};
+
 angular.module('app')
+    .config(['$translateProvider', function ($translateProvider) {
+        //utilizado para garantir a segurança
+        $translateProvider.useSanitizeValueStrategy('escaped');
+        $translateProvider
+        .translations('en', translationsEN)
+        .translations('br', translationsBR)
+        .preferredLanguage('en');
+    }])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/access/login');
+                .otherwise('/app/dashboard');
 
             $stateProvider
 
                 .state('app', {
                     abstract: true,
                     url: "/app",
+                    controller: 'HeaderCtrl',
+                    data: {
+                        requireLogin: true,
+                        requireAdmin: false
+                    },
                     templateUrl: "tpl/app.html"
                 })
                 .state('app.dashboard', {
                     url: "/dashboard",
                     templateUrl: "tpl/dashboard.html",
                     controller: 'DashboardCtrl',
+                    
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
@@ -48,6 +94,10 @@ angular.module('app')
                     abstract: true,
                     url: '/email',
                     templateUrl: 'tpl/apps/email/email.html',
+                    data: {
+                        requireLogin: false,
+                        requireAdmin: false
+                    },
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
@@ -76,6 +126,9 @@ angular.module('app')
             // Social app
             .state('app.social', {
                 url: '/social',
+                data: {
+                        requireLogin: false
+                },
                 templateUrl: 'tpl/apps/social/social.html',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -94,6 +147,30 @@ angular.module('app')
                     }]
                 }
             })
+            .state('app.feed', {
+                url: '/feed',
+                data: {
+                        requireLogin: false
+                },
+                templateUrl: 'tpl/apps/social/feed.html',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                                'isotope',
+                                'stepsForm'
+                            ], {
+                                insertBefore: '#lazyload_placeholder'
+                            })
+                            .then(function() {
+                                return $ocLazyLoad.load([
+                                    'pages/js/pages.social.min.js',
+                                    'assets/js/apps/social/feed.js'
+                                ])
+                            });
+                    }]
+                }
+            })
+            
             //Calendar app
             .state('app.calendar', {
                 url: '/calendar',
@@ -526,6 +603,9 @@ angular.module('app')
             // Extra - Others
             .state('access', {
                     url: '/access',
+                    data: {
+                        requireLogin: false
+                    },
                     template: '<div class="full-height" ui-view></div>'
                 })
                 .state('access.404', {
@@ -538,6 +618,9 @@ angular.module('app')
                 })
                 .state('access.login', {
                     url: '/login',
+                    data: {
+                        requireLogin: false
+                    },
                     controller: 'LoginCtrl',
                     templateUrl: 'tpl/login.html'
                 })
@@ -549,6 +632,16 @@ angular.module('app')
                 .state('access.lock_screen', {
                     url: '/lock_screen',
                     templateUrl: 'tpl/extra_lock_screen.html'
+                })
+                .state('access.recuperarSenha', {
+                    url: '/recuperarSenha',
+                    controller: 'RecuperarSenhaCtrl',
+                    templateUrl: 'tpl/recuperar_senha.html'
+                })
+                .state('access.redefinirSenha', {
+                    url: '/redefinirSenha/:id/:codigo',
+                    controller: 'RedefinirSenhaCtrl',
+                    templateUrl: 'tpl/redefinir_senha.html'
                 })
 
         }

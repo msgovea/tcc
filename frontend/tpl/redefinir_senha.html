@@ -1,0 +1,41 @@
+<div class="register-container full-height sm-p-t-30" >
+    <div class="container-sm-height full-height">
+        <div class="row row-sm-height">
+            <div class="col-sm-12 col-sm-height col-middle">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+                <h3>Set your new password</h3>
+                <form id="form-register" class="p-t-15" role="form" name="redefinir">
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.pass.$invalid && !redefinir.pass.$pristine }">
+                                <label>Password</label>
+                                <input type="password" name="pass" placeholder="Minimum of 4 Charactors" class="form-control" ng-minlength="4" ng-model="user.password" required>
+                            </div>
+                            <label class="error" for="pass" ng-show="redefinir.pass.$invalid && !redefinir.pass.$pristine">This field is required.</label>
+                            <label class="error" for="pass" ng-show="redefinir.pass.$error.minlength">Password should have at least 4 characters</label>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.passequal }">
+                                <label>Confirm Password</label>
+                                <input type="password" name="cpass" placeholder="Minimum of 4 Charactors" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
+                            </div>
+                            <label class="error" for="cpass" ng-show="redefinir.passequal">Password must be equals</label>
+
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-md-6">
+                            <p>I agree to the <a href="" class="text-info small">Pages Terms</a> and <a href="" class="text-info small">Privacy</a>.</p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="" class="text-info small">Help? Contact Support</a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="redefinir.$invalid" ng-click="redefinirSenha(user)">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

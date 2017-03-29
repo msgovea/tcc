@@ -9,13 +9,14 @@ angular.module('app')
         // App globals
         $scope.app = {
             name: 'Music Social',
-            description: 'Admin Dashboard UI kit',
+            description: 'Rede social musical',
             layout: {
                 menuPin: false,
-                menuBehind: false,
-                theme: 'pages/css/pages.css'
+                menuBehind: true,
+                theme: 'pages/css/themes/simple.css'
+                //theme: 'pages/css/pages.css'
             },
-            author: 'Revox'
+            author: 'Music Social'
         }
         // Checks if the given state is the current state
         $scope.is = function(name) {

@@ -5,7 +5,7 @@
 angular.module('app')
     .factory('apiLogin', function($http){
         return {
-            getApi: function(usuario){
+            getApi: function(user){
                 
                 return $http({
                     method:'POST',
@@ -16,8 +16,8 @@ angular.module('app')
                     },
                     //headers: "Content-Type: application/json;charset=UTF-8",
                     data: {
-                        email: usuario.username.$viewValue,
-                        senha: usuario.password.$viewValue
+                        email: user.username,
+                        senha: user.password
                     }
                 })
             }
@@ -26,26 +26,38 @@ angular.module('app')
 
 
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', function($scope, apiLogin, $state) {
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore', function($scope, apiLogin, $state, $timeout, $cookieStore) {
+
+        $scope.bg = 'assets/img/headphone' + Math.floor((Math.random()*4)+1) + '.jpg';
 
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
             //alert("Wizard finished :)");
         }
 
-        $scope.validateLogin = function(login) { 
+        $scope.validateLogin = function(user3) { 
             //alert("Login Success :)");
-            apiLogin.getApi(login).then(function(result){
-                console.log(result);
-                console.log("oi");
+            apiLogin.getApi(user3).then(function(result){
+                //console.log(result);
                 if (result.data.message == "Sucesso!") {
                     //redireciona
-                    console.log("sucesso");
-                    $scope.login.invalid = false;   
+                    //console.log("sucesso");
+                    //console.log($cookieStore.usuario);
+                    $cookieStore.put('usuario', result.data.object);
+                    //console.log($cookieStore.usuario);
+
                     $state.go('app.dashboard');
                 }
                 else {
-                    $scope.login.invalid = true;   
+                    $('body').pgNotification({
+                        style: 'simple',
+                        title: 'Login incorreto',
+                        message: 'Usuário ou senha inválidos',
+                        position: 'top-right',
+                        timeout: 6000,
+                        type: 'danger',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show();
                 }
             })
                         

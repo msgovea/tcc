@@ -64,7 +64,7 @@ angular.module('app')
             $scope.builder.colorId = id;
 
             if (theme == 'default') {
-                $scope.app.layout.theme = 'pages/css/pages.css'
+                $scope.app.layout.theme = 'pages/css/themes/simple.css'
             } else {
                 $scope.app.layout.theme = 'pages/css/themes/' + theme + '.css'
             }
