@@ -16,7 +16,7 @@ var translationsEN = {
   LOGIN_FOOTER1:    "Create a pages account.",
   LOGIN_FOOTER2:    "Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 Music Social.",
   LOGIN_SIGN_UP:    "Sign up",  
-  LOGIN_REGISTER:   "New to Music Social?"
+  LOGIN_REGISTER:   "New to Music Social ?"
 };
 
 var translationsBR = {
@@ -627,7 +627,19 @@ angular.module('app')
                 .state('access.register', {
                     url: '/register',
                     controller: 'RegisterCtrl',
-                    templateUrl: 'tpl/register.html'
+                    templateUrl: 'tpl/register.html',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'datepicker'
+                            ], {
+                                 insertBefore: '#lazyload_placeholder'
+                            })
+                            .then(function() {
+                                return $ocLazyLoad.load('assets/js/controllers/register.js');
+                            });
+                        }]
+                    }
                 })
                 .state('access.lock_screen', {
                     url: '/lock_screen',

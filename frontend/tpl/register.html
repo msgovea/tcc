@@ -29,13 +29,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.birthday.$invalid && !register.birthday.$pristine }">
-                                <label>Birthday</label>
-                                <input type="date" name="birthday" placeholder="johnw" class="form-control" ng-model="user.birthday" required ng-change="validateDate()">
-                            </div>
-                            <label class="error" for="birthday" ng-show="register.birthday.$invalid.date && !register.city.$pristine">Enter a valid date.</label>
-                        </div>
+                        <div pg-form-group class="form-group form-group-default input-group col-sm-10">
+                            <label>Birthday</label>
+                            <input type="text" class="form-control" name= "birthday" placeholder="10/10/1995" ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy' }">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>    
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
