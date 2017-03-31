@@ -1,15 +1,11 @@
 package br.edu.puccamp.app;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,24 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import br.edu.puccamp.app.async.SincronizaCadastro;
+import br.edu.puccamp.app.async.AsyncRegister;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Validation;
 
-public class RegisterActivity extends AppCompatActivity implements SincronizaCadastro.Listener{
+public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegister.Listener{
 
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private EditText mEmailView;
@@ -47,11 +31,6 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
     private EditText mStateView;
     private EditText mCityView;
     private Button mEmailSignInButton;
-
-    private View mProgressView;
-    private View mLoginFormView;
-
-    public static Context context;
 
 
     @Override
@@ -71,9 +50,6 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
         mCityView            = (EditText) findViewById(R.id.city);
 
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView  = findViewById(R.id.login_progress);
 
 
         mCityView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -96,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
 
     }
 
-
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
@@ -107,9 +82,6 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
     }
 
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -123,8 +95,6 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
 
         Validation validation = new Validation();
         validation.context = getApplicationContext();
-
-//        mNameView = Validation.isFieldValid(mNameView, getApplicationContext(), cancel, focusView);
 
         mNameView  = validation.isFieldValid(mNameView);
         mEmailView = validation.isFieldValid(mEmailView);
@@ -158,133 +128,36 @@ public class RegisterActivity extends AppCompatActivity implements SincronizaCad
         if (validation.error) {
             validation.focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            SincronizaCadastro sinc = new SincronizaCadastro(this);
+            showLoadingProgressDialog();
+
+            AsyncRegister sinc = new AsyncRegister(this);
             sinc.execute(mNameView.getText().toString(), mEmailView.getText().toString(), mPasswordView.getText().toString(), "A");
-//
-//            mAuthTask = new UserLoginTask(email, password);
-//            mAuthTask.execute((Void) null);
-//
+
         }
     }
 
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
 
     @Override
     public void onLoaded(String string) {
         if (string == "true") {
-            showProgress(false);
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.context);
+            dismissProgressDialog();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Conta registrada");
             builder.setMessage("Cadastro realizado, confirme o acesso via e-mail");
             builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    //finishActivity(1);
                     finish();
                 }
             });
             builder.setCancelable(false);
             builder.show();
         } else {
-            showProgress(false);
+            dismissProgressDialog();
+
         }
     }
 
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
 }
 
