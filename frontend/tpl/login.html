@@ -9,7 +9,7 @@
         <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
             <h2 class="semi-bold text-white">
           {{app.name}}</h2>
-            <p translate class="small"> LOGIN_FOOTER2
+            <p translate class="small"> LOGIN.FOOTER2
             </p>
         </div>
         <!-- END Background Caption-->
@@ -19,48 +19,48 @@
     <div class="login-container bg-white">
         <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
             <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
-            <p class="p-t-35"><label translate>LOGIN_HEADLINE</p>
+            <p class="p-t-35"><label translate>LOGIN.HEADLINE</p>
             <!-- START Login Form -->
             <form id="form-login" name="login2" class="p-t-15" role="form">
                 <!-- START Form Control-->
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.username.$invalid && !login2.username.$pristine }">
-                    <label translate>LOGIN2.USERNAME</label>
+                    <label translate>LOGIN.FORM.USERNAME</label>
                     <div class="controls">
                         <input type="text" name="username" placeholder="User Name" class="form-control" ng-model="user3.username" required>
                     </div>
                 </div>
-                <label translate class="error" for="username" ng-show="login2.username.$invalid && !login2.username.$pristine" >LOGIN2.ERROR</label>
+                <label translate class="error" for="username" ng-show="login2.username.$invalid && !login2.username.$pristine" >LOGIN.FORM.ERROR</label>
                 <!-- END Form Control-->
                 <!-- START Form Control-->
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.password.$invalid && !login2.password.$pristine }">
-                    <label translate>LOGIN2.PASSWORD</label>
+                    <label translate>LOGIN.FORM.PASSWORD</label>
                     <div class="controls">
                         <input type="password" class="form-control" name="password" placeholder="Credentials" ng-model="user3.password" required>
                     </div>
                 </div>
-                <label translate class="error" for="password" ng-show="login2.password.$invalid && !login2.password.$pristine">LOGIN2.ERROR</label>
+                <label translate class="error" for="password" ng-show="login2.password.$invalid && !login2.password.$pristine">LOGIN.FORM.ERROR</label>
                 
                 <!-- START Form Control-->
                 <div class="row">
                     <div class="col-md-6 no-padding">
                         <div class="checkbox">
                             <input type="checkbox" value="1" id="checkbox1">
-                            <label translate for="checkbox1">LOGIN_SIGNED</label>
+                            <label translate for="checkbox1">LOGIN.SIGNED</label>
                         </div>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a class="text-info small" ui-sref="access.recuperarSenha"><label translate>LOGIN_RECOVER</label></a>
+                        <a class="text-info small" ui-sref="access.recuperarSenha"><label translate>LOGIN.RECOVER</label></a>
                     </div>
                 </div>
                 <!-- END Form Control-->
-                <button translate class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login.$invalid" ng-click="validateLogin(user3)">LOGIN_LOG_IN</button>
+                <button translate class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login.$invalid" ng-click="validateLogin(user3)">LOGIN.LOG_IN</button>
                 
                 
 
             </form>
             <hr>
-            <label translate>LOGIN_REGISTER</label>
-            <button translate class="btn btn-success btn-block" ui-sref="access.register">LOGIN_SIGN_UP</button>
+            <label translate>LOGIN.REGISTER</label>
+            <button translate class="btn btn-success btn-block" ui-sref="access.register">LOGIN.SIGN_UP</button>
 
             <!--END Login Form-->
             <div class="pull-bottom sm-pull-bottom">
@@ -69,7 +69,7 @@
                         <img alt="" class="m-t-5" data-src="assets/img/demo/pages_icon.png" ui-jq="unveil" data-src-retina="assets/img/demo/pages_icon_2x.png" height="60" src="assets/img/demo/pages_icon.png" width="60">
                     </div>
                     <div class="col-sm-9 no-padding m-t-10" >
-                        <p translate ><small>  LOGIN_FOOTER1 </small>
+                        <p translate ><small>  LOGIN.FOOTER1 </small>
                     </div>
                 </div>
             </div>

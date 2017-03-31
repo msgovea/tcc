@@ -4,19 +4,44 @@
  * ============================================================ */
 
 var translationsEN = {
-  LOGIN_HEADLINE:   "Sign into your pages account",
-  LOGIN2:{
-      USERNAME:     "Login",
-      ERROR:        "This field is required.",
-      PASSWORD:     "Password"
-  },
-  LOGIN_RECOVER:    "Recover Account",
-  LOGIN_SIGNED:     "Keep Me Signed in",
-  LOGIN_LOG_IN:     "Log in",
-  LOGIN_FOOTER1:    "Create a pages account.",
-  LOGIN_FOOTER2:    "Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 Music Social.",
-  LOGIN_SIGN_UP:    "Sign up",  
-  LOGIN_REGISTER:   "New to Music Social ?"
+    LOGIN:{
+        HEADLINE: "Sign into your pages account",
+        FORM:{
+            USERNAME:     "Login",
+            ERROR:        "This field is required.",
+            PASSWORD:     "Password"
+        },
+        RECOVER:    "Recover Account",
+        SIGNED:     "Keep Me Signed in",
+        LOG_IN:     "Log in",
+        FOOTER1:    "Create a pages account.",
+        FOOTER2:    "Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 Music Social.",
+        SIGN_UP:    "Sign up",  
+        REGISTER:   "New to Music Social ?"
+    },
+    RECOVER:{
+        HEADLINE: "Recover your account",
+        SUBTITLE: "Fill in your email below to receive the account recovery link.",
+        FORM:{
+            EMAIL: "Email",
+            ERROR: "Enter a valid email."
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Send"
+    },
+    RESET:{
+        HEADLINE: "Set your new password",
+        FORM:{
+            PASSWORD: "Password",
+            PH_PASSWORD: "Minimum of 4 Charactors",
+            ERROR1: "This field is required.",
+            ERROR2: "Password should have at least 4 characters",
+            CONF_PASSWORD: "Confirm Password",
+            ERROR3: "Password must be equals"            
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Send"
+    }
 };
 
 var translationsBR = {
