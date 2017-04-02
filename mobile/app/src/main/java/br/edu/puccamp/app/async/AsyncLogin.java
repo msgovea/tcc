@@ -6,9 +6,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,7 +21,7 @@ import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.entity.Usuario;
 
 
-public class AsyncRegister extends AsyncTask<Usuario, String, String> {
+public class AsyncLogin extends AsyncTask<Usuario, String, String> {
 
     public interface Listener {
         void onLoaded(String string);
@@ -33,7 +30,7 @@ public class AsyncRegister extends AsyncTask<Usuario, String, String> {
     public String status = "nao";
     private Listener mListener;
 
-    public AsyncRegister(Listener mListener) {
+    public AsyncLogin(Listener mListener) {
 
         this.mListener = mListener;
 

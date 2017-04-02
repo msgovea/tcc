@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:onClick="palomaChata"
+        android:onClick="register"
         android:text="CADASTRO"
         android:layout_alignParentBottom="true"/>
 
@@ -39,7 +39,7 @@
         android:layout_above="@id/buttonRegister"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:onClick="palomaChata"
+        android:onClick="login"
         android:text="LOGIN" />
 
 
