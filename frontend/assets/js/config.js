@@ -7,9 +7,13 @@ var translationsEN = {
     LOGIN:{
         HEADLINE: "Sign into your pages account",
         FORM:{
-            USERNAME:     "Login",
-            ERROR:        "This field is required.",
-            PASSWORD:     "Password"
+            USERNAME:       "Login",
+            PH_USERNAME:    "Username",
+            ERROR1:         "This field is required.",
+            PASSWORD:       "Password",
+            PH_PASSWORD:    "Password",
+            ERROR2_TITLE:   "Incorrect login",
+            ERROR2:         "Username or password is invalid" 
         },
         RECOVER:    "Recover Account",
         SIGNED:     "Keep Me Signed in",
@@ -23,8 +27,12 @@ var translationsEN = {
         HEADLINE: "Recover your account",
         SUBTITLE: "Fill in your email below to receive the account recovery link.",
         FORM:{
-            EMAIL: "Email",
-            ERROR: "Enter a valid email."
+            EMAIL:          "Email",
+            ERROR1:         "Enter a valid email.",
+            SUCCESS1_TITLE: "Right email",
+            SUCCESS1:       "Password recovery sent to the informed email.",
+            ERROR2_TITLE:   "Wrong email",
+            ERROR2:         "Email not found."  
         },
         HELP: "Help? Contact Support",
         SEND: "Send"
@@ -33,7 +41,7 @@ var translationsEN = {
         HEADLINE: "Set your new password",
         FORM:{
             PASSWORD: "Password",
-            PH_PASSWORD: "Minimum of 4 Charactors",
+            PH_PASSWORD: "Minimum of 4 Characters",
             ERROR1: "This field is required.",
             ERROR2: "Password should have at least 4 characters",
             CONF_PASSWORD: "Confirm Password",
@@ -41,6 +49,31 @@ var translationsEN = {
         },
         HELP: "Help? Contact Support",
         SEND: "Send"
+    },
+    REGISTER:{
+        HEADLINE:   "Music Social makes it easy to enjoy what matters the most in your life!",
+        SUBTITLE:   "Create your Music Social account. It's easy and fast!",
+        FORM:{
+            NAME:           "Name",
+            ERROR1:         "This field is required.",
+            USERNAME:       "Username",
+            BIRTHDAY:       "Birthday",
+            CITY:           "City",
+            ERROR2:         "Enter a valid city.",
+            STATE:          "State",
+            ERROR3:         "Enter a valid state.",
+            COUNTRY:        "Country",  
+            ERROR4:         "Enter a valid country.",
+            EMAIL:          "Email",
+            ERROR5:         "Enter a valid email.",
+            PASSWORD:       "Password",
+            PH_PASSWORD:    "Minimum of 4 characters",
+            ERROR6:         "Password should have at least 4 characters",
+            CONF_PASSWORD:  "Confirm Password" ,
+            ERROR7:         "Password must be equals"
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Create a new account"
     }
 };
 

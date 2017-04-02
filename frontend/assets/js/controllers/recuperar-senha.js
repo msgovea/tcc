@@ -21,14 +21,14 @@ angular.module('app')
 
     })
 
-    .controller('RecuperarSenhaCtrl', ['$scope', '$state','apiRecuperarSenha', function($scope, $state, apiRecuperarSenha) {
+    .controller('RecuperarSenhaCtrl', ['$scope', '$state','apiRecuperarSenha','$filter', function($scope, $state, apiRecuperarSenha, $filter) {
         $scope.recuperarSenha = function(user){
             apiRecuperarSenha.getApi(user).then(function(result){
                 if (result.data.message == "Sucesso!") {
                      $('body').pgNotification({
                         style: 'bar',
-                        title: 'Right email',
-                        message: 'Password recovery sent to the informed email.',
+                        title: $filter('translate')('RECOVER.FORM.SUCCESS1_TITLE'),
+                        message: $filter('translate')('RECOVER.FORM.SUCCESS1'),
                         position: 'top-right',
                         timeout: 6000,
                         type: 'success',
@@ -38,8 +38,8 @@ angular.module('app')
                 else{
                      $('body').pgNotification({
                         style: 'bar',
-                        title: 'Wrong email',
-                        message: 'Email not found.',
+                        title: $filter('translate')('RECOVER.FORM.ERROR2_TITLE'),
+                        message: $filter('translate')('RECOVER.FORM.ERROR2'),
                         position: 'top-right',
                         timeout: 6000,
                         type: 'danger',
