@@ -19,6 +19,7 @@ import java.net.URL;
 
 import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.util.API;
 
 
 public class AsyncLogin extends AsyncTask<Usuario, String, String> {
@@ -27,7 +28,6 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
         void onLoaded(String string);
     }
 
-    public String status = "nao";
     private Listener mListener;
 
     public AsyncLogin(Listener mListener) {
@@ -37,13 +37,12 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
     }
     @Override
     protected String doInBackground(Usuario... n) {
-        String api_url = "http://192.198.90.26:82/MusicSocial/usuario/cadastro";
 
         Usuario usuario = n[0];
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(api_url);
+            URL url = new URL(API.URL + API.LOGIN);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -84,7 +83,6 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        status = "sim";
         try {
             Gson usuarioGson = new Gson();
             Response response = usuarioGson.fromJson(result, Response.class);
