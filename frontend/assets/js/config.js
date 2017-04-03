@@ -74,6 +74,20 @@ var translationsEN = {
         },
         HELP: "Help? Contact Support",
         SEND: "Create a new account"
+    },
+    HEADER:{
+        NOTIFICATIONS1: "Read all notifications",
+        SEARCH1: "Type anywhere to search",
+        USER_INFO: {
+            SETTINGS:   "Settings",
+            FEEDBACK:   "Feedback",
+            HELP:       "Help",
+            LOGOUT:     "Logout"
+        }
+    },
+    FOOTER:{
+        TEXT1: "All rights reserved.",
+        TERMS: "Terms of use",
     }
 };
 
