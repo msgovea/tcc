@@ -9,5 +9,6 @@ public interface API {
 
     String REGISTER   = "usuario/cadastro";
     String LOGIN      = "usuario/login";
+    String RECOVERY   = "usuario/recuperar";
 
 }
