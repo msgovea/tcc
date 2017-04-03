@@ -6,9 +6,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,7 +22,7 @@ import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncRegister extends AsyncTask<Usuario, String, String> {
+public class AsyncLogin extends AsyncTask<Usuario, String, String> {
 
     public interface Listener {
         void onLoaded(String string);
@@ -33,7 +30,7 @@ public class AsyncRegister extends AsyncTask<Usuario, String, String> {
 
     private Listener mListener;
 
-    public AsyncRegister(Listener mListener) {
+    public AsyncLogin(Listener mListener) {
 
         this.mListener = mListener;
 
@@ -45,7 +42,7 @@ public class AsyncRegister extends AsyncTask<Usuario, String, String> {
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(API.URL + API.REGISTER);
+            URL url = new URL(API.URL + API.LOGIN);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -100,7 +97,7 @@ public class AsyncRegister extends AsyncTask<Usuario, String, String> {
 
             } else {
                 if (mListener != null) {
-                    mListener.onLoaded("Erro ao carregar");
+                    mListener.onLoaded("invalid");
                 }
             }
 

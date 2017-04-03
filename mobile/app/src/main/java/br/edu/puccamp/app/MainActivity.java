@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -18,27 +20,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//
-//        // The connection URL
-//        String url = "https://jsonplaceholder.typicode.com/users/1";
-//
-//        // Create a new RestTemplate instance
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        // Add the String message converter
-//        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-//
-//        // Make the HTTP GET request, marshaling the response to a String
-//        /*String result = */Log.e(null,restTemplate.getForObject(url, String.class, "Android"));
-
-        //Log.e(null, result);
-
-
     }
 
-    public void palomaChata(View view){
+    public void register(View view){
         startActivity(new Intent(this, RegisterActivity.class));
     }
+
+    public void login(View view){
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
 
     /** Called when the user clicks the Send button *
     public void sendMessage(View view) {
@@ -58,11 +49,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
     }
-
-    public void createAccount(String email, String password) {
-
-    }
-
 
 
 }

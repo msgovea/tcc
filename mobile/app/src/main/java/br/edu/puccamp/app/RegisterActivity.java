@@ -10,12 +10,16 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import br.edu.puccamp.app.async.AsyncRegister;
+import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.Hash;
 import br.edu.puccamp.app.util.Validation;
 
 public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegister.Listener{
@@ -26,6 +30,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     private EditText mPasswordView;
     private EditText mConfirmPasswordView;
     private EditText mNameView;
+    private EditText mNickNameView;
     private EditText mBirthdayView;
     private EditText mCountryView;
     private EditText mStateView;
@@ -44,6 +49,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         mPasswordView        = (EditText) findViewById(R.id.password);
         mConfirmPasswordView = (EditText) findViewById(R.id.confirm_password);
         mNameView            = (EditText) findViewById(R.id.name);
+        mNickNameView        = (EditText) findViewById(R.id.nickName);
         mBirthdayView        = (EditText) findViewById(R.id.birthday);
         mCountryView         = (EditText) findViewById(R.id.country);
         mStateView           = (EditText) findViewById(R.id.state);
@@ -69,6 +75,17 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
                 attemptLogin();
             }
         });
+
+        ///////////////////////////
+
+        // Get a reference to the AutoCompleteTextView in the layout
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
+        // Get the string array
+        String[] countries = getResources().getStringArray(R.array.countries_array);
+        // Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+        textView.setAdapter(adapter);
 
     }
 
@@ -130,8 +147,18 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         } else {
             showLoadingProgressDialog();
 
+            Usuario usuario = new Usuario();
+            usuario.setNome(mNameView.getText().toString());
+            usuario.setPais(mCountryView.getText().toString());
+            usuario.setEstado(mStateView.getText().toString());
+            usuario.setCidade(mCityView.getText().toString());
+            usuario.setApelido(mNickNameView.getText().toString());
+            usuario.setEmail(mEmailView.getText().toString());
+            usuario.setSenha(Hash.MD5(mPasswordView.getText().toString()));
+            usuario.setDataNascimento("2001-01-01");
+
             AsyncRegister sinc = new AsyncRegister(this);
-            sinc.execute(mNameView.getText().toString(), mEmailView.getText().toString(), mPasswordView.getText().toString(), "A");
+            sinc.execute(usuario);
 
         }
     }
@@ -139,9 +166,9 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
 
     @Override
     public void onLoaded(String string) {
+        dismissProgressDialog();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (string == "true") {
-            dismissProgressDialog();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Conta registrada");
             builder.setMessage("Cadastro realizado, confirme o acesso via e-mail");
             builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
@@ -151,11 +178,20 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
                 }
             });
             builder.setCancelable(false);
-            builder.show();
-        } else {
-            dismissProgressDialog();
 
+        } else {
+            builder.setTitle("Erro ao cadastrar");
+
+            builder.setMessage("Dados inválidos, verifique e tente novamente");
+            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setCancelable(false);
         }
+        builder.show();
     }
 
 
