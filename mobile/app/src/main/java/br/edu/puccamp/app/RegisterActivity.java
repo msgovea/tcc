@@ -10,6 +10,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -73,6 +75,17 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
                 attemptLogin();
             }
         });
+
+        ///////////////////////////
+
+        // Get a reference to the AutoCompleteTextView in the layout
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
+        // Get the string array
+        String[] countries = getResources().getStringArray(R.array.countries_array);
+        // Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+        textView.setAdapter(adapter);
 
     }
 

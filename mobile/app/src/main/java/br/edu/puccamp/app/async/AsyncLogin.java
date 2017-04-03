@@ -97,7 +97,7 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
 
             } else {
                 if (mListener != null) {
-                    mListener.onLoaded("Erro ao carregar");
+                    mListener.onLoaded("invalid");
                 }
             }
 

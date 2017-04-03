@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -115,45 +116,33 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
         }
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
-
     @Override
     public void onLoaded(String string) {
         dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         if (string == "true") {
-            builder.setTitle("Logado");
-            builder.setMessage("Dados corretos");
-            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            builder.setCancelable(false);
-
+            startActivity(new Intent(this, DefaultActivity.class));
         } else {
-            builder.setTitle("Dados inválidos");
+            if (string != "invalid") {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.error_invalid_login));
 
-            builder.setMessage("Dados inválidos, verifique e tente novamente");
-            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
+                builder.setMessage("Dados inválidos, verifique e tente novamente");
+                builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
+            } else {
+                mEmailView.setError(getString(R.string.error_invalid_login));
+                mPasswordView.setError(getString(R.string.error_invalid_login));
+                mPasswordView.requestFocus();
+            }
         }
-        builder.show();
+
     }
 
 }
