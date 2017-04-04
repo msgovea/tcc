@@ -1,0 +1,46 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="03CF691E-F35D-0C05-77CE-062E98647142" name="GMU_GOSTO_MUSICAL">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:37:22 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<ordsAlias>table_11</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GMU_CODIGO" id="B3D8C603-9127-C7F2-85A1-9A149C716AF0">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:39:41 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GMU_DESCRICAO" id="1B361836-30CF-0B05-5DCD-6973A9E61B02">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:39:41 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E7CCEB1D-31EE-CD65-19CC-4041831AEFF4" name="GMU_GOSTO_MUSICAL_PK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:39:41 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B3D8C603-9127-C7F2-85A1-9A149C716AF0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
