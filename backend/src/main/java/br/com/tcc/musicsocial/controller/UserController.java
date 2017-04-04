@@ -3,6 +3,7 @@ package br.com.tcc.musicsocial.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import br.com.tcc.musicsocial.entity.TipoConexao;
 import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 import br.com.tcc.musicsocial.service.UsuarioService;
+import br.com.tcc.musicsocial.util.MessagesEnum;
 
 @RestController
 public class UserController {
@@ -33,10 +35,10 @@ public class UserController {
 			)
 	public @ResponseBody Response<?> cadastrarUsuario(@RequestBody UsuarioDetalhe usuario) {
 		try {
-			return new Response<UsuarioDetalhe>("Sucesso!", usuarioService.cadastrarUsuario(usuario));
+			return new Response<UsuarioDetalhe>(MessagesEnum.SUCESSO.getDescricao(), usuarioService.cadastrarUsuario(usuario));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Response<Exception>("Falha!", e);
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
 	
@@ -52,14 +54,32 @@ public class UserController {
 			Usuario usuario = usuarioService.efetuarLogin(loginRequest.getEmail(), loginRequest.getSenha());
 			String mensagem;
 			if (usuario == null) {
-				mensagem = "Invalido!";
+				mensagem = MessagesEnum.INVALIDO.getDescricao();
 			} else {
-				mensagem = "Sucesso!";
+				mensagem = MessagesEnum.SUCESSO.getDescricao();
 			}
 			return new Response<Usuario>(mensagem, usuario);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Response<Exception>("Falha!", e);
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@RequestMapping(
+			value = "/usuario/confirmar/{id}/{email}",
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			method = RequestMethod.GET
+			)
+	public Response<?> confirmarEmail(@PathVariable("id") String id,@PathVariable("email") String email) {
+		try {
+			if(usuarioService.confirmarEmail(id, email)) {
+				return new Response(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
 	
