@@ -1,6 +1,5 @@
 package br.com.tcc.musicsocial.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,7 @@ import javax.persistence.Table;
 @SequenceGenerator(name = "GERADOR_COD_USR", sequenceName = "SEQ_COD_USUARIO", allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
-	
+
 	@Id
 	@Column(name = "USR_CODIGO")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GERADOR_COD_USR")
@@ -29,6 +28,9 @@ public class Usuario {
 	
 	@Column(name = "USR_SENHA")
 	private String senha;
+	
+	@Column(name = "USR_CAD_CONFIRM")
+	private Boolean cadastroConfimado;
 	
 	@ManyToOne
 	@JoinColumn(name = "USR_NVU_NIVEL_USUARIO")
@@ -88,6 +90,14 @@ public class Usuario {
 
 	public void setTipoConexao(TipoConexao tipoConexao) {
 		this.tipoConexao = tipoConexao;
+	}
+
+	public Boolean getCadastroConfimado() {
+		return cadastroConfimado;
+	}
+
+	public void setCadastroConfimado(Boolean cadastroConfimado) {
+		this.cadastroConfimado = cadastroConfimado;
 	}
 
 }

@@ -47,7 +47,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	private void enviarEmailConfirmacao(UsuarioDetalhe u) {
 		String id = Base64Utils.encodeToString(u.getCodigoUsuario().toString().getBytes());
-		String emailHash = GeradorHash.gerarMd5(u.getEmail());
+		String emailHash = GeradorHash.gerarHash(u.getEmail());
 		String textoEmail = String.format(montarEmailConfirmacao(), u.getNome(), HOST, id, emailHash);
 		try {
 			emailService.enviarEmail(ASSUNTO, u.getEmail(), textoEmail);
@@ -82,9 +82,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		UsuarioDetalhe usuario;
 		usuario = usuarioDAO.find(id);
 		
-		if(usuario != null && emailEncoded.equals(GeradorHash.gerarMd5(usuario.getEmail()))) {
-			//TODO salvar confirmacao
-			System.err.println("Email confirmado!");
+		if(usuario != null && emailEncoded.equals(GeradorHash.gerarHash(usuario.getEmail()))) {
+			usuario.setCadastroConfimado(true);
 			return true;
 		}
 

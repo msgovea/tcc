@@ -17,7 +17,7 @@ import br.com.tcc.musicsocial.service.EmailService;
 @Service
 public class EmailServiceImpl implements EmailService {
 	
-	private static final String REMETENTE = "Music Social";
+	private static final String REMETENTE = "tcc.puccampinas@gmail.com";
 	
 	@Autowired
 	public JavaMailSender sender;
