@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "EML_EMAIL")
@@ -27,6 +28,9 @@ public class Email {
 	@Column(name = "EML_MENSAGEM")
 	private String mensagem;
 
+	@Transient
+	private String destinatario;
+	
 	public Integer getCodigoEmail() {
 		return codigoEmail;
 	}
@@ -57,5 +61,13 @@ public class Email {
 
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+
+	public String getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(String destinatario) {
+		this.destinatario = destinatario;
 	}
 }
