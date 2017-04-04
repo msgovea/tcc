@@ -127,8 +127,8 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(getString(R.string.error_invalid_login));
 
-                builder.setMessage("Dados inválidos, verifique e tente novamente");
-                builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+                builder.setMessage(getString(R.string.error_invalid_account));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

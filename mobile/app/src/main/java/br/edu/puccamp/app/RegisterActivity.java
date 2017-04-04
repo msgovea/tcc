@@ -79,7 +79,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         ///////////////////////////
 
         // Get a reference to the AutoCompleteTextView in the layout
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.country);
         // Get the string array
         String[] countries = getResources().getStringArray(R.array.countries_array);
         // Create the adapter and set it to the AutoCompleteTextView
@@ -114,6 +114,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         validation.context = getApplicationContext();
 
         mNameView  = validation.isFieldValid(mNameView);
+        mNickNameView = validation.isFieldValid(mNickNameView);
         mEmailView = validation.isFieldValid(mEmailView);
 
         if (!Validation.isEmailValid(email)) {
@@ -169,9 +170,9 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         dismissProgressDialog();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (string == "true") {
-            builder.setTitle("Conta registrada");
-            builder.setMessage("Cadastro realizado, confirme o acesso via e-mail");
-            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+            builder.setTitle(getString(R.string.success_register_account));
+            builder.setMessage(getString(R.string.register_confirm_account));
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
@@ -180,10 +181,9 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             builder.setCancelable(false);
 
         } else {
-            builder.setTitle("Erro ao cadastrar");
-
-            builder.setMessage("Dados inválidos, verifique e tente novamente");
-            builder.setPositiveButton("Fechar", new DialogInterface.OnClickListener() {
+            builder.setTitle(getString(R.string.error_register_account));
+            builder.setMessage(getString(R.string.error_invalid_account));
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

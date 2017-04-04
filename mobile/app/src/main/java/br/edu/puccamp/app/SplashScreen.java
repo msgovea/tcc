@@ -3,6 +3,7 @@ package br.edu.puccamp.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.TaskStackBuilder;
 
 public class SplashScreen extends Activity {
 
@@ -18,8 +19,12 @@ public class SplashScreen extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                    startActivity(intent);
+                    TaskStackBuilder.create(SplashScreen.this)
+                            .addNextIntentWithParentStack(new Intent(SplashScreen.this, MainActivity.class))
+                            .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
+                            .startActivities();
+//                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+//                    startActivity(intent);
                 }
             }
         };

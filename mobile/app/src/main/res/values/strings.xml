@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Music Social</string>
+
     <string name="title_activity_register">Register</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_recovery_activity">Recovery your account</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -18,11 +20,11 @@
 
     <string name="action_sign_in">Register</string>
     <string name="action_sign_up">Login</string>
+    <string name="action_recovery">Recovery</string>
     <string name="action_pass_recovery">Recovery Password</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password must be between 6 and 12 characters</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_confirm_password">Different passwords</string>
 
@@ -37,6 +39,18 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="close">Close</string>
+
+    <string name="error_recovery_account">Error in recovery password</string>
+    <string name="error_register_account">Error in register</string>
+
+    <string name="error_invalid_account">Invalid account, try again</string>
+
+    <string name="success_register_account">Account Registered</string>
+    <string name="success_recovery_account">Account Recovered</string>
+
+    <string name="register_confirm_account">Success Register! Confirm your account in your email</string>
+    <string name="recovery_account">Your recovery link has been send to your email</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>

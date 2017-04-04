@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:onClick="register"
+        android:onClick="recovery"
         android:text="@string/action_pass_recovery"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 

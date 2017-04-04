@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, LoginActivity.class));
     }
 
+    public void recovery(View view){
+        startActivity(new Intent(this, RecoveryActivity.class));
+    }
 
     /** Called when the user clicks the Send button *
     public void sendMessage(View view) {

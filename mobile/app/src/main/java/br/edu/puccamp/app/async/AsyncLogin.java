@@ -50,7 +50,6 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
 
             Gson gson = new Gson();
             String json = gson.toJson(usuario);
-            Log.i("bla111", json);
 
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
