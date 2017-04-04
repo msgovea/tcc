@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
         android:allowBackup="true"
@@ -38,8 +39,12 @@
             android:name=".DefaultActivity"
             android:label="@string/title_activity_default" />
 
-        <activity android:name=".RecoveryActivity"
+        <activity
+            android:name=".RecoveryActivity"
             android:label="@string/title_recovery_activity"></activity>
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/Theme.Intro" />
     </application>
 
 </manifest>
