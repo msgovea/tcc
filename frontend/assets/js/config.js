@@ -86,8 +86,11 @@ var translationsEN = {
         }
     },
     FOOTER:{
-        TEXT1: "All rights reserved.",
-        TERMS: "Terms of use",
+        TEXT1:  "All rights reserved.",
+        TERMS:  "Terms of use",
+        POLICY: "Privacy Policy",
+        CRAFTED:"Hand-crafted",
+        MADE:   "&amp; Made with Love ®"
     }
 };
 
@@ -134,6 +137,7 @@ angular.module('app')
                     },
                     templateUrl: "tpl/app.html"
                 })
+                
                 .state('app.dashboard', {
                     url: "/dashboard",
                     templateUrl: "tpl/dashboard.html",
@@ -679,6 +683,13 @@ angular.module('app')
                         requireLogin: false
                     },
                     template: '<div class="full-height" ui-view></div>'
+                })
+                .state('access.confirmarCadastro',{
+                    url: "/confirmarCadastro",
+                    templateUrl: "tpl/confirmar_cadastro.html",
+                    data: {
+                        requireLogin: true
+                    },
                 })
                 .state('access.404', {
                     url: '/404',

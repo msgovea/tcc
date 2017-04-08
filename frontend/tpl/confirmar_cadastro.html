@@ -1,0 +1,41 @@
+<div class="container-fluid container-fixed-lg bg-white">
+    <div class="panel panel-transparent">
+        <div class="panel-heading">
+            <div class="panel-title">Boostrap Native Modals
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="panel panel-transparent">
+                        <div class="panel-heading no-padding">
+                            <div class="panel-title">
+                                Slide Up
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <div class="m-b-15">
+                                <img alt="" src="assets/img/demo/1.svg" class="full-width">
+                            </div>
+                            <p>
+                                This modal slides in from the bottom and rests on the middle of the screen, to add this simply add the class
+                                <code>slide-up</code> to the <code>modal</code> div
+                            </p>
+                            <div class="radio radio-success inline">
+                                <input id="slideup_full" name="slideup_toggler" type="radio" value="full" ng-model="modal.slideUp">
+                                <label for="slideup_full">Large</label>
+                                <br>
+                                <input id="slideup_default" name="slideup_toggler" type="radio" value="default" ng-model="modal.slideUp" checked>
+                                <label for="slideup_default">Default</label>
+                                <br>
+                                <input id="slideup_small" name="slideup_toggler" type="radio" value="mini" ng-model="modal.slideUp">
+                                <label for="slideup_small">Small</label>
+                            </div>
+                            <button class="btn btn-green btn-lg pull-right bottom-right" id="btnToggleSlideUpSize" ng-click="toggleSlideUpSize()">Generate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
