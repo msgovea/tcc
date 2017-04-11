@@ -1,41 +1,44 @@
-<div class="container-fluid container-fixed-lg bg-white">
-    <div class="panel panel-transparent">
-        <div class="panel-heading">
-            <div class="panel-title">Boostrap Native Modals
+<div class="register-container full-height sm-p-t-30">
+    <div class="container-sm-height full-height">
+        <div class="row row-sm-height">
+            <div class="col-sm-12 col-sm-height col-middle">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+                <h3 translate>Confirme seu cadastro</h3>
+                <p translate>
+                    <small>Confirme aqui seu cadastro</small>
+                </p>
+                <form id="form-register" class="p-t-15" role="form" name="register">
+                    <button class="btn btn-primary btn-cons m-t-10" data-toggle="modal" data-target="#modalSlideUp" id="btnToggleSlideUpSize" ng-click="toggleSlideUpSize()">Confirme</button>
+                </form>
             </div>
         </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="panel panel-transparent">
-                        <div class="panel-heading no-padding">
-                            <div class="panel-title">
-                                Slide Up
+    </div>
+</div>
+
+<div class="modal fade slide-up disable-scroll" id="modalSlideUp" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="ConfirmaCadastroCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5>Cadastre seu <span class="semi-bold">Gosto Musical</span></h5>
+                    <p class="p-b-10">A partir do seu gosto musical, você poderá encontrar eventos e amigos que curtam o mesmo que você! </p>
+                </div>
+                <div class="modal-body" >
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox check-primary" ng-repeat="gosto in gostos" >
+                                    <input type="checkbox"  id="checkbox{{gosto.codigo}}" ng-model = "gosto.selecionado"/>
+                                        <label for="checkbox{{gosto.codigo}}">{{gosto.descricao}}</label>
+                                </div>
+                                 <button type="button" class="btn btn-primary btn-block m-t-5" ng-click="cadastrarGostos()">Cadastrar</button>
                             </div>
                         </div>
-                        <div class="panel-body no-padding">
-                            <div class="m-b-15">
-                                <img alt="" src="assets/img/demo/1.svg" class="full-width">
-                            </div>
-                            <p>
-                                This modal slides in from the bottom and rests on the middle of the screen, to add this simply add the class
-                                <code>slide-up</code> to the <code>modal</code> div
-                            </p>
-                            <div class="radio radio-success inline">
-                                <input id="slideup_full" name="slideup_toggler" type="radio" value="full" ng-model="modal.slideUp">
-                                <label for="slideup_full">Large</label>
-                                <br>
-                                <input id="slideup_default" name="slideup_toggler" type="radio" value="default" ng-model="modal.slideUp" checked>
-                                <label for="slideup_default">Default</label>
-                                <br>
-                                <input id="slideup_small" name="slideup_toggler" type="radio" value="mini" ng-model="modal.slideUp">
-                                <label for="slideup_small">Small</label>
-                            </div>
-                            <button class="btn btn-green btn-lg pull-right bottom-right" id="btnToggleSlideUpSize" ng-click="toggleSlideUpSize()">Generate</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
