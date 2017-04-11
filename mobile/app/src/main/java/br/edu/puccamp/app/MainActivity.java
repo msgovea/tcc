@@ -13,6 +13,8 @@ import android.widget.Toast;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import br.edu.puccamp.app.posts.ExampleActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

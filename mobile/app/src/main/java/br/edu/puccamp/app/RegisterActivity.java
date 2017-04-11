@@ -90,7 +90,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     }
 
     /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
+     * Set up the {@link android.app.ActionBar}, if the Strings is available.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void setupActionBar() {

@@ -1,10 +1,8 @@
 package br.edu.puccamp.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.view.View;
-import android.widget.Toast;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
 import agency.tango.materialintroscreen.MessageButtonBehaviour;
@@ -31,7 +29,7 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.primary_dark)
                         .buttonsColor(R.color.accent)
-                        .image(R.drawable.button_background)
+                        .image(R.drawable.img_office)
                         .title("Organize your time with us")
                         .description("Would you try?")
                         .build(),
@@ -54,7 +52,7 @@ public class IntroActivity extends MaterialIntroActivity {
                         .buttonsColor(R.color.accent)
                         .possiblePermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
                         .neededPermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
-                        .image(R.drawable.button_background)
+                        .image(R.drawable.img_equipment)
                         .title("We provide best tools")
                         .description("ever")
                         .build(),
@@ -73,30 +71,13 @@ public class IntroActivity extends MaterialIntroActivity {
                 .build());
     }
 
+//    @Override
+//    public void onFinish() {
+//        startActivity(new Intent(this, MainActivity.class));
+//        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
+//    }
+
     @Override
-    public void onFinish() {
-        startActivity(new Intent(this, MainActivity.class));
-        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
-    }
-
-
-
-//
-//        Thread timerThread = new Thread() {
-//            public void run() {
-//                try {
-//                    sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-//                    startActivity(intent);
-//                }
-//            }
-//        };
-//        timerThread.start();
-    @Override
-
     protected void onPause(){
         super.onPause();
         finish();

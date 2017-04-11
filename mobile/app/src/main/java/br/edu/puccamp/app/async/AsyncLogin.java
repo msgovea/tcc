@@ -1,7 +1,6 @@
 package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -19,13 +18,13 @@ import java.net.URL;
 
 import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.Strings;
 
 
 public class AsyncLogin extends AsyncTask<Usuario, String, String> {
 
     public interface Listener {
-        void onLoaded(String string);
+        void onLoaded(Object o);
     }
 
     private Listener mListener;
@@ -42,7 +41,7 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(API.URL + API.LOGIN);
+            URL url = new URL(Strings.URL + Strings.LOGIN);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -91,7 +90,7 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
                 if (mListener != null) {
-                    mListener.onLoaded("true");
+                    mListener.onLoaded(u);
                 }
 
             } else {

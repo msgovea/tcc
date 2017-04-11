@@ -1,13 +1,9 @@
 package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -22,7 +18,7 @@ import java.net.URL;
 
 import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.Strings;
 
 
 public class AsyncRegister extends AsyncTask<Usuario, String, String> {
@@ -45,7 +41,7 @@ public class AsyncRegister extends AsyncTask<Usuario, String, String> {
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(API.URL + API.REGISTER);
+            URL url = new URL(Strings.URL + Strings.REGISTER);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");

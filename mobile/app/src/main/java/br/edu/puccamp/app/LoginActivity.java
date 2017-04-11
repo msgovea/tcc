@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -16,10 +17,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.google.gson.Gson;
+
 import br.edu.puccamp.app.async.AsyncLogin;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Hash;
+import br.edu.puccamp.app.util.Strings;
 import br.edu.puccamp.app.util.Validation;
 
 
@@ -30,10 +34,12 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
+    Usuario usuario = new Usuario();
+
 
 
     /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
+     * Set up the {@link android.app.ActionBar}, if the Strings is available.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void setupActionBar() {
@@ -106,7 +112,6 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
         } else {
             showLoadingProgressDialog();
 
-            Usuario usuario = new Usuario();
             usuario.setEmail(mEmailView.getText().toString());
             usuario.setSenha(Hash.MD5(mPasswordView.getText().toString()));
 
@@ -117,16 +122,19 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
     }
 
     @Override
-    public void onLoaded(String string) {
+    public void onLoaded(Object o) {
         dismissProgressDialog();
 
-        if (string == "true") {
+        if (o.getClass() == Usuario.class) {
+            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            Gson json = new Gson();
+            prefs.edit().putString(Strings.USUARIO, json.toJson(o)).apply();
+
             startActivity(new Intent(this, DefaultActivity.class));
         } else {
-            if (string != "invalid") {
+            if (!o.equals("invalid")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(getString(R.string.error_invalid_login));
-
                 builder.setMessage(getString(R.string.error_invalid_account));
                 builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                     @Override
