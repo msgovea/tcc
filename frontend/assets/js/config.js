@@ -8,10 +8,8 @@ var translationsEN = {
         HEADLINE: "Sign into your pages account",
         FORM:{
             USERNAME:       "Login",
-            PH_USERNAME:    "Username",
             ERROR1:         "This field is required.",
             PASSWORD:       "Password",
-            PH_PASSWORD:    "Password",
             ERROR2_TITLE:   "Incorrect login",
             ERROR2:         "Username or password is invalid" 
         },

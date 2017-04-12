@@ -26,7 +26,7 @@
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.username.$invalid && !login2.username.$pristine }">
                     <label translate>LOGIN.FORM.USERNAME</label>
                     <div class="controls">
-                        <input type="text" name="username" placeholder="{{ 'LOGIN.FORM.PH_USERNAME' | translate }}" class="form-control" ng-model="user3.username" required>
+                        <input type="text" name="username" placeholder="john.wherley@email.com" class="form-control" ng-model="user3.username" required>
                     </div>
                 </div>
                 <label translate class="error" for="username" ng-show="login2.username.$invalid && !login2.username.$pristine" >LOGIN.FORM.ERROR1</label>
@@ -35,7 +35,7 @@
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.password.$invalid && !login2.password.$pristine }">
                     <label translate>LOGIN.FORM.PASSWORD</label>
                     <div class="controls">
-                        <input type="password" class="form-control" name="password" placeholder="{{ 'LOGIN.FORM.PH_PASSWORD' | translate }}" ng-model="user3.password" required>
+                        <input type="password" class="form-control" name="password" placeholder="************" ng-model="user3.password" required>
                     </div>
                 </div>
                 <label translate class="error" for="password" ng-show="login2.password.$invalid && !login2.password.$pristine">LOGIN.FORM.ERROR1</label>
