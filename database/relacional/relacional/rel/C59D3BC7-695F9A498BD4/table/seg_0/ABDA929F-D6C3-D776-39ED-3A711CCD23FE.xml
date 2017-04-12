@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="ABDA929F-D6C3-D776-39ED-3A711CCD23FE" name="PBL_LIKES">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:23:30 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<ordsAlias>table_9</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PBL_USR_CODIGO" id="F3F4F455-8694-6528-6CF1-398CCECADF38">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:24:31 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="91D50755-9E92-68CE-A304-C14449788A84" referredColumn="9DD338E3-EC95-024D-DEB8-D62B13EA8E24"/>
+</associations>
+</Column>
+<Column name="PBL_PBC_CODIGO" id="567188CA-384B-609C-7E57-7E3E499C0CD5">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:25:39 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="051F5096-351A-C625-4F8F-646F96CDB9CD" referredColumn="FBAD9267-53D3-AD6D-F891-8A4A751E8A82"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B0292AF8-69A4-1B01-2082-1B65AF81C361" name="PBL_PK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:25:23 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F3F4F455-8694-6528-6CF1-398CCECADF38"/>
+<colUsage columnID="567188CA-384B-609C-7E57-7E3E499C0CD5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9B98888A-0CAE-B47F-327F-75C549F6AD93" name="PBL_X_USR_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:24:31 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F3F4F455-8694-6528-6CF1-398CCECADF38"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7D5809E4-CC90-B53C-221B-C87F0DDABAB8" name="PBL_X_PBC_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:25:39 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="567188CA-384B-609C-7E57-7E3E499C0CD5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F9058626-B8D7-2293-E916-5C65554D5244" name="GUS_GOSTO_USUARIO">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:44:30 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<ordsAlias>table_13</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="GUS_USR_CODIGO" id="C4AC650D-975C-01A9-76B4-710FC33DB946">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:44:54 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EFB345C9-D7C3-6FFC-54A3-55FB6B54D2FC" referredColumn="9DD338E3-EC95-024D-DEB8-D62B13EA8E24"/>
+</associations>
+</Column>
+<Column name="GUS_GMU_CODIGO" id="DB32F2F5-20B7-446C-1ECD-3B7811380F6C">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:45:13 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD7D14A8-42FC-850C-D187-25262FB39915" referredColumn="B3D8C603-9127-C7F2-85A1-9A149C716AF0"/>
+</associations>
+</Column>
+<Column name="GUS_PREFERIDO" id="2B552577-80D5-B91A-F0B8-7F2DD22F7730">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:46:34 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E0CBEBE6-8DB5-89E3-7C14-E59DAB1C0D6D" name="GUS_PK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:45:58 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4AC650D-975C-01A9-76B4-710FC33DB946"/>
+<colUsage columnID="DB32F2F5-20B7-446C-1ECD-3B7811380F6C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="80DA24B7-4A83-7579-EECE-4A8C6E8E3AF2" name="GUS_X_USR_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:44:54 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4AC650D-975C-01A9-76B4-710FC33DB946"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4D5C5036-3A68-F7BD-6E83-CC8158E13797" name="GUS_X_GMU_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:45:13 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DB32F2F5-20B7-446C-1ECD-3B7811380F6C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="50C0517D-E37D-CE53-4479-01E9CAD83B1B" name="PBC_PUBLICACOES">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:13:06 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<ordsAlias>table_7</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PBC_CODIGO" id="FBAD9267-53D3-AD6D-F891-8A4A751E8A82">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:13:40 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PBC_CONTEUDO" id="63DDAAE0-729E-B76C-61EF-8B54B845421A">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:16:24 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PBC_IMAGEM" id="3722823A-3975-D2DA-4FC4-F915D581A288">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:16:46 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PBC_VIDEO" id="75F53149-3AB8-C648-FB02-333DDDCA5B57">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-04 00:43:07 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PBC_DATA_PUBLICACAO" id="DFC48DE3-799D-DDD8-7A22-492C1D91B36E">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:18:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PBC_ATIVA" id="F490A553-C940-0095-0333-6B3E1643AF14">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:18:01 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PBC_USR_CODIGO" id="C0DEBBDF-A36D-6072-9322-4690B000FC56">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:20:16 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="590559D1-0149-182A-0931-D66130F076E3" referredColumn="9DD338E3-EC95-024D-DEB8-D62B13EA8E24"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8BFBF1D4-9F4D-D4FD-92C5-AD38FA0D2CE1" name="PBC_PK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:13:40 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FBAD9267-53D3-AD6D-F891-8A4A751E8A82"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C2C7EC2B-4663-9079-6E5A-D5AA75817D88" name="PBC_x_USR_FK">
+<createdBy>Cacilda</createdBy>
+<createdTime>2017-04-03 23:20:16 UTC</createdTime>
+<ownerDesignName>Relacional</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C0DEBBDF-A36D-6072-9322-4690B000FC56"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

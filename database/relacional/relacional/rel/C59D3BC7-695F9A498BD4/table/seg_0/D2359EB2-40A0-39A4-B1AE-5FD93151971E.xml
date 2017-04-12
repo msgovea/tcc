@@ -40,7 +40,7 @@
 <ownDataTypeParameters>200,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="USD_COD_CONEXAO" id="EFA4F943-D152-DFDA-6901-96D9DA97D5BF">
+<Column name="USR_COD_CONEXAO" id="EFA4F943-D152-DFDA-6901-96D9DA97D5BF">
 <createdBy>Cacilda</createdBy>
 <createdTime>2017-03-08 21:47:40 UTC</createdTime>
 <ownerDesignName>Relacional</ownerDesignName>

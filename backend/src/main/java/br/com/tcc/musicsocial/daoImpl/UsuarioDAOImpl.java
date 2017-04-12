@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
-import br.com.tcc.musicsocial.util.SituacaoConta;
 
 @Repository
 public class UsuarioDAOImpl extends BaseDAOImpl<UsuarioDetalhe> implements UsuarioDAO {

@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Music Social</string>
+
+    <string name="title_activity_register">Cadastro</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_recovery_activity">Recuperação de conta</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="prompt_city">Cidade</string>
+    <string name="prompt_state">Estado</string>
+    <string name="prompt_country">País</string>
+    <string name="prompt_confirm_password">Confirmação de Senha</string>
+
+    <string name="prompt_name">Nome completo</string>
+    <string name="prompt_nickname">Apelido</string>
+    <string name="prompt_birthday">Data de Nascimento</string>
+
+
+    <string name="action_sign_in">Cadastrar</string>
+    <string name="action_sign_up">Logar</string>
+    <string name="action_recovery">Recuperar</string>
+    <string name="action_pass_recovery">Recuperar senha</string>
+
+    <string name="error_invalid_email">O endereço de e-mail é inválido</string>
+    <string name="error_invalid_password">A senha deve ter entre 6 e 12 caracteres</string>
+    <string name="error_field_required">Este campo é obrigatório</string>
+    <string name="error_confirm_password">Senhas diferentes</string>
+
+    <string name="error_invalid_login">E-mail ou senha incorretos</string>
+
+    <string name="action_sign_in_short">Logar</string>
+
+
+    <string name="welcome_text">Bem vindo ao Music Social</string>
+    <string name="title_activity_default">Tela principal</string>
+    <string name="title_home">Ínicio</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notificações</string>
+
+    <string name="close">Fechar</string>
+
+    <string name="error_recovery_account">Erro ao recuperar senha</string>
+    <string name="error_register_account">Erro ao cadastrar</string>
+
+    <string name="error_invalid_account">Conta inválida, tente novamente</string>
+
+    <string name="success_register_account">Conta registrada</string>
+    <string name="success_recovery_account">Conta recuperada</string>
+
+    <string name="register_confirm_account">Conta cadastrada! Confirme sua conta no e-mail recebido</string>
+    <string name="recovery_account">Seu link de recuperação de senha foi enviado ao seu e-mail</string>
+
+    <string-array name="countries_array">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Anguilla</item>
+        <item>Antarctica</item>
+    </string-array>
+
+</resources>

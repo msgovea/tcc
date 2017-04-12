@@ -26,7 +26,7 @@ angular.module('app')
 
 
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore', function($scope, apiLogin, $state, $timeout, $cookieStore) {
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', function($scope, apiLogin, $state, $timeout, $cookieStore, $filter) {
 
         $scope.bg = 'assets/img/headphone' + Math.floor((Math.random()*4)+1) + '.jpg';
 
@@ -51,8 +51,8 @@ angular.module('app')
                 else {
                     $('body').pgNotification({
                         style: 'simple',
-                        title: 'Login incorreto',
-                        message: 'Usuário ou senha inválidos',
+                        title: $filter('translate')('LOGIN.FORM.ERROR2_TITLE'),
+                        message: $filter('translate')('LOGIN.FORM.ERROR2'),
                         position: 'top-right',
                         timeout: 6000,
                         type: 'danger',

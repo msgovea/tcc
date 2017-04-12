@@ -3,29 +3,26 @@
         <div class="row row-sm-height">
             <div class="col-sm-12 col-sm-height col-middle">
                 <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
-                <h3>Recover your account</h3>
+                <h3 translate>RECOVER.HEADLINE</h3>
                 <p>
-                    <small>Fill in your email below to receive the account recovery link.</small>
+                    <small translate>RECOVER.SUBTITLE</small>
                 </p>
                 <form id="form-recuperar" class="p-t-15" role="form" name="recuperar">
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': recuperar.email.$invalid && !recuperar.email.$pristine }">
-                                <label>Email</label>
+                                <label translate>RECOVER.FORM.EMAIL</label>
                                 <input type="email" name="email" placeholder="john.wherley@email.com" class="form-control" ng-model="user.email" required>
                             </div>
-                            <label class="error" for="email" ng-show="recuperar.email.$invalid && !recuperar.email.$pristine">Enter a valid email.</label>
+                            <label class="error" for="email" ng-show="recuperar.email.$invalid && !recuperar.email.$pristine" translate>RECOVER.FORM.ERROR1</label>
                         </div>
                     </div>
                     <div class="row m-t-10">
-                        <div class="col-md-6">
-                            <p>I agree to the <a href="" class="text-info small">Pages Terms</a> and <a href="" class="text-info small">Privacy</a>.</p>
-                        </div>
                         <div class="col-md-6 text-right">
-                            <a href="" class="text-info small">Help? Contact Support</a>
+                            <a translate href="" class="text-info small">RECOVER.HELP</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="recuperar.$invalid" ng-click="recuperarSenha(user)">Send</button>
+                    <button translate class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="recuperar.$invalid" ng-click="recuperarSenha(user)">RECOVER.SEND</button>
                 </form>
             </div>
         </div>

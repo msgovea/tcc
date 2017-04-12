@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name">Music Social</string>
+
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_recovery_activity">Recovery your account</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -11,23 +14,53 @@
     <string name="prompt_confirm_password">Confirm Password</string>
 
     <string name="prompt_name">Complete Name</string>
+    <string name="prompt_nickname">Nickname</string>
     <string name="prompt_birthday">Date of Birth</string>
 
 
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">Register</string>
+    <string name="action_sign_up">Login</string>
+    <string name="action_recovery">Recovery</string>
+    <string name="action_pass_recovery">Recovery Password</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password must be between 6 and 12 characters</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_confirm_password">Different passwords</string>
 
+    <string name="error_invalid_login">Email or password incorrect</string>
 
-    <string name="fb_login">                Sign in with Facebook               </string>
-    <string name="fb_register">             Sign up with Facebook               </string>
-    <string name="gplus_login">             Sign in with Google+                </string>
-    <string name="gplus_register">          Sign up with Google+                </string>
-    <string name="or">                      OR                                  </string>
+    <string name="action_sign_in_short">Sign in</string>
+
+
+    <string name="welcome_text">Welcome to Music Social</string>
+    <string name="title_activity_default">DefaultActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="close">Close</string>
+
+    <string name="error_recovery_account">Error in recovery password</string>
+    <string name="error_register_account">Error in register</string>
+
+    <string name="error_invalid_account">Invalid account, try again</string>
+
+    <string name="success_register_account">Account Registered</string>
+    <string name="success_recovery_account">Account Recovered</string>
+
+    <string name="register_confirm_account">Success Register! Confirm your account in your email</string>
+    <string name="recovery_account">Your recovery link has been send to your email</string>
+
+    <string-array name="countries_array">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Anguilla</item>
+        <item>Antarctica</item>
+    </string-array>
 
 </resources>

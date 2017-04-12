@@ -3,105 +3,98 @@
         <div class="row row-sm-height">
             <div class="col-sm-12 col-sm-height col-middle">
                 <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
-                <h3>Pages makes it easy to enjoy what matters the most in your life</h3>
-                <p>
-                    <small>
-        Create a pages account. If you have a facebook account, log into it for this process. Sign in with <a href="" class="text-info">Facebook</a> or <a href="" class="text-info">Google</a>
-              </small>
+                <h3 translate>REGISTER.HEADLINE</h3>
+                <p translate>
+                    <small>REGISTER.SUBTITLE</small>
                 </p>
                 <form id="form-register" class="p-t-15" role="form" name="register">
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.name.$invalid && !register.name.$pristine }">
-                                <label>Name</label>
+                                <label translate>REGISTER.FORM.NAME</label>
                                 <input type="text" name="name" placeholder="John Wherley" class="form-control" ng-model="user.name" required>
                             </div>
-                            <label class="error" for="name" ng-show="register.name.$invalid && !register.name.$pristine">This field is required.</label>
+                            <label class="error" for="name" ng-show="register.name.$invalid && !register.name.$pristine" translate>REGISTER.FORM.ERROR1</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.uname.$invalid && !register.uname.$pristine }">
-                                <label>User Name</label>
+                                <label translate>REGISTER.FORM.USERNAME</label>
                                 <input type="text" name="uname" placeholder="johnw" class="form-control" ng-model="user.username" required>
                             </div>
-                            <label class="error" for="uname" ng-show="register.uname.$invalid && !register.uname.$pristine">This field is required.</label>
+                            <label class="error" for="uname" ng-show="register.uname.$invalid && !register.uname.$pristine" translate>REGISTER.FORM.ERROR1</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.birthday.$invalid && !register.birthday.$pristine }">
-                                <label>Birthday</label>
-                                <input type="date" name="birthday" placeholder="johnw" class="form-control" ng-model="user.birthday" required ng-change="validateDate()">
-                            </div>
-                            <label class="error" for="birthday" ng-show="register.birthday.$invalid.date && !register.city.$pristine">Enter a valid date.</label>
-                        </div>
+                        <div pg-form-group class="form-group form-group-default input-group col-sm-12">
+                            <label translate>REGISTER.FORM.BIRTHDAY</label>
+                            <input type="text" class="form-control" name= "birthday" placeholder="10/10/1995" ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy' }">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>    
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.city.$invalid && !register.city.$pristine }">
-                                <label>City</label>
+                                <label translate>REGISTER.FORM.CITY</label>
                                 <input type="text" name="city" placeholder="San Francisco" class="form-control" ng-model="user.city" required>
                             </div>
-                            <label class="error" for="city" ng-show="register.city.$invalid && !register.city.$pristine">Enter a valid city.</label>
+                            <label class="error" for="city" ng-show="register.city.$invalid && !register.city.$pristine" translate>REGISTER.FORM.ERROR2</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.state.$invalid && !register.state.$pristine }">
-                                <label>State</label>
+                                <label translate>REGISTER.FORM.STATE</label>
                                 <input type="text" name="state" placeholder="California" class="form-control" ng-model="user.state" required>
                             </div>
-                            <label class="error" for="state" ng-show="register.state.$invalid && !register.state.$pristine">Enter a valid state.</label>
+                            <label class="error" for="state" ng-show="register.state.$invalid && !register.state.$pristine" translate>REGISTER.FORM.ERROR3</label>
                         </div>
                     </div>
                      <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.country.$invalid && !register.country.$pristine }">
-                                <label>Country</label>
+                                <label translate>REGISTER.FORM.COUNTRY</label>
                                 <input type="text" name="country" placeholder="United States" class="form-control" ng-model="user.country" required>
                             </div>
-                            <label class="error" for="country" ng-show="register.country.$invalid && !register.country.$pristine">Enter a valid country.</label>
+                            <label class="error" for="country" ng-show="register.country.$invalid && !register.country.$pristine" translate>REGISTER.FORM.ERROR4</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.email.$invalid && !register.email.$pristine }">
-                                <label>Email</label>
+                                <label translate>REGISTER.FORM.EMAIL</label>
                                 <input type="email" name="email" placeholder="john.wherley@email.com" class="form-control" ng-model="user.email" required>
                             </div>
-                            <label class="error" for="email" ng-show="register.email.$invalid && !register.email.$pristine">Enter a valid email.</label>
+                            <label class="error" for="email" ng-show="register.email.$invalid && !register.email.$pristine" translate>REGISTER.FORM.ERROR5</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.pass.$invalid && !register.pass.$pristine }">
-                                <label>Password</label>
-                                <input type="password" name="pass" placeholder="Minimum of 4 Charactors" class="form-control" ng-minlength="4" ng-model="user.password" required>
+                                <label translate>REGISTER.FORM.PASSWORD</label>
+                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="4" ng-model="user.password" required>
                             </div>
-                            <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine">This field is required.</label>
-                            <label class="error" for="pass" ng-show="register.pass.$error.minlength">Password should have at least 4 characters</label>
+                            <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                            <label class="error" for="pass" ng-show="register.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passequal }">
-                                <label>Confirm Password</label>
-                                <input type="password" name="cpass" placeholder="Minimum of 4 Charactors" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
+                                <label translate>REGISTER.FORM.CONF_PASSWORD</label>
+                                <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
                             </div>
-                            <label class="error" for="cpass" ng-show="register.passequal">Password must be equals</label>
+                            <label class="error" for="cpass" ng-show="register.passequal" translate>REGISTER.FORM.ERROR7</label>
 
                         </div>
                     </div>
                     <div class="row m-t-10">
-                        <div class="col-md-6">
-                            <p>I agree to the <a href="" class="text-info small">Pages Terms</a> and <a href="" class="text-info small">Privacy</a>.</p>
-                        </div>
                         <div class="col-md-6 text-right">
-                            <a href="" class="text-info small">Help? Contact Support</a>
+                            <a href="" class="text-info small" translate>REGISTER.HELP</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid" ng-click="createAccount(user)">Create a new account</button>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid" ng-click="createAccount(user)" translate>REGISTER.SEND</button>
                 </form>
             </div>
         </div>
