@@ -68,7 +68,8 @@ var translationsEN = {
             PH_PASSWORD:    "Minimum of 4 characters",
             ERROR6:         "Password should have at least 4 characters",
             CONF_PASSWORD:  "Confirm Password" ,
-            ERROR7:         "Password must be equals"
+            ERROR7:         "Password must be equals",
+            ERROR8:         "Password should have at maximum 4 characters",
         },
         HELP: "Help? Contact Support",
         SEND: "Create a new account"

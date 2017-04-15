@@ -48,16 +48,18 @@ angular.module('app')
 
                     $state.go('app.dashboard');
                 }
-                else {
+                else {   
                     $('body').pgNotification({
                         style: 'simple',
                         title: $filter('translate')('LOGIN.FORM.ERROR2_TITLE'),
                         message: $filter('translate')('LOGIN.FORM.ERROR2'),
                         position: 'top-right',
+                        showClose: false,
                         timeout: 6000,
                         type: 'danger',
                         thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
                     }).show();
+                   
                 }
             })
                         

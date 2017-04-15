@@ -73,10 +73,11 @@
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.pass.$invalid && !register.pass.$pristine }">
                                 <label translate>REGISTER.FORM.PASSWORD</label>
-                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="4" ng-model="user.password" required>
+                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ngMaxlength = "12" ng-model="user.password" required>
                             </div>
                             <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
                             <label class="error" for="pass" ng-show="register.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                            <label class="error" for="pass" ng-show="register.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
                         </div>
                     </div>
                     <div class="row">
