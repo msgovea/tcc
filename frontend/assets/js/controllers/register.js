@@ -34,24 +34,29 @@ angular.module('app').factory('apiRegister', function($http) {
     })
     .controller('RegisterCtrl', ['$scope', 'apiRegister', '$cookieStore', '$state', function($scope, apiRegister, $cookieStore, $state) {
 
+        
+
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
             //alert("Wizard finished :)");
         }
         
         $scope.createAccount = function(user) { 
+            console.log($scope.register.name);
             apiRegister.getApi(user).then(function(result){
-                console.log(result);
-                console.log("oi");
+                //console.log(result);
+                //console.log("oi");
+                
                 if (result.data.message == "Sucesso!") {
                     //redireciona
-                    //console.log("sucesso");
+                    console.log("sucesso");
                     $cookieStore.put('usuario', result.data.object);
                     //console.log($cookieStore.usuario);
 
                     $state.go('app.dashboard');
                 }
                 else {
+                    console.log("fracasso");
                     $scope.register.invalid = true;   
                 }
             })

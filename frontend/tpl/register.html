@@ -12,9 +12,9 @@
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.name.$invalid && !register.name.$pristine }">
                                 <label translate>REGISTER.FORM.NAME</label>
-                                <input type="text" name="name" placeholder="John Wherley" class="form-control" ng-model="user.name" required>
+                                <input type="text" name="name" placeholder="John Wherley" class="form-control" ng-pattern="/^[a-zA-Z]+$/" ng-model="user.name" required>
                             </div>
-                            <label class="error" for="name" ng-show="register.name.$invalid && !register.name.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                            <label class="error" for="name" ng-show="register.name.$error.pattern && !register.name.$pristine" translate> REGISTER.FORM.ERROR9</label>
                         </div>
                     </div>
                     <div class="row">

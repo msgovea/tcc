@@ -70,6 +70,7 @@ var translationsEN = {
             CONF_PASSWORD:  "Confirm Password" ,
             ERROR7:         "Password must be equals",
             ERROR8:         "Password should have at maximum 12 characters",
+            ERROR9:         "Only letters allowed.",
         },
         HELP: "Help? Contact Support",
         SEND: "Create a new account"
