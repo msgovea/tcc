@@ -71,6 +71,10 @@ var translationsEN = {
             ERROR7:         "Password must be equals",
             ERROR8:         "Password should have at maximum 12 characters",
             ERROR9:         "Only letters allowed.",
+            NOTIF1_TITLE:   "Success",
+            NOTIF1:         "Successful registration! An account confirmation will be sent to the informed email.",
+            ERROR10_TITLE:   "Incorrect registration",
+            ERROR10:         "Already exists register for the informed email."
         },
         HELP: "Help? Contact Support",
         SEND: "Create a new account"

@@ -32,7 +32,7 @@ angular.module('app').factory('apiRegister', function($http) {
             }
         }
     })
-    .controller('RegisterCtrl', ['$scope', 'apiRegister', '$cookieStore', '$state', function($scope, apiRegister, $cookieStore, $state) {
+    .controller('RegisterCtrl', ['$scope', 'apiRegister', '$cookieStore', '$state', '$filter', function($scope, apiRegister, $cookieStore, $state, $filter) {
 
         var today=new Date();
         $scope.today = today.toISOString();
@@ -55,12 +55,32 @@ angular.module('app').factory('apiRegister', function($http) {
                     console.log("sucesso");
                     $cookieStore.put('usuario', result.data.object);
                     //console.log($cookieStore.usuario);
+                    $('body').pgNotification({
+                        style: 'simple',
+                        title: $filter('translate')('REGISTER.FORM.NOTIF1_TITLE'),
+                        message: $filter('translate')('REGISTER.FORM.NOTIF1'),
+                        position: 'top-right',
+                        showClose: false,
+                        timeout: 6000,
+                        type: 'success',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show();
 
-                    $state.go('app.dashboard');
+                    $state.go('access.login');
                 }
                 else {
                     console.log("fracasso");
-                    $scope.register.invalid = true;   
+                    $scope.register.invalid = true;  
+                    $('body').pgNotification({
+                        style: 'simple',
+                        title: $filter('translate')('REGISTER.FORM.ERROR10_TITLE'),
+                        message: $filter('translate')('REGISTER.FORM.ERROR10'),
+                        position: 'top-right',
+                        showClose: false,
+                        timeout: 6000,
+                        type: 'danger',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show(); 
                 }
             })
         }
