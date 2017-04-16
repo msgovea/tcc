@@ -34,13 +34,16 @@ angular.module('app').factory('apiRegister', function($http) {
     })
     .controller('RegisterCtrl', ['$scope', 'apiRegister', '$cookieStore', '$state', function($scope, apiRegister, $cookieStore, $state) {
 
+        var today=new Date();
+        $scope.today = today.toISOString();
+        console.log(today);
         
 
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
             //alert("Wizard finished :)");
         }
-        
+
         $scope.createAccount = function(user) { 
             console.log($scope.register.name);
             apiRegister.getApi(user).then(function(result){
