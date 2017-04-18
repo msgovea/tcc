@@ -1,12 +1,8 @@
 package br.com.tcc.musicsocial.service.impl;
 
-import java.math.BigInteger;
-
 import javax.mail.MessagingException;
-import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
@@ -61,7 +57,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 		email.append("Olá %s, <br>");
 		email.append("Seu cadastro foi realizado com sucesso! ");
 		email.append("Precisamos apenas que nos confirme seu email clicando no link abaixo. <br>");
-		email.append("<a href=\"http://%s/#/app/confirmacao/%s/%s\">Confirmar Cadastro</a> <br>");
+		email.append("<a href=\"http://%s/#/access/confirmacao/%s/%s\">Confirmar Cadastro</a> <br>");
+		return email.toString();
+	}
+	
+	private String montarEmailRecuperacao() {
+		StringBuilder email = new StringBuilder();
+		email.append("Olá %s, <br>");
+		email.append("Sua solicitação de recuperacao de senha foi realizada com sucesso! ");
+		email.append("Altere sua senha clicando no link abaixo. <br>");
+		email.append("<a href=\"http://%s/#/access/redefinir/%s/%s\">Redefinir senha</a> <br>");
 		return email.toString();
 	}
 	
@@ -90,4 +95,40 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return false;
 	}
 
+	@Override
+	public Boolean recuperarSenha(String emailBase) {
+		String email = new String(Base64Utils.decodeFromString(emailBase));
+		UsuarioDetalhe usuario = usuarioDAO.consultarPorEmail(email);
+		if (usuario != null) {
+			String id = Base64Utils.encodeToString(usuario.getCodigoUsuario().toString().getBytes());
+			String emailHash = GeradorHash.gerarHash(email);
+			String textoEmail = String.format(montarEmailRecuperacao(), usuario.getNome(), HOST, id, emailHash);
+			try {
+				emailService.enviarEmail(ASSUNTO, usuario.getEmail(), textoEmail);
+				return true;
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return false;
+	}
+	
+	@Override
+	@Transactional
+	public Boolean redefinirSenha(String idBase, String emailHash, String senhaHash) {
+		try {
+			Integer idUsuario = Integer.parseInt(new String(Base64Utils.decodeFromString(idBase)));
+		
+			UsuarioDetalhe user = usuarioDAO.find(idUsuario);
+			if (user != null && emailHash.equals(GeradorHash.gerarHash(user.getEmail()))) {
+				user.setSenha(senhaHash);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }
