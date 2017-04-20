@@ -65,12 +65,13 @@ public class UserController {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(
 			value = "/usuario/confirmar/{id}/{email}",
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			method = RequestMethod.GET
 			)
-	public Response<?> confirmarEmail(@PathVariable("id") String id,@PathVariable("email") String email) {
+	public Response<?> confirmarEmail(@PathVariable("id") String id, @PathVariable("email") String email) {
 		try {
 			if(usuarioService.confirmarEmail(id, email)) {
 				return new Response(MessagesEnum.SUCESSO.getDescricao());
@@ -90,5 +91,38 @@ public class UserController {
 		u.setNivelUsuario(new NivelUsuario());
 		u.setSituacaoConta(new SituacaoConta());
 		return u;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/usuario/recuperar/{email}")
+	public Response<?> recuperarSenha(@PathVariable("email") String email) {
+		try {
+			if(usuarioService.recuperarSenha(email)) {
+				return new Response(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping("/usuario/redefinir/{idBase}/{emailHash}/{senhaHash}")
+	public Response<?> redefinirSenha( @PathVariable("idBase")String idBase,  
+									   @PathVariable("emailHash") String emailHash,
+									   @PathVariable("senhaHash") String senhaHash) {
+		try {
+			if(usuarioService.redefinirSenha(idBase, emailHash, senhaHash)) {
+				return new Response(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
 	}
 }
