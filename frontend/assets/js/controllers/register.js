@@ -34,9 +34,23 @@ angular.module('app').factory('apiRegister', function($http) {
     })
     .controller('RegisterCtrl', ['$scope', 'apiRegister', '$cookieStore', '$state', '$filter', function($scope, apiRegister, $cookieStore, $state, $filter) {
 
+		
         var today=new Date();
         $scope.today = today.toISOString();
         console.log(today);
+		
+		$scope.validateDate = function(date) {
+			if (date > '10/10/2010') {
+				$scope.birthdayError = true;
+				console.log('invalido');
+			}
+			else {
+				console.log('valido');
+				console.log(date);
+				console.log(today);
+				$scope.birthdayError = false;
+			}
+		}
         
 
     	$scope.finished = function() {

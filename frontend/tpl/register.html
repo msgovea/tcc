@@ -30,11 +30,10 @@
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default input-group col-sm-12">
                                 <label translate>REGISTER.FORM.BIRTHDAY</label>
-                                <input type="date" class="form-control date" name= "birthday" ng-model="user.birthday" required max="{{today}}">
-                                <!--<input type="date" class="form-control date" name= "birthday" placeholder="10/10/1995"  ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy' }" required max="{{today}}">-->
+                                <input type="text" class="form-control date" name= "birthday" placeholder="10/10/1995"  ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy'}" ng-change="validateDate(user.birthday)" required>
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div> 
-                            <span ng-show="register.birthday.$error.max">Start Date should not be less than current date</span>
+                            <span ng-show="birthdayError">Start Date should not be less than current date</span>
                         </div>   
                     </div>
                     <div class="row">
@@ -99,7 +98,7 @@
                             <a href="" class="text-info small" translate>REGISTER.HELP</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid" ng-click="createAccount(user)" translate>REGISTER.SEND</button>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || birthdayError" ng-click="createAccount(user)" translate>REGISTER.SEND</button>
                 </form>
             </div>
         </div>
