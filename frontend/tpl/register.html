@@ -31,7 +31,7 @@
                             <div pg-form-group class="form-group form-group-default input-group col-sm-12">
                                 <label translate>REGISTER.FORM.BIRTHDAY</label>
                                 <input type="date" class="form-control date" name= "birthday" ng-model="user.birthday" required max="{{today}}">
-                                <!--<input type="text" class="form-control date" name= "birthday" placeholder="10/10/1995"  ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy' }" required min="{{today}}">-->
+                                <!--<input type="date" class="form-control date" name= "birthday" placeholder="10/10/1995"  ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy' }" required max="{{today}}">-->
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div> 
                             <span ng-show="register.birthday.$error.max">Start Date should not be less than current date</span>
