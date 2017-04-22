@@ -6,6 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.TaskStackBuilder;
 import com.google.gson.Gson;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.Strings;
 
@@ -25,7 +30,6 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
 
         Thread timerThread = new Thread() {
             public void run() {

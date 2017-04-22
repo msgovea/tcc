@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,9 +18,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Pattern;
+
 import br.edu.puccamp.app.async.AsyncRegister;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.Convert;
 import br.edu.puccamp.app.util.Hash;
 import br.edu.puccamp.app.util.Validation;
 
@@ -57,6 +65,37 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
 
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 
+//        mNameView.addTextChangedListener(new TextWatcher()
+//        {
+//            private final Pattern sPattern = Pattern.compile("^[a-zA-Zà-ú ]+$");
+//
+//            private CharSequence mText;
+//
+//            private boolean isValid(CharSequence s) {
+//                return sPattern.matcher(s).matches();
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count){
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count,
+//                                          int after){
+//                mText = isValid(s) ? s : "";
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s)
+//            {
+//                if (!isValid(s))
+//                {
+//                    mNameView.append(mText);
+//                }
+//                mText = null;
+//            }
+//        });
+
 
         mCityView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -89,6 +128,10 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
 
     }
 
+
+
+
+
     /**
      * Set up the {@link android.app.ActionBar}, if the Strings is available.
      */
@@ -113,9 +156,9 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         Validation validation = new Validation();
         validation.context = getApplicationContext();
 
-        mNameView  = validation.isFieldValid(mNameView);
-        mNickNameView = validation.isFieldValid(mNickNameView);
-        mEmailView = validation.isFieldValid(mEmailView);
+        mNameView  = validation.isFieldValid(mNameView, true);
+        mNickNameView = validation.isFieldValid(mNickNameView, false);
+        mEmailView = validation.isFieldValid(mEmailView, false);
 
         if (!Validation.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
@@ -138,10 +181,10 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             validation.error = true;
         }
 
-        mBirthdayView = validation.isFieldValid(mBirthdayView);
-        mCountryView  = validation.isFieldValid(mCountryView);
-        mStateView    = validation.isFieldValid(mStateView);
-        mCityView     = validation.isFieldValid(mCityView);
+        mBirthdayView = validation.isFieldValid(mBirthdayView,false);
+        mCountryView  = validation.isFieldValid(mCountryView,true);
+        mStateView    = validation.isFieldValid(mStateView,true);
+        mCityView     = validation.isFieldValid(mCityView,true);
 
         if (validation.error) {
             validation.focusView.requestFocus();
@@ -156,7 +199,8 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             usuario.setApelido(mNickNameView.getText().toString());
             usuario.setEmail(mEmailView.getText().toString());
             usuario.setSenha(Hash.MD5(mPasswordView.getText().toString()));
-            usuario.setDataNascimento("2001-01-01");
+            usuario.setDataNascimento(Convert.dateEnglish(mBirthdayView.getText().toString()));
+
 
             AsyncRegister sinc = new AsyncRegister(this);
             sinc.execute(usuario);
