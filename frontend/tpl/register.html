@@ -28,12 +28,12 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default input-group col-sm-12">
+                            <div pg-form-group class="form-group form-group-default input-group col-sm-12" ng-class="{ 'has-error': birthdayError}">
                                 <label translate>REGISTER.FORM.BIRTHDAY</label>
                                 <input type="text" class="form-control date" name= "birthday" placeholder="10/10/1995"  ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy'}" ng-change="validateDate(user.birthday)" required>
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div> 
-                            <span ng-show="birthdayError">Start Date should not be less than current date</span>
+                            <label class="error" ng-show="birthdayError" translate>REGISTER.FORM.ERROR11</label>
                         </div>   
                     </div>
                     <div class="row">
