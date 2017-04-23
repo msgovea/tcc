@@ -5,6 +5,8 @@
 angular.module('app').factory('apiRegister', function($http, md5) {
         return {
             getApi: function(usuario) {
+                var parts = (usuario.birthday.split('/'));
+                var dataNasc = parts[2] + '-' + parts[1] + '-' + parts[0];
                 return $http({
                     method: 'POST',
                     url: 'http://192.198.90.26:82/musicsocial/usuario/cadastro',
@@ -23,7 +25,7 @@ angular.module('app').factory('apiRegister', function($http, md5) {
                         },
                         nome: usuario.name,
                         apelido: usuario.username,
-                        dataNascimento: usuario.birthday,
+                        dataNascimento: dataNasc,
                         cidade: usuario.city,
                         estado: usuario.state,
                         pais: usuario.country
@@ -94,10 +96,7 @@ angular.module('app').factory('apiRegister', function($http, md5) {
 
         $scope.createAccount = function(user) { 
             console.log("Antes" + user.birthday);
-            var parts = (user.birthday.split('/'));
-            user.birthday = parts[2] + '-' + parts[1] + '-' + parts[0];
-            console.log("Depois" + user.birthday);
-
+            $scope.loading = true;
             apiRegister.getApi(user).then(function(result){
                 //console.log(result);
                 //console.log("oi");
@@ -122,7 +121,8 @@ angular.module('app').factory('apiRegister', function($http, md5) {
                 }
                 else {
                     console.log("fracasso");
-                    $scope.register.invalid = true;  
+                    $scope.register.$invalid = true; 
+                    $scope.loading = false; 
                     $('body').pgNotification({
                         style: 'simple',
                         title: $filter('translate')('REGISTER.FORM.ERROR10_TITLE'),
