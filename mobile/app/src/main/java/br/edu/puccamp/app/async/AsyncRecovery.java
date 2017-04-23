@@ -1,6 +1,7 @@
 package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
+import android.util.Base64;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -21,7 +22,7 @@ import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.Strings;
 
 
-public class AsyncRecovery extends AsyncTask<Usuario, String, String> {
+public class AsyncRecovery extends AsyncTask<String, String, String> {
 
     public interface Listener {
         void onLoaded(String string);
@@ -35,27 +36,20 @@ public class AsyncRecovery extends AsyncTask<Usuario, String, String> {
 
     }
     @Override
-    protected String doInBackground(Usuario... n) {
+    protected String doInBackground(String... n) {
 
-        Usuario usuario = n[0];
+        String email = n[0];
+        email = Base64.encodeToString(email.getBytes(), Base64.DEFAULT);
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(Strings.URL + Strings.RECOVERY);
+
+            URL url = new URL(Strings.URL + Strings.RECOVERY + "/" + email);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+            urlConnection.setRequestMethod("GET");
 
-            Gson gson = new Gson();
-            String json = gson.toJson(usuario);
-
-            OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
-            writer.write(json);
-            writer.flush();
-            writer.close();
-            outputStream.close();
+            urlConnection.connect();
 
             InputStream inputStream;
             // get stream
