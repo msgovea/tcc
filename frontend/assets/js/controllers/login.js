@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('app')
-    .factory('apiLogin', function($http){
+    .factory('apiLogin', function($http, md5){
         return {
             getApi: function(user){
                 
@@ -17,7 +17,7 @@ angular.module('app')
                     //headers: "Content-Type: application/json;charset=UTF-8",
                     data: {
                         email: user.username,
-                        senha: user.password
+                        senha: md5.createHash(user.password)
                     }
                 })
             }

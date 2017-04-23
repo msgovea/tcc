@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('app').factory('apiRegister', function($http) {
+angular.module('app').factory('apiRegister', function($http, md5) {
         return {
             getApi: function(usuario) {
                 return $http({
@@ -14,12 +14,12 @@ angular.module('app').factory('apiRegister', function($http) {
                     data: {
                         
                         email: usuario.email,
-                        senha: usuario.password,
+                        senha: md5.createHash(usuario.password),
                         nivelUsuario: {
                             codigoNivel: 1
                         },
-                        tipoConexao: {
-                            codigoTipoConexao: 1
+                        situacaoConta: {
+                            codigoSituacaoConta: 0
                         },
                         nome: usuario.name,
                         apelido: usuario.username,
@@ -42,7 +42,7 @@ angular.module('app').factory('apiRegister', function($http) {
         var today2 = dia + "/" + mes + "/" + ano
         $scope.today = today2;
         //console.log(today2);
-		
+
 		$scope.validateDate = function(date) {
             var parts = $scope.today.split('/');
             var date2;
