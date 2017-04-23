@@ -36,20 +36,54 @@ angular.module('app').factory('apiRegister', function($http) {
 
 		
         var today=new Date();
-        $scope.today = today.toISOString();
-        console.log(today);
+        var dia = today.getDate();
+        var mes = today.getMonth()+1;
+        var ano = today.getFullYear();
+        var today2 = dia + "/" + mes + "/" + ano
+        $scope.today = today2;
+        //console.log(today2);
 		
 		$scope.validateDate = function(date) {
-			if (date > '10/10/2010') {
-				$scope.birthdayError = true;
-				console.log('invalido');
-			}
-			else {
-				console.log('valido');
-				console.log(date);
-				console.log(today);
-				$scope.birthdayError = false;
-			}
+            var parts = $scope.today.split('/');
+            var date2;
+
+            if (date != undefined ){
+                date2 = date.split('/');
+
+                if (date2[1].indexOf("0") != -1){
+                    var a = date2[1].split("");
+                    date2[1] = a[1];
+                }    
+            
+                if (date2[2] < parts[2]) {
+                    //console.log('valido');
+                    $scope.birthdayError = false;
+                }
+                else if (date2[2] == parts[2]){
+                    if (date2[1] < parts[1]){
+                        //console.log('valido');
+                        $scope.birthdayError = false;
+                    }
+                    else if (date2[1] == parts [1]){
+                        if (date2[0] < parts[0]){
+                            //console.log('valido');
+                            $scope.birthdayError = false;
+                        }
+                        else{
+                            $scope.birthdayError = true;
+                            //console.log('invalido');
+                        }
+                    }
+                    else{
+                        $scope.birthdayError = true;
+                        //console.log('invalido');
+                    }
+                }
+                else {
+                    $scope.birthdayError = true;
+                    //console.log('invalido');
+                }
+            }
 		}
         
 
@@ -59,7 +93,11 @@ angular.module('app').factory('apiRegister', function($http) {
         }
 
         $scope.createAccount = function(user) { 
-            console.log($scope.register.name);
+            console.log("Antes" + user.birthday);
+            var parts = (user.birthday.split('/'));
+            user.birthday = parts[2] + '-' + parts[1] + '-' + parts[0];
+            console.log("Depois" + user.birthday);
+
             apiRegister.getApi(user).then(function(result){
                 //console.log(result);
                 //console.log("oi");

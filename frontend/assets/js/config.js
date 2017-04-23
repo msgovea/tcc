@@ -73,8 +73,9 @@ var translationsEN = {
             ERROR9:         "Only letters allowed.",
             NOTIF1_TITLE:   "Success",
             NOTIF1:         "Successful registration! An account confirmation will be sent to the informed email.",
-            ERROR10_TITLE:   "Incorrect registration",
-            ERROR10:         "Already exists register for the informed email."
+            ERROR10_TITLE:  "Incorrect registration",
+            ERROR10:        "Already exists register for the informed email.",
+            ERROR11:        "Start Date should not be less than current date"
         },
         HELP: "Help? Contact Support",
         SEND: "Create a new account"
