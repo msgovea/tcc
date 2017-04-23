@@ -8,7 +8,7 @@ public class Usuario {
         situacaoConta = new SituacaoConta();
 
         tipoConexao.setCodigoTipoConexao(1);
-        situacaoConta.setCodigoSituacaoConta(1);
+        situacaoConta.setCodigoSituacaoConta(0);
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 

@@ -8,15 +8,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +34,7 @@ import br.edu.puccamp.app.util.Convert;
 import br.edu.puccamp.app.util.Hash;
 import br.edu.puccamp.app.util.Validation;
 
-public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegister.Listener{
+public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegister.Listener {
 
 
     // UI references.
@@ -39,11 +43,12 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     private EditText mConfirmPasswordView;
     private EditText mNameView;
     private EditText mNickNameView;
-    private EditText mBirthdayView;
+    //private EditText mBirthdayView;
     private EditText mCountryView;
     private EditText mStateView;
     private EditText mCityView;
     private Button mEmailSignInButton;
+    private DatePicker mBirthdayDataPickerView;
 
 
     @Override
@@ -53,49 +58,17 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         setupActionBar();
 
         // Set up the register form.
-        mEmailView           = (EditText) findViewById(R.id.email);
-        mPasswordView        = (EditText) findViewById(R.id.password);
+        mEmailView = (EditText) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
         mConfirmPasswordView = (EditText) findViewById(R.id.confirm_password);
-        mNameView            = (EditText) findViewById(R.id.name);
-        mNickNameView        = (EditText) findViewById(R.id.nickName);
-        mBirthdayView        = (EditText) findViewById(R.id.birthday);
-        mCountryView         = (EditText) findViewById(R.id.country);
-        mStateView           = (EditText) findViewById(R.id.state);
-        mCityView            = (EditText) findViewById(R.id.city);
+        mNameView = (EditText) findViewById(R.id.name);
+        mNickNameView = (EditText) findViewById(R.id.nickName);
+        //mBirthdayView = (EditText) findViewById(R.id.birthday);
+        mCountryView = (EditText) findViewById(R.id.country);
+        mStateView = (EditText) findViewById(R.id.state);
+        mCityView = (EditText) findViewById(R.id.city);
 
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-
-//        mNameView.addTextChangedListener(new TextWatcher()
-//        {
-//            private final Pattern sPattern = Pattern.compile("^[a-zA-Zà-ú ]+$");
-//
-//            private CharSequence mText;
-//
-//            private boolean isValid(CharSequence s) {
-//                return sPattern.matcher(s).matches();
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count){
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count,
-//                                          int after){
-//                mText = isValid(s) ? s : "";
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s)
-//            {
-//                if (!isValid(s))
-//                {
-//                    mNameView.append(mText);
-//                }
-//                mText = null;
-//            }
-//        });
-
 
         mCityView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -115,6 +88,10 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             }
         });
 
+        mBirthdayDataPickerView = (DatePicker) findViewById(R.id.datePicker);
+        mBirthdayDataPickerView.setMaxDate(new Date().getTime());
+        //Toast.makeText(this, dp.getYear(), Toast.LENGTH_SHORT);
+
         ///////////////////////////
 
         // Get a reference to the AutoCompleteTextView in the layout
@@ -128,10 +105,6 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
 
     }
 
-
-
-
-
     /**
      * Set up the {@link android.app.ActionBar}, if the Strings is available.
      */
@@ -142,7 +115,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     }
 
     private void attemptLogin() {
-
+        Log.i(null, mBirthdayDataPickerView.getYear() + "-" + mBirthdayDataPickerView.getMonth() + "-" + mBirthdayDataPickerView.getDayOfMonth());
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -156,7 +129,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         Validation validation = new Validation();
         validation.context = getApplicationContext();
 
-        mNameView  = validation.isFieldValid(mNameView, true);
+        mNameView = validation.isFieldValid(mNameView, true);
         mNickNameView = validation.isFieldValid(mNickNameView, false);
         mEmailView = validation.isFieldValid(mEmailView, false);
 
@@ -175,16 +148,16 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
 
         mConfirmPasswordView = validation.isFieldValid(mConfirmPasswordView);
 
-        if (!password.equals(confirmPassword)){
+        if (!password.equals(confirmPassword)) {
             mConfirmPasswordView.setError(getString(R.string.error_confirm_password));
             validation.focusView = (validation.focusView == null) ? mConfirmPasswordView : validation.focusView;
             validation.error = true;
         }
 
-        mBirthdayView = validation.isFieldValid(mBirthdayView,false);
-        mCountryView  = validation.isFieldValid(mCountryView,true);
-        mStateView    = validation.isFieldValid(mStateView,true);
-        mCityView     = validation.isFieldValid(mCityView,true);
+        //mBirthdayView = validation.isFieldValid(mBirthdayView, false);
+        mCountryView = validation.isFieldValid(mCountryView, true);
+        mStateView = validation.isFieldValid(mStateView, true);
+        mCityView = validation.isFieldValid(mCityView, true);
 
         if (validation.error) {
             validation.focusView.requestFocus();
@@ -199,8 +172,10 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             usuario.setApelido(mNickNameView.getText().toString());
             usuario.setEmail(mEmailView.getText().toString());
             usuario.setSenha(Hash.MD5(mPasswordView.getText().toString()));
-            usuario.setDataNascimento(Convert.dateEnglish(mBirthdayView.getText().toString()));
-
+            //usuario.setDataNascimento(Convert.dateEnglish(mBirthdayView.getText().toString()));
+            usuario.setDataNascimento(mBirthdayDataPickerView.getYear() + "-" +
+                    mBirthdayDataPickerView.getMonth() + "-" +
+                    mBirthdayDataPickerView.getDayOfMonth());
 
             AsyncRegister sinc = new AsyncRegister(this);
             sinc.execute(usuario);
@@ -208,6 +183,24 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //startActivity(new Intent(this, WelcomeScreen.class));
+        //finishActivity(0);
+        finish();
+    }
 
     @Override
     public void onLoaded(String string) {

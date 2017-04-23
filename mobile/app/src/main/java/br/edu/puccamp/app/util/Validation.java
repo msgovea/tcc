@@ -54,7 +54,7 @@ public final class Validation {
             if (sPattern.matcher(c).matches() || !validaNumero) {
                 return text;
             } else {
-                text.setError("Não pode conter números");
+                text.setError(context.getString(R.string.error_field_letter));
             }
         } else {
             text.setError(context.getString(R.string.error_field_required));
@@ -64,13 +64,6 @@ public final class Validation {
             focusView = text;
         }
         return text;
-    }
-
-    public static Boolean isOnlyLetter(String texto) {
-        final Pattern sPattern = Pattern.compile("^[a-zA-Zà-ú ]+$");
-        CharSequence c = texto.subSequence(0, texto.length());
-
-        return sPattern.matcher(c).matches();
     }
 
 }
