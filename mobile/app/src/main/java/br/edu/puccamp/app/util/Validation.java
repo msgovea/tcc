@@ -22,9 +22,11 @@ public final class Validation {
     public Context context = null;
 
     public static boolean isEmailValid(String email) {
-        if (email.contains("@")) {
-            String[] validate = email.split("@");
-            return (validate.length > 1);
+        if (!email.contains(" ")) {
+            if (email.contains("@")) {
+                String[] validate = email.split("@");
+                return (validate.length > 1);
+            }
         }
         return false;
     }

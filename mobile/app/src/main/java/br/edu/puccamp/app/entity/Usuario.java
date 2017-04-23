@@ -3,11 +3,8 @@ package br.edu.puccamp.app.entity;
 public class Usuario {
 
     public Usuario() {
-        tipoConexao = new TipoConexao();
         nivelUsuario = new NivelUsuario();
         situacaoConta = new SituacaoConta();
-
-        tipoConexao.setCodigoTipoConexao(1);
         situacaoConta.setCodigoSituacaoConta(0);
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
@@ -21,8 +18,6 @@ public class Usuario {
     private NivelUsuario nivelUsuario;
 
     private SituacaoConta situacaoConta;
-
-    private TipoConexao tipoConexao;
 
     public Integer getCodigoUsuario() {
         return codigoUsuario;
@@ -63,15 +58,6 @@ public class Usuario {
     public void setSituacaoConta(SituacaoConta situacaoConta) {
         this.situacaoConta = situacaoConta;
     }
-
-    public TipoConexao getTipoConexao() {
-        return tipoConexao;
-    }
-
-    public void setTipoConexao(TipoConexao tipoConexao) {
-        this.tipoConexao = tipoConexao;
-    }
-
 
     private String nome;
 

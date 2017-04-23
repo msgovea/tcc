@@ -90,7 +90,6 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
 
         mBirthdayDataPickerView = (DatePicker) findViewById(R.id.datePicker);
         mBirthdayDataPickerView.setMaxDate(new Date().getTime());
-        //Toast.makeText(this, dp.getYear(), Toast.LENGTH_SHORT);
 
         ///////////////////////////
 
@@ -115,7 +114,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     }
 
     private void attemptLogin() {
-        Log.i(null, mBirthdayDataPickerView.getYear() + "-" + mBirthdayDataPickerView.getMonth() + "-" + mBirthdayDataPickerView.getDayOfMonth());
+        Log.i(null, mBirthdayDataPickerView.getYear() + "-" + (mBirthdayDataPickerView.getMonth()+1) + "-" + mBirthdayDataPickerView.getDayOfMonth());
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -174,7 +173,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             usuario.setSenha(Hash.MD5(mPasswordView.getText().toString()));
             //usuario.setDataNascimento(Convert.dateEnglish(mBirthdayView.getText().toString()));
             usuario.setDataNascimento(mBirthdayDataPickerView.getYear() + "-" +
-                    mBirthdayDataPickerView.getMonth() + "-" +
+                    (mBirthdayDataPickerView.getMonth()+1) + "-" +
                     mBirthdayDataPickerView.getDayOfMonth());
 
             AsyncRegister sinc = new AsyncRegister(this);
