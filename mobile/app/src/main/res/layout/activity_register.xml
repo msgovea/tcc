@@ -156,6 +156,15 @@
                     <!--android:hint="@string/prompt_birthday"-->
                     <!--android:inputType="date" />-->
 
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_birthday"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
+                    android:textColor="@color/common_google_signin_btn_text_dark_disabled" />
+
                 <DatePicker
                     android:id="@+id/datePicker"
                     android:layout_width="match_parent"
