@@ -27,6 +27,8 @@
     <string name="error_invalid_password">A senha deve ter entre 6 e 12 caracteres</string>
     <string name="error_field_required">Este campo é obrigatório</string>
     <string name="error_confirm_password">Senhas diferentes</string>
+    <string name="error_field_letter">Somente letras são permitidas</string>
+
 
     <string name="error_invalid_login">E-mail ou senha incorretos</string>
 
@@ -48,9 +50,18 @@
 
     <string name="success_register_account">Conta registrada</string>
     <string name="success_recovery_account">Conta recuperada</string>
+    <string name="success_recovery_account_text">Recuperação de conta enviada no e-mail cadastrado</string>
 
     <string name="register_confirm_account">Conta cadastrada! Confirme sua conta no e-mail recebido</string>
     <string name="recovery_account">Seu link de recuperação de senha foi enviado ao seu e-mail</string>
+
+    <string name="necessary_confirmation">Confirme sua conta</string>
+    <string name="necessary_confirmation_text">Para acessar sua conta, você precisa confirmar sua conta em seu e-mail</string>
+
+    <string name="account_banned">Sua conta está banida</string>
+    <string name="account_banned_text">Sua conta está banida, contate-nos para esclarecimentos</string>
+
+
 
     <string-array name="countries_array">
         <item>Afghanistan</item>

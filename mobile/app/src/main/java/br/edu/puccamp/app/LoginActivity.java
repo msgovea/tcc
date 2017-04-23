@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -30,12 +31,10 @@ import br.edu.puccamp.app.util.Validation;
 public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.Listener {
 
 
-
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
     Usuario usuario = new Usuario();
-
 
 
     /**
@@ -122,18 +121,78 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //startActivity(new Intent(this, WelcomeScreen.class));
+        //finishActivity(0);
+        finish();
+    }
+
+    @Override
     public void onLoaded(Object o) {
         dismissProgressDialog();
 
-        if (o.getClass() == Usuario.class) {
-            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-            Gson json = new Gson();
-            prefs.edit().putString(Strings.USUARIO, json.toJson(o)).apply();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            startActivity(new Intent(this, DefaultActivity.class));
+        if (o.getClass() == Usuario.class) {
+            switch (((Usuario) o).getSituacaoConta().getCodigoSituacaoConta()) {
+                case 0: //aguardando confirmacao
+                    builder.setTitle(getString(R.string.necessary_confirmation));
+                    builder.setMessage(getString(R.string.necessary_confirmation_text));
+                    builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setCancelable(false);
+                    builder.show();
+                    break;
+                case 1: //conta ativa
+                    SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+                    Gson json = new Gson();
+                    prefs.edit().putString(Strings.USUARIO, json.toJson(o)).apply();
+                    startActivity(new Intent(this, DefaultActivity.class));
+                    break;
+                case 2: //conta inativa
+                    builder.setTitle(getString(R.string.error_invalid_login));
+                    builder.setMessage(getString(R.string.error_invalid_account));
+                    builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setCancelable(false);
+                    builder.show();
+                    break;
+                case 3: //conta banida
+                    builder.setTitle(getString(R.string.account_banned));
+                    builder.setMessage(getString(R.string.account_banned_text));
+                    builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setCancelable(false);
+                    builder.show();
+                    break;
+            }
+
         } else {
             if (!o.equals("invalid")) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(getString(R.string.error_invalid_login));
                 builder.setMessage(getString(R.string.error_invalid_account));
                 builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {

@@ -1,6 +1,7 @@
 package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -53,6 +54,7 @@ public class AsyncRegister extends AsyncTask<Usuario, String, String> {
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
             writer.write(json);
+            Log.i(null, json);
             writer.flush();
             writer.close();
             outputStream.close();
