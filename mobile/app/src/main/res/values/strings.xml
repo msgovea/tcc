@@ -26,6 +26,9 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password must be between 6 and 12 characters</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_field_letter">Only letters are allowed</string>
+
+
     <string name="error_confirm_password">Different passwords</string>
 
     <string name="error_invalid_login">Email or password incorrect</string>
@@ -48,9 +51,18 @@
 
     <string name="success_register_account">Account Registered</string>
     <string name="success_recovery_account">Account Recovered</string>
+    <string name="success_recovery_account_text">Account recovery sent in registered email</string>
+
 
     <string name="register_confirm_account">Success Register! Confirm your account in your email</string>
     <string name="recovery_account">Your recovery link has been send to your email</string>
+
+    <string name="necessary_confirmation">Confirm your account</string>
+    <string name="necessary_confirmation_text">To access your account you need confirm your account in your email</string>
+
+    <string name="account_banned">Your account is banned</string>
+    <string name="account_banned_text">Your account is banned, contact us for clarification</string>
+
 
     <string-array name="countries_array">
         <item>Afghanistan</item>
