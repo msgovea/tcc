@@ -57,7 +57,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		email.append("Olá %s, <br>");
 		email.append("Seu cadastro foi realizado com sucesso! ");
 		email.append("Precisamos apenas que nos confirme seu email clicando no link abaixo. <br>");
-		email.append("<a href=\"http://%s/#/access/confirmacao/%s/%s\">Confirmar Cadastro</a> <br>");
+		email.append("<a href=\"http://%s/#/access/confirmarCadastro/%s/%s\">Confirmar Cadastro</a> <br>");
 		return email.toString();
 	}
 	

@@ -39,10 +39,6 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "USR_STC_SITUACAO_CONTA")
 	private SituacaoConta situacaoConta;
-	
-	@ManyToOne
-	@JoinColumn(name = "USR_TPC_TIPO_CONEXAO")
-	private TipoConexao tipoConexao;
 
 	public Integer getCodigoUsuario() {
 		return codigoUsuario;
@@ -82,14 +78,6 @@ public class Usuario {
 
 	public void setSituacaoConta(SituacaoConta situacaoConta) {
 		this.situacaoConta = situacaoConta;
-	}
-
-	public TipoConexao getTipoConexao() {
-		return tipoConexao;
-	}
-
-	public void setTipoConexao(TipoConexao tipoConexao) {
-		this.tipoConexao = tipoConexao;
 	}
 
 	public Boolean getCadastroConfimado() {
