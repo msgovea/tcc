@@ -690,10 +690,10 @@ angular.module('app')
                     template: '<div class="full-height" ui-view></div>'
                 })
                 .state('access.confirmarCadastro',{
-                    url: "/confirmarCadastro",
+                    url: "/confirmarCadastro/:idUsuario/:emailHash",
                     templateUrl: "tpl/confirmar_cadastro.html",
                     data: {
-                        requireLogin: true
+                        requireLogin: false
                     },
                 })
                 .state('access.404', {

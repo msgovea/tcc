@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('ConfirmaCadastroCtrl', ['$scope', '$state','$http', '$window', /*'apiGostoMusical',*/ function($scope, $state, $http, $window /*, apiGostoMusical*/) {
+    .controller('ConfirmaCadastroCtrl', ['$scope', '$state','$http', '$window','$stateParams', /*'apiGostoMusical',*/ function($scope, $state, $http, $window, $stateParams /*, apiGostoMusical*/) {
         //$scope.publicacoes = apiGostoMusical.getApi()
         $scope.gostos = []
         $http.get('assets/js/api/mock_gosto_musical.json').success(function(data) {
@@ -20,6 +20,14 @@ angular.module('app')
                 //mandar para API para gravar
                 }
             }
+        }
+
+        $scope.confirmar = function() {
+            $http.get('http://192.198.90.26:82/musicsocial/usuario/confirmar/' + $stateParams.idUsuario + '/' + $stateParams.emailHash).success(function(data) {
+                if(data.message === 'Sucesso!') {
+                    
+                }
+            });
         }
 
 
