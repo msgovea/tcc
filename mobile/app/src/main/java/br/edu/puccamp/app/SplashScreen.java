@@ -6,6 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.TaskStackBuilder;
 import com.google.gson.Gson;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.Strings;
 
@@ -26,7 +31,6 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-
         Thread timerThread = new Thread() {
             public void run() {
                 try {
@@ -35,7 +39,7 @@ public class SplashScreen extends Activity {
                     e.printStackTrace();
                 } finally {
                     SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                    if (prefs.getString("usuario", null) == null) {
+                    if (prefs.getString(Strings.USUARIO, null) == null) {
                         TaskStackBuilder.create(SplashScreen.this)
                                 .addNextIntentWithParentStack(new Intent(SplashScreen.this, MainActivity.class))
                                 .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))

@@ -11,5 +11,6 @@ angular.module('app', [
     'ui.utils',
     'oc.lazyLoad',
     'ngCookies',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'angular-md5'
 ]);

@@ -12,9 +12,9 @@
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.name.$invalid && !register.name.$pristine }">
                                 <label translate>REGISTER.FORM.NAME</label>
-                                <input type="text" name="name" placeholder="John Wherley" class="form-control" ng-model="user.name" required>
+                                <input type="text" name="name" placeholder="John Wherley" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.name" required>
                             </div>
-                            <label class="error" for="name" ng-show="register.name.$invalid && !register.name.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                            <label class="error" for="name" ng-show="register.name.$error.pattern && !register.name.$pristine" translate> REGISTER.FORM.ERROR9</label>
                         </div>
                     </div>
                     <div class="row">
@@ -27,37 +27,40 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div pg-form-group class="form-group form-group-default input-group col-sm-12">
-                            <label translate>REGISTER.FORM.BIRTHDAY</label>
-                            <input type="text" class="form-control" name= "birthday" placeholder="10/10/1995" ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy' }">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        </div>    
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default input-group col-sm-12" ng-class="{ 'has-error': birthdayError}">
+                                <label translate>REGISTER.FORM.BIRTHDAY</label>
+                                <input type="text" class="form-control date" name= "birthday" placeholder="10/10/1995"  ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy'}" ng-change="validateDate(user.birthday)" required>
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div> 
+                            <label class="error" ng-show="birthdayError" translate>REGISTER.FORM.ERROR11</label>
+                        </div>   
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.city.$invalid && !register.city.$pristine }">
                                 <label translate>REGISTER.FORM.CITY</label>
-                                <input type="text" name="city" placeholder="San Francisco" class="form-control" ng-model="user.city" required>
+                                <input type="text" name="city" placeholder="San Francisco" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.city" required>
                             </div>
-                            <label class="error" for="city" ng-show="register.city.$invalid && !register.city.$pristine" translate>REGISTER.FORM.ERROR2</label>
+                            <label class="error" for="city" ng-show="register.city.$error.pattern && !register.city.$pristine" translate> REGISTER.FORM.ERROR9</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.state.$invalid && !register.state.$pristine }">
                                 <label translate>REGISTER.FORM.STATE</label>
-                                <input type="text" name="state" placeholder="California" class="form-control" ng-model="user.state" required>
+                                <input type="text" name="state" placeholder="California" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.state" required>
                             </div>
-                            <label class="error" for="state" ng-show="register.state.$invalid && !register.state.$pristine" translate>REGISTER.FORM.ERROR3</label>
+                            <label class="error" for="state" ng-show="register.state.$error.pattern && !register.state.$pristine" translate> REGISTER.FORM.ERROR9</label>
                         </div>
                     </div>
                      <div class="row">
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.country.$invalid && !register.country.$pristine }">
                                 <label translate>REGISTER.FORM.COUNTRY</label>
-                                <input type="text" name="country" placeholder="United States" class="form-control" ng-model="user.country" required>
+                                <input type="text" name="country" placeholder="United States" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.country" required>
                             </div>
-                            <label class="error" for="country" ng-show="register.country.$invalid && !register.country.$pristine" translate>REGISTER.FORM.ERROR4</label>
+                            <label class="error" for="country" ng-show="register.country.$error.pattern && !register.country.$pristine" translate> REGISTER.FORM.ERROR9</label>
                         </div>
                     </div>
                     <div class="row">
@@ -73,10 +76,11 @@
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.pass.$invalid && !register.pass.$pristine }">
                                 <label translate>REGISTER.FORM.PASSWORD</label>
-                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="4" ng-model="user.password" required>
+                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" required>
                             </div>
                             <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
                             <label class="error" for="pass" ng-show="register.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                            <label class="error" for="pass" ng-show="register.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
                         </div>
                     </div>
                     <div class="row">
@@ -94,7 +98,12 @@
                             <a href="" class="text-info small" translate>REGISTER.HELP</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid" ng-click="createAccount(user)" translate>REGISTER.SEND</button>
+                    <div class="full-height">
+                        <div class="panel-body text-center">
+                            <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || birthdayError" ng-click="createAccount(user)" translate>REGISTER.SEND</button>
                 </form>
             </div>
         </div>

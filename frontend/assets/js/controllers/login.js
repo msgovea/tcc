@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('app')
-    .factory('apiLogin', function($http){
+    .factory('apiLogin', function($http, md5){
         return {
             getApi: function(user){
                 
@@ -17,7 +17,7 @@ angular.module('app')
                     //headers: "Content-Type: application/json;charset=UTF-8",
                     data: {
                         email: user.username,
-                        senha: user.password
+                        senha: md5.createHash(user.password)
                     }
                 })
             }
@@ -39,21 +39,25 @@ angular.module('app')
             //alert("Login Success :)");
             apiLogin.getApi(user3).then(function(result){
                 //console.log(result);
+                $scope.loading = true;
                 if (result.data.message == "Sucesso!") {
                     //redireciona
                     //console.log("sucesso");
                     //console.log($cookieStore.usuario);
                     $cookieStore.put('usuario', result.data.object);
                     //console.log($cookieStore.usuario);
-
                     $state.go('app.dashboard');
+                  //  $scope.loading = false;
                 }
-                else {
+                else {   
+                    $scope.login2.$invalid = true;
+                    $scope.loading = false;
                     $('body').pgNotification({
                         style: 'simple',
                         title: $filter('translate')('LOGIN.FORM.ERROR2_TITLE'),
                         message: $filter('translate')('LOGIN.FORM.ERROR2'),
                         position: 'top-right',
+                        showClose: false,
                         timeout: 6000,
                         type: 'danger',
                         thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'

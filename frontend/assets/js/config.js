@@ -8,10 +8,8 @@ var translationsEN = {
         HEADLINE: "Sign into your pages account",
         FORM:{
             USERNAME:       "Login",
-            PH_USERNAME:    "Username",
             ERROR1:         "This field is required.",
             PASSWORD:       "Password",
-            PH_PASSWORD:    "Password",
             ERROR2_TITLE:   "Incorrect login",
             ERROR2:         "Username or password is invalid" 
         },
@@ -67,10 +65,17 @@ var translationsEN = {
             EMAIL:          "Email",
             ERROR5:         "Enter a valid email.",
             PASSWORD:       "Password",
-            PH_PASSWORD:    "Minimum of 4 characters",
-            ERROR6:         "Password should have at least 4 characters",
+            PH_PASSWORD:    "Minimum of 6 characters",
+            ERROR6:         "Password should have at least 6 characters",
             CONF_PASSWORD:  "Confirm Password" ,
-            ERROR7:         "Password must be equals"
+            ERROR7:         "Password must be equals",
+            ERROR8:         "Password should have at maximum 12 characters",
+            ERROR9:         "Only letters allowed.",
+            NOTIF1_TITLE:   "Success",
+            NOTIF1:         "Successful registration! An account confirmation will be sent to the informed email.",
+            ERROR10_TITLE:  "Incorrect registration",
+            ERROR10:        "Already exists register for the informed email.",
+            ERROR11:        "Start Date should not be less than current date"
         },
         HELP: "Help? Contact Support",
         SEND: "Create a new account"
@@ -685,10 +690,10 @@ angular.module('app')
                     template: '<div class="full-height" ui-view></div>'
                 })
                 .state('access.confirmarCadastro',{
-                    url: "/confirmarCadastro",
+                    url: "/confirmarCadastro/:idUsuario/:emailHash",
                     templateUrl: "tpl/confirmar_cadastro.html",
                     data: {
-                        requireLogin: true
+                        requireLogin: false
                     },
                 })
                 .state('access.404', {

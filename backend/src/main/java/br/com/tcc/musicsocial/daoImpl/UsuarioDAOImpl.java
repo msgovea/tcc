@@ -17,11 +17,9 @@ public class UsuarioDAOImpl extends BaseDAOImpl<UsuarioDetalhe> implements Usuar
 			StringBuilder sql = new StringBuilder();
 			sql.append("select u from UsuarioDetalhe u ");	
 			sql.append("where u.email = :email ");
-			//sql.append("and u.situacaoConta.codigoSituacaoConta = :situacao ");
 			
 			Query query = getEntityManager().createQuery(sql.toString());
 			query.setParameter("email", email);
-			//query.setParameter("situacao", SituacaoConta.ATIVA.getValue());
 			
 			return (UsuarioDetalhe) query.getSingleResult();
 		} catch (NoResultException e) {

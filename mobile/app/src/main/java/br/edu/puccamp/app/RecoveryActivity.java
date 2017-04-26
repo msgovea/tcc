@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +54,7 @@ public class RecoveryActivity extends AbstractAsyncActivity implements AsyncReco
         Validation validation = new Validation();
         validation.context = getApplicationContext();
 
-        mEmailView = validation.isFieldValid(mEmailView);
+        mEmailView = validation.isFieldValid(mEmailView, false);
 
         if (!Validation.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
@@ -66,13 +67,29 @@ public class RecoveryActivity extends AbstractAsyncActivity implements AsyncReco
         } else {
             showLoadingProgressDialog();
 
-            Usuario usuario = new Usuario();
-            usuario.setEmail(mEmailView.getText().toString());
-
             AsyncRecovery sinc = new AsyncRecovery(this);
-            sinc.execute(usuario);
+            sinc.execute(mEmailView.getText().toString());
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //startActivity(new Intent(this, WelcomeScreen.class));
+        //finishActivity(0);
+        finish();
     }
 
     @Override
@@ -81,7 +98,7 @@ public class RecoveryActivity extends AbstractAsyncActivity implements AsyncReco
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (string == "true") {
             builder.setTitle(getString(R.string.success_recovery_account));
-            builder.setMessage("Recuperação de conta enviada no e-mail cadastrado!");
+            builder.setMessage(getString(R.string.success_recovery_account_text));
             builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

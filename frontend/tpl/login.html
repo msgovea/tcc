@@ -26,7 +26,7 @@
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.username.$invalid && !login2.username.$pristine }">
                     <label translate>LOGIN.FORM.USERNAME</label>
                     <div class="controls">
-                        <input type="text" name="username" placeholder="{{ 'LOGIN.FORM.PH_USERNAME' | translate }}" class="form-control" ng-model="user3.username" required>
+                        <input type="text" name="username" placeholder="john.wherley@email.com" class="form-control" ng-model="user3.username" required>
                     </div>
                 </div>
                 <label translate class="error" for="username" ng-show="login2.username.$invalid && !login2.username.$pristine" >LOGIN.FORM.ERROR1</label>
@@ -35,7 +35,7 @@
                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.password.$invalid && !login2.password.$pristine }">
                     <label translate>LOGIN.FORM.PASSWORD</label>
                     <div class="controls">
-                        <input type="password" class="form-control" name="password" placeholder="{{ 'LOGIN.FORM.PH_PASSWORD' | translate }}" ng-model="user3.password" required>
+                        <input type="password" class="form-control" name="password" placeholder="************" ng-model="user3.password" required>
                     </div>
                 </div>
                 <label translate class="error" for="password" ng-show="login2.password.$invalid && !login2.password.$pristine">LOGIN.FORM.ERROR1</label>
@@ -53,26 +53,17 @@
                     </div>
                 </div>
                 <!-- END Form Control-->
-                <button translate class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login.$invalid" ng-click="validateLogin(user3)">LOGIN.LOG_IN</button>
-                
-                
-
+                <div class="full-height">
+                    <div class="panel-body text-center">
+                        <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
+                    </div>
+                </div>
+                <button translate class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login2.$invalid" ng-click="validateLogin(user3)">LOGIN.LOG_IN</button>
             </form>
             <hr>
             <label translate>LOGIN.REGISTER</label>
             <button translate class="btn btn-success btn-block" ui-sref="access.register">LOGIN.SIGN_UP</button>
 
-            <!--END Login Form-->
-            <div class="pull-bottom sm-pull-bottom">
-                <div class="m-b-30 p-r-80 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix">
-                    <div class="col-sm-3 col-md-2 no-padding">
-                        <img alt="" class="m-t-5" data-src="assets/img/demo/pages_icon.png" ui-jq="unveil" data-src-retina="assets/img/demo/pages_icon_2x.png" height="60" src="assets/img/demo/pages_icon.png" width="60">
-                    </div>
-                    <div class="col-sm-9 no-padding m-t-10" >
-                        <p translate ><small>  LOGIN.FOOTER1 </small>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- END Login Right Container-->
