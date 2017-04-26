@@ -70,7 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		email.append("Olá %s, <br>");
 		email.append("Sua solicitação de recuperacao de senha foi realizada com sucesso! ");
 		email.append("Altere sua senha clicando no link abaixo. <br>");
-		email.append("<a href=\"http://%s/#/access/redefinir/%s/%s\">Redefinir senha</a> <br>");
+		email.append("<a href=\"http://%s/#/access/redefinirSenha/%s/%s\">Redefinir senha</a> <br>");
 		return email.toString();
 	}
 	
