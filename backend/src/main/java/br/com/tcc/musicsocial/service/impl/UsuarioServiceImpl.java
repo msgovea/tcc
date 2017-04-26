@@ -1,5 +1,8 @@
 package br.com.tcc.musicsocial.service.impl;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
@@ -35,7 +38,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 			throw new RuntimeException("Usuario já cadastrado!");
 		}
 		
-		usuario.setSituacaoConta(SituacaoConta.ATIVA.getEntity());
+		usuario.setSituacaoConta(SituacaoConta.AGUARDANDO_CONFIRMACAO.getEntity());
+		usuario.setDataInsrt(new Date(Calendar.getInstance().getTimeInMillis()));
 		usuarioDAO.save(usuario);
 		enviarEmailConfirmacao(usuario);
 		return usuario;
@@ -88,7 +92,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario = usuarioDAO.find(id);
 		
 		if(usuario != null && emailEncoded.equals(GeradorHash.gerarHash(usuario.getEmail()))) {
-			usuario.setCadastroConfimado(true);
+			usuario.setSituacaoConta(SituacaoConta.ATIVA.getEntity());
 			return true;
 		}
 

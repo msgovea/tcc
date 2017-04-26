@@ -1,5 +1,7 @@
 package br.com.tcc.musicsocial.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +31,8 @@ public class Usuario {
 	@Column(name = "USR_SENHA")
 	private String senha;
 	
-	@Column(name = "USR_CAD_CONFIRM")
-	private Boolean cadastroConfimado;
+	@Column(name = "USR_DT_INSRT")
+	private Date dataInsrt;
 	
 	@ManyToOne
 	@JoinColumn(name = "USR_NVU_NIVEL_USUARIO")
@@ -68,6 +70,14 @@ public class Usuario {
 		return nivelUsuario;
 	}
 
+	public Date getDataInsrt() {
+		return dataInsrt;
+	}
+
+	public void setDataInsrt(Date dataInsrt) {
+		this.dataInsrt = dataInsrt;
+	}
+
 	public void setNivelUsuario(NivelUsuario nivelUsuario) {
 		this.nivelUsuario = nivelUsuario;
 	}
@@ -78,14 +88,6 @@ public class Usuario {
 
 	public void setSituacaoConta(SituacaoConta situacaoConta) {
 		this.situacaoConta = situacaoConta;
-	}
-
-	public Boolean getCadastroConfimado() {
-		return cadastroConfimado;
-	}
-
-	public void setCadastroConfimado(Boolean cadastroConfimado) {
-		this.cadastroConfimado = cadastroConfimado;
 	}
 
 }
