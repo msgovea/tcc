@@ -11,7 +11,11 @@ var translationsEN = {
             ERROR1:         "This field is required.",
             PASSWORD:       "Password",
             ERROR2_TITLE:   "Incorrect login",
-            ERROR2:         "Username or password is invalid" 
+            ERROR2:         "Username or password is invalid",
+            ERROR3_TITLE:   "Confirm your account",
+            ERROR3:         "To access your account you need confirm your account in your email",
+            ERROR4_TITLE:   "Your account is banned",
+            ERROR4:         "Your account is banned, contact us for clarification"
         },
         RECOVER:    "Recover Account",
         SIGNED:     "Keep Me Signed in",
