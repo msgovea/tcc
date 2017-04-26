@@ -30,10 +30,6 @@ public class Publicacao {
 	@Lob
 	private byte[] imagem;
 	
-	@Column(name = "PBC_VIDEO")
-	@Lob
-	private byte[] video;
-	
 	@Column(name = "PBC_DATA_PUBLICACAO")
 	private Date dataPublicacao;
 	
@@ -66,14 +62,6 @@ public class Publicacao {
 
 	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
-	}
-
-	public byte[] getVideo() {
-		return video;
-	}
-
-	public void setVideo(byte[] video) {
-		this.video = video;
 	}
 
 	public Date getDataPublicacao() {

@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tcc.musicsocial.dto.LoginRequest;
 import br.com.tcc.musicsocial.dto.Response;
-import br.com.tcc.musicsocial.entity.NivelUsuario;
-import br.com.tcc.musicsocial.entity.SituacaoConta;
-import br.com.tcc.musicsocial.entity.TipoConexao;
 import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 import br.com.tcc.musicsocial.service.UsuarioService;
@@ -64,7 +61,8 @@ public class UserController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
+	@CrossOrigin
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(
 			value = "/usuario/confirmar/{id}/{email}",
@@ -83,16 +81,8 @@ public class UserController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
-	@RequestMapping("/usuario/teste")
-	public @ResponseBody UsuarioDetalhe teste() {
-		UsuarioDetalhe u = new UsuarioDetalhe();
-		u.setTipoConexao(new TipoConexao());
-		u.setNivelUsuario(new NivelUsuario());
-		u.setSituacaoConta(new SituacaoConta());
-		return u;
-	}
-	
+
+	@CrossOrigin
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/usuario/recuperar/{email}")
 	public Response<?> recuperarSenha(@PathVariable("email") String email) {
@@ -108,7 +98,7 @@ public class UserController {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@SuppressWarnings("rawtypes")
 	@RequestMapping("/usuario/redefinir/{idBase}/{emailHash}/{senhaHash}")
 	public Response<?> redefinirSenha( @PathVariable("idBase")String idBase,  
