@@ -5,6 +5,8 @@
     <string name="title_activity_login">Login</string>
     <string name="title_recovery_activity">Recovery your account</string>
 
+    <string name="loading">"Loading. Please wait..."</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
