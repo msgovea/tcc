@@ -43,14 +43,18 @@ var translationsEN = {
         HEADLINE: "Set your new password",
         FORM:{
             PASSWORD: "Password",
-            PH_PASSWORD: "Minimum of 4 Characters",
+            PH_PASSWORD: "Minimum of 6 Characters",
             ERROR1: "This field is required.",
-            ERROR2: "Password should have at least 4 characters",
+            ERROR2: "Password should have at least 6 characters",
             CONF_PASSWORD: "Confirm Password",
-            ERROR3: "Password must be equals"            
+            ERROR3: "Password must be equals",
+            SUCCESS1_TITLE: "Password registered",
+            SUCCESS1:       "New password registered.",   
+            ERROR4:         "Password should have at maximum 12 characters"         
         },
         HELP: "Help? Contact Support",
-        SEND: "Send"
+        SEND: "Send",
+        CANCEL: "Cancel"
     },
     REGISTER:{
         HEADLINE:   "Music Social makes it easy to enjoy what matters the most in your life!",
