@@ -28,17 +28,17 @@
                 <div class="modal-body" >
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="checkbox check-primary" ng-repeat="gosto in gostos" >
+                            <div class="col-md-12">
+                                <div class="checkbox check-primary col-md-4" ng-repeat="gosto in gostos" >
                                     <input type="checkbox"  id="checkbox{{gosto.codigo}}" ng-model = "gosto.selecionado"/>
                                         <label for="checkbox{{gosto.codigo}}">{{gosto.descricao}}</label>
                                 </div>
                                  <button type="button" class="btn btn-primary btn-block m-t-5" ng-click="cadastrarGostos()">Cadastrar</button>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
