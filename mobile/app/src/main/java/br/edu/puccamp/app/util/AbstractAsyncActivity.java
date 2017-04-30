@@ -1,8 +1,9 @@
 package br.edu.puccamp.app.util;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
+
+import br.edu.puccamp.app.R;
 
 /**
  * Created by Mateus on 3/8/2017.
@@ -28,7 +29,7 @@ public abstract class AbstractAsyncActivity extends AppCompatActivity {
     // Public methods
     // ***************************************
     public void showLoadingProgressDialog() {
-        this.showProgressDialog("Loading. Please wait...");
+        this.showProgressDialog(getString(R.string.loading));
     }
 
     public void showProgressDialog(CharSequence message) {
