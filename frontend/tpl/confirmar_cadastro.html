@@ -2,13 +2,15 @@
     <div class="container-sm-height full-height">
         <div class="row row-sm-height">
             <div class="col-sm-12 col-sm-height col-middle">
-                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png"
+                    width="78" height="22">
                 <h3 translate>Confirme seu cadastro</h3>
                 <p translate>
                     <small>Confirme aqui seu cadastro</small>
                 </p>
                 <form id="form-register" class="p-t-15" role="form" name="register">
-                    <button class="btn btn-primary btn-cons m-t-10" data-toggle="modal" data-target="#modalSlideUp" id="btnToggleSlideUpSize" ng-click="confirmar()">Confirme</button>
+                    <button class="btn btn-primary btn-cons m-t-10" data-toggle="modal" data-target="#modalSlideUp" id="btnToggleSlideUpSize"
+                        ng-click="confirmar()">Confirme</button>
                 </form>
             </div>
         </div>
@@ -25,16 +27,18 @@
                     <h5>Cadastre seu <span class="semi-bold">Gosto Musical</span></h5>
                     <p class="p-b-10">A partir do seu gosto musical, você poderá encontrar eventos e amigos que curtam o mesmo que você! </p>
                 </div>
-                <div class="modal-body" >
+                <div class="modal-body">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="checkbox check-primary col-md-4" ng-repeat="gosto in gostos" >
-                                    <input type="checkbox"  id="checkbox{{gosto.codigo}}" ng-model = "gosto.selecionado"/>
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <div class="checkbox check-primary col-md-4" ng-repeat="gosto in gostos">
+                                        <input type="checkbox" id="checkbox{{gosto.codigo}}" ng-model="gosto.selecionado" />
                                         <label for="checkbox{{gosto.codigo}}">{{gosto.descricao}}</label>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-block m-t-5" ng-click="cadastrarGostos()">Cadastrar</button>
                                 </div>
-                                 <button type="button" class="btn btn-primary btn-block m-t-5" ng-click="cadastrarGostos()">Cadastrar</button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
