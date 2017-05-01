@@ -4,12 +4,17 @@
             <div class="col-sm-12 col-sm-height col-middle">
                 <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png"
                     width="78" height="22">
-                <h3 translate>Confirme seu cadastro</h3>
+                <h3 translate>CONFIRM_REG.HEADLINE1</h3>
                 <p translate>
-                    <small>Confirme aqui seu cadastro</small>
+                    <small translate>CONFIRM_REG.HEADLINE2</small>
                 </p>
-                <form id="form-register" class="p-t-15" role="form" name="register">
-                    <button class="btn btn-primary btn-cons m-t-10" ng-click="confirmar()">Confirme</button>
+                <div class="full-height">
+                    <div class="panel-body text-center">
+                        <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
+                    </div>
+                </div>
+                <form id="form-confirm" class="p-t-15" role="form" name="confirm">
+                    <button class="btn btn-primary btn-cons m-t-10" ng-disabled="recuperar.$invalid || loading" ng-click="confirmar()" translate>CONFIRM_REG.CONFIRM</button>
                 </form>
             </div>
         </div>

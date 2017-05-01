@@ -104,6 +104,15 @@ var translationsEN = {
         POLICY: "Privacy Policy",
         CRAFTED:"Hand-crafted",
         MADE:   "&amp; Made with Love ®"
+    },
+    CONFIRM_REG:{
+        SUCCESS1_TITLE: "Success",
+        SUCCESS1:       "Registration confirmed successfully!",
+        HEADLINE1:      "Confirm your registration",
+        HEADLINE2:      "Confirm your registration here",
+        CONFIRM:        "Confirm",
+        ERROR1_TITLE:   "",
+        ERROR1:   ""
     }
 };
 

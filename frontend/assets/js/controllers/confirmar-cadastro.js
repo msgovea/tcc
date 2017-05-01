@@ -24,11 +24,12 @@ angular.module('app')
 
         $scope.confirmar = function() {
             $http.get('http://192.198.90.26:82/musicsocial/usuario/confirmar/' + $stateParams.idUsuario + '/' + $stateParams.emailHash).success(function(data) {
+                $scope.loading = true;
                 if(data.message === 'Sucesso!') {
                     $('body').pgNotification({
                         style: 'simple',
-                        title: $filter('translate')('LOGIN.FORM.ERROR3_TITLE'),
-                        message: $filter('translate')('LOGIN.FORM.ERROR3'),
+                        title: $filter('translate')('CONFIRM_REG.SUCCESS1_TITLE'),
+                        message: $filter('translate')('CONFIRM_REG.SUCCESS1'),
                         position: 'top-right',
                         showClose: false,
                         timeout: 6000,
@@ -36,6 +37,19 @@ angular.module('app')
                         thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
                     }).show();
                      $state.go('access.login');
+                }
+                else{
+                    $scope.confirm.$invalid = true;
+                    $scope.loading = false;
+                     $('body').pgNotification({
+                        style: 'bar',
+                        title: $filter('translate')('CONFIRM_REG.ERROR1_TITLE'),
+                        message: $filter('translate')('CONFIRM_REG.ERROR1'),
+                        position: 'top-right',
+                        timeout: 6000,
+                        type: 'danger',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show();
                 }
             });
         }
