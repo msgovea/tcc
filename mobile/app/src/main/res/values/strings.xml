@@ -76,5 +76,6 @@
         <item>Anguilla</item>
         <item>Antarctica</item>
     </string-array>
+    <string name="title_activity_teste_login">TesteLoginActivity</string>
 
 </resources>
