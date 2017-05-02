@@ -26,7 +26,7 @@ angular.module('app')
 
 
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', function($scope, apiLogin, $state, $timeout, $cookieStore, $filter) {
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', '$window',  function($scope, apiLogin, $state, $timeout, $cookieStore, $filter, $window) {
 
         $scope.bg = 'assets/img/headphone' + Math.floor((Math.random()*4)+1) + '.jpg';
 
@@ -37,6 +37,7 @@ angular.module('app')
 
         $scope.validateLogin = function(user3) { 
             //alert("Login Success :)");
+
             apiLogin.getApi(user3).then(function(result){
                 //console.log(result);
                 $scope.loading = true;
