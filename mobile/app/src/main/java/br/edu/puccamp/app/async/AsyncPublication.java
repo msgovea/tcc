@@ -2,6 +2,7 @@ package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -25,6 +26,7 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
 
     public interface Listener {
         void onLoaded(ArrayList<Publicacao> lista);
+        void onLoaded(String s);
     }
 
     private Listener mListener;
@@ -37,8 +39,8 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... n) {
 
-        String email = n[0];
-        email = Base64.encodeToString(email.getBytes(), Base64.DEFAULT);
+        //String email = n[0];
+        //email = Base64.encodeToString(email.getBytes(), Base64.DEFAULT);
         HttpURLConnection urlConnection;
 
         try {
@@ -76,6 +78,7 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         try {
             Gson publicacoesGson = new Gson();
+            Log.e("teste", result);
             ResponsePublicacoes response = publicacoesGson.fromJson(result, ResponsePublicacoes.class);
 
             ArrayList<Publicacao> listaPublicacoes = response.getPublicacoes();
@@ -88,14 +91,14 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
 
             } else {
                 if (mListener != null) {
-                    mListener.onLoaded(null);
+                    mListener.onLoaded("erro");
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             if (mListener != null) {
-                mListener.onLoaded(null);
+                mListener.onLoaded(e.getMessage());
             }
         }
 

@@ -11,7 +11,7 @@ public class Publicacao {
 
     private byte[] imagem;
 
-    private Date dataPublicacao;
+    private String dataPublicacao;
 
     private Boolean ativa;
 
@@ -41,11 +41,11 @@ public class Publicacao {
         this.imagem = imagem;
     }
 
-    public Date getDataPublicacao() {
+    public String getDataPublicacao() {
         return dataPublicacao;
     }
 
-    public void setDataPublicacao(Date dataPublicacao) {
+    public void setDataPublicacao(String dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
 
