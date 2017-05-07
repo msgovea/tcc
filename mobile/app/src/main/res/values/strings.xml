@@ -73,5 +73,6 @@
         <item>Antarctica</item>
     </string-array>
     <string name="title_activity_teste_login">TesteLoginActivity</string>
+    <string name="title_activity_gosto_musical">GostoMusicalActivity</string>
 
 </resources>

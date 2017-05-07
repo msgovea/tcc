@@ -33,6 +33,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     private RecyclerView mRecyclerView;
     private QuestionsAdapter mAdapter;
     private AppCompatImageView mIcon;
+    private AppCompatImageView mIconSearch;
 
 
 
@@ -74,6 +75,14 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                 SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 startActivity(new Intent(DefaultActivity.this, MainActivity.class));
+            }
+        });
+
+        mIconSearch = (AppCompatImageView) findViewById(R.id.iconSearch);
+        mIconSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DefaultActivity.this, GostoMusicalActivity.class));
             }
         });
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
