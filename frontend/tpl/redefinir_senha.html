@@ -31,7 +31,7 @@
                             <a href="" class="text-info small" translate>RESET.HELP</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="redefinir.$invalid" ng-click="redefinirSenha(user)" translate>RESET.SEND</button>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="redefinir.$invalid || redefinir.passequal" ng-click="redefinirSenha(user)" translate>RESET.SEND</button>
                     <button class="btn btn-success btn-cons m-t-10" type="submit" ui-sref="access.login" translate>RESET.CANCEL</button>    
                 </form>
             </div>
