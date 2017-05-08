@@ -103,7 +103,7 @@
                             <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || birthdayError " ng-click="createAccount(user)" translate>REGISTER.SEND</button>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || birthdayError || register.passequal" ng-click="createAccount(user)" translate>REGISTER.SEND</button>
                 </form>
             </div>
         </div>
