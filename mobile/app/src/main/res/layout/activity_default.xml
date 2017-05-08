@@ -40,6 +40,7 @@
                     android:textSize="20sp" />
 
                 <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iconSearch"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
