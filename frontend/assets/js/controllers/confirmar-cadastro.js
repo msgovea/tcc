@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('ConfirmaCadastroCtrl', ['$scope', '$state','$http', '$window','$stateParams', /*'apiGostoMusical',*/ function($scope, $state, $http, $window, $stateParams /*, apiGostoMusical*/) {
+    .controller('ConfirmaCadastroCtrl', ['$scope', '$state','$http', '$window','$stateParams','$filter', /*'apiGostoMusical',*/ function($scope, $state, $http, $window, $stateParams, $filter /*, apiGostoMusical*/) {
         //$scope.publicacoes = apiGostoMusical.getApi()
         $scope.gostos = []
         $http.get('assets/js/api/mock_gosto_musical.json').success(function(data) {
@@ -24,29 +24,33 @@ angular.module('app')
 
         $scope.confirmar = function() {
             $http.get('http://192.198.90.26:82/musicsocial/usuario/confirmar/' + $stateParams.idUsuario + '/' + $stateParams.emailHash).success(function(data) {
+                $scope.loading = true;
                 if(data.message === 'Sucesso!') {
-                    
+                    $('body').pgNotification({
+                        style: 'simple',
+                        title: $filter('translate')('CONFIRM_REG.SUCCESS1_TITLE'),
+                        message: $filter('translate')('CONFIRM_REG.SUCCESS1'),
+                        position: 'top-right',
+                        showClose: false,
+                        timeout: 6000,
+                        type: 'success',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show();
+                     $state.go('access.login');
+                }
+                else{
+                    $scope.confirm.$invalid = true;
+                    $scope.loading = false;
+                     $('body').pgNotification({
+                        style: 'bar',
+                        title: $filter('translate')('CONFIRM_REG.ERROR1_TITLE'),
+                        message: $filter('translate')('CONFIRM_REG.ERROR1'),
+                        position: 'top-right',
+                        timeout: 6000,
+                        type: 'danger',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show();
                 }
             });
         }
-
-
-       /* $scope.modal = {};
-        $scope.modal.slideUp = "default";
-        $scope.modal.stickUp = "default";
-
-        $scope.toggleSlideUpSize = function() {
-            var size = $scope.modal.slideUp;
-            var modalElem = $('#modalSlideUp');
-            if (size == "mini") {
-                $('#modalSlideUpSmall').modal('show')
-            } else {
-                $('#modalSlideUp').modal('show')
-                if (size == "default") {
-                    modalElem.children('.modal-dialog').removeClass('modal-lg');
-                } else if (size == "full") {
-                    modalElem.children('.modal-dialog').addClass('modal-lg');
-                }
-            }
-        };*/
     }]);

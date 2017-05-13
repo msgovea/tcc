@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">Music Social</string>
+    <string name="app_name">urMusic</string>
 
     <string name="title_activity_register">Cadastro</string>
     <string name="title_activity_login">Login</string>
     <string name="title_recovery_activity">Recuperação de conta</string>
+
+    <string name="loading">"Carregando. Aguarde..."</string>
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -35,7 +38,7 @@
     <string name="action_sign_in_short">Logar</string>
 
 
-    <string name="welcome_text">Bem vindo ao Music Social</string>
+    <string name="welcome_text">Bem vindo ao urMusic</string>
     <string name="title_activity_default">Tela principal</string>
     <string name="title_home">Ínicio</string>
     <string name="title_dashboard">Dashboard</string>

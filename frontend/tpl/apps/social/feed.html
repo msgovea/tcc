@@ -202,17 +202,17 @@
                         </div>
                         <div class="card-header clearfix">
                             <div class="user-pic">
-                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="{{publicacao.profileImg}}" data-src="{{publicacao.profileImg}}" ng-src="{{publicacao.profileImg}}">
+                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5x.jpg" ng-src="assets/img/profiles/5x.jpg">
                             </div>
-                            <h5>{{publicacao.autor}}</h5>
-                            <h6>{{publicacao.date | date}}
-                                <span class="location semi-bold" ng-show="publicacao.location.length"><i class="fa fa-map-marker"></i> {{publicacao.location}}</span>
+                            <h5>{{publicacao.usuario.codigoUsuario}}</h5>
+                            <h6>{{publicacao.dataPublicacao | date}}
+                                <span class="location semi-bold" ng-show="publicacao.usuario.cidade.length"><i class="fa fa-map-marker"></i> {{publicacao.usuario.cidade + ' - ' + publicacao.usuario.estado}}</span>
                             </h6>
                         </div>
                         <div class="card-description">
-                            <p>{{publicacao.texto}}</p>
+                            <p>{{publicacao.conteudo}}</p>
                         </div>
-                        <div class="card-content" ng-show="publicacao.img.length" >
+                        <div class="card-content" ng-show="publicacao.imagem.length" >
                             <ul class="buttons ">
                                 <li>
                                     <a href=""><i class="fa fa-expand"></i>
@@ -223,14 +223,14 @@
                                     </a>
                                 </li>
                             </ul>
-                            <img alt="Social post" ng-src="{{publicacao.img}}">
+                            <img alt="Social post" ng-src="{{publicacao.imagem}}">
                         </div>
                         <div class="card-footer clearfix">
                             <div class="time">few seconds ago</div>
                             <ul class="reactions">
-                                <li><a href="">{{filtrarNumero(publicacao.comentarios)}} <i class="fa fa-comment-o"></i></a>
+                                <li><a href="">{{filtrarNumero(20)}} <i class="fa fa-comment-o"></i></a>
                                 </li>
-                                <li><a href="">{{filtrarNumero(publicacao.gostei)}} <i class="fa fa-heart-o"></i></a>
+                                <li><a href="">{{filtrarNumero(349)}} <i class="fa fa-heart-o"></i></a>
                                 </li>
                             </ul>
                         </div>

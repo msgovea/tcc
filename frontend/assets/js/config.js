@@ -11,7 +11,11 @@ var translationsEN = {
             ERROR1:         "This field is required.",
             PASSWORD:       "Password",
             ERROR2_TITLE:   "Incorrect login",
-            ERROR2:         "Username or password is invalid" 
+            ERROR2:         "Username or password is invalid",
+            ERROR3_TITLE:   "Confirm your account",
+            ERROR3:         "To access your account you need confirm your account in your email",
+            ERROR4_TITLE:   "Your account is banned",
+            ERROR4:         "Your account is banned, contact us for clarification"
         },
         RECOVER:    "Recover Account",
         SIGNED:     "Keep Me Signed in",
@@ -39,14 +43,18 @@ var translationsEN = {
         HEADLINE: "Set your new password",
         FORM:{
             PASSWORD: "Password",
-            PH_PASSWORD: "Minimum of 4 Characters",
+            PH_PASSWORD: "Minimum of 6 Characters",
             ERROR1: "This field is required.",
-            ERROR2: "Password should have at least 4 characters",
+            ERROR2: "Password should have at least 6 characters",
             CONF_PASSWORD: "Confirm Password",
-            ERROR3: "Password must be equals"            
+            ERROR3: "Password must be equals",
+            SUCCESS1_TITLE: "Password registered",
+            SUCCESS1:       "New password registered.",   
+            ERROR4:         "Password should have at maximum 12 characters"         
         },
         HELP: "Help? Contact Support",
-        SEND: "Send"
+        SEND: "Send",
+        CANCEL: "Cancel"
     },
     REGISTER:{
         HEADLINE:   "Music Social makes it easy to enjoy what matters the most in your life!",
@@ -96,6 +104,15 @@ var translationsEN = {
         POLICY: "Privacy Policy",
         CRAFTED:"Hand-crafted",
         MADE:   "&amp; Made with Love ®"
+    },
+    CONFIRM_REG:{
+        SUCCESS1_TITLE: "Success",
+        SUCCESS1:       "Registration confirmed successfully!",
+        HEADLINE1:      "Confirm your registration",
+        HEADLINE2:      "Confirm your registration here",
+        CONFIRM:        "Confirm",
+        ERROR1_TITLE:   "",
+        ERROR1:   ""
     }
 };
 

@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">Music Social</string>
+    <string name="app_name">urMusic</string>
 
     <string name="title_activity_register">Register</string>
     <string name="title_activity_login">Login</string>
     <string name="title_recovery_activity">Recovery your account</string>
+
+    <string name="loading">"Loading. Please wait..."</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -17,7 +19,6 @@
     <string name="prompt_nickname">Nickname</string>
     <string name="prompt_birthday">Date of Birth</string>
 
-
     <string name="action_sign_in">Register</string>
     <string name="action_sign_up">Login</string>
     <string name="action_recovery">Recovery</string>
@@ -28,15 +29,13 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_field_letter">Only letters are allowed</string>
 
-
     <string name="error_confirm_password">Different passwords</string>
 
     <string name="error_invalid_login">Email or password incorrect</string>
 
     <string name="action_sign_in_short">Sign in</string>
 
-
-    <string name="welcome_text">Welcome to Music Social</string>
+    <string name="welcome_text">Welcome to urMusic</string>
     <string name="title_activity_default">DefaultActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -52,7 +51,6 @@
     <string name="success_register_account">Account Registered</string>
     <string name="success_recovery_account">Account Recovered</string>
     <string name="success_recovery_account_text">Account recovery sent in registered email</string>
-
 
     <string name="register_confirm_account">Success Register! Confirm your account in your email</string>
     <string name="recovery_account">Your recovery link has been send to your email</string>
@@ -74,5 +72,7 @@
         <item>Anguilla</item>
         <item>Antarctica</item>
     </string-array>
+    <string name="title_activity_teste_login">TesteLoginActivity</string>
+    <string name="title_activity_gosto_musical">GostoMusicalActivity</string>
 
 </resources>

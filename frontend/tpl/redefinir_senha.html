@@ -9,10 +9,11 @@
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.pass.$invalid && !redefinir.pass.$pristine }">
                                 <label translate>RESET.FORM.PASSWORD</label>
-                                <input type="password" name="pass" placeholder="{{ 'RESET.FORM.PH_PASSWORD' | translate }}"class="form-control" ng-minlength="4" ng-model="user.password" required>
+                                <input type="password" name="pass" placeholder="{{ 'RESET.FORM.PH_PASSWORD' | translate }}"class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" required>
                             </div>
                             <label class="error" for="pass" ng-show="redefinir.pass.$invalid && !redefinir.pass.$pristine" translate>RESET.FORM.ERROR1</label>
                             <label class="error" for="pass" ng-show="redefinir.pass.$error.minlength" translate>RESET.FORM.ERROR2</label>
+                            <label class="error" for="pass" ng-show="redefinir.pass.$error.maxlength" translate>RESET.FORM.ERROR4</label>
                         </div>
                     </div>
                      <div class="row">
@@ -30,7 +31,8 @@
                             <a href="" class="text-info small" translate>RESET.HELP</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="redefinir.$invalid" ng-click="redefinirSenha(user)" translate>RESET.SEND</button>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="redefinir.$invalid || redefinir.passequal" ng-click="redefinirSenha(user)" translate>RESET.SEND</button>
+                    <button class="btn btn-success btn-cons m-t-10" type="submit" ui-sref="access.login" translate>RESET.CANCEL</button>    
                 </form>
             </div>
         </div>

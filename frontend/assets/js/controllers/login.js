@@ -26,7 +26,7 @@ angular.module('app')
 
 
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', function($scope, apiLogin, $state, $timeout, $cookieStore, $filter) {
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', '$window',  function($scope, apiLogin, $state, $timeout, $cookieStore, $filter, $window) {
 
         $scope.bg = 'assets/img/headphone' + Math.floor((Math.random()*4)+1) + '.jpg';
 
@@ -37,17 +37,62 @@ angular.module('app')
 
         $scope.validateLogin = function(user3) { 
             //alert("Login Success :)");
+
             apiLogin.getApi(user3).then(function(result){
                 //console.log(result);
                 $scope.loading = true;
                 if (result.data.message == "Sucesso!") {
-                    //redireciona
-                    //console.log("sucesso");
-                    //console.log($cookieStore.usuario);
-                    $cookieStore.put('usuario', result.data.object);
-                    //console.log($cookieStore.usuario);
-                    $state.go('app.dashboard');
-                  //  $scope.loading = false;
+                    switch (result.data.object.situacaoConta.codigoSituacaoConta) {
+                        case 0: //aguardando confirmacao
+                            $scope.login2.$invalid = true;
+                            $scope.loading = false;
+                            $('body').pgNotification({
+                                style: 'simple',
+                                title: $filter('translate')('LOGIN.FORM.ERROR3_TITLE'),
+                                message: $filter('translate')('LOGIN.FORM.ERROR3'),
+                                position: 'top-right',
+                                showClose: false,
+                                timeout: 6000,
+                                type: 'danger',
+                                thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                            }).show();
+                            break;
+
+                        case 1: //conta ativa
+                            $cookieStore.put('usuario', result.data.object);
+                            $state.go('app.dashboard');
+                            break;
+
+                        case 2: //conta inativa
+                            $scope.login2.$invalid = true;
+                            $scope.loading = false;
+                            $('body').pgNotification({
+                                style: 'simple',
+                                title: $filter('translate')('LOGIN.FORM.ERROR2_TITLE'),
+                                message: $filter('translate')('LOGIN.FORM.ERROR2'),
+                                position: 'top-right',
+                                showClose: false,
+                                timeout: 6000,
+                                type: 'danger',
+                                thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                            }).show();
+                            break;
+
+                        case 3: //conta banida    
+                            $scope.login2.$invalid = true;
+                            $scope.loading = false;
+                            $('body').pgNotification({
+                                style: 'simple',
+                                title: $filter('translate')('LOGIN.FORM.ERROR4_TITLE'),
+                                message: $filter('translate')('LOGIN.FORM.ERROR4'),
+                                position: 'top-right',
+                                showClose: false,
+                                timeout: 6000,
+                                type: 'danger',
+                                thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                            }).show();
+                            break;
+                    }
                 }
                 else {   
                     $scope.login2.$invalid = true;
