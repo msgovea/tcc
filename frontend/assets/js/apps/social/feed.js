@@ -7,8 +7,6 @@ angular.module('app')
     .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter','$cookieStore', '$base64', function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64) {
         // Apply recommended theme for Calendar
 
-        console.log();
-
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
 
         // For demo purposes only. Changes the theme back to pages default when switching the state. 
@@ -19,6 +17,7 @@ angular.module('app')
 
         $http.get('http://192.198.90.26:82/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
             $scope.publicacoes = data.object;
+            console.log(data.object);
         }); 
 
         $scope.filtrarNumero = function(numero) {
@@ -29,6 +28,24 @@ angular.module('app')
                 return $filter('limitTo')(nu,nu.length - 3) + 'K';
             }
         };
+
+        $scope.post = function(publicacao){
+            var pubTeste;
+            if (publicacao != null && publicacao !=""){
+                pubTeste=[{
+                            "usuario": {"codigoUsuario": "33", 
+                                        "cidade": "Mogi Mirim"},
+                            "conteudo": "Testando a publicação!!!!",
+                            "dataPublicacao": "2017-03-21"
+                }];
+                $scope.publicacoes.unshift(pubTeste);
+                console.log($scope.publicacoes);
+            }
+            else{
+                console.log("Não publicou");
+            }
+            
+        }
     }]);
 
 /* Directives */
