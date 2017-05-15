@@ -21,7 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:listitem="@layout/gosto_musical_list"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="20dp"
         tools:layout_editor_absoluteX="8dp" />
 
 </android.support.constraint.ConstraintLayout>

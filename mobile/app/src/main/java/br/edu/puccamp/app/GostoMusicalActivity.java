@@ -35,7 +35,7 @@ public class GostoMusicalActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Salvando as informações, aguarde.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -43,6 +43,22 @@ public class GostoMusicalActivity extends AppCompatActivity {
         ArrayList<Gosto> lista = new ArrayList<>();
         lista.add(new Gosto("teste", null, null));
         lista.add(new Gosto("teste2", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste3", null, null));
         lista.add(new Gosto("teste3", null, null));
 
         mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
