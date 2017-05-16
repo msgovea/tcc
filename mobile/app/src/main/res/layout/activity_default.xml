@@ -52,6 +52,26 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:id="@+id/publication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/editText"
+            android:text="Button" />
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/content"
@@ -74,6 +94,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_list" />
+
+
 
     </FrameLayout>
 

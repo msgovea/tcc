@@ -50,7 +50,6 @@
         android:textColor="#827f93"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:background=""
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
