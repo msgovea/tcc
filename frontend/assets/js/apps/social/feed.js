@@ -4,7 +4,7 @@
 
 angular.module('app')
     // Social controller 
-    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter', '$cookieStore','$base64', function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64) {
+    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter', '$cookieStore','$base64',  function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64) {
         // Apply recommended theme for Calendar
 
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
@@ -34,13 +34,13 @@ angular.module('app')
         $scope.post = function(publicacao){
             var pubTeste;
             if (publicacao != null && publicacao !=""){
-                pubTeste=[{
+                pubTeste={
                             "usuario": {"codigoUsuario": "33", 
                                         "cidade": "Mogi Mirim"},
                             "conteudo": "Testando a publicação!!!!",
                             "dataPublicacao": "2017-03-21"
-                }];
-                $scope.publicacoes.unshift(pubTeste);
+                };
+                $scope.publicacoes.push(pubTeste);
                 console.log($scope.publicacoes);
             }
             else{
@@ -48,6 +48,7 @@ angular.module('app')
             }
             
         }
+       
     }]);
 
 /* Directives */
