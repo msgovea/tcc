@@ -7,4 +7,6 @@ import br.com.tcc.musicsocial.entity.Publicacao;
 public interface PublicacaoService {
 
 	List<Publicacao> getPublicacoes(String idUsuario);
+	
+	Publicacao cadastrarPublicacao(Publicacao publicacao);
 }

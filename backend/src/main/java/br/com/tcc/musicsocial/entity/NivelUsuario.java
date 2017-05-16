@@ -40,4 +40,22 @@ public class NivelUsuario {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NivelUsuario other = (NivelUsuario) obj;
+		if (codigoNivel == null) {
+			if (other.codigoNivel != null)
+				return false;
+		} else if (!codigoNivel.equals(other.codigoNivel))
+			return false;
+		return true;
+	}
+	
 }
