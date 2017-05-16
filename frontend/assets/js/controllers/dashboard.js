@@ -4,12 +4,50 @@
 
 angular.module('app')
     // Chart controller 
-    .controller('DashboardCtrl', ['$scope', '$http', '$timeout','$cookieStore', function($scope, $http, $timeout, $cookieStore) {
+    .controller('DashboardCtrl', ['$scope', '$http', '$timeout','$cookieStore', '$window', '$filter', function($scope, $http, $timeout, $cookieStore, $window, $filter) {
 
         console.log($cookieStore.get('usuario'));
 
         $('#modalSlideUp').modal('show');
-        
+
+        $scope.gostos = [];
+        $scope.gostosCadastrados = [];
+
+        $http.get('assets/js/api/mock_gosto_musical.json').success(function(result) {
+            for(var i = 0; i < result.object.length; i++){
+                $scope.gostosCadastrados[i] = result.object[i]; 
+            }
+        });
+
+        console.log($scope.gostosCadastrados);
+
+        $scope.cadastrarGostos = function (){
+            var i = 1;
+            /**for(var j = 0; j < $scope.gostos.length; j++){
+                if ($scope.gostos[j].selecionado){
+                    i += 1
+                    $scope.gostosCadastrados.push($scope.gostos[j]);
+                //mandar para API para gravar
+                }
+            }}****/
+            if (i == 0){
+                console.log("fracasso");
+                $('#modalSlideUp').pgNotification({
+                    style: 'simple',
+                    title: $filter('translate')('REGISTER.FORM.ERROR10_TITLE'),
+                    message: $filter('translate')('REGISTER.FORM.ERROR10'),
+                    position: 'top-right',
+                    showClose: false,
+                    timeout: 6000,
+                    type: 'danger',
+                    thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                }).show(); 
+            }   
+            else{
+                $('#modalGostoFavorito').modal('show');
+            }   
+        }
+ 
 
         $scope.refreshTest = function(portlet) {
             console.log("Refreshing...");
