@@ -113,6 +113,9 @@ var translationsEN = {
         CONFIRM:        "Confirm",
         ERROR1_TITLE:   "",
         ERROR1:   ""
+    },
+    FEED:{
+        POST:"Post"
     }
 };
 
