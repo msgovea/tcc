@@ -40,4 +40,23 @@ public class SituacaoConta {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SituacaoConta other = (SituacaoConta) obj;
+		if (codigoSituacaoConta == null) {
+			if (other.codigoSituacaoConta != null)
+				return false;
+		} else if (!codigoSituacaoConta.equals(other.codigoSituacaoConta))
+			return false;
+		return true;
+	}
+	
 }

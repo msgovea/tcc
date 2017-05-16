@@ -2,6 +2,7 @@ package br.com.tcc.musicsocial.service.impl;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
@@ -10,8 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
+import br.com.tcc.musicsocial.dao.GostoMusicalDAO;
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
+import br.com.tcc.musicsocial.entity.GostoMusical;
+import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
+import br.com.tcc.musicsocial.entity.UsuarioGostoMusical;
+import br.com.tcc.musicsocial.entity.UsuarioGostoMusicalPk;
 import br.com.tcc.musicsocial.service.EmailService;
 import br.com.tcc.musicsocial.service.UsuarioService;
 import br.com.tcc.musicsocial.util.GeradorHash;
@@ -22,13 +28,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	private static final String ASSUNTO = "Confirmação de Email";
 
-	private static final String HOST = "listbuy.me";
+	private static final String HOST = "urmusic.me";
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private GostoMusicalDAO gostoMusicalDAO;
 	
 	@Override
 	@Transactional
@@ -108,7 +117,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			String emailHash = GeradorHash.gerarHash(email);
 			String textoEmail = String.format(montarEmailRecuperacao(), usuario.getNome(), HOST, id, emailHash);
 			try {
-				emailService.enviarEmail(ASSUNTO, usuario.getEmail(), textoEmail);
+				emailService.enviarEmail("Recuperação de Senha", usuario.getEmail(), textoEmail);
 				return true;
 			} catch (MessagingException e) {
 				e.printStackTrace();
@@ -134,5 +143,33 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		return false;
 	}
+
+	@Override
+	@Transactional
+	public Boolean cadastrarGostoMusical(Integer codUsuario, List<Integer> codGostosMusicais, Integer favorito) {
+		if(codUsuario == null || codGostosMusicais == null || codGostosMusicais.size() < 1) {
+			return false;
+		}
+		
+		
+		Usuario user = new Usuario();
+		user.setCodigoUsuario(codUsuario);
+		for (Integer codGostoMusical : codGostosMusicais) {
+			UsuarioGostoMusical ugm = new UsuarioGostoMusical();
+			GostoMusical gosto = new GostoMusical();
+			gosto.setCodigo(codGostoMusical);
+			ugm.setPk(new UsuarioGostoMusicalPk(gosto, user));
+			ugm.setFavorito(false);
+			if(codGostoMusical.equals(favorito)) {
+				ugm.setFavorito(true);
+			}
+			gostoMusicalDAO.save(ugm);
+		}
+		
+		return true;
+	}
 	
+	public List<GostoMusical> getGostos() {
+		return gostoMusicalDAO.findAllGostos();
+	}
 }
