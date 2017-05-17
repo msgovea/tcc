@@ -3,8 +3,27 @@
 /* Controllers */
 
 angular.module('app')
+    .factory('apiEfetuarPub', function($http){
+        return {
+            getApi: function(user, post) {
+                return $http({
+                    method: 'POST',
+                    url: 'http://192.198.90.26:82/musicsocial/publicacoes/cadastrar',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        conteudo: post,
+                        usuario: {
+                            user
+                        }
+                    }
+                })
+            }
+        }
+    })
     // Social controller 
-    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter', '$cookieStore','$base64',  function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64) {
+    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter', '$cookieStore','$base64', '$state',  function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64, $state) {
         // Apply recommended theme for Calendar
 
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
@@ -31,19 +50,29 @@ angular.module('app')
             }
         };
 
+        
+        
         $scope.post = function(publicacao){
-            var pubTeste;
+            
+
             if (publicacao != null && publicacao !=""){
-                pubTeste={
-                            "usuario": {"codigoUsuario": "33", 
-                                        "cidade": "Mogi Mirim"},
-                            "conteudo": "Testando a publicação!!!!",
-                            "dataPublicacao": "2017-03-21"
-                };
-                $scope.publicacoes.push(pubTeste);
-                console.log($scope.publicacoes);
-            }
-            else{
+               var publi = {};
+                publi.usuario = $cookieStore.get('usuario');
+                publi.conteudo = publicacao;
+
+                $http.post(
+                    'http://192.198.90.26:82/musicsocial/publicacoes/cadastrar', 
+                    publi            
+                ).success(function (response) {
+                    if(response.message === 'Sucesso!'){
+                        /*$http.get('http://192.198.90.26:82/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
+                            $scope.publicacoes = data.object;
+                            console.log(data.object);
+                        });*/
+                        $state.reload();
+                    }
+                });
+            } else{
                 console.log("Não publicou");
             }
             
