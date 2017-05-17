@@ -6,18 +6,14 @@ import android.util.Base64;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.edu.puccamp.app.entity.Response;
+import br.edu.puccamp.app.entity.ResponseUsuario;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.Strings;
 
@@ -77,7 +73,7 @@ public class AsyncRecovery extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         try {
             Gson usuarioGson = new Gson();
-            Response response = usuarioGson.fromJson(result, Response.class);
+            ResponseUsuario response = usuarioGson.fromJson(result, ResponseUsuario.class);
 
             Usuario u = response.getObject();
 

@@ -1,5 +1,7 @@
 package br.edu.puccamp.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,22 +14,27 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.puccamp.app.async.AsyncMakePublication;
 import br.edu.puccamp.app.async.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
+import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Strings;
 
-public class DefaultActivity extends AbstractAsyncActivity implements AsyncPublication.Listener {
+public class DefaultActivity extends AbstractAsyncActivity implements AsyncPublication.Listener, AsyncMakePublication.Listener {
 
     private TextView mTextMessage;
     private RecyclerView mRecyclerView;
@@ -35,6 +42,8 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     private AppCompatImageView mIcon;
     private AppCompatImageView mIconSearch;
 
+    private EditText mTextPublication;
+    private Button mButtonPublication;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -48,9 +57,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                     return true;
                 case R.id.navigation_dashboard:
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
-                    showLoadingProgressDialog();
-                    AsyncPublication sinc = new AsyncPublication(DefaultActivity.this);
-                    sinc.execute();
+                    loadPublication();
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
@@ -66,15 +73,32 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
 
+        final SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
         mTextMessage = (TextView) findViewById(R.id.message);
         mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
         mIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 startActivity(new Intent(DefaultActivity.this, MainActivity.class));
+            }
+        });
+
+        mButtonPublication = (Button) findViewById(R.id.btn_publication);
+        mTextPublication = (EditText) findViewById(R.id.et_publication);
+
+        mButtonPublication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Gson gson = new Gson();
+                Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+                Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+
+                showLoadingProgressDialog();
+                AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
+                sinc.execute();
             }
         });
 
@@ -93,6 +117,13 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                 .setDownsampleEnabled(true)
                 .build();
         Fresco.initialize(this, config);
+
+    }
+
+    private void loadPublication() {
+        showLoadingProgressDialog();
+        AsyncPublication sinc = new AsyncPublication(DefaultActivity.this);
+        sinc.execute();
 
     }
 
@@ -130,7 +161,25 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     }
 
     @Override
-    public void onLoaded(String s) {
+    public void onLoadedError(String s) {
+        dismissProgressDialog();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.error));
+        builder.setMessage(getString(R.string.error));
+        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    @Override
+    public void onLoadedPublication(Boolean bool) {
+        dismissProgressDialog();
+        loadPublication();
 
     }
 }

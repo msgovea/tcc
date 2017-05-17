@@ -61,6 +61,7 @@
     <string name="account_banned">Your account is banned</string>
     <string name="account_banned_text">Your account is banned, contact us for clarification</string>
 
+    <string name="error">An unexpected error has occurred, contact your system administrator</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>
