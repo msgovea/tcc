@@ -1,6 +1,7 @@
 package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -36,13 +37,13 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... n) {
 
-        //String email = n[0];
-        //email = Base64.encodeToString(email.getBytes(), Base64.DEFAULT);
+        String id = n[0];
+        id = Base64.encodeToString(id.getBytes(), Base64.DEFAULT);
         HttpURLConnection urlConnection;
 
         try {
 
-            URL url = new URL(Strings.URL + Strings.PUBLICATION + "/" + "MQ==");
+            URL url = new URL(Strings.URL + Strings.PUBLICATION + "/" + id);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");
