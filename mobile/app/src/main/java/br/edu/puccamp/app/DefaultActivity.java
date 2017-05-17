@@ -45,6 +45,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     private EditText mTextPublication;
     private Button mButtonPublication;
 
+    private SharedPreferences prefs;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,7 +74,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
 
-        final SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+        //final SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
         mTextMessage = (TextView) findViewById(R.id.message);
@@ -81,6 +82,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         mIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 startActivity(new Intent(DefaultActivity.this, MainActivity.class));
             }
@@ -93,12 +95,14 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
             @Override
             public void onClick(View v) {
                 Gson gson = new Gson();
+
+                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
                 Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
 
                 showLoadingProgressDialog();
                 AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
-                sinc.execute();
+                sinc.execute(publicacao);
             }
         });
 
@@ -117,13 +121,15 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                 .setDownsampleEnabled(true)
                 .build();
         Fresco.initialize(this, config);
-
     }
 
     private void loadPublication() {
         showLoadingProgressDialog();
+        Gson gson = new Gson();
+        prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+        Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
         AsyncPublication sinc = new AsyncPublication(DefaultActivity.this);
-        sinc.execute();
+        sinc.execute(usuario.getCodigoUsuario().toString());
 
     }
 
