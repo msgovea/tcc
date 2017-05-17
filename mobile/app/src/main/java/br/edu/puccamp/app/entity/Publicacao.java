@@ -1,9 +1,14 @@
 package br.edu.puccamp.app.entity;
 
-import java.sql.Date;
-
 public class Publicacao {
 
+    public Publicacao(Usuario usuario, String conteudo) {
+        this.usuario = usuario;
+        this.conteudo = conteudo;
+    }
+
+    public Publicacao() {
+    }
 
     private Long codigo;
 
