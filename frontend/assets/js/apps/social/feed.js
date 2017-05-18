@@ -69,7 +69,7 @@ angular.module('app')
                             $scope.publicacoes = data.object;
                             console.log(data.object);
                         });*/
-                        $state.reload();
+                        location.reload();
                     }
                 });
             } else{
