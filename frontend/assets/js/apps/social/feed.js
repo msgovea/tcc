@@ -27,8 +27,6 @@ angular.module('app')
         // Apply recommended theme for Calendar
 
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
-        
-        console.log($cookieStore.get('usuario').codigoUsuario);
 
         // For demo purposes only. Changes the theme back to pages default when switching the state. 
         $rootScope.$on('$stateChangeSuccess',
@@ -38,7 +36,6 @@ angular.module('app')
 
         $http.get('http://192.198.90.26:82/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
             $scope.publicacoes = data.object;
-            console.log(data.object);
         }); 
 
         $scope.filtrarNumero = function(numero) {
