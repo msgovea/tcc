@@ -7,9 +7,9 @@
                 <form id="form-redefinir" class="p-t-15" role="form" name="redefinir">
                      <div class="row">
                         <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.pass.$invalid && !redefinir.pass.$pristine }">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.pass.$invalid && !redefinir.pass.$pristine}">
                                 <label translate>RESET.FORM.PASSWORD</label>
-                                <input type="password" name="pass" placeholder="{{ 'RESET.FORM.PH_PASSWORD' | translate }}"class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" required>
+                                <input type="password" name="pass" placeholder="{{ 'RESET.FORM.PH_PASSWORD' | translate }}"class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password"  ng-change="finished()" required>
                             </div>
                             <label class="error" for="pass" ng-show="redefinir.pass.$invalid && !redefinir.pass.$pristine" translate>RESET.FORM.ERROR1</label>
                             <label class="error" for="pass" ng-show="redefinir.pass.$error.minlength" translate>RESET.FORM.ERROR2</label>
@@ -18,11 +18,11 @@
                     </div>
                      <div class="row">
                         <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.passequal }">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.passequal && !redefinir.cpass.$pristine}">
                                 <label translate>RESET.FORM.CONF_PASSWORD</label>
                                 <input type="password" name="cpass" placeholder="{{ 'RESET.FORM.PH_PASSWORD' | translate }}" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
                             </div>
-                            <label class="error" for="cpass" ng-show="redefinir.passequal" translate>RESET.FORM.ERROR3</label>
+                            <label class="error" for="cpass" ng-show="redefinir.passequal && !redefinir.cpass.$pristine" translate>RESET.FORM.ERROR3</label>
 
                         </div>
                     </div>
