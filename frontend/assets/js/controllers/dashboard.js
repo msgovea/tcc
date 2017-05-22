@@ -4,32 +4,51 @@
 
 angular.module('app')
     // Chart controller 
-    .controller('DashboardCtrl', ['$scope', '$http', '$timeout','$cookieStore', '$window', '$filter', function($scope, $http, $timeout, $cookieStore, $window, $filter) {
+    .controller('DashboardCtrl', ['$scope', '$http', '$timeout','$cookieStore', '$window', '$filter', '$rootScope', function($scope, $http, $timeout, $cookieStore, $window, $filter, $rootScope) {
 
         console.log($cookieStore.get('usuario'));
 
         $('#modalSlideUp').modal('show');
 
         $scope.gostos = [];
-        $scope.gostosCadastrados = [];
+        $rootScope.gostosCadastrados = [];
+        
+        /**$scope.marcarSelecionado = function(codigo){
+            for(var j = 0; j < $rootScope.gostosCadastrados.length; j++){
+                if ($scope.gostosCadastrados[j].codigo == codigo ){
+                    $scope.gostosCadastrados[j].selecionado = true;
+                }
+                else{
+                    $scope.gostosCadastrados[j].selecionado = false;
+                }
+            }
+        }**/
+
 
         $http.get('assets/js/api/mock_gosto_musical.json').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
-                $scope.gostosCadastrados[i] = result.object[i]; 
+                $scope.gostos[i] = result.object[i]; 
             }
         });
 
-        console.log($scope.gostosCadastrados);
-
         $scope.cadastrarGostos = function (){
             var i = 1;
-            /**for(var j = 0; j < $scope.gostos.length; j++){
+            for(var j = 0; j < $scope.gostos.length; j++){
                 if ($scope.gostos[j].selecionado){
                     i += 1
-                    $scope.gostosCadastrados.push($scope.gostos[j]);
+                    $rootScope.gostosCadastrados.push($scope.gostos[j]);
                 //mandar para API para gravar
                 }
-            }}****/
+            }
+
+            for(var j = 0; j < $rootScope.gostosCadastrados.length; j++){
+                if ($rootScope.gostosCadastrados[j].selecionado){
+                    $rootScope.gostosCadastrados[j].selecionado = "";
+                }
+            }
+
+            console.log($rootScope.gostosCadastrados);
+
             if (i == 0){
                 console.log("fracasso");
                 $('#modalSlideUp').pgNotification({
@@ -44,10 +63,10 @@ angular.module('app')
                 }).show(); 
             }   
             else{
+                $('#modalSlideUp').modal('hide'); 
                 $('#modalGostoFavorito').modal('show');
             }   
         }
- 
 
         $scope.refreshTest = function(portlet) {
             console.log("Refreshing...");
