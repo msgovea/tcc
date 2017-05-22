@@ -12,6 +12,7 @@ angular.module('app')
 
         $scope.gostos = [];
         $rootScope.gostosCadastrados = [];
+        $scope.gostoFavorito = {favorito: null};
         
         /**$scope.marcarSelecionado = function(codigo){
             for(var j = 0; j < $rootScope.gostosCadastrados.length; j++){
