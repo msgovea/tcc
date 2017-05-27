@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import br.edu.puccamp.app.R;
 
+
 public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
 
@@ -64,17 +65,17 @@ public class MainActivity extends AppCompatActivity {
         Fragment frag = null;
         // init corresponding fragment
         switch (item.getItemId()) {
-            case R.id.menu_home:
-                frag = MenuFragment.newInstance(getString(R.string.text_home),
-                        getColorFromRes(R.color.color_home));
+            case R.id.navigation_dashboard:
+                frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
+                        getColorFromRes(R.color.colorPrimary));
                 break;
-            case R.id.menu_notifications:
-                frag = TesteFragment.newInstance(getString(R.string.text_notifications),
-                        getColorFromRes(R.color.color_notifications));
+            case R.id.navigation_dashboard_star:
+                frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
+                        getColorFromRes(R.color.colorPrimary));
                 break;
-            case R.id.menu_search:
-                frag = MenuFragment.newInstance(getString(R.string.text_search),
-                        getColorFromRes(R.color.color_search));
+            case R.id.navigation_home:
+                frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
+                        getColorFromRes(R.color.colorPrimary));
                 break;
         }
 

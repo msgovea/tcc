@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,13 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/iconAlarm"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/"
-                    android:tint="@android:color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -39,13 +33,15 @@
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/iconSearch"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                <TextView
+                    android:id="@+id/iconSearch2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:text="PUBLICAR"
+                    android:textColor="#b6b3b9"
+                    android:textSize="20sp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_search"
                     android:tint="@android:color/white" />
 
             </RelativeLayout>
@@ -175,20 +171,20 @@
 </LinearLayout>
 
 
-    <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:fresco="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@android:color/white">-->
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="121dp"
-        android:layout_height="121dp"
-        android:text="ToggleButton" />
-
-
+    <!--<ToggleButton-->
+        <!--android:id="@+id/toggleButton"-->
+        <!--android:layout_width="121dp"-->
+        <!--android:layout_height="121dp"-->
+        <!--android:text="ToggleButton" />-->
 
 
-</LinearLayout>
+
+
+<!--</LinearLayout>-->

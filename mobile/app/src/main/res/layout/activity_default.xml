@@ -27,31 +27,28 @@
                     android:id="@+id/iconAlarm"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_alarm"
-                    android:tint="@android:color/white"
+                    android:layout_alignParentStart="true"
                     android:layout_alignTop="@+id/textView4"
-                    android:layout_alignParentStart="true" />
+                    android:src="@drawable/ic_alarm"
+                    android:tint="@android:color/white" />
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-
-                    android:layout_alignParentStart="true"
                     android:text="@string/title_activity_default"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    android:id="@+id/textView4" />
+                    android:textSize="20sp" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/iconSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:textColor="#b6b3b9"
-                    android:textSize="20sp"
-                    android:text="PUBLICAR" />
+                    android:src="@drawable/ic_search"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:tint="@android:color/white"
+                    android:layout_alignTop="@+id/textView4"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
