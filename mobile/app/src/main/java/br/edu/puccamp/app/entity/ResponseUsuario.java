@@ -1,20 +1,19 @@
 package br.edu.puccamp.app.entity;
 
-
-public class Response<T> {
+public class ResponseUsuario {
 	private String message;
-    private T object;
+    private Usuario object;
 
-    public Response() {
-
+    public ResponseUsuario() {
+        
     }
-
-    public Response(String message, T object) {
+    
+    public ResponseUsuario(String message, Usuario object) {
         this.message = message;
         this.object = object;
     }
-
-    public Response(String message) {
+    
+    public ResponseUsuario(String message) {
         this.message = message;
     }
     
@@ -26,11 +25,11 @@ public class Response<T> {
         this.message = message;
     }
 
-    public T getObject() {
+    public Usuario getObject() {
         return object;
     }
 
-    public void setObject(T object) {
+    public void setObject(Usuario object) {
         this.object = object;
     }
 }

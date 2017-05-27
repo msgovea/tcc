@@ -90,4 +90,46 @@ public class Usuario {
 		this.situacaoConta = situacaoConta;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (codigoUsuario == null) {
+			if (other.codigoUsuario != null)
+				return false;
+		} else if (!codigoUsuario.equals(other.codigoUsuario))
+			return false;
+		if (dataInsrt == null) {
+			if (other.dataInsrt != null)
+				return false;
+		} else if (!dataInsrt.equals(other.dataInsrt))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (nivelUsuario == null) {
+			if (other.nivelUsuario != null)
+				return false;
+		} else if (!nivelUsuario.equals(other.nivelUsuario))
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
+			return false;
+		if (situacaoConta == null) {
+			if (other.situacaoConta != null)
+				return false;
+		} else if (!situacaoConta.equals(other.situacaoConta))
+			return false;
+		return true;
+	}
+
 }

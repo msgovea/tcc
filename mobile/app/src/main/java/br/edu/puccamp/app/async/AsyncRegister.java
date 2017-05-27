@@ -17,7 +17,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.edu.puccamp.app.entity.Response;
+import br.edu.puccamp.app.entity.ResponseUsuario;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.Strings;
 
@@ -85,7 +85,7 @@ public class AsyncRegister extends AsyncTask<Usuario, String, String> {
     protected void onPostExecute(String result) {
         try {
             Gson usuarioGson = new Gson();
-            Response response = usuarioGson.fromJson(result, Response.class);
+            ResponseUsuario response = usuarioGson.fromJson(result, ResponseUsuario.class);
 
             Usuario u = response.getObject();
 

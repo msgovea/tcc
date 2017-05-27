@@ -76,7 +76,7 @@
                         <div class="col-sm-12">
                             <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.pass.$invalid && !register.pass.$pristine }">
                                 <label translate>REGISTER.FORM.PASSWORD</label>
-                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" required>
+                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" ng-change="finished()" required>
                             </div>
                             <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
                             <label class="error" for="pass" ng-show="register.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
@@ -85,11 +85,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passequal }">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passequal && !register.cpass.$pristine}">
                                 <label translate>REGISTER.FORM.CONF_PASSWORD</label>
                                 <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
                             </div>
-                            <label class="error" for="cpass" ng-show="register.passequal" translate>REGISTER.FORM.ERROR7</label>
+                            <label class="error" for="cpass" ng-show="register.passequal && !register.cpass.$pristine" translate>REGISTER.FORM.ERROR7</label>
 
                         </div>
                     </div>

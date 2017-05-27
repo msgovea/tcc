@@ -14,12 +14,12 @@ import java.util.List;
 
 import br.edu.puccamp.app.R;
 
-public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
+public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.ViewHolder> {
 
     private List<Question> mQuestions;
     private Context mContext;
 
-    public QuestionsAdapter(Context context, List<Question> questions) {
+    public PublicationAdapter(Context context, List<Question> questions) {
         mContext = context;
         mQuestions = questions;
     }

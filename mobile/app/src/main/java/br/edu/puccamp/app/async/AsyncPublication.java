@@ -16,9 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.entity.ResponsePublicacoes;
-import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.Strings;
 
 
@@ -26,7 +24,7 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
 
     public interface Listener {
         void onLoaded(ArrayList<Publicacao> lista);
-        void onLoaded(String s);
+        void onLoadedError(String s);
     }
 
     private Listener mListener;
@@ -39,13 +37,13 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... n) {
 
-        //String email = n[0];
-        //email = Base64.encodeToString(email.getBytes(), Base64.DEFAULT);
+        String id = n[0];
+        id = Base64.encodeToString(id.getBytes(), Base64.DEFAULT);
         HttpURLConnection urlConnection;
 
         try {
 
-            URL url = new URL(Strings.URL + Strings.PUBLICATION + "/" + "MQ==");
+            URL url = new URL(Strings.URL + Strings.PUBLICATION + "/" + id);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");
@@ -91,14 +89,14 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
 
             } else {
                 if (mListener != null) {
-                    mListener.onLoaded("erro");
+                    mListener.onLoadedError("erro");
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             if (mListener != null) {
-                mListener.onLoaded(e.getMessage());
+                mListener.onLoadedError(e.getMessage());
             }
         }
 

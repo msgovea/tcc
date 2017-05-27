@@ -64,7 +64,7 @@
     <string name="account_banned">Sua conta está banida</string>
     <string name="account_banned_text">Sua conta está banida, contate-nos para esclarecimentos</string>
 
-
+    <string name="error">Ocorreu um erro inesperado, contate o administrador do sistema</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>

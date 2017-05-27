@@ -3,11 +3,28 @@
 /* Controllers */
 
 angular.module('app')
+    .factory('apiEfetuarPub', function($http){
+        return {
+            getApi: function(user, post) {
+                return $http({
+                    method: 'POST',
+                    url: 'http://192.198.90.26:82/musicsocial/publicacoes/cadastrar',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        conteudo: post,
+                        usuario: {
+                            user
+                        }
+                    }
+                })
+            }
+        }
+    })
     // Social controller 
-    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter','$cookieStore', '$base64', function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64) {
+    .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter', '$cookieStore','$base64', '$state',  function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64, $state) {
         // Apply recommended theme for Calendar
-
-        console.log();
 
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
 
@@ -29,6 +46,35 @@ angular.module('app')
                 return $filter('limitTo')(nu,nu.length - 3) + 'K';
             }
         };
+
+        
+        
+        $scope.post = function(publicacao){
+            
+
+            if (publicacao != null && publicacao !=""){
+               var publi = {};
+                publi.usuario = $cookieStore.get('usuario');
+                publi.conteudo = publicacao;
+
+                $http.post(
+                    'http://192.198.90.26:82/musicsocial/publicacoes/cadastrar', 
+                    publi            
+                ).success(function (response) {
+                    if(response.message === 'Sucesso!'){
+                        /*$http.get('http://192.198.90.26:82/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
+                            $scope.publicacoes = data.object;
+                            console.log(data.object);
+                        });*/
+                        location.reload();
+                    }
+                });
+            } else{
+                console.log("Não publicou");
+            }
+            
+        }
+       
     }]);
 
 /* Directives */
