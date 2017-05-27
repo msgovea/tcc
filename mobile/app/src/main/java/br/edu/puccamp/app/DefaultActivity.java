@@ -60,6 +60,13 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
                     loadPublication();
                     return true;
+                case R.id.navigation_publication:
+                    mRecyclerView.setLayoutManager(null);
+                    mTextMessage.setText(R.string.title_dashboard_publication);
+                    return true;
+                case R.id.navigation_dashboard_star:
+                    mTextMessage.setText(R.string.title_dashboard_star);
+                    return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
                     return true;

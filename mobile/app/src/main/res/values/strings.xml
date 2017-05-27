@@ -38,7 +38,9 @@
     <string name="welcome_text">Welcome to urMusic</string>
     <string name="title_activity_default">DefaultActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Publications</string>
+    <string name="title_dashboard_publication">Post</string>
+    <string name="title_dashboard_star">Publications Star</string>
     <string name="title_notifications">Notifications</string>
 
     <string name="close">Close</string>

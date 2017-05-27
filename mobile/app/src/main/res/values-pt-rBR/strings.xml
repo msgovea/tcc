@@ -41,7 +41,9 @@
     <string name="welcome_text">Bem vindo ao urMusic</string>
     <string name="title_activity_default">Tela principal</string>
     <string name="title_home">Ínicio</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Publicações</string>
+    <string name="title_dashboard_publication">Postar</string>
+    <string name="title_dashboard_star">Publicações Destaque</string>
     <string name="title_notifications">Notificações</string>
 
     <string name="close">Fechar</string>
