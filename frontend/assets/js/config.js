@@ -5,28 +5,26 @@
 
 var translationsEN = {
     LOGIN:{
-        HEADLINE: "Sign into your pages account",
+        HEADLINE: "Sign in to your urMusic account.",
         FORM:{
-            USERNAME:       "Login",
+            USERNAME:       "E-mail",
             ERROR1:         "This field is required.",
             PASSWORD:       "Password",
-            ERROR2_TITLE:   "Incorrect login",
-            ERROR2:         "Username or password is invalid",
+            ERROR2_TITLE:   "Incorrect e-mail",
+            ERROR2:         "E-mail or password is invalid.",
             ERROR3_TITLE:   "Confirm your account",
-            ERROR3:         "To access your account you need confirm your account in your email",
+            ERROR3:         "To access your account you need confirm your account in your email.",
             ERROR4_TITLE:   "Your account is banned",
-            ERROR4:         "Your account is banned, contact us for clarification"
+            ERROR4:         "Your account is banned.Contact us for clarification"
         },
         RECOVER:    "Recover Account",
-        SIGNED:     "Keep Me Signed in",
         LOG_IN:     "Log in",
-        FOOTER1:    "Create a pages account.",
-        FOOTER2:    "Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 Music Social.",
+        FOOTER1:    "Create account",
         SIGN_UP:    "Sign up",  
-        REGISTER:   "New to Music Social ?"
+        REGISTER:   "New to urMusic ?"
     },
     RECOVER:{
-        HEADLINE: "Recover your account",
+        HEADLINE: "Recover account",
         SUBTITLE: "Fill in your email below to receive the account recovery link.",
         FORM:{
             EMAIL:          "Email",
@@ -45,9 +43,9 @@ var translationsEN = {
             PASSWORD: "Password",
             PH_PASSWORD: "Minimum of 6 Characters",
             ERROR1: "This field is required.",
-            ERROR2: "Password should have at least 6 characters",
+            ERROR2: "Password should have at minimum 6 characters",
             CONF_PASSWORD: "Confirm Password",
-            ERROR3: "Password must be equals",
+            ERROR3: "Passwords must be the same",
             SUCCESS1_TITLE: "Password registered",
             SUCCESS1:       "New password registered.",   
             ERROR4:         "Password should have at maximum 12 characters"         
@@ -57,8 +55,8 @@ var translationsEN = {
         CANCEL: "Cancel"
     },
     REGISTER:{
-        HEADLINE:   "Music Social makes it easy to enjoy what matters the most in your life!",
-        SUBTITLE:   "Create your Music Social account. It's easy and fast!",
+        HEADLINE:   "urMusic makes it easy to enjoy what matters the most in your life!",
+        SUBTITLE:   "Create your urMusic account. It's easy and fast!",
         FORM:{
             NAME:           "Name",
             ERROR1:         "This field is required.",
@@ -74,9 +72,9 @@ var translationsEN = {
             ERROR5:         "Enter a valid email.",
             PASSWORD:       "Password",
             PH_PASSWORD:    "Minimum of 6 characters",
-            ERROR6:         "Password should have at least 6 characters",
+            ERROR6:         "Password should have at minimum 6 characters",
             CONF_PASSWORD:  "Confirm Password" ,
-            ERROR7:         "Password must be equals",
+            ERROR7:         "Passwords must be the same",
             ERROR8:         "Password should have at maximum 12 characters",
             ERROR9:         "Only letters allowed.",
             NOTIF1_TITLE:   "Success",
@@ -120,19 +118,56 @@ var translationsEN = {
 };
 
 var translationsBR = {
-    LOGIN_HEADLINE:   "Conecte-se em sua conta",
-    LOGIN2:{
-        USERNAME:     "Usuário",
-        ERROR:        "Este campo é obrigatório.",
-        PASSWORD:     "Senha"
+    LOGIN:{
+        HEADLINE: "Inicie a sessão na sua conta urMusic.",
+        FORM:{
+            USERNAME:       "E-mail",
+            ERROR1:         "Este campo é obrigatório.",
+            PASSWORD:       "Senha",
+            ERROR2_TITLE:   "E-mail incorreto",
+            ERROR2:         "E-mail ou senha inválido.",
+            ERROR3_TITLE:   "Confirme sua conta",
+            ERROR3:         "Para acessar sua conta, você precisa confirmar sua conta em seu e-mail.",
+            ERROR4_TITLE:   "Sua conta está banida",
+            ERROR4:         "Sua conta está banida. Contate-nos para esclarecimentos."
+        },
+        RECOVER:    "Recuperar conta",
+        LOG_IN:     "Entrar",
+        FOOTER1:    "Criar conta",
+        SIGN_UP:    "Criar conta",  
+        REGISTER:   "Novo(a) em urMusic?"
     },
-    LOGIN_RECOVER:    "Recuperar a conta",
-    LOGIN_SIGNED:     "Mantenha-me conectado",
-    LOGIN_LOG_IN:     "Entrar",
-    LOGIN_FOOTER1:    "Crie uma conta.",
-    LOGIN_FOOTER2:    "As imagens exibidas são exclusivamente para fins de representação. © 2017 Music Social.",
-    LOGIN_SIGN_UP:    "Inscrever-se",  
-    LOGIN_REGISTER:   "Novo em Music Social?"
+    RECOVER:{
+        HEADLINE: "Recuperar conta",
+        SUBTITLE: "Preencha seu e-mail abaixo para receber o link de recuperação de conta.",
+        FORM:{
+            EMAIL:          "E-mail",
+            ERROR1:         "Entre com um e-mail válido.",
+            SUCCESS1_TITLE: "E-mail correto",
+            SUCCESS1:       "Recuperação de senha enviada para o e-mail informado.",
+            ERROR2_TITLE:   "E-mail errado",
+            ERROR2:         "E-mail não encontrado."  
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Enviar"
+    },
+    RESET:{
+        HEADLINE: "Defina sua nova senha",
+        FORM:{
+            PASSWORD: "Senha",
+            PH_PASSWORD: "Mínimo de 6 caracteres.",
+            ERROR1: "Este campo é obrigatório.",
+            ERROR2: "A senha deve ter no mínimo 6 caracteres.",
+            CONF_PASSWORD: "Confirme a senha",
+            ERROR3: "As senhas devem ser iguais.",
+            SUCCESS1_TITLE: "Senha registrada",
+            SUCCESS1:       "Nova senha registrada.",   
+            ERROR4:         "A senha deve ter no máximo 12 caracteres."         
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Enviar",
+        CANCEL: "Cancelar"
+    }
 };
 
 angular.module('app')
@@ -142,7 +177,7 @@ angular.module('app')
         $translateProvider
         .translations('en', translationsEN)
         .translations('br', translationsBR)
-        .preferredLanguage('en');
+        .preferredLanguage('br');
     }])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
 
@@ -190,7 +225,7 @@ angular.module('app')
                     }
                 })
 
-            // Email app
+            // Email app 
             .state('app.email', {
                     abstract: true,
                     url: '/email',
