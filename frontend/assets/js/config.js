@@ -76,15 +76,15 @@ var translationsEN = {
             CONF_PASSWORD:  "Confirm Password" ,
             ERROR7:         "Passwords must be the same",
             ERROR8:         "Password should have at maximum 12 characters",
-            ERROR9:         "Only letters allowed.",
+            ERROR9:         "Characters not allowed.",
             NOTIF1_TITLE:   "Success",
-            NOTIF1:         "Successful registration! An account confirmation will be sent to the informed email.",
+            NOTIF1:         "Registration successfully completed! An account confirmation will be sent to the informed email.",
             ERROR10_TITLE:  "Incorrect registration",
             ERROR10:        "Already exists register for the informed email.",
-            ERROR11:        "Start Date should not be less than current date"
+            ERROR11:        "The date of birth should not be greater than today's date."
         },
         HELP: "Help? Contact Support",
-        SEND: "Create a new account"
+        SEND: "Create account"
     },
     HEADER:{
         NOTIFICATIONS1: "Read all notifications",
@@ -114,6 +114,24 @@ var translationsEN = {
     },
     FEED:{
         POST:"Post"
+    },
+
+    GOSTO_MUSICAL:{
+        CAD_GOSTOS:{
+            HEADLINE: "Register your liking musical",
+            SUBTITLE: "From your liking musical, you can find events and friends that enjoy the same as you!",
+            SEND:     "Register"
+        },
+        CAD_FAVORITO:{
+            HEADLINE: "Now, sign up for your favorite liking musical!",
+            SEND:     "Register"
+        },
+        SUCCESS_TITLE:  "Success",
+        SUCCESS:        "Music liking successfully registered.",
+        ERROR2_TITLE: "",
+        ERROR2:          "Could not register your liking musical.",
+        ERROR2_TITLE: "",
+        ERROR2:          "Could not register your liking musical."
     }
 };
 
@@ -158,7 +176,7 @@ var translationsBR = {
             PH_PASSWORD: "Mínimo de 6 caracteres.",
             ERROR1: "Este campo é obrigatório.",
             ERROR2: "A senha deve ter no mínimo 6 caracteres.",
-            CONF_PASSWORD: "Confirme a senha",
+            CONF_PASSWORD: "Confirmar senha",
             ERROR3: "As senhas devem ser iguais.",
             SUCCESS1_TITLE: "Senha registrada",
             SUCCESS1:       "Nova senha registrada.",   
@@ -167,7 +185,39 @@ var translationsBR = {
         HELP: "Help? Contact Support",
         SEND: "Enviar",
         CANCEL: "Cancelar"
-    }
+    },
+     REGISTER:{
+        HEADLINE:   "O urMusic torna fácil desfrutar o que mais importa na sua vida!",
+        SUBTITLE:   "Crie sua conta urMusic. É fácil e rápido!",
+        FORM:{
+            NAME:           "Nome",
+            ERROR1:         "Este campo é obrigatório.",
+            USERNAME:       "Usuário",
+            BIRTHDAY:       "Data de nascimento",
+            CITY:           "Cidade",
+            ERROR2:         "Insira uma cidade válida.",
+            STATE:          "Estado",
+            ERROR3:         "Insira um estado válido.",
+            COUNTRY:        "País",  
+            ERROR4:         "Insira um país válido.",
+            EMAIL:          "E-mail",
+            ERROR5:         "Insira um e-mail válido.",
+            PASSWORD:       "Senha",
+            PH_PASSWORD:    "Mínimo de 6 caracteres",
+            ERROR6:         "A senha deve ter no mínimo 6 caracteres.",
+            CONF_PASSWORD:  "Confirmar senha" ,
+            ERROR7:         "As senhas devem ser iguais.",
+            ERROR8:         "A senha deve ter no máximo 12 caracteres.",
+            ERROR9:         "Caracteres não permitidos.",
+            NOTIF1_TITLE:   "Sucesso",
+            NOTIF1:         "Registro realizado com sucesso! Uma confirmação da conta será enviada para o e-mail informado.",
+            ERROR10_TITLE:  "Registro incorreto",
+            ERROR10:        "Já existe registo para o e-mail informado.",
+            ERROR11:        "A data de nascimento não deve ser superior a data de hoje."
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Criar conta"
+     }
 };
 
 angular.module('app')
@@ -177,7 +227,7 @@ angular.module('app')
         $translateProvider
         .translations('en', translationsEN)
         .translations('br', translationsBR)
-        .preferredLanguage('br');
+        .preferredLanguage('en');
     }])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
 

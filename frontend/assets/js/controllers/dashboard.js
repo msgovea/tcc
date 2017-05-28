@@ -36,8 +36,8 @@ angular.module('app')
                     $('#modalGostoFavorito').modal('hide'); 
                     $('body').pgNotification({
                         style: 'simple',
-                        title: $filter('translate')('Sucesso'),
-                        message: $filter('translate')('Gostos musicais cadastrados com sucesso'),
+                        title: $filter('translate')('GOSTO_MUSICAL.SUCCESS_TITLE'),
+                        message: $filter('translate')('GOSTO_MUSICAL.SUCCESS'),
                         position: 'top-right',
                         showClose: false,
                         timeout: 6000,
@@ -48,8 +48,8 @@ angular.module('app')
                 else {
                     $('body').pgNotification({
                         style: 'simple',
-                        title: $filter('translate')('Fracasso'),
-                        message: $filter('translate')('Não foi possível cadastrar seus gostos musicais'),
+                        title: $filter('translate')('GOSTO_MUSICAL.ERROR_TITLE'),
+                        message: $filter('translate')('GOSTO_MUSICAL.ERROR'),
                         position: 'top-right',
                         showClose: false,
                         timeout: 6000,
