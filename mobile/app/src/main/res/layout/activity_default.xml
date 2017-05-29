@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="@string/prompt_city"/>
 
             <Button
                 android:id="@+id/btn_publication"
@@ -80,6 +80,20 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/et_publication"
                 android:text="Button" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/btn_publication"
+                android:orientation="horizontal">
+
+                <ListView
+                    android:id="@+id/testemgovea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/sports_array"
+                    />
+            </LinearLayout>
         </RelativeLayout>
 
 

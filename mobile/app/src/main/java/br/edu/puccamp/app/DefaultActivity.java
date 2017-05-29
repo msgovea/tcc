@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -45,6 +46,8 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     private Button mButtonPublication;
 
     private SharedPreferences prefs;
+
+    private ListView listView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -77,6 +80,9 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         setContentView(R.layout.activity_default);
 
         //final SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+
+        listView = (ListView) findViewById(R.id.testemgovea);
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
         mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
@@ -186,6 +192,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     @Override
     public void onLoadedPublication(Boolean bool) {
         dismissProgressDialog();
+        mTextPublication.setText(null);
         loadPublication();
 
     }
