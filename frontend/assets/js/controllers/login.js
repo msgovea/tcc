@@ -28,8 +28,6 @@ angular.module('app')
 
     .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', '$window',  function($scope, apiLogin, $state, $timeout, $cookieStore, $filter, $window) {
 
-        $scope.bg = 'assets/img/headphone' + Math.floor((Math.random()*4)+1) + '.jpg';
-
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
             //alert("Wizard finished :)");
