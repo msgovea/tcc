@@ -128,10 +128,10 @@ var translationsEN = {
         },
         SUCCESS_TITLE:  "Success",
         SUCCESS:        "Music liking successfully registered.",
-        ERROR2_TITLE: "",
-        ERROR2:          "Could not register your liking musical.",
-        ERROR2_TITLE: "",
-        ERROR2:          "Could not register your liking musical."
+        ERROR1_TITLE:   "",
+        ERROR1:         "Could not register your liking musical.",
+        ERROR2_TITLE:   "",
+        ERROR2:         "No liking musical selected."
     }
 };
 
@@ -210,14 +210,60 @@ var translationsBR = {
             ERROR8:         "A senha deve ter no máximo 12 caracteres.",
             ERROR9:         "Caracteres não permitidos.",
             NOTIF1_TITLE:   "Sucesso",
-            NOTIF1:         "Registro realizado com sucesso! Uma confirmação da conta será enviada para o e-mail informado.",
-            ERROR10_TITLE:  "Registro incorreto",
-            ERROR10:        "Já existe registo para o e-mail informado.",
+            NOTIF1:         "Cadastro realizado com sucesso! Uma confirmação da conta será enviada para o e-mail informado.",
+            ERROR10_TITLE:  "Cadastro incorreto",
+            ERROR10:        "Já existe cadastro para o e-mail informado.",
             ERROR11:        "A data de nascimento não deve ser superior a data de hoje."
         },
         HELP: "Help? Contact Support",
         SEND: "Criar conta"
-     }
+     },
+
+     HEADER:{
+        NOTIFICATIONS1: "Ler todas as notificações",
+        SEARCH1: "Digite em qualquer lugar para pesquisar",
+        USER_INFO: {
+            SETTINGS:   "Configurações",
+            FEEDBACK:   "Comentários",
+            HELP:       "Ajuda",
+            LOGOUT:     "Sair"
+        }
+    },
+    FOOTER:{
+        TEXT1:  "Todos os direitos reservados.",
+        TERMS:  "Termos de uso",
+        POLICY: "Política de privacidade",
+        CRAFTED:"Feito à mão",
+        MADE:   "&amp; Feito com amor ®"
+    },
+
+     CONFIRM_REG:{
+        SUCCESS1_TITLE: "Sucesso",
+        SUCCESS1:       "Cadastro confirmado com sucesso!",
+        HEADLINE1:      "Confirme o seu cadastro",
+        HEADLINE2:      "Confirme o seu cadastro aqui",
+        CONFIRM:        "Confirmar",
+        ERROR1_TITLE:   "",
+        ERROR1:   ""
+    },
+
+     GOSTO_MUSICAL:{
+        CAD_GOSTOS:{
+            HEADLINE: "Cadastre seu gosto musical",
+            SUBTITLE: "A partir do seu gosto musical, você poderá encontrar eventos e amigos que gostam do mesmo que você!",
+            SEND:     "Cadastrar"
+        },
+        CAD_FAVORITO:{
+            HEADLINE: "Agora, cadastre seu gosto musical favorito!",
+            SEND:     "Cadastrar"
+        },
+        SUCCESS_TITLE:  "Sucesso",
+        SUCCESS:        "Gosto musical cadastrado com sucesso!",
+        ERROR1_TITLE:   "",
+        ERROR1:         "Não foi possível cadastrar o seu gosto musical.",
+        ERROR2_TITLE:   "",
+        ERROR2:         "Nenhum gosto musical selecionado."
+    }
 };
 
 angular.module('app')
@@ -227,13 +273,13 @@ angular.module('app')
         $translateProvider
         .translations('en', translationsEN)
         .translations('br', translationsBR)
-        .preferredLanguage('en');
+        .preferredLanguage('br');
     }])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/app/dashboard');
+                .otherwise('/app/feed');
 
             $stateProvider
 

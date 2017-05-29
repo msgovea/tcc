@@ -165,7 +165,7 @@
                         <p class="m-t-5 small">More friends</p>
                     </div>
                     <!-- START ITEM -->
-                    <div class="card status col2" data-social="item">
+                    <!--<div class="card status col2" data-social="item">
                         <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
                         </div>
                         <h5>David Nester updated his status
@@ -177,7 +177,7 @@
                             <li><a href="">23K <i class="fa fa-heart-o"></i></a>
                             </li>
                         </ul>
-                    </div>
+                    </div>-->
                     <!-- END ITEM -->
                     <!-- START ITEM -->
                     <div class="card share col1" data-social="item" ng-repeat="publicacao in publicacoes">
@@ -227,4 +227,65 @@
         <!-- END CONTAINER FLUID -->
     </div>
     <!-- /container -->
+</div>
+
+<div class="modal fade slide-up disable-scroll" id="modalSlideUp" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="FeedCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>GOSTO_MUSICAL.CAD_GOSTOS.HEADLINE</h5>
+                    <p class="p-b-10" translate>GOSTO_MUSICAL.CAD_GOSTOS.SUBTITLE</p>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <div class="checkbox check-primary col-md-4" ng-repeat="gosto in gostos">
+                                        <input type="checkbox" id="checkbox{{gosto.codigo}}" ng-model="gosto.selecionado"/>
+                                        <label for="checkbox{{gosto.codigo}}">{{gosto.descricao}}</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="btn btn-primary btn-cons m-t-10" align="center" ng-click="cadastrarGostos()" translate>GOSTO_MUSICAL.CAD_GOSTOS.SEND</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade slide-up disable-scroll" id="modalGostoFavorito" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="FeedCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>GOSTO_MUSICAL.CAD_FAVORITO.HEADLINE</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <div class="radio radio-primary" ng-repeat="gostoCadastrado in gostosCadastrados">
+                                        <input type="radio" name="groupName" id="radio{{gostoCadastrado.codigo}}" ng-value="gostoCadastrado.codigo"  ng-model="gostoFavorito.favorito"/>
+                                        <label for="radio{{gostoCadastrado.codigo}}">{{gostoCadastrado.descricao}}</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="btn btn-primary btn-cons m-t-10" align="center" ng-click="cadastrarGostoFavorito()" translate>GOSTO_MUSICAL.CAD_FAVORITO.SEND</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

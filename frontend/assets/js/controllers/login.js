@@ -58,7 +58,7 @@ angular.module('app')
 
                         case 1: //conta ativa
                             $cookieStore.put('usuario', result.data.object);
-                            $state.go('app.dashboard');
+                            $state.go('app.feed');
                             break;
 
                         case 2: //conta inativa
