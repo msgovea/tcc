@@ -13,7 +13,6 @@ import android.view.MenuItem;
 
 import br.edu.puccamp.app.R;
 
-
 public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
 
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_x);
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,17 +64,17 @@ public class MainActivity extends AppCompatActivity {
         Fragment frag = null;
         // init corresponding fragment
         switch (item.getItemId()) {
-            case R.id.navigation_dashboard:
+            case R.id.menu_home:
                 frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
-                        getColorFromRes(R.color.colorPrimary));
+                        getColorFromRes(R.color.accent));
                 break;
-            case R.id.navigation_dashboard_star:
-                frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
-                        getColorFromRes(R.color.colorPrimary));
+            case R.id.menu_notifications:
+                frag = MenuFragment2.newInstance(getString(R.string.account_banned_text),
+                        getColorFromRes(R.color.accent));
                 break;
-            case R.id.navigation_home:
-                frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
-                        getColorFromRes(R.color.colorPrimary));
+            case R.id.menu_search:
+                frag = MenuFragment.newInstance(getString(R.string.google_app_id),
+                        getColorFromRes(R.color.accent));
                 break;
         }
 
