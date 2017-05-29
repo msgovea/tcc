@@ -36,7 +36,6 @@ import br.edu.puccamp.app.util.Strings;
 
 public class DefaultActivity extends AbstractAsyncActivity implements AsyncPublication.Listener, AsyncMakePublication.Listener {
 
-    private TextView mTextMessage;
     private RecyclerView mRecyclerView;
     private QuestionsAdapter mAdapter;
     private AppCompatImageView mIcon;
@@ -54,7 +53,6 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -62,13 +60,10 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                     return true;
                 case R.id.navigation_publication:
                     mRecyclerView.setLayoutManager(null);
-                    mTextMessage.setText(R.string.title_dashboard_publication);
                     return true;
                 case R.id.navigation_dashboard_star:
-                    mTextMessage.setText(R.string.title_dashboard_star);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -84,7 +79,6 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         //final SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
-        mTextMessage = (TextView) findViewById(R.id.message);
         mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
         mIcon.setOnClickListener(new View.OnClickListener() {
             @Override
