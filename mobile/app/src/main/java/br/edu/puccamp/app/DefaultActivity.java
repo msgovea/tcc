@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -36,7 +37,6 @@ import br.edu.puccamp.app.util.Strings;
 
 public class DefaultActivity extends AbstractAsyncActivity implements AsyncPublication.Listener, AsyncMakePublication.Listener {
 
-    private TextView mTextMessage;
     private RecyclerView mRecyclerView;
     private QuestionsAdapter mAdapter;
     private AppCompatImageView mIcon;
@@ -47,6 +47,8 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 
     private SharedPreferences prefs;
 
+    private ListView listView;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -54,7 +56,6 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -62,13 +63,10 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                     return true;
                 case R.id.navigation_publication:
                     mRecyclerView.setLayoutManager(null);
-                    mTextMessage.setText(R.string.title_dashboard_publication);
                     return true;
                 case R.id.navigation_dashboard_star:
-                    mTextMessage.setText(R.string.title_dashboard_star);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -83,8 +81,10 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 
         //final SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
 
+        listView = (ListView) findViewById(R.id.testemgovea);
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
-        mTextMessage = (TextView) findViewById(R.id.message);
         mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
         mIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +192,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     @Override
     public void onLoadedPublication(Boolean bool) {
         dismissProgressDialog();
+        mTextPublication.setText(null);
         loadPublication();
 
     }
