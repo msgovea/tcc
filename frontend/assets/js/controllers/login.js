@@ -26,7 +26,11 @@ angular.module('app')
 
 
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', '$window',  function($scope, apiLogin, $state, $timeout, $cookieStore, $filter, $window) {
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', '$window', '$translate', function($scope, apiLogin, $state, $timeout, $cookieStore, $filter, $window, $translate) {
+
+        $scope.changeLanguage = function (langKey) {
+            $translate.use(langKey);
+        };
 
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 

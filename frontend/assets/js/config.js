@@ -17,22 +17,22 @@ var translationsEN = {
             ERROR4_TITLE:   "Your account is banned",
             ERROR4:         "Your account is banned.Contact us for clarification"
         },
-        RECOVER:    "Recover Account",
+        RECOVER:    "Password recovery",
         LOG_IN:     "Log in",
         FOOTER1:    "Create account",
         SIGN_UP:    "Sign up",  
         REGISTER:   "New to urMusic ?"
     },
     RECOVER:{
-        HEADLINE: "Recover account",
-        SUBTITLE: "Fill in your email below to receive the account recovery link.",
+        HEADLINE: "Password recovery",
+        SUBTITLE: "Fill in your email below to receive the password recovery link.",
         FORM:{
             EMAIL:          "Email",
             ERROR1:         "Enter a valid email.",
             SUCCESS1_TITLE: "Right email",
             SUCCESS1:       "Password recovery sent to the informed email.",
             ERROR2_TITLE:   "Wrong email",
-            ERROR2:         "Email not found."  
+            ERROR2:         "Email not registered."  
         },
         HELP: "Help? Contact Support",
         SEND: "Send"
@@ -40,11 +40,11 @@ var translationsEN = {
     RESET:{
         HEADLINE: "Set your new password",
         FORM:{
-            PASSWORD: "Password",
+            PASSWORD: "New password",
             PH_PASSWORD: "Minimum of 6 Characters",
             ERROR1: "This field is required.",
             ERROR2: "Password should have at minimum 6 characters",
-            CONF_PASSWORD: "Confirm Password",
+            CONF_PASSWORD: "Confirm new password",
             ERROR3: "Passwords must be the same",
             SUCCESS1_TITLE: "Password registered",
             SUCCESS1:       "New password registered.",   
@@ -84,7 +84,7 @@ var translationsEN = {
             ERROR11:        "The date of birth should not be greater than today's date."
         },
         HELP: "Help? Contact Support",
-        SEND: "Create account"
+        SEND: "Register"
     },
     HEADER:{
         NOTIFICATIONS1: "Read all notifications",
@@ -149,22 +149,22 @@ var translationsBR = {
             ERROR4_TITLE:   "Sua conta está banida",
             ERROR4:         "Sua conta está banida. Contate-nos para esclarecimentos."
         },
-        RECOVER:    "Recuperar conta",
+        RECOVER:    "Recuperação de senha",
         LOG_IN:     "Entrar",
         FOOTER1:    "Criar conta",
         SIGN_UP:    "Criar conta",  
         REGISTER:   "Novo(a) em urMusic?"
     },
     RECOVER:{
-        HEADLINE: "Recuperar conta",
-        SUBTITLE: "Preencha seu e-mail abaixo para receber o link de recuperação de conta.",
+        HEADLINE: "Recuperação de senha",
+        SUBTITLE: "Preencha seu e-mail abaixo para receber o link de recuperação de senha.",
         FORM:{
             EMAIL:          "E-mail",
             ERROR1:         "Entre com um e-mail válido.",
             SUCCESS1_TITLE: "E-mail correto",
             SUCCESS1:       "Recuperação de senha enviada para o e-mail informado.",
             ERROR2_TITLE:   "E-mail errado",
-            ERROR2:         "E-mail não encontrado."  
+            ERROR2:         "E-mail não cadastrado."  
         },
         HELP: "Help? Contact Support",
         SEND: "Enviar"
@@ -172,11 +172,11 @@ var translationsBR = {
     RESET:{
         HEADLINE: "Defina sua nova senha",
         FORM:{
-            PASSWORD: "Senha",
+            PASSWORD: "Nova senha",
             PH_PASSWORD: "Mínimo de 6 caracteres.",
             ERROR1: "Este campo é obrigatório.",
             ERROR2: "A senha deve ter no mínimo 6 caracteres.",
-            CONF_PASSWORD: "Confirmar senha",
+            CONF_PASSWORD: "Confirmar nova senha",
             ERROR3: "As senhas devem ser iguais.",
             SUCCESS1_TITLE: "Senha registrada",
             SUCCESS1:       "Nova senha registrada.",   
@@ -216,7 +216,7 @@ var translationsBR = {
             ERROR11:        "A data de nascimento não deve ser superior a data de hoje."
         },
         HELP: "Help? Contact Support",
-        SEND: "Criar conta"
+        SEND: "Cadastrar"
      },
 
      HEADER:{
