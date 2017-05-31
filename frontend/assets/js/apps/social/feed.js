@@ -75,7 +75,10 @@ angular.module('app')
             
         }
         
-        $('#modalSlideUp').modal('show');
+        if ($cookieStore.get('usuario').gostosMusicais.length == 0) {
+            $('#modalSlideUp').modal('show');
+        }
+        
 
         $scope.gostos = [];
         $rootScope.gostosCadastrados = [];

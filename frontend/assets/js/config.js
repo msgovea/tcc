@@ -13,7 +13,7 @@ var translationsEN = {
             ERROR2_TITLE:   "Incorrect e-mail",
             ERROR2:         "E-mail or password is invalid.",
             ERROR3_TITLE:   "Confirm your account",
-            ERROR3:         "To access your account you need confirm your account in your email.",
+            ERROR3:         "To access your account, you need to confirm your registration in your email.",
             ERROR4_TITLE:   "Your account is banned",
             ERROR4:         "Your account is banned.Contact us for clarification"
         },
@@ -145,7 +145,7 @@ var translationsBR = {
             ERROR2_TITLE:   "E-mail incorreto",
             ERROR2:         "E-mail ou senha inválido.",
             ERROR3_TITLE:   "Confirme sua conta",
-            ERROR3:         "Para acessar sua conta, você precisa confirmar sua conta em seu e-mail.",
+            ERROR3:         "Para acessar sua conta, você precisa confirmar o cadastro em seu e-mail.",
             ERROR4_TITLE:   "Sua conta está banida",
             ERROR4:         "Sua conta está banida. Contate-nos para esclarecimentos."
         },
@@ -382,7 +382,7 @@ angular.module('app')
             .state('app.feed', {
                 url: '/feed',
                 data: {
-                        requireLogin: false
+                        requireLogin: true
                 },
                 templateUrl: 'tpl/apps/social/feed.html',
                 resolve: {
