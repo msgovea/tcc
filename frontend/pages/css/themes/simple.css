@@ -49,6 +49,13 @@ html {
 /* Body Triggers for layout options 
 ------------------------------------------------------------------
 */
+
+.footer-login {
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
 body {
   height: 100%;
   margin: 0;
