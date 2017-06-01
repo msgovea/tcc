@@ -37,6 +37,7 @@ angular.module('app')
         $http.get('http://192.198.90.26:82/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
             $scope.publicacoes = data.object;
         }); 
+        
 
         $scope.filtrarNumero = function(numero) {
             var nu = String(numero);
@@ -89,6 +90,8 @@ angular.module('app')
                 $scope.gostos[i] = result.object[i]; 
             }
         });
+
+        
 
         $scope.cadastrarGostoFavorito = function(){
             var objeto = {};
@@ -146,8 +149,6 @@ angular.module('app')
                     $rootScope.gostosCadastrados[j].selecionado = "";
                 }
             }
-
-            console.log($rootScope.gostosCadastrados);
 
             if (i == 0){
                 $('#modalSlideUp').pgNotification({

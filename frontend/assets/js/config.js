@@ -113,7 +113,11 @@ var translationsEN = {
         ERROR1:   ""
     },
     FEED:{
-        POST:"Post"
+        POST:           "Post",
+        TIME:           "few seconds ago",
+        HEADLINE:       "What's on your mind?",
+        SUGESTOES:      "1,435 friends suggestions",
+        MORE_FRIENDS:   "More friends"
     },
 
     GOSTO_MUSICAL:{
@@ -245,6 +249,13 @@ var translationsBR = {
         CONFIRM:        "Confirmar",
         ERROR1_TITLE:   "",
         ERROR1:   ""
+    },
+    FEED:{
+        POST:       "Publicar",
+        TIME:       "poucos segundos atrás",
+        HEADLINE:   "O que está em sua mente?",
+        SUGESTOES:  "1,435 sugestões de amigos",
+        MORE_FRIENDS: "Mais amigos"
     },
 
      GOSTO_MUSICAL:{
