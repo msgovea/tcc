@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp" />
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:id="@+id/listPosts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

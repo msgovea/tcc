@@ -2,10 +2,13 @@ package br.edu.puccamp.app.gosto_musical;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -19,10 +22,31 @@ public class GostosAdapter extends RecyclerView.Adapter<GostosAdapter.ViewHolder
 
     private List<Gosto> mQuestions;
     private Context mContext;
+    private CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
 
-    public GostosAdapter(Context context, List<Gosto> questions) {
+
+    public GostosAdapter(final Context context, List<Gosto> questions) {
         mContext = context;
         mQuestions = questions;
+
+
+        onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Gosto gosto = mQuestions.get((Integer) buttonView.getTag());
+
+//                Gosto gosto = (Gosto) buttonView.getTag();
+                if (isChecked && gosto.getSelecionado().equals("false")){
+                    mQuestions.get((Integer) buttonView.getTag()).setGosto("true");
+                }
+                else {
+                    mQuestions.get((Integer) buttonView.getTag()).setSelecionado("false");
+                }
+
+//                Snackbar.make(buttonView, gosto.getSelecionado().toString(), Snackbar.LENGTH_LONG)
+  //                      .setAction("Action", null).show();
+            }
+        };
     }
 
     @Override
@@ -36,6 +60,20 @@ public class GostosAdapter extends RecyclerView.Adapter<GostosAdapter.ViewHolder
         Gosto gosto = mQuestions.get(position);
 
         holder.textAuthorName.setText(gosto.getGosto());
+
+        if (gosto.getGosto().equals("true")) {
+            holder.checkBox.setChecked(true);
+        } else {
+            holder.checkBox.setChecked(false);
+        }
+        //holder.checkBox.setChecked(true);
+
+        holder.checkBox.setTag(position);
+        holder.checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
+
+//        holder.itemView.setTag(gosto);
+//        holder.itemView.setOnLongClickListener(onLongClickListener);
+
         //holder.textQuestion.setText(gosto.getText());
 
 
@@ -55,6 +93,7 @@ public class GostosAdapter extends RecyclerView.Adapter<GostosAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textAuthorName;
+        CheckBox checkBox;
         TextView textJobTitle;
         TextView textDate;
         TextView textQuestion;
@@ -66,12 +105,15 @@ public class GostosAdapter extends RecyclerView.Adapter<GostosAdapter.ViewHolder
             super(itemView);
 
             textAuthorName = (TextView) itemView.findViewById(R.id.text_name_gosto);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkbox_gosto);
             //textJobTitle = (TextView) itemView.findViewById(R.id.text_job_title);
             //textDate = (TextView) itemView.findViewById(R.id.text_date);
             //textQuestion = (TextView) itemView.findViewById(R.id.text_question);
             //firstFilter = (TextView) itemView.findViewById(R.id.filter_first);
             //secondFilter = (TextView) itemView.findViewById(R.id.filter_second);
             //avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar);
+
+
         }
     }
 }

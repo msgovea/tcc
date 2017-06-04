@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import br.edu.puccamp.app.posts.QuestionsAdapter;
 
 public class GostoMusicalActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
+    private ListView mRecyclerView;
     private GostosAdapter mAdapter;
 
 
@@ -44,27 +45,28 @@ public class GostoMusicalActivity extends AppCompatActivity {
         lista.add(new Gosto("teste", null, null));
         lista.add(new Gosto("teste2", null, null));
         lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
-        lista.add(new Gosto("teste3", null, null));
+        lista.add(new Gosto("teste4", null, null));
+        lista.add(new Gosto("teste5", null, null));
+        lista.add(new Gosto("teste6", null, null));
+        lista.add(new Gosto("teste7", null, null));
+        lista.add(new Gosto("teste8", null, null));
+        lista.add(new Gosto("teste9", null, null));
+        lista.add(new Gosto("teste10", null, null));
+        lista.add(new Gosto("teste31", null, null));
+        lista.add(new Gosto("teste32", null, null));
+        lista.add(new Gosto("teste33", null, null));
+        lista.add(new Gosto("teste34", null, null));
+        lista.add(new Gosto("teste35", null, null));
+        lista.add(new Gosto("teste36", null, null));
+        lista.add(new Gosto("teste37", null, null));
+        lista.add(new Gosto("teste38", null, null));
+        lista.add(new Gosto("teste39", null, null));
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
+        mRecyclerView = (ListView) findViewById(R.id.listPosts);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(mAdapter = new GostosAdapter(this, getGostos(lista)));
+        List<Gosto> listaOficial = getGostos(lista);
+        mRecyclerView.setAdapter(mAdapter = new GostosAdapter(this, listaOficial));
 
     }
 
@@ -73,21 +75,6 @@ public class GostoMusicalActivity extends AppCompatActivity {
             for (Gosto item : lista) {
                 add(item);
             }
-//            add(new Question("Paloma Silva", "Tester",
-//                    "http://kingofwallpapers.com/girl/girl-011.jpg", "Nov 20, 6:12 PM",
-//                    "What is the first step to transform an idea into an actual project?"));
-//            add(new Question("Paloma Silva", "Scrum Master",
-//                    "http://weknowyourdreams.com/images/girl/girl-03.jpg", "Nov 20, 3:48 AM",
-//                    "What is your biggest frustration with taking your business/career (in a corporate) to the next level?"));
-//            add(new Question("Janaine Cristina", "Web Developer",
-//                    "http://www.viraldoza.com/wp-content/uploads/2014/03/8876509-lily-pretty-girl.jpg", "Nov 20, 6:12 PM",
-//                    "What is the first step to transform an idea into an actual project?"));
-//            add(new Question("Wagner", "API Developer",
-//                    "http://kingofwallpapers.com/girl/girl-Web Developer019.jpg", "Nov 20, 6:12 PM",
-//                    "What is the first step to transform an idea into an actual project?"));
-//            add(new Question("Mateus Govêa", "Android Developer",
-//                    "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484", "Nov 20, 6:12 PM",
-//                    "What is the first step to transform an idea into an actual project?"));
         }};
     }
 

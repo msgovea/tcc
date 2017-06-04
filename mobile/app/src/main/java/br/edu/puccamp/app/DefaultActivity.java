@@ -117,7 +117,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         mIconSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DefaultActivity.this, br.edu.puccamp.app.principal.MainActivity.class));
+                startActivity(new Intent(DefaultActivity.this, GostoMusicalActivity.class));
             }
         });
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

@@ -13,7 +13,7 @@
 
 
     <CheckBox
-        android:id="@+id/avatar"
+        android:id="@+id/checkbox_gosto"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@+id/dividerTop"
@@ -40,7 +40,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/avatar" />
+        android:layout_toEndOf="@+id/checkbox_gosto" />
 
     <RadioButton
         android:id="@+id/img_fav"

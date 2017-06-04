@@ -2,13 +2,13 @@ package br.edu.puccamp.app.gosto_musical;
 
 public class Gosto {
     private String gosto;
-    private Boolean selecionado;
+    private String selecionado;
     private Boolean favorito;
 
     public Gosto(String gosto, Boolean selecionado, Boolean favorito) {
         this.gosto = gosto;
-        this.selecionado = selecionado;
         this.favorito = favorito;
+        this.selecionado = "false";
     }
 
     public String getGosto() {
@@ -19,11 +19,11 @@ public class Gosto {
         this.gosto = gosto;
     }
 
-    public Boolean getSelecionado() {
+    public String getSelecionado() {
         return selecionado;
     }
 
-    public void setSelecionado(Boolean selecionado) {
+    public void setSelecionado(String selecionado) {
         this.selecionado = selecionado;
     }
 
