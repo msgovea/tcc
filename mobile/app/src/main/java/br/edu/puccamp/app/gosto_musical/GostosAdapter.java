@@ -37,7 +37,7 @@
 //
 ////                Gosto gosto = (Gosto) buttonView.getTag();
 //                if (isChecked && gosto.getSelecionado().equals("false")){
-//                    mQuestions.get((Integer) buttonView.getTag()).setGosto("true");
+//                    mQuestions.get((Integer) buttonView.getTag()).setDescricao("true");
 //                }
 //                else {
 //                    mQuestions.get((Integer) buttonView.getTag()).setSelecionado("false");
@@ -59,9 +59,9 @@
 //    public void onBindViewHolder(ViewHolder holder, int position) {
 //        Gosto gosto = mQuestions.get(position);
 //
-//        holder.textAuthorName.setText(gosto.getGosto());
+//        holder.textAuthorName.setText(gosto.getDescricao());
 //
-//        if (gosto.getGosto().equals("true")) {
+//        if (gosto.getDescricao().equals("true")) {
 //            holder.checkBox.setChecked(true);
 //        } else {
 //            holder.checkBox.setChecked(false);

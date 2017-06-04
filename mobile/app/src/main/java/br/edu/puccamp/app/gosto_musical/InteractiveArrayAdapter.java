@@ -55,6 +55,12 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Gosto> {
 
                         }
                     });
+            viewHolder.text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewHolder.checkbox.setChecked(viewHolder.checkbox.isChecked() ? false : true);
+                }
+            });
             view.setTag(viewHolder);
             viewHolder.checkbox.setTag(list.get(position));
         } else {
@@ -62,7 +68,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Gosto> {
             ((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
         }
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).getGosto());
+        holder.text.setText(list.get(position).getDescricao());
         holder.checkbox.setChecked(list.get(position).getSelecionado());
         return view;
     }

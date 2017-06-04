@@ -12,6 +12,7 @@ public interface Strings {
     String REGISTER              = "usuario/cadastro";
     String LOGIN                 = "usuario/login";
     String RECOVERY              = "usuario/recuperar";
+    String GOSTOS_MUSICAIS       = "usuario/getGostosMusicais";
     String PUBLICATION           = "publicacoes/get";
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
 
