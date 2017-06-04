@@ -22,27 +22,27 @@ import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapter;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
 
-public class GostoMusicalActivity extends ListActivity {
+public class GostoMusicalActivity extends AppCompatActivity {
 
-    private ListView mRecyclerView;
+    private ListView listView;
 //    private GostosAdapter mAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_gosto_musical);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_gosto_musical);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Salvando as informações, aguarde.", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Salvando as informações, aguarde.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         ArrayList<Gosto> lista = new ArrayList<>();
         lista.add(new Gosto("teste", null, null));
@@ -65,7 +65,7 @@ public class GostoMusicalActivity extends ListActivity {
         lista.add(new Gosto("teste38", null, null));
         lista.add(new Gosto("teste39", null, null));
 
-        mRecyclerView = (ListView) findViewById(R.id.listPosts);
+        listView = (ListView) findViewById(R.id.listGostos);
 
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         List<Gosto> listaOficial = getGostos(lista);
@@ -73,7 +73,7 @@ public class GostoMusicalActivity extends ListActivity {
 
 
         ArrayAdapter<Gosto> adapter = new InteractiveArrayAdapter(this, getGostos(lista));
-        setListAdapter(adapter);
+        listView.setAdapter(adapter);
     }
 
     private List<Gosto> getGostos(final ArrayList<Gosto> lista) {

@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteX="8dp" />
 
     <ListView
-        android:id="@+id/listPosts"
+        android:id="@+id/listGostos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:listitem="@layout/gosto_musical_list"
