@@ -70,8 +70,8 @@
                 android:id="@+id/et_publication"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="@string/prompt_city"/>
+                android:hint="@string/prompt_publication"
+                android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/btn_publication"
