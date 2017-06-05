@@ -94,9 +94,15 @@ angular.module('app')
         
 
         $scope.cadastrarGostoFavorito = function(){
-            var objeto = {};
+            var objeto  = {};
+            var usuario = {};
+
+            usuario.email = $cookieStore.get('usuario').email;
+            usuario.senha = $cookieStore.get('usuario').senha;
+
             objeto.codigoUsuario = $cookieStore.get('usuario').codigoUsuario; 
             objeto.codigosGostosMusicais= [];
+
             for(var i = 0; i < $rootScope.gostosCadastrados.length; i++){
                 objeto.codigosGostosMusicais.push($scope.gostosCadastrados[i].codigo);
             }
@@ -107,18 +113,27 @@ angular.module('app')
                 objeto
             ).success(function(response){
                 if(response.message === 'Sucesso!'){
-                    
-                    $('#modalGostoFavorito').modal('hide'); 
-                    $('body').pgNotification({
-                        style: 'simple',
-                        title: $filter('translate')('GOSTO_MUSICAL.SUCCESS_TITLE'),
-                        message: $filter('translate')('GOSTO_MUSICAL.SUCCESS'),
-                        position: 'top-right',
-                        showClose: false,
-                        timeout: 6000,
-                        type: 'success',
-                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
-                    }).show();
+                    $http.post(
+                        'http://192.198.90.26:82/musicsocial/usuario/login', 
+                        usuario
+                    ).success(function(retorno){
+                        if(retorno.message === 'Sucesso!'){
+                            console.log(retorno);
+                            $cookieStore.put('usuario', retorno.object);
+                            $('#modalGostoFavorito').modal('hide'); 
+                            $('body').pgNotification({
+                                style: 'simple',
+                                title: $filter('translate')('GOSTO_MUSICAL.SUCCESS_TITLE'),
+                                message: $filter('translate')('GOSTO_MUSICAL.SUCCESS'),
+                                position: 'top-right',
+                                showClose: false,
+                                timeout: 6000,
+                                type: 'success',
+                                thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                            }).show();       
+                        }                 
+                    })
+                   
                 }
                 else {
                     $('#modalGostoFavorito').pgNotification({
