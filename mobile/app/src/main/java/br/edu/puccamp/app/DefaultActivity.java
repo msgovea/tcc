@@ -56,6 +56,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    mRecyclerView.setLayoutManager(null);
                     return true;
                 case R.id.navigation_dashboard:
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -65,11 +66,16 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                     mRecyclerView.setLayoutManager(null);
                     return true;
                 case R.id.navigation_dashboard_star:
+                    mRecyclerView.setLayoutManager(null);
                     return true;
                 case R.id.navigation_notifications:
+                    mRecyclerView.setLayoutManager(null);
+                    return true;
+                default:
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
+                    loadPublication();
                     return true;
             }
-            return false;
         }
 
     };
