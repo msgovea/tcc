@@ -51,7 +51,7 @@ var translationsEN = {
             ERROR4:         "Password should have at maximum 12 characters"         
         },
         HELP: "Help? Contact Support",
-        SEND: "Send",
+        SEND: "Confirm",
         CANCEL: "Cancel"
     },
     REGISTER:{
@@ -187,7 +187,7 @@ var translationsBR = {
             ERROR4:         "A senha deve ter no máximo 12 caracteres."         
         },
         HELP: "Help? Contact Support",
-        SEND: "Enviar",
+        SEND: "Confirmar",
         CANCEL: "Cancelar"
     },
      REGISTER:{
