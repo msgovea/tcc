@@ -81,6 +81,14 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     };
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        //super.onBackPressed();
+        //startActivity(new Intent(this, GostoMusicalActivity.class));
+        //finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
@@ -98,6 +106,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                 prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 startActivity(new Intent(DefaultActivity.this, MainActivity.class));
+                finish();
             }
         });
 

@@ -1,10 +1,12 @@
 package br.edu.puccamp.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -29,10 +31,31 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
 //    private GostosAdapter mAdapter;
     ArrayList<Gosto> gostoSelecionado = new ArrayList<Gosto>();
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
+        switch (item.getItemId()) {
+            case android.R.id.home:  //ID do seu botão (gerado automaticamente pelo android, usando como está, deve funcionar
+                /*startActivity(new Intent(this, SuaActivity.class));  //O efeito ao ser pressionado do botão (no caso abre a activity)
+                finishAffinity();  //Método para matar a activity e não deixa-lá indexada na pilhagem*/
+                onBackPressed();
+                break;
+            default:break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //startActivity(new Intent(this, GostoMusicalActivity.class));
+        finishActivity(0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         // Recupera os parâmetros passados pelo atributo estatico
         //gostos = (ArrayList<Gosto>) getIntent().getSerializableExtra("dados");
@@ -45,6 +68,9 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
         setContentView(R.layout.activity_gosto_favorito);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_2);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Mostrar o botão
+        getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_2);
         fab.setOnClickListener(new View.OnClickListener() {

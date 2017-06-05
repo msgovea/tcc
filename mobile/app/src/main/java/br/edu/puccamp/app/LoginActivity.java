@@ -164,9 +164,10 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
                     SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                     Gson json = new Gson();
                     prefs.edit().putString(Strings.USUARIO, json.toJson(o)).apply();
-                    Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
+                    //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
                     if (((Usuario) o).getGostosMusicais().toString().equals("[]")) startActivity(new Intent(this, GostoMusicalActivity.class));
                     else startActivity(new Intent(this, DefaultActivity.class));
+                    finish();
 
 
                     break;
