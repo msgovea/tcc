@@ -66,7 +66,7 @@
 
         <activity
             android:name=".GostoFavoritoActivity"
-            android:label="@string/title_activity_gosto_musical"
+            android:label="@string/title_activity_gosto_favorito"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".principal.MainActivity"></activity>

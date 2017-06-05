@@ -82,8 +82,8 @@
         <item>FootBall</item>
     </string-array>
     <string name="title_activity_teste_login">TesteLoginActivity</string>
-    <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
-    <string name="title_activity_gosto_favorito">Nos informe seu gosto favorito</string>
+    <string name="title_activity_gosto_musical">Record your musical taste</string>
+    <string name="title_activity_gosto_favorito">Now, sign up for your favorite musical taste</string>
     <string name="prompt_publication">What\'s on your mind?</string>
 
 </resources>
