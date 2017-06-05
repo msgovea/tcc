@@ -51,12 +51,17 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
             @Override
             public void onClick(View view) {
 
+                Boolean selecionado = false;
+
                 for (Gosto gosto : gostoSelecionado) {
-                    if (gosto.getFavorito()){
-                        Snackbar.make(view, "Gosto musical: " + gosto.getDescricao() , Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
+                    if (gosto.getFavorito()) selecionado = true;
+
                 }
+
+                if (selecionado) Snackbar.make(view, "Gosto musical selecionado com sucesso!" , Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                else Snackbar.make(view, R.string.error_gosto_musical , Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
 
 //                Snackbar.make(view, "Salvando as informações, teste." + , Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();

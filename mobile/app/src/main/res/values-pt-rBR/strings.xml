@@ -5,7 +5,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_recovery_activity">Recuperação de conta</string>
 
-    <string name="loading">"Carregando. Aguarde..."</string>
+    <string name="loading">Carregando. Aguarde...</string>
 
 
     <!-- Strings related to login -->
@@ -88,5 +88,6 @@
     <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
     <string name="title_activity_gosto_favorito">Agora, cadastre seu gosto musical favorito</string>
     <string name="prompt_publication">O que está em sua mente?</string>
+    <string name="error_gosto_musical">Nenhum gosto musical selecionado</string>
 
 </resources>

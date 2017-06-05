@@ -47,11 +47,15 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Salvando as informações, aguarde.", Snackbar.LENGTH_LONG)
+                Boolean selecionado = false;
+                for (Gosto gosto : gostos) {
+                    if (gosto.getSelecionado()) selecionado = true;
+                }
+
+                if (selecionado) startActivity(new Intent(getApplicationContext(), GostoFavoritoActivity.class));
+
+                else Snackbar.make(view, R.string.error_gosto_musical, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
-                startActivity(new Intent(getApplicationContext(), GostoFavoritoActivity.class));
-
 
             }
         });
