@@ -107,15 +107,19 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         mButtonPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Gson gson = new Gson();
 
-                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
-                Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+                if (!mTextPublication.getText().toString().trim().equals("")) {
 
-                showLoadingProgressDialog();
-                AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
-                sinc.execute(publicacao);
+                    Gson gson = new Gson();
+
+                    prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+                    Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+                    Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+
+                    showLoadingProgressDialog();
+                    AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
+                    sinc.execute(publicacao);
+                }
             }
         });
 
