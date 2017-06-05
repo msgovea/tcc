@@ -12,8 +12,8 @@
         <!--android:background="#E4E6E3" />-->
 
 
-    <CheckBox
-        android:id="@+id/checkbox_gosto"
+    <RadioButton
+        android:id="@+id/radioButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@+id/dividerTop"
@@ -32,11 +32,11 @@
         <!--fresco:roundWithOverlayColor="@android:color/white" />-->
 
     <TextView
-        android:id="@+id/text_name_gosto"
+        android:id="@+id/text_name_gosto_favorito"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/checkbox_gosto"
+        android:layout_toEndOf="@id/radioButton"
         android:text="Default text"
         android:textColor="#827f93"
         android:textSize="18sp"

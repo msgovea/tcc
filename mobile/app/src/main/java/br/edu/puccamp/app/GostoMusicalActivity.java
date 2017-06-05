@@ -3,6 +3,7 @@ package br.edu.puccamp.app;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,7 @@ import br.edu.puccamp.app.util.AbstractAsyncActivity;
 public class GostoMusicalActivity extends AbstractAsyncActivity implements AsyncGostoMusical.Listener {
 
     private ListView listView;
+    protected static ArrayList<Gosto> gostos;
 //    private GostosAdapter mAdapter;
 
 
@@ -47,6 +49,10 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
             public void onClick(View view) {
                 Snackbar.make(view, "Salvando as informações, aguarde.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                startActivity(new Intent(getApplicationContext(), GostoFavoritoActivity.class));
+
+
             }
         });
 
@@ -73,6 +79,7 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
     // ***************************************
     @Override
     public void onLoaded(ArrayList<Gosto> lista) {
+        gostos = lista;
         ArrayAdapter<Gosto> adapter = new InteractiveArrayAdapter(this, lista);
         listView.setAdapter(adapter);
         dismissProgressDialog();

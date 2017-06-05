@@ -1,5 +1,7 @@
 package br.edu.puccamp.app.gosto_musical;
 
+import java.io.Serializable;
+
 public class Gosto {
     private Integer codigo;
     private String descricao;
