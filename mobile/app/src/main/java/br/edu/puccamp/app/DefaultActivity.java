@@ -56,6 +56,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    mRecyclerView.setLayoutManager(null);
                     return true;
                 case R.id.navigation_dashboard:
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -65,11 +66,16 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                     mRecyclerView.setLayoutManager(null);
                     return true;
                 case R.id.navigation_dashboard_star:
+                    mRecyclerView.setLayoutManager(null);
                     return true;
                 case R.id.navigation_notifications:
+                    mRecyclerView.setLayoutManager(null);
+                    return true;
+                default:
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
+                    loadPublication();
                     return true;
             }
-            return false;
         }
 
     };
@@ -101,15 +107,19 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         mButtonPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Gson gson = new Gson();
 
-                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
-                Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+                if (!mTextPublication.getText().toString().trim().equals("")) {
 
-                showLoadingProgressDialog();
-                AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
-                sinc.execute(publicacao);
+                    Gson gson = new Gson();
+
+                    prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+                    Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+                    Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+
+                    showLoadingProgressDialog();
+                    AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
+                    sinc.execute(publicacao);
+                }
             }
         });
 
@@ -117,7 +127,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         mIconSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DefaultActivity.this, br.edu.puccamp.app.principal.MainActivity.class));
+                startActivity(new Intent(DefaultActivity.this, GostoMusicalActivity.class));
             }
         });
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

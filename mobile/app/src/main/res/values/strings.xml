@@ -5,7 +5,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_recovery_activity">Recovery your account</string>
 
-    <string name="loading">"Loading. Please wait..."</string>
+    <string name="loading">Loading. Please wait...</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -36,7 +36,7 @@
     <string name="action_sign_in_short">Sign in</string>
 
     <string name="welcome_text">Welcome to urMusic</string>
-    <string name="title_activity_default">DefaultActivity</string>
+    <string name="title_activity_default">urMusic</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Publications</string>
     <string name="title_dashboard_publication">Post</string>
@@ -82,6 +82,9 @@
         <item>FootBall</item>
     </string-array>
     <string name="title_activity_teste_login">TesteLoginActivity</string>
-    <string name="title_activity_gosto_musical">GostoMusicalActivity</string>
+    <string name="title_activity_gosto_musical">Record your musical taste</string>
+    <string name="title_activity_gosto_favorito">Now, sign up for your favorite musical taste</string>
+    <string name="prompt_publication">What\'s on your mind?</string>
+    <string name="error_gosto_musical">No musical taste selected</string>
 
 </resources>

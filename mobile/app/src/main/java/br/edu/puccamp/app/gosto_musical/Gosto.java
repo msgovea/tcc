@@ -1,26 +1,44 @@
 package br.edu.puccamp.app.gosto_musical;
 
+import java.io.Serializable;
+
 public class Gosto {
-    private String gosto;
+    private Integer codigo;
+    private String descricao;
     private Boolean selecionado;
     private Boolean favorito;
 
-    public Gosto(String gosto, Boolean selecionado, Boolean favorito) {
-        this.gosto = gosto;
-        this.selecionado = selecionado;
+    public Gosto(String descricao, Boolean selecionado, Boolean favorito) {
+        this.descricao = descricao;
         this.favorito = favorito;
+        this.selecionado = false;
     }
 
-    public String getGosto() {
-        return gosto;
+    public Gosto(Integer codigo, String descricao, Boolean selecionado, Boolean favorito) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.favorito = favorito;
+        this.selecionado = false;
     }
 
-    public void setGosto(String gosto) {
-        this.gosto = gosto;
+    public Gosto(Integer codigo, String descricao) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.favorito = false;
+        this.selecionado = false;
+    }
+
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Boolean getSelecionado() {
-        return selecionado;
+        return selecionado == null ? false: selecionado;
     }
 
     public void setSelecionado(Boolean selecionado) {
@@ -28,7 +46,7 @@ public class Gosto {
     }
 
     public Boolean getFavorito() {
-        return favorito;
+        return favorito == null ? false: favorito;
     }
 
     public void setFavorito(Boolean favorito) {
@@ -43,7 +61,7 @@ public class Gosto {
 
         Gosto gosto1 = (Gosto) o;
 
-        if (gosto != null ? !gosto.equals(gosto1.gosto) : gosto1.gosto != null) return false;
+        if (descricao != null ? !descricao.equals(gosto1.descricao) : gosto1.descricao != null) return false;
         if (selecionado != null ? !selecionado.equals(gosto1.selecionado) : gosto1.selecionado != null)
             return false;
         return favorito != null ? favorito.equals(gosto1.favorito) : gosto1.favorito == null;
@@ -52,7 +70,7 @@ public class Gosto {
 
     @Override
     public int hashCode() {
-        int result = gosto != null ? gosto.hashCode() : 0;
+        int result = descricao != null ? descricao.hashCode() : 0;
         result = 31 * result + (selecionado != null ? selecionado.hashCode() : 0);
         result = 31 * result + (favorito != null ? favorito.hashCode() : 0);
         return result;
