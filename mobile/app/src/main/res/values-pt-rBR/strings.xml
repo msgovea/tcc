@@ -79,4 +79,13 @@
         <item>Antarctica</item>
     </string-array>
 
+    <string-array name="sports_array">
+        <item>Shuttle Badminton</item>
+        <item>Tennis</item>
+        <item>FootBall</item>
+    </string-array>
+    <string name="title_activity_teste_login">TesteLoginActivity</string>
+    <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
+    <string name="title_activity_gosto_favorito">Nos informe seu gosto favorito</string>
+
 </resources>
