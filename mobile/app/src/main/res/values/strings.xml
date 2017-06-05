@@ -88,5 +88,6 @@
     <string name="prompt_publication">What\'s on your mind?</string>
     <string name="error_gosto_musical">No musical taste selected</string>
     <string name="prompt_post">Publish</string>
+    <string name="skip">SKIP</string>
 
 </resources>

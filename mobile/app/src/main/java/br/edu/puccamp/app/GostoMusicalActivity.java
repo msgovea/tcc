@@ -77,6 +77,10 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
         sinc.execute();
     }
 
+    public void skip(View v){
+        startActivity(new Intent(getApplicationContext(), DefaultActivity.class));
+        finish();
+    }
 
     // ***************************************
     // Metodos de retorno Async

@@ -92,5 +92,6 @@
     <string name="prompt_publication">O que está em sua mente?</string>
     <string name="error_gosto_musical">Nenhum gosto musical selecionado</string>
     <string name="prompt_post">Publicar</string>
+    <string name="skip">Pular</string>
 
 </resources>
