@@ -81,6 +81,14 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     };
 
     @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        //super.onBackPressed();
+        //startActivity(new Intent(this, GostoMusicalActivity.class));
+        //finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
@@ -98,6 +106,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                 prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 startActivity(new Intent(DefaultActivity.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -154,7 +163,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         return new ArrayList<Question>() {{
             for (Publicacao item : lista) {
                 add(new Question(item.getUsuario().getNome(),
-                        "teste",
+                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
                         "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
                         item.getDataPublicacao(),
                         item.getConteudo()));

@@ -77,14 +77,17 @@
     </string-array>
 
     <string-array name="sports_array">
-        <item>Shuttle Badminton</item>
-        <item>Tennis</item>
-        <item>FootBall</item>
+        <item>Foto</item>
+        <item>Vídeo</item>
+        <item>Áudio</item>
+        <item>Marcar amigos</item>
     </string-array>
     <string name="title_activity_teste_login">TesteLoginActivity</string>
     <string name="title_activity_gosto_musical">Record your musical taste</string>
     <string name="title_activity_gosto_favorito">Now, sign up for your favorite musical taste</string>
     <string name="prompt_publication">What\'s on your mind?</string>
     <string name="error_gosto_musical">No musical taste selected</string>
+    <string name="prompt_post">Publish</string>
+    <string name="skip">SKIP</string>
 
 </resources>

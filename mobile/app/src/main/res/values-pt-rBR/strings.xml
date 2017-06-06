@@ -80,14 +80,18 @@
     </string-array>
 
     <string-array name="sports_array">
-        <item>Shuttle Badminton</item>
-        <item>Tennis</item>
-        <item>FootBall</item>
+        <item>Foto</item>
+        <item>Vídeo</item>
+        <item>Áudio</item>
+        <item>Marcar amigos</item>
     </string-array>
+
     <string name="title_activity_teste_login">TesteLoginActivity</string>
     <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
     <string name="title_activity_gosto_favorito">Agora, cadastre seu gosto musical favorito</string>
     <string name="prompt_publication">O que está em sua mente?</string>
     <string name="error_gosto_musical">Nenhum gosto musical selecionado</string>
+    <string name="prompt_post">Publicar</string>
+    <string name="skip">Pular</string>
 
 </resources>
