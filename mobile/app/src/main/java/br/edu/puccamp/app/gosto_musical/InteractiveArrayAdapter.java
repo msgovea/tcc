@@ -69,7 +69,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Gosto> {
         }
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.text.setText(list.get(position).getDescricao());
-        holder.checkbox.setChecked(list.get(position).getSelecionado());
+        holder.checkbox.setChecked(list.get(position).isSelecionado());
         return view;
     }
 }

@@ -8,6 +8,14 @@ public class Gosto {
     private Boolean selecionado;
     private Boolean favorito;
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     public Gosto(String descricao, Boolean selecionado, Boolean favorito) {
         this.descricao = descricao;
         this.favorito = favorito;
@@ -37,7 +45,7 @@ public class Gosto {
         this.descricao = descricao;
     }
 
-    public Boolean getSelecionado() {
+    public Boolean isSelecionado() {
         return selecionado == null ? false: selecionado;
     }
 
@@ -45,7 +53,7 @@ public class Gosto {
         this.selecionado = selecionado;
     }
 
-    public Boolean getFavorito() {
+    public Boolean isFavorito() {
         return favorito == null ? false: favorito;
     }
 

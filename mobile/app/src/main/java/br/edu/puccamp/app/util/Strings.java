@@ -13,6 +13,7 @@ public interface Strings {
     String LOGIN                 = "usuario/login";
     String RECOVERY              = "usuario/recuperar";
     String GOSTOS_MUSICAIS       = "usuario/getGostosMusicais";
+    String GOSTOS_MUSICAIS_REGISTER = "usuario/gostosmusicais";
     String PUBLICATION           = "publicacoes/get";
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
 

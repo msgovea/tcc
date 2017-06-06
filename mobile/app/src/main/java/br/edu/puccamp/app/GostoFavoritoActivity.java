@@ -1,6 +1,7 @@
 package br.edu.puccamp.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,32 +12,31 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.Gson;
 
-import br.edu.puccamp.app.async.AsyncGostoMusical;
+import java.util.ArrayList;
+
+import br.edu.puccamp.app.async.AsyncMakeGostoMusical;
+import br.edu.puccamp.app.entity.GostoUsuario;
+import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.gosto_musical.Gosto;
-import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapter;
 import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapterFavorito;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.Strings;
 
 //import br.edu.puccamp.app.gosto_musical.GostosAdapter;
 
-public class GostoFavoritoActivity extends AbstractAsyncActivity implements AsyncGostoMusical.Listener {
+public class GostoFavoritoActivity extends AbstractAsyncActivity implements AsyncMakeGostoMusical.Listener {
 
     private ListView listView;
-    //private ArrayList<Gosto> gostos;
-//    private GostosAdapter mAdapter;
-    ArrayList<Gosto> gostoSelecionado = new ArrayList<Gosto>();
+
+    ArrayList<Gosto> gostoSelecionado = new ArrayList<>();
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
         switch (item.getItemId()) {
             case android.R.id.home:  //ID do seu botão (gerado automaticamente pelo android, usando como está, deve funcionar
-                /*startActivity(new Intent(this, SuaActivity.class));  //O efeito ao ser pressionado do botão (no caso abre a activity)
-                finishAffinity();  //Método para matar a activity e não deixa-lá indexada na pilhagem*/
+                //finishAffinity();  //Método para matar a activity e não deixa-lá indexada na pilhagem*/
                 onBackPressed();
                 break;
             default:break;
@@ -47,7 +47,6 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //startActivity(new Intent(this, GostoMusicalActivity.class));
         finishActivity(0);
     }
 
@@ -55,14 +54,9 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-        // Recupera os parâmetros passados pelo atributo estatico
-        //gostos = (ArrayList<Gosto>) getIntent().getSerializableExtra("dados");
-
         for (Gosto gosto :
                 GostoMusicalActivity.gostos) {
-            Log.e(null, gosto.getDescricao() + gosto.getSelecionado());
+            Log.e(null, gosto.getDescricao() + gosto.isSelecionado());
         }
 
         setContentView(R.layout.activity_gosto_favorito);
@@ -77,38 +71,53 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
             @Override
             public void onClick(View view) {
 
-                Boolean selecionado = false;
+                GostoUsuario gostoUsuario = verificaGosto();
 
-                for (Gosto gosto : gostoSelecionado) {
-                    if (gosto.getFavorito()) selecionado = true;
-
+                if (gostoUsuario != null) {
+                    showLoadingProgressDialog();
+                    AsyncMakeGostoMusical sinc = new AsyncMakeGostoMusical(GostoFavoritoActivity.this);
+                    sinc.execute(gostoUsuario);
                 }
-
-                if (selecionado) Snackbar.make(view, "Gosto musical selecionado com sucesso!" , Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                else Snackbar.make(view, R.string.error_gosto_musical , Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-//                Snackbar.make(view, "Salvando as informações, teste." + , Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+                else {
+                    Snackbar.make(view, R.string.error_gosto_musical , Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
         listView = (ListView) findViewById(R.id.listGostosFavoritos);
 
-
-//        ArrayAdapter<Gosto> adapter = new InteractiveArrayAdapter(this, getGostos(lista));
- //       listView.setAdapter(adapter);
-        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //mRecyclerView.setAdapter(mAdapter = new GostosAdapter(this, listaOficial));
-
         obtemGostos();
+    }
+
+    private GostoUsuario verificaGosto() {
+        Gson gson = new Gson();
+        SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+        GostoUsuario gostoUsuario = new GostoUsuario();
+        ArrayList<Integer> gostos = new ArrayList<>();
+
+        Integer favorito = null;
+
+        for (Gosto gosto : gostoSelecionado) {
+            gostos.add(gosto.getCodigo());
+            if (gosto.isFavorito()) favorito = gosto.getCodigo();
+        }
+
+        if (favorito != null) {
+            gostoUsuario.setCodigosGostosMusicais(gostos);
+            gostoUsuario.setCodigoUsuario((gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class)).getCodigoUsuario());
+            gostoUsuario.setFavorito(favorito);
+
+            return gostoUsuario;
+        }
+
+        return null;
     }
 
     private void obtemGostos() {
 
         for (Gosto gosto : GostoMusicalActivity.gostos) {
-            if (gosto.getSelecionado()){
+            if (gosto.isSelecionado()){
                 gostoSelecionado.add(gosto);
             }
         }
@@ -119,20 +128,23 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
 //        sinc.execute();
     }
 
-
     // ***************************************
     // Metodos de retorno Async
     // ***************************************
-    @Override
-    public void onLoaded(ArrayList<Gosto> lista) {
-//        GostoMusicalActivity.gostos = lista;
-//        ArrayAdapter<Gosto> adapter = new InteractiveArrayAdapter(this, lista);
-//        listView.setAdapter(adapter);
-//        dismissProgressDialog();
-    }
 
     @Override
     public void onLoadedError(String s) {
         showErrorMessage();
+    }
+
+    @Override
+    public void onLoadedPublication(Boolean bool) {
+        if (bool) {
+            dismissProgressDialog();
+            startActivity(new Intent(getApplicationContext(), DefaultActivity.class));
+            finish();
+        }
+        else showErrorMessage();
+
     }
 }

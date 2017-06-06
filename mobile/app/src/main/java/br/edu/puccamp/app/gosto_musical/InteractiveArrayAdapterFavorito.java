@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -78,7 +77,7 @@ public class InteractiveArrayAdapterFavorito extends ArrayAdapter<Gosto> {
         }
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.text.setText(list.get(position).getDescricao());
-        holder.radioButton.setChecked(list.get(position).getFavorito());
+        holder.radioButton.setChecked(list.get(position).isFavorito());
         return view;
     }
 }

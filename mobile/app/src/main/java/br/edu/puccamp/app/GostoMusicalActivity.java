@@ -1,32 +1,20 @@
 package br.edu.puccamp.app;
 
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.edu.puccamp.app.async.AsyncGostoMusical;
-import br.edu.puccamp.app.async.AsyncPublication;
-import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.gosto_musical.Gosto;
 //import br.edu.puccamp.app.gosto_musical.GostosAdapter;
 import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapter;
-import br.edu.puccamp.app.posts.Question;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
 public class GostoMusicalActivity extends AbstractAsyncActivity implements AsyncGostoMusical.Listener {
@@ -49,7 +37,7 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
             public void onClick(View view) {
                 Boolean selecionado = false;
                 for (Gosto gosto : gostos) {
-                    if (gosto.getSelecionado()) selecionado = true;
+                    if (gosto.isSelecionado()) selecionado = true;
                 }
 
                 if (selecionado) startActivity(new Intent(getApplicationContext(), GostoFavoritoActivity.class));

@@ -63,4 +63,18 @@ public abstract class AbstractAsyncActivity extends AppCompatActivity {
         builder.setCancelable(false);
         builder.show();
     }
+
+    public void showErrorMessage(String teste){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.error));
+        builder.setMessage(teste);
+        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
 }
