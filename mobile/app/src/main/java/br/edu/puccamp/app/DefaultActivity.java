@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +13,7 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +25,9 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.gson.Gson;
 
+import org.springframework.core.io.Resource;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,7 +170,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                 add(new Question(item.getUsuario().getNome(),
                         item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
                         "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
-                        item.getDataPublicacao(),
+                        trataData(item.getDataPublicacao()),
                         item.getConteudo()));
             }
 //            add(new Question("Paloma Silva", "Tester",
@@ -184,6 +189,30 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 //                    "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484", "Nov 20, 6:12 PM",
 //                    "What is the first step to transform an idea into an actual project?"));
         }};
+    }
+
+    private String trataData(String data) {
+        try {
+            String dataFinal;
+
+            String[] partes = data.split("-");
+
+            Log.e("data1", partes[0]);
+            Log.e("data2", partes[1]);
+            Log.e("data3", partes[2]);
+
+            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
+
+            return dataFinal;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return data;
+        }
+    }
+
+    public String theMonth(int month){
+        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month+1];
     }
 
     @Override

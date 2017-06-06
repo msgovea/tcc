@@ -82,6 +82,22 @@
         <item>Áudio</item>
         <item>Marcar amigos</item>
     </string-array>
+
+    <string-array name="month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
     <string name="title_activity_teste_login">TesteLoginActivity</string>
     <string name="title_activity_gosto_musical">Record your musical taste</string>
     <string name="title_activity_gosto_favorito">Now, sign up for your favorite musical taste</string>
