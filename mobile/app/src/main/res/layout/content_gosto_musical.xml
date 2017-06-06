@@ -16,8 +16,8 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listPosts"
+    <ListView
+        android:id="@+id/listGostos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:listitem="@layout/gosto_musical_list"

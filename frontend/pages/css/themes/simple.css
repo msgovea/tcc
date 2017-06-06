@@ -49,12 +49,20 @@ html {
 /* Body Triggers for layout options 
 ------------------------------------------------------------------
 */
+
+.footer-login {
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
 body {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: #eef0f0;
   direction: ltr;
+  word-wrap: break-word;
 }
 body.fixed-header .header {
   position: fixed;
@@ -12606,6 +12614,12 @@ Main components
 }
 .demo-mw-50 {
   max-width: 50px;
+}
+.demo-mw-25 {
+  max-width: 25px;
+}
+.demo-mw-27 {
+  max-width: 27px;
 }
 .demo-mw-300 {
   max-width: 300px;

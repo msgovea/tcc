@@ -1,6 +1,8 @@
 package br.edu.puccamp.app.util;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 
 import br.edu.puccamp.app.R;
@@ -46,5 +48,33 @@ public abstract class AbstractAsyncActivity extends AppCompatActivity {
         if (progressDialog != null && !destroyed) {
             progressDialog.dismiss();
         }
+    }
+
+    public void showErrorMessage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.error));
+        builder.setMessage(getString(R.string.error));
+        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    public void showErrorMessage(String teste){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.error));
+        builder.setMessage(teste);
+        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
     }
 }

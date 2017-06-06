@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,16 +13,21 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.gson.Gson;
 
+import org.springframework.core.io.Resource;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +42,6 @@ import br.edu.puccamp.app.util.Strings;
 
 public class DefaultActivity extends AbstractAsyncActivity implements AsyncPublication.Listener, AsyncMakePublication.Listener {
 
-    private TextView mTextMessage;
     private RecyclerView mRecyclerView;
     private QuestionsAdapter mAdapter;
     private AppCompatImageView mIcon;
@@ -47,6 +52,8 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 
     private SharedPreferences prefs;
 
+    private ListView listView;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -54,20 +61,37 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    mRecyclerView.setLayoutManager(null);
                     return true;
                 case R.id.navigation_dashboard:
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
                     loadPublication();
                     return true;
+                case R.id.navigation_publication:
+                    mRecyclerView.setLayoutManager(null);
+                    return true;
+                case R.id.navigation_dashboard_star:
+                    mRecyclerView.setLayoutManager(null);
+                    return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    mRecyclerView.setLayoutManager(null);
+                    return true;
+                default:
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(DefaultActivity.this, LinearLayoutManager.VERTICAL, false));
+                    loadPublication();
                     return true;
             }
-            return false;
         }
 
     };
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        //super.onBackPressed();
+        //startActivity(new Intent(this, GostoMusicalActivity.class));
+        //finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +100,10 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 
         //final SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
 
+        listView = (ListView) findViewById(R.id.testemgovea);
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.listPosts);
-        mTextMessage = (TextView) findViewById(R.id.message);
         mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
         mIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +111,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
                 prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 startActivity(new Intent(DefaultActivity.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -94,15 +121,19 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         mButtonPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Gson gson = new Gson();
 
-                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
-                Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+                if (!mTextPublication.getText().toString().trim().equals("")) {
 
-                showLoadingProgressDialog();
-                AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
-                sinc.execute(publicacao);
+                    Gson gson = new Gson();
+
+                    prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+                    Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+                    Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+
+                    showLoadingProgressDialog();
+                    AsyncMakePublication sinc = new AsyncMakePublication(DefaultActivity.this);
+                    sinc.execute(publicacao);
+                }
             }
         });
 
@@ -137,9 +168,9 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         return new ArrayList<Question>() {{
             for (Publicacao item : lista) {
                 add(new Question(item.getUsuario().getNome(),
-                        "teste",
+                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
                         "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
-                        item.getDataPublicacao(),
+                        trataData(item.getDataPublicacao()),
                         item.getConteudo()));
             }
 //            add(new Question("Paloma Silva", "Tester",
@@ -158,6 +189,30 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 //                    "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484", "Nov 20, 6:12 PM",
 //                    "What is the first step to transform an idea into an actual project?"));
         }};
+    }
+
+    private String trataData(String data) {
+        try {
+            String dataFinal;
+
+            String[] partes = data.split("-");
+
+            Log.e("data1", partes[0]);
+            Log.e("data2", partes[1]);
+            Log.e("data3", partes[2]);
+
+            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
+
+            return dataFinal;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return data;
+        }
+    }
+
+    public String theMonth(int month){
+        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month+1];
     }
 
     @Override
@@ -185,6 +240,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
     @Override
     public void onLoadedPublication(Boolean bool) {
         dismissProgressDialog();
+        mTextPublication.setText(null);
         loadPublication();
 
     }

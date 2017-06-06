@@ -5,15 +5,15 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-    <View
-        android:id="@+id/dividerTop"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#E4E6E3" />
+    <!--<View-->
+        <!--android:id="@+id/dividerTop"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:background="#E4E6E3" />-->
 
 
     <CheckBox
-        android:id="@+id/avatar"
+        android:id="@+id/checkbox_gosto"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@+id/dividerTop"
@@ -33,36 +33,22 @@
 
     <TextView
         android:id="@+id/text_name_gosto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Carol Bell"
-        android:textColor="#827f93"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/avatar" />
-
-    <RadioButton
-        android:id="@+id/img_fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Favorito"
-        android:textColor="#827f93"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-
-         />
-
-    <View
-        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/text_question"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="#ebebeb" />
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/checkbox_gosto"
+        android:text="Default text"
+        android:textColor="#827f93"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!--<View-->
+        <!--android:id="@+id/divider"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@+id/text_question"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:background="#ebebeb" />-->
 
 </RelativeLayout>

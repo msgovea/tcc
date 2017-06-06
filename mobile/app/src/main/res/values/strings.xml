@@ -5,7 +5,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_recovery_activity">Recovery your account</string>
 
-    <string name="loading">"Loading. Please wait..."</string>
+    <string name="loading">Loading. Please wait...</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -36,9 +36,11 @@
     <string name="action_sign_in_short">Sign in</string>
 
     <string name="welcome_text">Welcome to urMusic</string>
-    <string name="title_activity_default">DefaultActivity</string>
+    <string name="title_activity_default">urMusic</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Publications</string>
+    <string name="title_dashboard_publication">Post</string>
+    <string name="title_dashboard_star">Publications Star</string>
     <string name="title_notifications">Notifications</string>
 
     <string name="close">Close</string>
@@ -73,7 +75,47 @@
         <item>Anguilla</item>
         <item>Antarctica</item>
     </string-array>
+
+    <string-array name="sports_array">
+        <item>Foto</item>
+        <item>Vídeo</item>
+        <item>Áudio</item>
+        <item>Marcar amigos</item>
+    </string-array>
+
+    <string-array name="month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
     <string name="title_activity_teste_login">TesteLoginActivity</string>
-    <string name="title_activity_gosto_musical">GostoMusicalActivity</string>
+    <string name="title_activity_gosto_musical">Record your musical taste</string>
+    <string name="title_activity_gosto_favorito">Now, sign up for your favorite musical taste</string>
+    <string name="prompt_publication">What\'s on your mind?</string>
+    <string name="error_gosto_musical">No musical taste selected</string>
+    <string name="prompt_post">Publish</string>
+    <string name="skip">SKIP</string>
+
+    <string name="intro_title">IntroTitle1</string>
+    <string name="intro_message">IntroMessage1</string>
+    <string name="intro_title2">IntroTitle2</string>
+    <string name="intro_message2">IntroMessage2</string>
+    <string name="intro_title3">IntroTitle3</string>
+    <string name="intro_message3">IntroMessage3</string>
+    <string name="intro_title4">IntroTitle4</string>
+    <string name="intro_message4">IntroMessage4</string>
+
+    <string name="intro_button">IntroButton1</string>
+    <string name="intro_button2">IntroButton2</string>
 
 </resources>

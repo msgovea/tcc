@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('HeaderCtrl', ['$scope', '$cookieStore', '$state' , function($scope, $cookieStore, $state) {
+    .controller('HeaderCtrl', ['$scope', '$cookieStore', '$state' , '$translate', function($scope, $cookieStore, $state, $translate) {
 
         $scope.user = $cookieStore.get('usuario');
         console.log($cookieStore.get('usuario'));
@@ -12,4 +12,8 @@ angular.module('app')
             $cookieStore.remove('usuario');
             $state.go('access.login');
         }
+
+         $scope.changeLanguage = function (langKey) {
+            $translate.use(langKey);
+        };
     }]);

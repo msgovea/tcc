@@ -1,9 +1,11 @@
 package br.com.tcc.musicsocial.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -41,6 +44,9 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "USR_STC_SITUACAO_CONTA")
 	private SituacaoConta situacaoConta;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.usuario")
+	private List<UsuarioGostoMusical> gostosMusicais;
 
 	public Integer getCodigoUsuario() {
 		return codigoUsuario;
@@ -88,6 +94,14 @@ public class Usuario {
 
 	public void setSituacaoConta(SituacaoConta situacaoConta) {
 		this.situacaoConta = situacaoConta;
+	}
+	
+	public List<UsuarioGostoMusical> getGostosMusicais() {
+		return gostosMusicais;
+	}
+
+	public void setGostosMusicais(List<UsuarioGostoMusical> gostosMusicais) {
+		this.gostosMusicais = gostosMusicais;
 	}
 
 	@Override

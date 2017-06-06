@@ -37,6 +37,7 @@ angular.module('app')
         $http.get('http://192.198.90.26:82/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
             $scope.publicacoes = data.object;
         }); 
+        
 
         $scope.filtrarNumero = function(numero) {
             var nu = String(numero);
@@ -73,6 +74,113 @@ angular.module('app')
                 console.log("Não publicou");
             }
             
+        }
+        
+        if ($cookieStore.get('usuario').gostosMusicais.length == 0) {
+            $('#modalSlideUp').modal('show');
+        }
+        
+
+        $scope.gostos = [];
+        $rootScope.gostosCadastrados = [];
+        $scope.gostoFavorito = {favorito: null};
+
+        $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
+            for(var i = 0; i < result.object.length; i++){
+                $scope.gostos[i] = result.object[i]; 
+            }
+        });
+
+        
+
+        $scope.cadastrarGostoFavorito = function(){
+            var objeto  = {};
+            var usuario = {};
+
+            usuario.email = $cookieStore.get('usuario').email;
+            usuario.senha = $cookieStore.get('usuario').senha;
+
+            objeto.codigoUsuario = $cookieStore.get('usuario').codigoUsuario; 
+            objeto.codigosGostosMusicais= [];
+
+            for(var i = 0; i < $rootScope.gostosCadastrados.length; i++){
+                objeto.codigosGostosMusicais.push($scope.gostosCadastrados[i].codigo);
+            }
+            objeto.favorito =  $scope.gostoFavorito.favorito;
+
+            $http.post(
+                'http://192.198.90.26:82/musicsocial/usuario/gostosmusicais', 
+                objeto
+            ).success(function(response){
+                if(response.message === 'Sucesso!'){
+                    $http.post(
+                        'http://192.198.90.26:82/musicsocial/usuario/login', 
+                        usuario
+                    ).success(function(retorno){
+                        if(retorno.message === 'Sucesso!'){
+                            console.log(retorno);
+                            $cookieStore.put('usuario', retorno.object);
+                            $('#modalGostoFavorito').modal('hide'); 
+                            $('body').pgNotification({
+                                style: 'simple',
+                                title: $filter('translate')('GOSTO_MUSICAL.SUCCESS_TITLE'),
+                                message: $filter('translate')('GOSTO_MUSICAL.SUCCESS'),
+                                position: 'top-right',
+                                showClose: false,
+                                timeout: 6000,
+                                type: 'success',
+                                thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                            }).show();       
+                        }                 
+                    })
+                   
+                }
+                else {
+                    $('#modalGostoFavorito').pgNotification({
+                        style: 'simple',
+                        title: $filter('translate')('GOSTO_MUSICAL.ERROR1_TITLE'),
+                        message: $filter('translate')('GOSTO_MUSICAL.ERROR1'),
+                        position: 'top-right',
+                        showClose: false,
+                        timeout: 6000,
+                        type: 'danger',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show(); 
+                }
+            })
+        }
+
+        $scope.cadastrarGostos = function (){
+            var i = 0;
+            for(var j = 0; j < $scope.gostos.length; j++){
+                if ($scope.gostos[j].selecionado){
+                    i += 1
+                    $rootScope.gostosCadastrados.push($scope.gostos[j]);
+                }
+            }
+
+            for(var j = 0; j < $rootScope.gostosCadastrados.length; j++){
+                if ($rootScope.gostosCadastrados[j].selecionado){
+                    $rootScope.gostosCadastrados[j].selecionado = "";
+                }
+            }
+
+            if (i == 0){
+                $('#modalSlideUp').pgNotification({
+                    style: 'simple',
+                    title: $filter('translate')('GOSTO_MUSICAL.ERROR2_TITLE'),
+                    message: $filter('translate')('GOSTO_MUSICAL.ERROR2'),
+                    position: 'top-right',
+                    showClose: false,
+                    timeout: 6000,
+                    type: 'danger',
+                    thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                }).show(); 
+            }   
+            else{
+                $('#modalSlideUp').modal('hide'); 
+                $('#modalGostoFavorito').modal('show');
+            }   
         }
        
     }]);

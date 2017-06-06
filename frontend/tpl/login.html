@@ -3,15 +3,10 @@
     <!-- START Login Background Pic Wrapper-->
     <div class="bg-pic">
         <!-- START Background Pic-->
-        <img src="{{bg}}" data-src="{{bg}}" ui-jq="unveil" data-src-retina="{{bg}}" alt="" class="lazy">
+        <img src="assets/img/bg.jpg" data-src="assets/img/bg.jpg" ui-jq="unveil" data-src-retina="assets/img/bg.jpg" alt="" class="lazy">
         <!-- END Background Pic-->
         <!-- START Background Caption-->
-        <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
-            <h2 class="semi-bold text-white">
-          {{app.name}}</h2>
-            <p translate class="small"> LOGIN.FOOTER2
-            </p>
-        </div>
+
         <!-- END Background Caption-->
     </div>
     <!-- END Login Background Pic Wrapper-->
@@ -44,12 +39,10 @@
                 <div class="row">
                     <div class="col-md-6 no-padding">
                         <div class="checkbox">
-                            <input type="checkbox" value="1" id="checkbox1">
-                            <label translate for="checkbox1">LOGIN.SIGNED</label>
                         </div>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a class="text-info small" ui-sref="access.recuperarSenha"><label translate>LOGIN.RECOVER</label></a>
+                        <a translate class="text-info small" ui-sref="access.recuperarSenha">LOGIN.RECOVER</a>
                     </div>
                 </div>
                 <!-- END Form Control-->
@@ -58,14 +51,25 @@
                         <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
                     </div>
                 </div>
-                <button translate class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login2.$invalid" ng-click="validateLogin(user3)">LOGIN.LOG_IN</button>
+                <button translate class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login2.$invalid || loading" ng-click="validateLogin(user3)">LOGIN.LOG_IN</button>
             </form>
             <hr>
             <label translate>LOGIN.REGISTER</label>
             <button translate class="btn btn-success btn-block" ui-sref="access.register">LOGIN.SIGN_UP</button>
 
         </div>
-    </div>
+        <div class="footer-login col-md-12 text-center panel-footer ">
+            <a translate class="text-info small" ng-click = "changeLanguage ('br')"> <img width="24" height="24"src="assets/img/brasil.png"></a>   
+            <a translate class="text-info small" ng-click = "changeLanguage ('en')"> <img width="22" height="22" src="assets/img/eua.png"></a>
+            <p class="small no-margin pull-left sm-pull-reset">
+                <span class="hint-text">Copyright © 2017</span>
+                <span class="font-montserrat">ur Music</span>.
+                <span class="hint-text" translate>FOOTER.TEXT1</span>
+            </p>
+        </div>
+
     <!-- END Login Right Container-->
+
+ 
 </div>
 <!-- END PAGE CONTAINER -->

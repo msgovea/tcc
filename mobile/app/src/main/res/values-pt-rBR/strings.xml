@@ -5,7 +5,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_recovery_activity">Recuperação de conta</string>
 
-    <string name="loading">"Carregando. Aguarde..."</string>
+    <string name="loading">Carregando. Aguarde...</string>
 
 
     <!-- Strings related to login -->
@@ -39,9 +39,11 @@
 
 
     <string name="welcome_text">Bem vindo ao urMusic</string>
-    <string name="title_activity_default">Tela principal</string>
+    <string name="title_activity_default">urMusic</string>
     <string name="title_home">Ínicio</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Publicações</string>
+    <string name="title_dashboard_publication">Postar</string>
+    <string name="title_dashboard_star">Publicações Destaque</string>
     <string name="title_notifications">Notificações</string>
 
     <string name="close">Fechar</string>
@@ -76,5 +78,45 @@
         <item>Anguilla</item>
         <item>Antarctica</item>
     </string-array>
+
+    <string-array name="sports_array">
+        <item>Foto</item>
+        <item>Vídeo</item>
+        <item>Áudio</item>
+        <item>Marcar amigos</item>
+    </string-array>
+
+    <string-array name="month">
+        <item>Janeiro</item>
+        <item>Fevereiro</item>
+        <item>Março</item>
+        <item>Abril</item>
+        <item>Maio</item>
+        <item>Junho</item>
+        <item>Julho</item>
+        <item>Agosto</item>
+        <item>Setembro</item>
+        <item>Outubro</item>
+        <item>Novembro</item>
+        <item>Dezembro</item>
+    </string-array>
+
+    <string name="title_activity_teste_login">TesteLoginActivity</string>
+    <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
+    <string name="title_activity_gosto_favorito">Agora, cadastre seu gosto musical favorito</string>
+    <string name="prompt_publication">O que está em sua mente?</string>
+    <string name="error_gosto_musical">Nenhum gosto musical selecionado</string>
+    <string name="prompt_post">Publicar</string>
+    <string name="skip">Pular</string>
+    <string name="intro_button">IntroButton1</string>
+    <string name="intro_button2">IntroButton2</string>
+    <string name="intro_message">IntroMessage1</string>
+    <string name="intro_message2">IntroMessage2</string>
+    <string name="intro_message3">IntroMessage3</string>
+    <string name="intro_message4">IntroMessage4</string>
+    <string name="intro_title">IntroTitle1</string>
+    <string name="intro_title2">IntroTitle2</string>
+    <string name="intro_title3">IntroTitle3</string>
+    <string name="intro_title4">IntroTitle4</string>
 
 </resources>

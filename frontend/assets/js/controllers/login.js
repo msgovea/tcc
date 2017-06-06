@@ -26,9 +26,11 @@ angular.module('app')
 
 
 
-    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', '$window',  function($scope, apiLogin, $state, $timeout, $cookieStore, $filter, $window) {
+    .controller('LoginCtrl', ['$scope', 'apiLogin', '$state', '$timeout', '$cookieStore','$filter', '$window', '$translate', function($scope, apiLogin, $state, $timeout, $cookieStore, $filter, $window, $translate) {
 
-        $scope.bg = 'assets/img/headphone' + Math.floor((Math.random()*4)+1) + '.jpg';
+        $scope.changeLanguage = function (langKey) {
+            $translate.use(langKey);
+        };
 
     	$scope.finished = function() {
              $scope.register.passequal = ($scope.user.password == $scope.user.cpassword) ? false : true; 
@@ -60,7 +62,7 @@ angular.module('app')
 
                         case 1: //conta ativa
                             $cookieStore.put('usuario', result.data.object);
-                            $state.go('app.dashboard');
+                            $state.go('app.feed');
                             break;
 
                         case 2: //conta inativa

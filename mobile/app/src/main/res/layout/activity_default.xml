@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+
     tools:context="br.edu.puccamp.app.DefaultActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -15,7 +19,7 @@
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/primary"
             android:elevation="4dp"
             android:paddingRight="16dp">
 
@@ -27,11 +31,13 @@
                     android:id="@+id/iconAlarm"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/textView4"
                     android:src="@drawable/ic_alarm"
                     android:tint="@android:color/white" />
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -41,37 +47,17 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/iconSearch"
+                    android:src="@drawable/ic_search"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_search"
-                    android:tint="@android:color/white" />
+                    android:tint="@android:color/white"
+                    android:layout_alignTop="@+id/textView4"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <RelativeLayout
-        android:id="@+id/publication"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/et_publication"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name" />
-
-        <Button
-            android:id="@+id/btn_publication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/et_publication"
-            android:text="Button" />
-    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/content"
@@ -79,22 +65,50 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/message"
+        <RelativeLayout
+            android:id="@+id/publication"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/title_home" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_publication"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:hint="@string/prompt_publication"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:textAlignment="textStart" />
+
+
+            <Button
+                android:id="@+id/btn_publication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/et_publication"
+                android:text="@string/prompt_post" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/btn_publication"
+                android:orientation="horizontal">
+
+                <ListView
+                    android:id="@+id/testemgovea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/sports_array"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listPosts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_list" />
-
 
 
     </FrameLayout>

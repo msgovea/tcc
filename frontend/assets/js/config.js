@@ -5,36 +5,34 @@
 
 var translationsEN = {
     LOGIN:{
-        HEADLINE: "Sign into your pages account",
+        HEADLINE: "Sign in to your urMusic account.",
         FORM:{
-            USERNAME:       "Login",
+            USERNAME:       "E-mail",
             ERROR1:         "This field is required.",
             PASSWORD:       "Password",
-            ERROR2_TITLE:   "Incorrect login",
-            ERROR2:         "Username or password is invalid",
+            ERROR2_TITLE:   "Incorrect e-mail",
+            ERROR2:         "E-mail or password is invalid.",
             ERROR3_TITLE:   "Confirm your account",
-            ERROR3:         "To access your account you need confirm your account in your email",
+            ERROR3:         "To access your account, you need to confirm your registration in your email.",
             ERROR4_TITLE:   "Your account is banned",
-            ERROR4:         "Your account is banned, contact us for clarification"
+            ERROR4:         "Your account is banned.Contact us for clarification"
         },
-        RECOVER:    "Recover Account",
-        SIGNED:     "Keep Me Signed in",
+        RECOVER:    "Password recovery",
         LOG_IN:     "Log in",
-        FOOTER1:    "Create a pages account.",
-        FOOTER2:    "Images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2017 Music Social.",
+        FOOTER1:    "Create account",
         SIGN_UP:    "Sign up",  
-        REGISTER:   "New to Music Social ?"
+        REGISTER:   "New to urMusic ?"
     },
     RECOVER:{
-        HEADLINE: "Recover your account",
-        SUBTITLE: "Fill in your email below to receive the account recovery link.",
+        HEADLINE: "Password recovery",
+        SUBTITLE: "Fill in your email below to receive the password recovery link.",
         FORM:{
             EMAIL:          "Email",
             ERROR1:         "Enter a valid email.",
             SUCCESS1_TITLE: "Right email",
             SUCCESS1:       "Password recovery sent to the informed email.",
             ERROR2_TITLE:   "Wrong email",
-            ERROR2:         "Email not found."  
+            ERROR2:         "Email not registered."  
         },
         HELP: "Help? Contact Support",
         SEND: "Send"
@@ -42,23 +40,23 @@ var translationsEN = {
     RESET:{
         HEADLINE: "Set your new password",
         FORM:{
-            PASSWORD: "Password",
+            PASSWORD: "New password",
             PH_PASSWORD: "Minimum of 6 Characters",
             ERROR1: "This field is required.",
-            ERROR2: "Password should have at least 6 characters",
-            CONF_PASSWORD: "Confirm Password",
-            ERROR3: "Password must be equals",
+            ERROR2: "Password should have at minimum 6 characters",
+            CONF_PASSWORD: "Confirm new password",
+            ERROR3: "Passwords must be the same",
             SUCCESS1_TITLE: "Password registered",
             SUCCESS1:       "New password registered.",   
             ERROR4:         "Password should have at maximum 12 characters"         
         },
         HELP: "Help? Contact Support",
-        SEND: "Send",
+        SEND: "Confirm",
         CANCEL: "Cancel"
     },
     REGISTER:{
-        HEADLINE:   "Music Social makes it easy to enjoy what matters the most in your life!",
-        SUBTITLE:   "Create your Music Social account. It's easy and fast!",
+        HEADLINE:   "urMusic makes it easy to enjoy what matters the most in your life!",
+        SUBTITLE:   "Create your urMusic account. It's easy and fast!",
         FORM:{
             NAME:           "Name",
             ERROR1:         "This field is required.",
@@ -74,19 +72,19 @@ var translationsEN = {
             ERROR5:         "Enter a valid email.",
             PASSWORD:       "Password",
             PH_PASSWORD:    "Minimum of 6 characters",
-            ERROR6:         "Password should have at least 6 characters",
+            ERROR6:         "Password should have at minimum 6 characters",
             CONF_PASSWORD:  "Confirm Password" ,
-            ERROR7:         "Password must be equals",
+            ERROR7:         "Passwords must be the same",
             ERROR8:         "Password should have at maximum 12 characters",
-            ERROR9:         "Only letters allowed.",
+            ERROR9:         "Characters not allowed.",
             NOTIF1_TITLE:   "Success",
-            NOTIF1:         "Successful registration! An account confirmation will be sent to the informed email.",
+            NOTIF1:         "Registration successfully completed! An account confirmation will be sent to the informed email.",
             ERROR10_TITLE:  "Incorrect registration",
             ERROR10:        "Already exists register for the informed email.",
-            ERROR11:        "Start Date should not be less than current date"
+            ERROR11:        "The date of birth should not be greater than today's date."
         },
         HELP: "Help? Contact Support",
-        SEND: "Create a new account"
+        SEND: "Register"
     },
     HEADER:{
         NOTIFICATIONS1: "Read all notifications",
@@ -115,24 +113,168 @@ var translationsEN = {
         ERROR1:   ""
     },
     FEED:{
-        POST:"Post"
+        POST:           "Post",
+        TIME:           "few seconds ago",
+        HEADLINE:       "What's on your mind?",
+        SUGESTOES:      "1,435 friends suggestions",
+        MORE_FRIENDS:   "More friends"
+    },
+
+    GOSTO_MUSICAL:{
+        CAD_GOSTOS:{
+            HEADLINE: "Register your liking musical",
+            SUBTITLE: "From your liking musical, you can find events and friends that enjoy the same as you!",
+            SEND:     "Register"
+        },
+        CAD_FAVORITO:{
+            HEADLINE: "Now, sign up for your favorite liking musical!",
+            SEND:     "Register"
+        },
+        SUCCESS_TITLE:  "Success",
+        SUCCESS:        "Music liking successfully registered.",
+        ERROR1_TITLE:   "",
+        ERROR1:         "Could not register your liking musical.",
+        ERROR2_TITLE:   "",
+        ERROR2:         "No liking musical selected."
     }
 };
 
 var translationsBR = {
-    LOGIN_HEADLINE:   "Conecte-se em sua conta",
-    LOGIN2:{
-        USERNAME:     "Usuário",
-        ERROR:        "Este campo é obrigatório.",
-        PASSWORD:     "Senha"
+    LOGIN:{
+        HEADLINE: "Inicie a sessão na sua conta urMusic.",
+        FORM:{
+            USERNAME:       "E-mail",
+            ERROR1:         "Este campo é obrigatório.",
+            PASSWORD:       "Senha",
+            ERROR2_TITLE:   "E-mail incorreto",
+            ERROR2:         "E-mail ou senha inválido.",
+            ERROR3_TITLE:   "Confirme sua conta",
+            ERROR3:         "Para acessar sua conta, você precisa confirmar o cadastro em seu e-mail.",
+            ERROR4_TITLE:   "Sua conta está banida",
+            ERROR4:         "Sua conta está banida. Contate-nos para esclarecimentos."
+        },
+        RECOVER:    "Recuperação de senha",
+        LOG_IN:     "Entrar",
+        FOOTER1:    "Criar conta",
+        SIGN_UP:    "Criar conta",  
+        REGISTER:   "Novo(a) em urMusic?"
     },
-    LOGIN_RECOVER:    "Recuperar a conta",
-    LOGIN_SIGNED:     "Mantenha-me conectado",
-    LOGIN_LOG_IN:     "Entrar",
-    LOGIN_FOOTER1:    "Crie uma conta.",
-    LOGIN_FOOTER2:    "As imagens exibidas são exclusivamente para fins de representação. © 2017 Music Social.",
-    LOGIN_SIGN_UP:    "Inscrever-se",  
-    LOGIN_REGISTER:   "Novo em Music Social?"
+    RECOVER:{
+        HEADLINE: "Recuperação de senha",
+        SUBTITLE: "Preencha seu e-mail abaixo para receber o link de recuperação de senha.",
+        FORM:{
+            EMAIL:          "E-mail",
+            ERROR1:         "Entre com um e-mail válido.",
+            SUCCESS1_TITLE: "E-mail correto",
+            SUCCESS1:       "Recuperação de senha enviada para o e-mail informado.",
+            ERROR2_TITLE:   "E-mail errado",
+            ERROR2:         "E-mail não cadastrado."  
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Enviar"
+    },
+    RESET:{
+        HEADLINE: "Defina sua nova senha",
+        FORM:{
+            PASSWORD: "Nova senha",
+            PH_PASSWORD: "Mínimo de 6 caracteres.",
+            ERROR1: "Este campo é obrigatório.",
+            ERROR2: "A senha deve ter no mínimo 6 caracteres.",
+            CONF_PASSWORD: "Confirmar nova senha",
+            ERROR3: "As senhas devem ser iguais.",
+            SUCCESS1_TITLE: "Senha registrada",
+            SUCCESS1:       "Nova senha registrada.",   
+            ERROR4:         "A senha deve ter no máximo 12 caracteres."         
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Confirmar",
+        CANCEL: "Cancelar"
+    },
+     REGISTER:{
+        HEADLINE:   "O urMusic torna fácil desfrutar o que mais importa na sua vida!",
+        SUBTITLE:   "Crie sua conta urMusic. É fácil e rápido!",
+        FORM:{
+            NAME:           "Nome",
+            ERROR1:         "Este campo é obrigatório.",
+            USERNAME:       "Usuário",
+            BIRTHDAY:       "Data de nascimento",
+            CITY:           "Cidade",
+            ERROR2:         "Insira uma cidade válida.",
+            STATE:          "Estado",
+            ERROR3:         "Insira um estado válido.",
+            COUNTRY:        "País",  
+            ERROR4:         "Insira um país válido.",
+            EMAIL:          "E-mail",
+            ERROR5:         "Insira um e-mail válido.",
+            PASSWORD:       "Senha",
+            PH_PASSWORD:    "Mínimo de 6 caracteres",
+            ERROR6:         "A senha deve ter no mínimo 6 caracteres.",
+            CONF_PASSWORD:  "Confirmar senha" ,
+            ERROR7:         "As senhas devem ser iguais.",
+            ERROR8:         "A senha deve ter no máximo 12 caracteres.",
+            ERROR9:         "Caracteres não permitidos.",
+            NOTIF1_TITLE:   "Sucesso",
+            NOTIF1:         "Cadastro realizado com sucesso! Uma confirmação da conta será enviada para o e-mail informado.",
+            ERROR10_TITLE:  "Cadastro incorreto",
+            ERROR10:        "Já existe cadastro para o e-mail informado.",
+            ERROR11:        "A data de nascimento não deve ser superior a data de hoje."
+        },
+        HELP: "Help? Contact Support",
+        SEND: "Cadastrar"
+     },
+
+     HEADER:{
+        NOTIFICATIONS1: "Ler todas as notificações",
+        SEARCH1: "Digite em qualquer lugar para pesquisar",
+        USER_INFO: {
+            SETTINGS:   "Configurações",
+            FEEDBACK:   "Comentários",
+            HELP:       "Ajuda",
+            LOGOUT:     "Sair"
+        }
+    },
+    FOOTER:{
+        TEXT1:  "Todos os direitos reservados.",
+        TERMS:  "Termos de uso",
+        POLICY: "Política de privacidade",
+        CRAFTED:"Feito à mão",
+        MADE:   "&amp; Feito com amor ®"
+    },
+
+     CONFIRM_REG:{
+        SUCCESS1_TITLE: "Sucesso",
+        SUCCESS1:       "Cadastro confirmado com sucesso!",
+        HEADLINE1:      "Confirme o seu cadastro",
+        HEADLINE2:      "Confirme o seu cadastro aqui",
+        CONFIRM:        "Confirmar",
+        ERROR1_TITLE:   "",
+        ERROR1:   ""
+    },
+    FEED:{
+        POST:       "Publicar",
+        TIME:       "poucos segundos atrás",
+        HEADLINE:   "O que está em sua mente?",
+        SUGESTOES:  "1,435 sugestões de amigos",
+        MORE_FRIENDS: "Mais amigos"
+    },
+
+     GOSTO_MUSICAL:{
+        CAD_GOSTOS:{
+            HEADLINE: "Cadastre seu gosto musical",
+            SUBTITLE: "A partir do seu gosto musical, você poderá encontrar eventos e amigos que gostam do mesmo que você!",
+            SEND:     "Cadastrar"
+        },
+        CAD_FAVORITO:{
+            HEADLINE: "Agora, cadastre seu gosto musical favorito!",
+            SEND:     "Cadastrar"
+        },
+        SUCCESS_TITLE:  "Sucesso",
+        SUCCESS:        "Gosto musical cadastrado com sucesso!",
+        ERROR1_TITLE:   "",
+        ERROR1:         "Não foi possível cadastrar o seu gosto musical.",
+        ERROR2_TITLE:   "",
+        ERROR2:         "Nenhum gosto musical selecionado."
+    }
 };
 
 angular.module('app')
@@ -142,13 +284,13 @@ angular.module('app')
         $translateProvider
         .translations('en', translationsEN)
         .translations('br', translationsBR)
-        .preferredLanguage('en');
+        .preferredLanguage('br');
     }])
     .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/app/dashboard');
+                .otherwise('/app/feed');
 
             $stateProvider
 
@@ -190,7 +332,7 @@ angular.module('app')
                     }
                 })
 
-            // Email app
+            // Email app 
             .state('app.email', {
                     abstract: true,
                     url: '/email',
@@ -251,7 +393,7 @@ angular.module('app')
             .state('app.feed', {
                 url: '/feed',
                 data: {
-                        requireLogin: false
+                        requireLogin: true
                 },
                 templateUrl: 'tpl/apps/social/feed.html',
                 resolve: {

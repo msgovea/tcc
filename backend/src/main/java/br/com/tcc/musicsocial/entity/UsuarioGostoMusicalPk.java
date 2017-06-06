@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Embeddable
 public class UsuarioGostoMusicalPk implements Serializable {
 	
@@ -14,6 +16,7 @@ public class UsuarioGostoMusicalPk implements Serializable {
 	private GostoMusical gostoMusical;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Usuario usuario;
 	
 	

@@ -30,21 +30,21 @@ public class IntroActivity extends MaterialIntroActivity {
                         .backgroundColor(R.color.primary_dark)
                         .buttonsColor(R.color.accent)
                         .image(R.drawable.img_office)
-                        .title("Organize your time with us")
-                        .description("Would you try?")
+                        .title(getString(R.string.intro_title))
+                        .description(getString(R.string.intro_message))
                         .build(),
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showMessage("We provide solutions to make you love your work");
                     }
-                }, "Work with love"));
+                }, getString(R.string.intro_button)));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.primary_light)
                 .buttonsColor(R.color.accent)
-                .title("Want more?")
-                .description("Go on")
+                .title(getString(R.string.intro_title2))
+                .description(getString(R.string.intro_message2))
                 .build());
 
         addSlide(new SlideFragmentBuilder()
@@ -53,21 +53,21 @@ public class IntroActivity extends MaterialIntroActivity {
                         //.possiblePermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
                         //.neededPermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
                         .image(R.drawable.img_equipment)
-                        .title("We provide best tools")
-                        .description("ever")
+                        .title(getString(R.string.intro_title3))
+                        .description(getString(R.string.intro_message3))
                         .build(),
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showMessage("Try us!");
                     }
-                }, "Tools"));
+                }, getString(R.string.intro_button2)));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.primary_text)
                 .buttonsColor(R.color.accent)
-                .title("That's it")
-                .description("Would you join us?")
+                .title(getString(R.string.intro_title4))
+                .description(getString(R.string.intro_message4))
                 .build());
     }
 
