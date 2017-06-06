@@ -48,6 +48,7 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");
 
+            Log.e("mgovealindo", url.toString());
             urlConnection.connect();
 
             InputStream inputStream;
