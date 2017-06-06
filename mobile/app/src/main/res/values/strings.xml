@@ -106,4 +106,16 @@
     <string name="prompt_post">Publish</string>
     <string name="skip">SKIP</string>
 
+    <string name="intro_title">IntroTitle1</string>
+    <string name="intro_message">IntroMessage1</string>
+    <string name="intro_title2">IntroTitle2</string>
+    <string name="intro_message2">IntroMessage2</string>
+    <string name="intro_title3">IntroTitle3</string>
+    <string name="intro_message3">IntroMessage3</string>
+    <string name="intro_title4">IntroTitle4</string>
+    <string name="intro_message4">IntroMessage4</string>
+
+    <string name="intro_button">IntroButton1</string>
+    <string name="intro_button2">IntroButton2</string>
+
 </resources>
