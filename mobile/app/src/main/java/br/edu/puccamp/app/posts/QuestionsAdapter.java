@@ -50,10 +50,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(1000);
-        holder.firstFilter.setBackgroundDrawable(drawable);
+        //holder.firstFilter.setBackgroundDrawable(drawable);
         GradientDrawable drawable1 = new GradientDrawable();
         drawable1.setCornerRadius(1000);
-        holder.secondFilter.setBackgroundDrawable(drawable1);
+        //holder.secondFilter.setBackgroundDrawable(drawable1);
     }
 
     @Override
@@ -67,8 +67,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         TextView textJobTitle;
         TextView textDate;
         TextView textQuestion;
-        TextView firstFilter;
-        TextView secondFilter;
+        //TextView firstFilter;
+        //TextView secondFilter;
         SimpleDraweeView avatar;
 
         public ViewHolder(View itemView) {
@@ -78,8 +78,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             textJobTitle = (TextView) itemView.findViewById(R.id.text_job_title);
             textDate = (TextView) itemView.findViewById(R.id.text_date);
             textQuestion = (TextView) itemView.findViewById(R.id.text_question);
-            firstFilter = (TextView) itemView.findViewById(R.id.filter_first);
-            secondFilter = (TextView) itemView.findViewById(R.id.filter_second);
+            //firstFilter = (TextView) itemView.findViewById(R.id.filter_first);
+            //secondFilter = (TextView) itemView.findViewById(R.id.filter_second);
             avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar);
         }
     }
