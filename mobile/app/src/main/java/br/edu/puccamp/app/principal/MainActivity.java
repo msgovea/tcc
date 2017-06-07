@@ -8,12 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AbstractAsyncActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
 
     private BottomNavigationView mBottomNav;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         getColorFromRes(R.color.accent));
                 break;
             case R.id.menu_notifications:
-                frag = MenuFragment2.newInstance(getString(R.string.account_banned_text),
+                frag = MenuPublicationFragment.newInstance(getString(R.string.account_banned_text),
                         getColorFromRes(R.color.accent));
                 break;
             case R.id.menu_search:
