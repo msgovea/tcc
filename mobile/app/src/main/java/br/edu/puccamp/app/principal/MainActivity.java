@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import br.edu.puccamp.app.R;
@@ -52,6 +53,7 @@ public class MainActivity extends AbstractAsyncActivity {
     @Override
     public void onBackPressed() {
         MenuItem homeItem = mBottomNav.getMenu().getItem(0);
+        Log.e("menu", homeItem.toString());
         if (mSelectedItem != homeItem.getItemId()) {
             // select home item
             selectFragment(homeItem);
@@ -63,9 +65,10 @@ public class MainActivity extends AbstractAsyncActivity {
     private void selectFragment(MenuItem item) {
         Fragment frag = null;
         // init corresponding fragment
+        Log.e("RECEBIDO", item.getItemId() + " - " + item.toString());
         switch (item.getItemId()) {
             case R.id.menu_home:
-                frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
+                frag = MenuFragment.newInstance(getString(R.string.account_banned_text),
                         getColorFromRes(R.color.accent));
                 break;
             case R.id.menu_notifications:
@@ -73,7 +76,11 @@ public class MainActivity extends AbstractAsyncActivity {
                         getColorFromRes(R.color.accent));
                 break;
             case R.id.menu_search:
-                frag = MenuFragment.newInstance(getString(R.string.google_app_id),
+                frag = MenuFragment.newInstance(null,
+                        getColorFromRes(R.color.accent));
+                break;
+            default:
+                frag = MenuFragment.newInstance(getString(R.string.account_banned_text),
                         getColorFromRes(R.color.accent));
                 break;
         }

@@ -29,6 +29,7 @@ import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
+import br.edu.puccamp.app.util.AbstractAsyncFragment;
 import br.edu.puccamp.app.util.Strings;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -147,9 +148,9 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
             String[] partes = data.split("-");
 
-            Log.e("data1", partes[0]);
-            Log.e("data2", partes[1]);
-            Log.e("data3", partes[2]);
+//            Log.e("data1", partes[0]);
+//            Log.e("data2", partes[1]);
+//            Log.e("data3", partes[2]);
 
             dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
 
