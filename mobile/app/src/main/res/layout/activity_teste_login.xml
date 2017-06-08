@@ -93,31 +93,33 @@
         android:textSize="18sp"
         android:background="#3F51B5"/>
 
+
     <Button
         android:id="@+id/btn_cadastrar"
         android:background="@drawable/borda"
-        android:layout_width="158dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textAllCaps="false"
         android:textSize="10dp"
         android:textColor="#FFFF"
         android:text="Precisando de uma conta?"
-        tools:ignore="HardcodedText,SpUsage"
-        android:layout_alignBaseline="@+id/btn_esqueceu"
+        android:layout_alignStart="@id/btn_entrar"
         android:layout_alignBottom="@+id/btn_esqueceu"
+        android:layout_toLeftOf="@id/btn_esqueceu"
         android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_esqueceu"
         android:background="@drawable/borda"
-        android:layout_width="158dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textAllCaps="false"
         android:layout_marginTop="400dp"
-        android:layout_marginLeft="169dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/btn_cadastrar"
         android:textSize="10dp"
+        android:layout_alignEnd="@id/btn_entrar"
         android:textColor="#FFF"
-        android:text="Esqueceu sua senha?"
-        tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+        android:text="Esqueceu sua senha?"/>
 
 </RelativeLayout>
