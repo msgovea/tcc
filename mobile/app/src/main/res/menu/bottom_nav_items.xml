@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/menu_home"
-        android:title="HOME"
-        android:icon="@drawable/ic_search"
-        />
+        android:id="@+id/menu_publication"
+        android:title="Feed"
+        android:icon="@drawable/ic_dashboard_black_24dp" />
 
     <item
         android:id="@+id/menu_search"
-        android:title="TESTE"
-        android:icon="@drawable/ic_search"
-        />
+        android:title="Pesquisar"
+        android:icon="@drawable/ic_search"/>
 
     <item
-        android:id="@+id/menu_notifications"
-        android:title="PUBLICACOES"
-        android:icon="@drawable/ic_search" />
+        android:id="@+id/menu_post"
+        android:icon="@drawable/ic_finish"
+        android:title="@string/title_dashboard_publication" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_notifications" />
+
+    <item
+        android:id="@+id/menu_home"
+        android:title="@string/title_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        />
 </menu>

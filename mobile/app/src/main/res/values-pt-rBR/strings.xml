@@ -108,6 +108,10 @@
     <string name="error_gosto_musical">Nenhum gosto musical selecionado</string>
     <string name="prompt_post">Publicar</string>
     <string name="skip">Pular</string>
+    <string name="publication_success">Publicação realizada com sucesso</string>
+
+
+
     <string name="intro_button">IntroButton1</string>
     <string name="intro_button2">IntroButton2</string>
     <string name="intro_message">IntroMessage1</string>

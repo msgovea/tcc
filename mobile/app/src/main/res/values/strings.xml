@@ -106,6 +106,8 @@
     <string name="prompt_post">Publish</string>
     <string name="skip">SKIP</string>
 
+    <string name="publication_success">Successful posting</string>
+
     <string name="intro_title">IntroTitle1</string>
     <string name="intro_message">IntroMessage1</string>
     <string name="intro_title2">IntroTitle2</string>

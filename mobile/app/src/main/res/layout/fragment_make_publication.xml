@@ -1,0 +1,57 @@
+<br.edu.puccamp.app.util.MyLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_make_publication"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".principal.MenuMakePublicationFragment">
+
+    <ProgressBar
+        android:id="@+id/publication_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:visibility="gone" />
+
+
+    <br.edu.puccamp.app.util.MyLayout
+        android:id="@+id/make_publication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_publication"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:hint="@string/prompt_publication"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:textAlignment="textStart" />
+
+
+        <Button
+            android:id="@+id/btn_publication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/et_publication"
+            android:text="@string/prompt_post" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btn_publication"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/testemgovea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/sports_array"
+                />
+        </RelativeLayout>
+    </br.edu.puccamp.app.util.MyLayout>
+
+</br.edu.puccamp.app.util.MyLayout>

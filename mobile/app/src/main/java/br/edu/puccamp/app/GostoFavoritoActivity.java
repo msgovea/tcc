@@ -21,6 +21,7 @@ import br.edu.puccamp.app.entity.GostoUsuario;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.gosto_musical.Gosto;
 import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapterFavorito;
+import br.edu.puccamp.app.principal.*;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Strings;
 
@@ -141,7 +142,7 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
     public void onLoadedPublication(Boolean bool) {
         if (bool) {
             dismissProgressDialog();
-            startActivity(new Intent(getApplicationContext(), DefaultActivity.class));
+            startActivity(new Intent(getApplicationContext(), br.edu.puccamp.app.principal.MainActivity.class));
             finish();
         }
         else showErrorMessage();

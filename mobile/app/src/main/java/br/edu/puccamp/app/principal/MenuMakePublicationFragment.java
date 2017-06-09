@@ -5,15 +5,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -30,15 +30,13 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.puccamp.app.DefaultActivity;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.AsyncMakePublication;
-import br.edu.puccamp.app.async.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.util.AbstractAsyncFragment;
+import br.edu.puccamp.app.util.MyLayout;
 import br.edu.puccamp.app.util.Strings;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -47,7 +45,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Fragment class for each nav menu item
  */
-public class MenuPublicationFragment extends Fragment implements AsyncPublication.Listener {
+public class MenuMakePublicationFragment extends Fragment implements AsyncMakePublication.Listener {
     private static final String ARG_TEXT = "arg_text";
     private static final String ARG_COLOR = "arg_color";
 
@@ -55,17 +53,19 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
     private int mColor;
 
     private View mContent;
-    private RecyclerView mRecyclerView;
     public  View mProgressView;
     private QuestionsAdapter mAdapter;
     private SharedPreferences prefs;
     private ListView listView;
+    private EditText mTextPublication;
+    private Button mButtonPublication;
+    private MyLayout mMakePublication;
 
-    private AppCompatImageView mIcon;
-    private AppCompatImageView mIconSearch;
+    private android.support.design.widget.BottomNavigationView bottomNavigationView;
+
 
     public static Fragment newInstance(String text, int color) {
-        Fragment frag = new MenuPublicationFragment();
+        Fragment frag = new MenuMakePublicationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TEXT, text);
         args.putInt(ARG_COLOR, color);
@@ -77,12 +77,36 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_publication, container, false);
+        return inflater.inflate(R.layout.fragment_make_publication, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.navigation_menu);
+
+        ((MyLayout) view.findViewById(R.id.fragment_make_publication)).setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
+            @Override
+            public void onShown() {
+                Log.e("FUU","DEU");
+                MainActivity i = (MainActivity) getActivity();
+                //TODO
+                i.teste();
+                //bottomNavigationView.setVisibility(View.GONE);
+                //findViewById(R.id.image).setVisibility(View.GONE);
+            }
+            @Override
+            public void onHidden() {
+                Log.e("FUU","DEU naoo");
+                MainActivity i = (MainActivity) getActivity();
+                //TODO
+                i.teste2();
+                //bottomNavigationView.setVisibility(View.GONE);
+
+                //findViewById(R.id.image).setVisibility(View.VISIBLE);
+            }
+        });
 
         // retrieve text and color from bundle or savedInstanceState
         if (savedInstanceState == null) {
@@ -97,51 +121,75 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         // initialize views
         mContent = view.findViewById(R.id.fragment_content);
 
-
-
-        // iniciando recycleview - exibicao das publicacoes
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
         mProgressView = (View) view.findViewById(R.id.publication_progress);
 
-        loadPublication();
+
+
+
+//        mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
+//        mIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+//                prefs.edit().clear().apply();
+//                startActivity(new Intent(DefaultActivity.this, br.edu.puccamp.app.MainActivity.class));
+//                finish();
+//            }
+//        });
+
+        listView = (ListView) view.findViewById(R.id.testemgovea);
+
+        mButtonPublication = (Button) view.findViewById(R.id.btn_publication);
+        mTextPublication = (EditText) view.findViewById(R.id.et_publication);
+
+        mMakePublication = (MyLayout) view.findViewById(R.id.make_publication);
+
+        //TODO
+
+//        mMakePublication.setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
+//            @Override
+//            public void onShown() {
+//                listView.setVisibility(View.GONE);
+//                //Log.e("FUU","DEU");
+//            }
+//
+//            @Override
+//            public void onHidden() {
+//                listView.setVisibility(View.VISIBLE);
+//                //Log.e("FUU","DEU, MENTIRA DEU BOM");
+//            }
+//        });
+
+        //END TODO
+
+        mButtonPublication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!mTextPublication.getText().toString().trim().equals("")) {
+
+                    Gson gson = new Gson();
+
+                    prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+                    Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+                    Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
+
+                    showProgress(true);
+                    AsyncMakePublication sinc = new AsyncMakePublication(MenuMakePublicationFragment.this);
+                    sinc.execute(publicacao);
+                }
+            }
+        });
+
 
 //        ImagePipelineConfig config = ImagePipelineConfig
 //                .newBuilder(getContext())
 //                .setDownsampleEnabled(true)
 //                .build();
-        //Fresco.initialize(getContext(), config);
+//        Fresco.initialize(getContext(), config);
 
-            if(mText != null) Snackbar.make(view, R.string.publication_success , Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+        // from the link above
 
-
-
-
-
-        //////// TODO MGOVEA1
-
-        mIcon = (AppCompatImageView) view.findViewById(R.id.iconAlarm);
-        mIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                prefs.edit().clear().apply();
-                startActivity(new Intent(getContext(), br.edu.puccamp.app.MainActivity.class));
-                getActivity().finish();
-            }
-        });
-
-        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
-        mIconSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), DefaultActivity.class));
-            }
-        });
-
-        //////// END TODO
     }
 
     @Override
@@ -151,52 +199,6 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         super.onSaveInstanceState(outState);
     }
 
-    private void loadPublication() {
-        showProgress(true);
-        //getContext().showLoadingProgressDialog();
-        Gson gson = new Gson();
-        prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-        Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
-        AsyncPublication sinc = new AsyncPublication(this);
-        sinc.execute(usuario.getCodigoUsuario().toString());
-    }
-
-    private List<Question> getQuestions(final ArrayList<Publicacao> lista) {
-        return new ArrayList<Question>() {{
-            for (Publicacao item : lista) {
-                add(new Question(item.getUsuario().getNome(),
-                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
-                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
-                        trataData(item.getDataPublicacao()),
-                        item.getConteudo()));
-            }
-        }};
-    }
-
-    private String trataData(String data) {
-        try {
-            String dataFinal;
-
-            String[] partes = data.split("-");
-
-//            Log.e("data1", partes[0]);
-//            Log.e("data2", partes[1]);
-//            Log.e("data3", partes[2]);
-
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
-
-            return dataFinal;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-    }
-
-    public String theMonth(int month){
-        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month+1];
-    }
-
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -204,12 +206,12 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mRecyclerView.animate().setDuration(shortAnimTime).alpha(
+            mMakePublication.setVisibility(show ? View.GONE : View.VISIBLE);
+            mMakePublication.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    mMakePublication.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
@@ -225,20 +227,13 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mMakePublication.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
     // ***************************************
     // Metodos de retorno Async
     // ***************************************
-
-    @Override
-    public void onLoaded(ArrayList<Publicacao> lista) {
-        mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
-        showProgress(false);
-        //dismissProgressDialog();
-    }
 
     @Override
     public void onLoadedError(String s) {
@@ -257,6 +252,15 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         builder.show();
     }
 
+    @Override
+    public void onLoadedPublication(Boolean bool) {
+        showProgress(false);
+        //dismissProgressDialog();
+        MainActivity i = (MainActivity) getActivity();
+        //TODO
+        i.openPublication(R.id.menu_publication);
+
+    }
 
 
 }
