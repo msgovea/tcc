@@ -32,6 +32,7 @@ import java.util.List;
 
 import br.edu.puccamp.app.DefaultActivity;
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.TesteLogin;
 import br.edu.puccamp.app.async.AsyncMakePublication;
 import br.edu.puccamp.app.async.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
@@ -137,7 +138,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         mIconSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), DefaultActivity.class));
+                startActivity(new Intent(getContext(), TesteLogin.class));
             }
         });
 

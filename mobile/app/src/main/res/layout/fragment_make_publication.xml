@@ -5,6 +5,47 @@
     android:layout_height="match_parent"
     tools:context=".principal.MenuMakePublicationFragment">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            android:elevation="4dp"
+            android:paddingRight="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/title_dashboard_publication"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/text_make_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:text="@string/prompt_post"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
     <ProgressBar
         android:id="@+id/publication_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -28,7 +69,9 @@
             android:hint="@string/prompt_publication"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
 
         <Button

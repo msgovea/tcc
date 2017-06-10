@@ -116,7 +116,6 @@
         android:textAllCaps="false"
         android:layout_marginTop="400dp"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/btn_cadastrar"
         android:textSize="10dp"
         android:layout_alignEnd="@id/btn_entrar"
         android:textColor="#FFF"
