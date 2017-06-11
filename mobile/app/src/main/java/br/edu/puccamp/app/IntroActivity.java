@@ -32,13 +32,13 @@ public class IntroActivity extends MaterialIntroActivity {
                         .image(R.drawable.img_office)
                         .title(getString(R.string.intro_title))
                         .description(getString(R.string.intro_message))
-                        .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
-                    }
-                }, getString(R.string.intro_button)));
+                        .build());
+//                new MessageButtonBehaviour(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        showMessage("We provide solutions to make you love your work");
+//                    }
+//                }, getString(R.string.intro_button)));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.primary_light)
@@ -55,20 +55,20 @@ public class IntroActivity extends MaterialIntroActivity {
                         .image(R.drawable.img_equipment)
                         .title(getString(R.string.intro_title3))
                         .description(getString(R.string.intro_message3))
-                        .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("Try us!");
-                    }
-                }, getString(R.string.intro_button2)));
+                        .build());
+//                new MessageButtonBehaviour(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        showMessage("Try us!");
+//                    }
+//                }, getString(R.string.intro_button2)));
 
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.primary_text)
-                .buttonsColor(R.color.accent)
-                .title(getString(R.string.intro_title4))
-                .description(getString(R.string.intro_message4))
-                .build());
+//        addSlide(new SlideFragmentBuilder()
+//                .backgroundColor(R.color.primary_text)
+//                .buttonsColor(R.color.accent)
+//                .title(getString(R.string.intro_title4))
+//                .description(getString(R.string.intro_message4))
+//                .build());
     }
 
 //    @Override

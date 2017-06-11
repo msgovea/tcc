@@ -44,4 +44,11 @@
         <item name="android:textColorHint">#60A9A9A9</item>
     </style>
 
+    <style name="meuTema">
+        <item name="colorControlNormal">#FFFF</item>
+        <item name="colorControlActivated">#FFFF</item>
+        <item name="android:textColor">#FFFF</item>
+        <item name="android:textColorHint">#FFFF</item>
+    </style>
+
 </resources>

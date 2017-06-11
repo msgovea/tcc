@@ -114,10 +114,13 @@
     <string name="intro_message2">IntroMessage2</string>
     <string name="intro_title3">IntroTitle3</string>
     <string name="intro_message3">IntroMessage3</string>
-    <string name="intro_title4">IntroTitle4</string>
-    <string name="intro_message4">IntroMessage4</string>
 
-    <string name="intro_button">IntroButton1</string>
-    <string name="intro_button2">IntroButton2</string>
+    <!--<string name="intro_title4">IntroTitle4</string>-->
+    <!--<string name="intro_message4">IntroMessage4</string>-->
+
+    <!--<string name="intro_button">IntroButton1</string>-->
+    <!--<string name="intro_button2">IntroButton2</string>-->
+    <string name="esqueceu_sua_senha">Esqueceu sua senha?</string>
+    <string name="precisando_de_uma_conta">Precisando de uma conta?</string>
 
 </resources>

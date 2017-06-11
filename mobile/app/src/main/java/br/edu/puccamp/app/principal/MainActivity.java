@@ -20,6 +20,7 @@ public class MainActivity extends AbstractAsyncActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
 
     private BottomNavigationView mBottomNav;
+
     private int mSelectedItem;
 
     @Override
@@ -72,7 +73,7 @@ public class MainActivity extends AbstractAsyncActivity {
         Log.e("RECEBIDO", item.getItemId() + " - " + item.toString());
         switch (item.getItemId()) {
             case R.id.menu_home:
-                frag = MenuFragment.newInstance(getString(R.string.account_banned_text),
+                frag = MenuOthersFragment.newInstance(getString(R.string.account_banned_text),
                         getColorFromRes(R.color.primary_light));
                 break;
             case R.id.menu_publication:
@@ -82,21 +83,22 @@ public class MainActivity extends AbstractAsyncActivity {
             case R.id.menu_post:
                 frag = MenuMakePublicationFragment.newInstance(null,
                         getColorFromRes(R.color.primary_light));
-
-//                MyLayout layout = (MyLayout) findViewById(R.id.fragment_make_publication);
-//                layout.setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
-//                    @Override
-//                    public void onShown() {
-//                        Log.e("FUU","DEU");
-//                        findViewById(R.id.navigation).setVisibility(View.GONE);
-//                    }
-//                    @Override
-//                    public void onHidden() {
-//                        Log.e("FUU","DEU naoo");
-//                        findViewById(R.id.navigation).setVisibility(View.VISIBLE);
-//                    }
-//                });
                 break;
+
+                //                MyLayout layout = (MyLayout) findViewById(R.id.fragment_make_publication);
+                //                layout.setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
+                //                    @Override
+                //                    public void onShown() {
+                //                        Log.e("FUU","DEU");
+                //                        findViewById(R.id.navigation).setVisibility(View.GONE);
+                //                    }
+                //                    @Override
+                //                    public void onHidden() {
+                //                        Log.e("FUU","DEU naoo");
+                //                        findViewById(R.id.navigation).setVisibility(View.VISIBLE);
+                //                    }
+                //                });
+
             default:
                 frag = MenuFragment.newInstance(getString(R.string.account_banned_text),
                         getColorFromRes(R.color.accent));
