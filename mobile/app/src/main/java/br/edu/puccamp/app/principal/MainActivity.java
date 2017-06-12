@@ -41,10 +41,10 @@ public class MainActivity extends AbstractAsyncActivity {
 
         MenuItem selectedItem;
         if (savedInstanceState != null) {
-            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
+            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 2);
             selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
         } else {
-            selectedItem = mBottomNav.getMenu().getItem(0);
+            selectedItem = mBottomNav.getMenu().getItem(2);
         }
         selectFragment(selectedItem);
     }
@@ -57,7 +57,7 @@ public class MainActivity extends AbstractAsyncActivity {
 
     @Override
     public void onBackPressed() {
-        MenuItem homeItem = mBottomNav.getMenu().getItem(0);
+        MenuItem homeItem = mBottomNav.getMenu().getItem(2);
         Log.e("menu", homeItem.toString());
         if (mSelectedItem != homeItem.getItemId()) {
             // select home item

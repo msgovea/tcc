@@ -43,7 +43,7 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.primary_light)
                 .buttonsColor(R.color.accent)
-                .image(R.drawable.img_office)
+                .image(R.drawable.teste3)
                 .title(getString(R.string.intro_title2))
                 .description(getString(R.string.intro_message2))
                 .build());
@@ -53,7 +53,7 @@ public class IntroActivity extends MaterialIntroActivity {
                         .buttonsColor(R.color.accent)
                         //.possiblePermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
                         //.neededPermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
-                        .image(R.drawable.img_equipment)
+                        .image(R.drawable.teste2)
                         .title(getString(R.string.intro_title3))
                         .description(getString(R.string.intro_message3))
                         .build());

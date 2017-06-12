@@ -15,9 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.*;
+import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.listview.AdapterListView;
 import br.edu.puccamp.app.listview.ItemListView;
 import br.edu.puccamp.app.util.Strings;
@@ -64,10 +67,15 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
     {
         //Criamos nossa lista que preenchera o ListView
         itens = new ArrayList<ItemListView>();
-        ItemListView item1 = new ItemListView("opção 1", R.drawable.ic_menu_black_24dp,1);
-        ItemListView item2 = new ItemListView("opção 2", R.drawable.ic_finish,2);
-        ItemListView item3 = new ItemListView("opção 3", R.drawable.ic_next,3);
-        ItemListView item4 = new ItemListView("logoff", R.drawable.ic_skip,4);
+
+        Gson gson = new Gson();
+        prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+        Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+
+        ItemListView item1 = new ItemListView(usuario.getNome(), R.drawable.ic_person_black_24dp,1);
+        ItemListView item2 = new ItemListView(getString(R.string.language), R.drawable.ic_language_black_24dp,2);
+        ItemListView item3 = new ItemListView(getString(R.string.politics), R.drawable.ic_verified_user_black_24dp,3);
+        ItemListView item4 = new ItemListView(getString(R.string.logoff), R.drawable.ic_exit_to_app_black_24dp,4);
 
         itens.add(item1);
         itens.add(item2);
@@ -88,13 +96,12 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         //Pega o item que foi selecionado.
         ItemListView item = adapterListView.getItem(arg2);
         //Demostração
-        if (item.getTexto().equals("logoff")){
+        if (item.getTexto().equals(getString(R.string.logoff))){
             SharedPreferences prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
             prefs.edit().clear().apply();
             startActivity(new Intent(getActivity(), TesteLogin.class));
             getActivity().finish();
-        }
-        Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_LONG).show();
+        } else Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

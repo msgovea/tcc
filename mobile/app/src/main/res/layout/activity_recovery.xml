@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_recovery"
+                android:background="@color/primary_light"
                 android:textStyle="bold" />
 
 

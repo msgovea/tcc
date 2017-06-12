@@ -236,8 +236,15 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-        mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
-        showProgress(false);
+        List<Question> l = getQuestions(lista);
+//        if (l.size() == 0) {
+//            MainActivity i = (MainActivity) getActivity();
+//            //TODO
+//            i.openPublication(R.id.menu_post);
+//        } else {
+            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
+            showProgress(false);
+//        }
         //dismissProgressDialog();
     }
 

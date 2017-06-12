@@ -9,21 +9,21 @@
 
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Senha</string>
-    <string name="prompt_city">Cidade</string>
-    <string name="prompt_state">Estado</string>
-    <string name="prompt_country">País</string>
-    <string name="prompt_confirm_password">Confirmação de Senha</string>
+    <string name="prompt_email">E-MAIL</string>
+    <string name="prompt_password">SENHA</string>
+    <string name="prompt_city">CIDADE</string>
+    <string name="prompt_state">ESTADO</string>
+    <string name="prompt_country">PAÍS</string>
+    <string name="prompt_confirm_password">CONFIRMAR SENHA</string>
 
-    <string name="prompt_name">Nome completo</string>
-    <string name="prompt_nickname">Apelido</string>
+    <string name="prompt_name">NOME</string>
+    <string name="prompt_nickname">USUÁRIO</string>
     <string name="prompt_birthday">Data de Nascimento</string>
 
 
     <string name="action_sign_in">Cadastrar</string>
-    <string name="action_sign_up">Logar</string>
-    <string name="action_recovery">Recuperar</string>
+    <string name="action_sign_up">Entrar</string>
+    <string name="action_recovery">ENVIAR</string>
     <string name="action_pass_recovery">Recuperar senha</string>
 
     <string name="error_invalid_email">O endereço de e-mail é inválido</string>
@@ -35,10 +35,10 @@
 
     <string name="error_invalid_login">E-mail ou senha incorretos</string>
 
-    <string name="action_sign_in_short">Logar</string>
+    <string name="action_sign_in_short">Entrar</string>
 
 
-    <string name="welcome_text">Bem vindo ao urMusic</string>
+    <string name="welcome_text">Bem-vindo ao urMusic</string>
     <string name="title_activity_default">urMusic</string>
     <string name="title_home">Ínicio</string>
     <string name="title_dashboard">Publicações</string>
@@ -67,6 +67,12 @@
     <string name="account_banned_text">Sua conta está banida, contate-nos para esclarecimentos</string>
 
     <string name="error">Ocorreu um erro inesperado, contate o administrador do sistema</string>
+
+    <string name="logoff">Sair</string>
+
+    <string name="language">Idioma</string>
+
+    <string name="politics">Termos e Políticas</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>
@@ -103,7 +109,7 @@
 
     <string name="title_activity_teste_login">TesteLoginActivity</string>
     <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
-    <string name="title_activity_gosto_favorito">Agora, cadastre seu gosto musical favorito</string>
+    <string name="title_activity_gosto_favorito">Agora, selecione o favorito</string>
     <string name="prompt_publication">O que está em sua mente?</string>
     <string name="error_gosto_musical">Nenhum gosto musical selecionado</string>
     <string name="prompt_post">Publicar</string>
@@ -114,15 +120,15 @@
 
     <!--<string name="intro_button">Bem vindo ao urMusic</string>-->
     <!--<string name="intro_button2">IntroButton2</string>-->
-    <string name="intro_message">Aqui você tem o que deseja  </string>
-    <string name="intro_message2">Conheça musicas, amigos e eventos</string>
-    <string name="intro_message3">Promova seu trabalho, seus eventos</string>
-    <!--<string name="intro_message4">IntroMessage4</string>-->
-    <string name="intro_title">Bem vindo ao urMusic</string>
+    <string name="intro_message">Venha fazer parte desta rede musical!</string>
+    <string name="intro_message2">Conheça músicas, amigos e eventos!</string>
+    <string name="intro_message3">Promova seus trabalhos, eventos e suas músicas para um público que ama o mesmo que você!</string>
+    <string name="intro_title">Bem-vindo ao urMusic</string>
     <string name="intro_title2">Cadastre-se</string>
-    <string name="intro_title3">IntroTitle3</string>
-    <!--<string name="intro_title4">IntroTitle4</string>-->
+    <string name="intro_title3">Público Focado</string>
     <string name="esqueceu_sua_senha">Esqueceu sua senha?</string>
+    <string name="precisando_de_uma_conta">Precisando de uma conta?</string>
+
 
     <string name="response">comentários</string>
 
