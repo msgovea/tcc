@@ -64,10 +64,10 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
     {
         //Criamos nossa lista que preenchera o ListView
         itens = new ArrayList<ItemListView>();
-        ItemListView item1 = new ItemListView("Guilherme Biff", R.drawable.ic_alarm,1);
-        ItemListView item2 = new ItemListView("Lucas Volgarini", R.drawable.ic_alarm,2);
-        ItemListView item3 = new ItemListView("Eduardo Ricoldi", R.drawable.ic_alarm,3);
-        ItemListView item4 = new ItemListView("Felipe Panngo", R.drawable.ic_alarm,4);
+        ItemListView item1 = new ItemListView("opção 1", R.drawable.ic_menu_black_24dp,1);
+        ItemListView item2 = new ItemListView("opção 2", R.drawable.ic_finish,2);
+        ItemListView item3 = new ItemListView("opção 3", R.drawable.ic_next,3);
+        ItemListView item4 = new ItemListView("logoff", R.drawable.ic_skip,4);
 
         itens.add(item1);
         itens.add(item2);
@@ -88,10 +88,10 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         //Pega o item que foi selecionado.
         ItemListView item = adapterListView.getItem(arg2);
         //Demostração
-        if (item.getTexto().equals("Felipe Panngo")){
+        if (item.getTexto().equals("logoff")){
             SharedPreferences prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
             prefs.edit().clear().apply();
-            startActivity(new Intent(getActivity(), br.edu.puccamp.app.MainActivity.class));
+            startActivity(new Intent(getActivity(), TesteLogin.class));
             getActivity().finish();
         }
         Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_LONG).show();

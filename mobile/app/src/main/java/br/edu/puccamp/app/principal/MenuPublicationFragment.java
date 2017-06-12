@@ -123,24 +123,24 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
         //////// TODO MGOVEA1
 
-        mIcon = (AppCompatImageView) view.findViewById(R.id.iconAlarm);
-        mIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                prefs.edit().clear().apply();
-                startActivity(new Intent(getContext(), br.edu.puccamp.app.MainActivity.class));
-                getActivity().finish();
-            }
-        });
-
-        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
-        mIconSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), TesteLogin.class));
-            }
-        });
+//        mIcon = (AppCompatImageView) view.findViewById(R.id.iconAlarm);
+//        mIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+//                prefs.edit().clear().apply();
+//                startActivity(new Intent(getContext(), TesteLogin.class));
+//                getActivity().finish();
+//            }
+//        });
+//
+//        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
+//        mIconSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getContext(), TesteLogin.class));
+//            }
+//        });
 
         //////// END TODO
     }

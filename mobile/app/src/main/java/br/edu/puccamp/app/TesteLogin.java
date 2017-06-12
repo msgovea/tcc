@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,9 @@ public class TesteLogin extends AbstractAsyncActivity implements AsyncLogin.List
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teste_login);
 
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         mEmailView = (EditText) findViewById(R.id.ed_email);
 
         mPasswordView = (EditText) findViewById(R.id.ed_senha);
@@ -64,7 +69,13 @@ public class TesteLogin extends AbstractAsyncActivity implements AsyncLogin.List
 
     }
 
+    public void register(View view){
+        startActivity(new Intent(this, RegisterActivity.class));
+    }
 
+    public void recovery(View view){
+        startActivity(new Intent(this, RecoveryActivity.class));
+    }
 
     private void attemptLogin() {
 

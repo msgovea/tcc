@@ -11,9 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".posts.ExampleActivity"
             android:theme="@style/AppTheme2"
             android:screenOrientation="portrait"/>
@@ -30,11 +27,11 @@
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".TesteLogin"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.MainActivity" />
+                android:value=".TesteLogin" />
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -49,7 +46,11 @@
         <activity
             android:name=".RecoveryActivity"
             android:label="@string/title_recovery_activity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TesteLogin" />
+        </activity>
         <activity
             android:name=".IntroActivity"
             android:theme="@style/Theme.Intro"

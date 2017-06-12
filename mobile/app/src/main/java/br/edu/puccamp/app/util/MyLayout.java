@@ -2,13 +2,14 @@ package br.edu.puccamp.app.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 /**
  * Created by mgovea on 08/06/2017.
  */
 
-public class MyLayout extends RelativeLayout {
+public class MyLayout extends LinearLayout {
 
     public MyLayout(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -110,7 +110,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
             public void onClick(View v) {
                 prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
-                startActivity(new Intent(DefaultActivity.this, MainActivity.class));
+                startActivity(new Intent(DefaultActivity.this, TesteLogin.class));
                 finish();
             }
         });

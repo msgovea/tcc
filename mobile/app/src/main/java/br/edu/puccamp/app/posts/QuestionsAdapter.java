@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
+import java.util.Random;
 
 import br.edu.puccamp.app.R;
 
@@ -41,11 +42,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         Question question = mQuestions.get(position);
 
+        Random random = new Random();
+
+
         holder.avatar.setImageURI(question.getAuthorAvatar());
         holder.textAuthorName.setText(question.getAuthorName());
         holder.textJobTitle.setText(question.getAuthorJobTitle());
         holder.textDate.setText(question.getDate());
         holder.textQuestion.setText(question.getText());
+        holder.textLikesCount.setText((String.valueOf(random.nextInt(99))));
+        holder.textChatCount.setText((String.valueOf(random.nextInt(99))) + " " + mContext.getResources().getString(R.string.response));
 
 
         GradientDrawable drawable = new GradientDrawable();
@@ -67,8 +73,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         TextView textJobTitle;
         TextView textDate;
         TextView textQuestion;
-        //TextView firstFilter;
-        //TextView secondFilter;
+        TextView textLikesCount;
+        TextView textChatCount;
         SimpleDraweeView avatar;
 
         public ViewHolder(View itemView) {
@@ -78,8 +84,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             textJobTitle = (TextView) itemView.findViewById(R.id.text_job_title);
             textDate = (TextView) itemView.findViewById(R.id.text_date);
             textQuestion = (TextView) itemView.findViewById(R.id.text_question);
-            //firstFilter = (TextView) itemView.findViewById(R.id.filter_first);
-            //secondFilter = (TextView) itemView.findViewById(R.id.filter_second);
+            textLikesCount = (TextView) itemView.findViewById(R.id.text_likes_count);
+            textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
             avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar);
         }
     }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.TaskStackBuilder;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -34,6 +36,9 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         //TODO MGOVEA2
 
         ImagePipelineConfig config = ImagePipelineConfig
@@ -54,7 +59,7 @@ public class SplashScreen extends Activity {
                     SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                     if (prefs.getString(Strings.USUARIO, null) == null) {
                         TaskStackBuilder.create(SplashScreen.this)
-                                .addNextIntentWithParentStack(new Intent(SplashScreen.this, MainActivity.class))
+                                .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin.class))
                                 .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
                                 .startActivities();
                     } else {

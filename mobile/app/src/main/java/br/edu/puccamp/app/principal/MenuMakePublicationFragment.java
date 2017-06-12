@@ -16,12 +16,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -58,8 +61,8 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
     private SharedPreferences prefs;
     private ListView listView;
     private EditText mTextPublication;
-    private Button mButtonPublication;
-    private MyLayout mMakePublication;
+    private TextView mButtonPublication;
+    private LinearLayout mMakePublication;
 
     private android.support.design.widget.BottomNavigationView bottomNavigationView;
 
@@ -80,6 +83,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
         return inflater.inflate(R.layout.fragment_make_publication, container, false);
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -93,6 +97,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
                 MainActivity i = (MainActivity) getActivity();
                 //TODO
                 i.teste();
+                listView.setVisibility(View.GONE);
                 //bottomNavigationView.setVisibility(View.GONE);
                 //findViewById(R.id.image).setVisibility(View.GONE);
             }
@@ -102,6 +107,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
                 MainActivity i = (MainActivity) getActivity();
                 //TODO
                 i.teste2();
+                listView.setVisibility(View.VISIBLE);
                 //bottomNavigationView.setVisibility(View.GONE);
 
                 //findViewById(R.id.image).setVisibility(View.VISIBLE);
@@ -139,10 +145,10 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
 
         listView = (ListView) view.findViewById(R.id.testemgovea);
 
-        mButtonPublication = (Button) view.findViewById(R.id.btn_publication);
+        mButtonPublication = (TextView) view.findViewById(R.id.text_make_post);
         mTextPublication = (EditText) view.findViewById(R.id.et_publication);
 
-        mMakePublication = (MyLayout) view.findViewById(R.id.make_publication);
+        mMakePublication = (LinearLayout) view.findViewById(R.id.make_publication);
 
         //TODO
 
