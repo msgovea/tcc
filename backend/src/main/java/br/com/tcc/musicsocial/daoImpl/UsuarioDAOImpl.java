@@ -1,9 +1,13 @@
 package br.com.tcc.musicsocial.daoImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
@@ -24,6 +28,23 @@ public class UsuarioDAOImpl extends BaseDAOImpl<UsuarioDetalhe> implements Usuar
 			return (UsuarioDetalhe) query.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UsuarioDetalhe> consultarPorNome(String nome) {
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("select u from UsuarioDetalhe u ");	
+			sql.append("where upper(u.nome) like :nome ");
+			
+			Query query = getEntityManager().createQuery(sql.toString());
+			query.setParameter("nome", "%" + nome.toUpperCase() + "%");
+			
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return new ArrayList<UsuarioDetalhe>();
 		}
 	}
 

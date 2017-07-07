@@ -172,4 +172,25 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<GostoMusical> getGostos() {
 		return gostoMusicalDAO.findAllGostos();
 	}
+
+	@Override
+	@Transactional
+	public UsuarioDetalhe atualizarUsuario(UsuarioDetalhe usuario) {
+		if(usuario.getGostosMusicais() != null && !usuario.getGostosMusicais().isEmpty()) {
+			for (UsuarioGostoMusical usuarioGosto : usuario.getGostosMusicais()) {
+				usuarioGosto.getPk().setUsuario(usuario);
+			}
+		}
+		return usuarioDAO.update(usuario);
+	}
+
+	@Override
+	public UsuarioDetalhe buscarPorId(Integer id) {
+		return usuarioDAO.find(id);
+	}
+
+	@Override
+	public List<UsuarioDetalhe> buscarPorNome(String nome) {
+		return usuarioDAO.consultarPorNome(nome);
+	}
 }
