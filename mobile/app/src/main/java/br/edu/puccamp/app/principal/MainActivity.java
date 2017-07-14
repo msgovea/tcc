@@ -8,15 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.MyLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AbstractAsyncActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
 
     private BottomNavigationView mBottomNav;
+
     private int mSelectedItem;
 
     @Override
@@ -24,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_x);
 
-        mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
+
+
+        mBottomNav = (BottomNavigationView) findViewById(R.id.navigation_menu);
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -35,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem selectedItem;
         if (savedInstanceState != null) {
-            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
+            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 2);
             selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
         } else {
-            selectedItem = mBottomNav.getMenu().getItem(0);
+            selectedItem = mBottomNav.getMenu().getItem(2);
         }
         selectFragment(selectedItem);
     }
@@ -51,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        MenuItem homeItem = mBottomNav.getMenu().getItem(0);
+        MenuItem homeItem = mBottomNav.getMenu().getItem(2);
+        Log.e("menu", homeItem.toString());
         if (mSelectedItem != homeItem.getItemId()) {
             // select home item
             selectFragment(homeItem);
@@ -60,20 +67,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void selectFragment(MenuItem item) {
+    private void selectFragment(MenuItem item, String info) {
         Fragment frag = null;
         // init corresponding fragment
+        Log.e("RECEBIDO", item.getItemId() + " - " + item.toString());
         switch (item.getItemId()) {
             case R.id.menu_home:
-                frag = MenuFragment.newInstance(getString(R.string.gcm_defaultSenderId),
-                        getColorFromRes(R.color.accent));
+                frag = MenuOthersFragment.newInstance(getString(R.string.account_banned_text),
+                        getColorFromRes(R.color.primary_light));
                 break;
-            case R.id.menu_notifications:
-                frag = MenuFragment2.newInstance(getString(R.string.account_banned_text),
-                        getColorFromRes(R.color.accent));
+            case R.id.menu_publication:
+                frag = MenuPublicationFragment.newInstance(info,
+                        getColorFromRes(R.color.primary_light));
                 break;
-            case R.id.menu_search:
-                frag = MenuFragment.newInstance(getString(R.string.google_app_id),
+            case R.id.menu_post:
+                frag = MenuMakePublicationFragment.newInstance(null,
+                        getColorFromRes(R.color.primary_light));
+                break;
+
+                //                MyLayout layout = (MyLayout) findViewById(R.id.fragment_make_publication);
+                //                layout.setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
+                //                    @Override
+                //                    public void onShown() {
+                //                        Log.e("FUU","DEU");
+                //                        findViewById(R.id.navigation).setVisibility(View.GONE);
+                //                    }
+                //                    @Override
+                //                    public void onHidden() {
+                //                        Log.e("FUU","DEU naoo");
+                //                        findViewById(R.id.navigation).setVisibility(View.VISIBLE);
+                //                    }
+                //                });
+
+            default:
+                frag = MenuFragment.newInstance(getString(R.string.account_banned_text),
                         getColorFromRes(R.color.accent));
                 break;
         }
@@ -91,9 +118,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (frag != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container, frag, frag.getTag());
+            //ft.add(R.id.container, frag, frag.getTag());
+            ft.replace(R.id.container, frag, frag.getTag());
             ft.commit();
         }
+    }
+
+    private void selectFragment(MenuItem item) {
+        selectFragment(item, null);
     }
 
     private void updateToolbarText(CharSequence text) {
@@ -105,5 +137,19 @@ public class MainActivity extends AppCompatActivity {
 
     private int getColorFromRes(@ColorRes int resId) {
         return ContextCompat.getColor(this, resId);
+    }
+
+    protected void openPublication (int id){
+        //mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
+        MenuItem selectedItem = mBottomNav.getMenu().findItem(id);
+        selectFragment(selectedItem, "done");
+    }
+
+    protected void teste(){
+        mBottomNav.setVisibility(View.GONE);
+    }
+
+    protected void teste2(){
+        mBottomNav.setVisibility(View.VISIBLE);
     }
 }

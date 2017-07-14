@@ -29,20 +29,21 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.primary_dark)
                         .buttonsColor(R.color.accent)
-                        .image(R.drawable.img_office)
+                        .image(R.drawable.icon2)
                         .title(getString(R.string.intro_title))
                         .description(getString(R.string.intro_message))
-                        .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
-                    }
-                }, getString(R.string.intro_button)));
+                        .build());
+//                new MessageButtonBehaviour(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        showMessage("We provide solutions to make you love your work");
+//                    }
+//                }, getString(R.string.intro_button)));
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.primary_light)
                 .buttonsColor(R.color.accent)
+                .image(R.drawable.teste3)
                 .title(getString(R.string.intro_title2))
                 .description(getString(R.string.intro_message2))
                 .build());
@@ -52,23 +53,23 @@ public class IntroActivity extends MaterialIntroActivity {
                         .buttonsColor(R.color.accent)
                         //.possiblePermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
                         //.neededPermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
-                        .image(R.drawable.img_equipment)
+                        .image(R.drawable.teste2)
                         .title(getString(R.string.intro_title3))
                         .description(getString(R.string.intro_message3))
-                        .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("Try us!");
-                    }
-                }, getString(R.string.intro_button2)));
+                        .build());
+//                new MessageButtonBehaviour(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        showMessage("Try us!");
+//                    }
+//                }, getString(R.string.intro_button2)));
 
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.primary_text)
-                .buttonsColor(R.color.accent)
-                .title(getString(R.string.intro_title4))
-                .description(getString(R.string.intro_message4))
-                .build());
+//        addSlide(new SlideFragmentBuilder()
+//                .backgroundColor(R.color.primary_text)
+//                .buttonsColor(R.color.accent)
+//                .title(getString(R.string.intro_title4))
+//                .description(getString(R.string.intro_message4))
+//                .build());
     }
 
 //    @Override

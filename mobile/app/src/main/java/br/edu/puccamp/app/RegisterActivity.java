@@ -130,6 +130,10 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
 
         mNameView = validation.isFieldValid(mNameView, true);
         mNickNameView = validation.isFieldValid(mNickNameView, false);
+        //mBirthdayView = validation.isFieldValid(mBirthdayView, false);
+        mCountryView = validation.isFieldValid(mCountryView, true);
+        mStateView = validation.isFieldValid(mStateView, true);
+        mCityView = validation.isFieldValid(mCityView, true);
         mEmailView = validation.isFieldValid(mEmailView, false);
 
         if (!Validation.isEmailValid(email)) {
@@ -153,10 +157,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             validation.error = true;
         }
 
-        //mBirthdayView = validation.isFieldValid(mBirthdayView, false);
-        mCountryView = validation.isFieldValid(mCountryView, true);
-        mStateView = validation.isFieldValid(mStateView, true);
-        mCityView = validation.isFieldValid(mCityView, true);
+
 
         if (validation.error) {
             validation.focusView.requestFocus();

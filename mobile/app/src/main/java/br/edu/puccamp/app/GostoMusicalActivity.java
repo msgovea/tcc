@@ -15,6 +15,7 @@ import br.edu.puccamp.app.async.AsyncGostoMusical;
 import br.edu.puccamp.app.gosto_musical.Gosto;
 //import br.edu.puccamp.app.gosto_musical.GostosAdapter;
 import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapter;
+import br.edu.puccamp.app.principal.*;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
 public class GostoMusicalActivity extends AbstractAsyncActivity implements AsyncGostoMusical.Listener {
@@ -66,7 +67,7 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
     }
 
     public void skip(View v){
-        startActivity(new Intent(getApplicationContext(), DefaultActivity.class));
+        startActivity(new Intent(getApplicationContext(), br.edu.puccamp.app.principal.MainActivity.class));
         finish();
     }
 

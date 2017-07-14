@@ -110,7 +110,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
             public void onClick(View v) {
                 prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
                 prefs.edit().clear().apply();
-                startActivity(new Intent(DefaultActivity.this, MainActivity.class));
+                startActivity(new Intent(DefaultActivity.this, TesteLogin.class));
                 finish();
             }
         });
@@ -141,7 +141,7 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
         mIconSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DefaultActivity.this, GostoMusicalActivity.class));
+                startActivity(new Intent(DefaultActivity.this, br.edu.puccamp.app.principal.MainActivity.class));
             }
         });
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -197,9 +197,9 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 
             String[] partes = data.split("-");
 
-            Log.e("data1", partes[0]);
-            Log.e("data2", partes[1]);
-            Log.e("data3", partes[2]);
+//            Log.e("data1", partes[0]);
+//            Log.e("data2", partes[1]);
+//            Log.e("data3", partes[2]);
 
             dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
 

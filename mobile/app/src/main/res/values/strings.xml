@@ -8,20 +8,20 @@
     <string name="loading">Loading. Please wait...</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="prompt_city">City</string>
-    <string name="prompt_state">State</string>
-    <string name="prompt_country">Country</string>
-    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_email">E-MAIL</string>
+    <string name="prompt_password">PASSWORD</string>
+    <string name="prompt_city">CITY</string>
+    <string name="prompt_state">STATE</string>
+    <string name="prompt_country">COUNTRY</string>
+    <string name="prompt_confirm_password">CONFIRM PASSWORD</string>
 
-    <string name="prompt_name">Complete Name</string>
-    <string name="prompt_nickname">Nickname</string>
+    <string name="prompt_name">NAME</string>
+    <string name="prompt_nickname">USER</string>
     <string name="prompt_birthday">Date of Birth</string>
 
     <string name="action_sign_in">Register</string>
-    <string name="action_sign_up">Login</string>
-    <string name="action_recovery">Recovery</string>
+    <string name="action_sign_up">Log in</string>
+    <string name="action_recovery">Send</string>
     <string name="action_pass_recovery">Recovery Password</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
@@ -65,6 +65,12 @@
 
     <string name="error">An unexpected error has occurred, contact your system administrator</string>
 
+    <string name="logoff">Logoff</string>
+
+    <string name="language">Language</string>
+
+    <string name="politics">Terms and Policies</string>
+
     <string-array name="countries_array">
         <item>Afghanistan</item>
         <item>Albania</item>
@@ -77,10 +83,10 @@
     </string-array>
 
     <string-array name="sports_array">
-        <item>Foto</item>
-        <item>Vídeo</item>
-        <item>Áudio</item>
-        <item>Marcar amigos</item>
+        <item>Photos</item>
+        <item>Video</item>
+        <item>Audio</item>
+        <item>Mark Friends</item>
     </string-array>
 
     <string-array name="month">
@@ -106,16 +112,24 @@
     <string name="prompt_post">Publish</string>
     <string name="skip">SKIP</string>
 
-    <string name="intro_title">IntroTitle1</string>
-    <string name="intro_message">IntroMessage1</string>
-    <string name="intro_title2">IntroTitle2</string>
-    <string name="intro_message2">IntroMessage2</string>
-    <string name="intro_title3">IntroTitle3</string>
-    <string name="intro_message3">IntroMessage3</string>
-    <string name="intro_title4">IntroTitle4</string>
-    <string name="intro_message4">IntroMessage4</string>
+    <string name="publication_success">Successful posting</string>
 
-    <string name="intro_button">IntroButton1</string>
-    <string name="intro_button2">IntroButton2</string>
+    <string name="intro_title">Welcome to urMusic</string>
+    <string name="intro_message">Come and be part of this musical network!</string>
+    <string name="intro_title2">Register</string>
+    <string name="intro_message2">Meet music, friends and events@</string>
+    <string name="intro_title3">Target Audience</string>
+    <string name="intro_message3">Promote your work, events and your music to an audience that loves the same as you!</string>
+
+    <!--<string name="intro_title4">IntroTitle4</string>-->
+    <!--<string name="intro_message4">IntroMessage4</string>-->
+
+    <!--<string name="intro_button">IntroButton1</string>-->
+    <!--<string name="intro_button2">IntroButton2</string>-->
+    <string name="esqueceu_sua_senha">Forgot your password?</string>
+    <string name="precisando_de_uma_conta">Need an account?</string>
+
+
+    <string name="response">responses</string>
 
 </resources>

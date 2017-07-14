@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 
 import br.edu.puccamp.app.async.AsyncLogin;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.principal.*;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Hash;
 import br.edu.puccamp.app.util.Strings;
@@ -166,7 +167,7 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
                     prefs.edit().putString(Strings.USUARIO, json.toJson(o)).apply();
                     //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
                     if (((Usuario) o).getGostosMusicais().toString().equals("[]")) startActivity(new Intent(this, GostoMusicalActivity.class));
-                    else startActivity(new Intent(this, DefaultActivity.class));
+                    else startActivity(new Intent(this, br.edu.puccamp.app.principal.MainActivity.class));
                     finish();
 
 
