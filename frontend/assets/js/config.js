@@ -274,6 +274,10 @@ var translationsBR = {
         ERROR1:         "Não foi possível cadastrar o seu gosto musical.",
         ERROR2_TITLE:   "",
         ERROR2:         "Nenhum gosto musical selecionado."
+    },
+
+    PERFIL:{
+        
     }
 };
 
@@ -299,7 +303,7 @@ angular.module('app')
                     url: "/app",
                     controller: 'HeaderCtrl',
                     data: {
-                        requireLogin: true,
+                        requireLogin: false,
                         requireAdmin: false
                     },
                     templateUrl: "tpl/app.html"
