@@ -24,7 +24,7 @@
                         <!-- START CONTAINER FLUID -->
                         <div class="container-fluid p-t-30 p-b-30 ">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <div class="container-xs-height">
                                         <div class="row-xs-height">
                                             <div class="social-user-profile col-xs-height text-center col-top">
@@ -32,20 +32,91 @@
                                                     <img alt="Avatar" width="55" height="55" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar_small2x.jpg" data-src="assets/img/profiles/avatar.jpg" src="assets/img/profiles/avatar.jpg">
                                                 </div>
                                                 <br>
-                                                <i class="fa fa-check-circle text-success fs-16 m-t-10"></i>
+                                                <!--<i class="fa fa-check-circle text-success fs-16 m-t-10"></i>-->
                                             </div>
                                             <div class="col-xs-height p-l-20">
-                                                <h3 class="no-margin">David Nester</h3>
-                                                <p class="no-margin fs-16">is excited about the new pages design framework</p>
-                                                <p class="hint-text m-t-5 small">San Fransisco Bay | CEO at Pages.inc</p>
+                                                <h3 class="no-margin">{{user.nome}}</h3>
+                                                <p class="hint-text m-t-5 small">{{diaNasc}}/{{mesNasc}}/{{anoNasc}}</p>    
+                                                <!--<div class="row center-margin m-b-10">
+                                                    <div class="col-xs-2 text-center">
+                                                        <i class="fs-14 fa fa-paint-brush"></i>
+                                                    </div>
+                                                </div>-->
+                                                <p class="hint-text m-t-5 small">{{user.cidade}} - {{user.estado}} - {{user.pais}}</p>
+                                                <p class="hint-text m-t-5 small"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-transparent ">
+                                        <ul class="nav nav-tabs nav-tabs-fillup" pg-tab-dropdownfx>
+                                            <li class="active">
+                                                <a data-toggle="tab" pg-tab href="#tab-fillup1"><span>Gostos Musicais</span></a>
+                                            </li>
+                                            <li>
+                                                <a data-toggle="tab" pg-tab href="#tab-fillup2"><span>Spotify</span></a>
+                                            </li>
+                                            <li>
+                                                <a data-toggle="tab" pg-tab href="#tab-fillup3"><span>Eventos</span></a>
+                                            </li>
+                                            <li>
+                                                <a data-toggle="tab" pg-tab href="#tab-fillup4"><span>Seguidores</span></a>
+                                            </li>
+                                         </ul>
+                                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab-fillup1">
+                                                <div class="row column-seperation">
+                                                    <div class="col-md-6">
+                                                        <h3>
+                                                            <span class="semi-bold">Gostos Musicais </span> 
+                                                            <h5>
+                                                                <span class="semi-bold">Favorito: </span>{{gostoFavorito.pk.gostoMusical.descricao}}
+                                                            </h5>
+                                                        </h3>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div ng-repeat="gosto in gostos">
+                                                            <label >{{gosto.pk.gostoMusical.descricao}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-11 text-right">
+                                                            <a translate class="text-info small" ui-sref="access.recuperarSenha">Editar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="tab-fillup2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h3>Últimas músicas ouvidas no 
+                                                                <span class="semi-bold">Spotify</span>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="tab-fillup3">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h3>Últimos <span class="semi-bold"> eventos</span> frequentados                                                       </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="tab-fillup4">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h3><span class="semi-bold"> Seguidores: </span>                                                        </h3>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <!--<div class="col-md-4">
                                     <p class="no-margin fs-16">Hi My Name is David Nester, &amp; heres my new pages user profile page</p>
                                     <p class="hint-text m-t-5 small">I love reading people's about page especially those who are in the same industry as me.</p>
-                                </div>
+                                </div>-->
+                      
                                 <div class="col-md-4">
                                     <p class="m-b-5 small">1,435 Mutual Friends</p>
                                     <ul class="list-unstyled ">
@@ -108,7 +179,9 @@
                                         <span>
                                         <label for="status-q1">What's on your mind?</label>
                                     </span>
-                                        <input id="status-q1" name="q1" type="text" />
+                                        <input type="text" name="q1" class="form-control" ng-model="feed.q1"/>                    
+                                        <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="feed.q1.$invalid" ng-click="post(feed.q1)" translate>FEED.POST</button>
+                                    
                                     </li>
                                     <li>
                                         <span>
