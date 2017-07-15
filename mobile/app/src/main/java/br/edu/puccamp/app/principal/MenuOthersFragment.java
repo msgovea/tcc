@@ -7,11 +7,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -96,12 +96,19 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         //Pega o item que foi selecionado.
         ItemListView item = adapterListView.getItem(arg2);
         //Demostração
+        Log.e("TODO", ( String.valueOf(item.getIconeRid())));
         if (item.getTexto().equals(getString(R.string.logoff))){
             SharedPreferences prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
             prefs.edit().clear().apply();
             startActivity(new Intent(getActivity(), TesteLogin.class));
             getActivity().finish();
-        } else Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_SHORT).show();
+        } if (item.getIconeRid() == 2130837637 ) {
+
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            //intent.putExtra("idUsuario", Long.valueOf(12));
+            startActivity(intent);
+        }
+        else Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
