@@ -85,7 +85,7 @@
                 android:layout_below="@+id/header_cover_image"
                 android:background="@color/primary"
                 android:elevation="4dp"
-                android:paddingBottom="24dp">
+                android:paddingBottom="8dp">
 
                 <ImageView
                     android:id="@+id/followers"
@@ -129,18 +129,18 @@
                     android:id="@+id/user_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="76dp"
                     android:text="Profile Name"
                     android:textColor="#fff"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignTop="@+id/verifed_account"
+                    android:layout_marginLeft="16dp"/>
 
                 <ImageView
                     android:id="@+id/verifed_account"
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="76dp"
                     android:layout_toRightOf="@id/user_profile_name"
                     android:src="@drawable/ic_password_visibility" />
@@ -150,20 +150,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/user_profile_name"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="12dp"
                     android:text="Another profile information"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="10sp" />
 
-                <ImageView
-                    android:id="@+id/add_friend"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@id/user_profile_name"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_alarm" />
             </RelativeLayout>
 
         </RelativeLayout>
