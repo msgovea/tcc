@@ -8,6 +8,21 @@
     android:fitsSystemWindows="true"
     tools:context="br.edu.puccamp.app.ProfileTabbedActivity">
 
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -43,13 +58,25 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_below="@+id/header_cover_image"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="-60dp"
                 android:background="@drawable/profile_circular_border_imageview"
                 android:elevation="5dp"
                 android:padding="20dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon2" />
+                android:src="@drawable/common_full_open_on_phone" />
+
+            <Button
+                android:id="@+id/btn_follow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/user_profile_photo"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/user_profile_photo"
+                android:background="#7e5fb4b9"
+
+                android:text="@string/follow" />
 
             <RelativeLayout
                 android:id="@+id/profile_layout"
@@ -59,25 +86,6 @@
                 android:background="@color/primary"
                 android:elevation="4dp"
                 android:paddingBottom="24dp">
-
-                <ImageView
-                    android:id="@+id/follows"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/ic_alarm" />
-
-                <TextView
-                    android:id="@+id/qtd_follows"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:layout_toRightOf="@id/follows"
-                    android:text="23"/>
 
                 <ImageView
                     android:id="@+id/followers"
@@ -94,9 +102,28 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
-                    android:gravity="center"
                     android:layout_toLeftOf="@id/followers"
-                    android:text="123032"/>
+                    android:gravity="center"
+                    android:text="123032" />
+
+                <ImageView
+                    android:id="@+id/follows"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_toLeftOf="@id/qtd_followers"
+                    android:src="@drawable/ic_alarm" />
+
+                <TextView
+                    android:id="@+id/qtd_follows"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_toLeftOf="@id/follows"
+                    android:gravity="center"
+                    android:text="23" />
 
                 <TextView
                     android:id="@+id/user_profile_name"
@@ -104,10 +131,19 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="76dp"
-                    android:text="Viral Android"
+                    android:text="Profile Name"
                     android:textColor="#fff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/verifed_account"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="76dp"
+                    android:layout_toRightOf="@id/user_profile_name"
+                    android:src="@drawable/ic_password_visibility" />
 
                 <TextView
                     android:id="@+id/user_profile_short_bio"
@@ -116,7 +152,7 @@
                     android:layout_below="@+id/user_profile_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="12dp"
-                    android:text="Android free tutorials and example"
+                    android:text="Another profile information"
                     android:textColor="#fff"
                     android:textSize="14sp" />
 
@@ -124,11 +160,12 @@
                     android:id="@+id/add_friend"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_alarm"
+                    android:layout_alignParentEnd="true"
                     android:layout_below="@id/user_profile_name"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_alarm" />
             </RelativeLayout>
+
         </RelativeLayout>
 
         <android.support.design.widget.TabLayout
@@ -137,20 +174,5 @@
             android:layout_height="wrap_content" />
 
     </android.support.design.widget.AppBarLayout>
-
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>
