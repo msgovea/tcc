@@ -2,9 +2,33 @@
 
 /* Controllers */
 
-angular.module('app')
-    // Social controller 
-    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', function($scope, $stateParams, $rootScope) {
+angular.module('app').factory('apiSalvarEdic', function($http) {
+        
+        return {
+            getApi: function(usuario, dNasc) {
+                console.log("Linha 6");
+                console.log(usuario);
+                var parts = (dNasc.split('/'));
+                var dataNasc = parts[2] + '-' + parts[1] + '-' + parts[0];
+                return $http({
+                    method: 'POST',
+                    url: 'http://192.198.90.26:82/musicsocial/usuario/atualizar',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        usuario
+                    }
+                })
+            }
+        }
+    })
+
+
+
+
+
+    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
 
@@ -18,6 +42,7 @@ angular.module('app')
         $scope.diaNasc = parts[2]; 
         $scope.mesNasc = parts[1]; 
         $scope.anoNasc = parts[0]; 
+        $scope.dataNascimento = $scope.diaNasc + '/' + $scope.mesNasc + '/' + $scope.anoNasc
         $scope.gostos = $scope.user.gostosMusicais; 
         for(var i = 0; i < $scope.gostos.length; i++){ 
             if ($scope.gostos[i].favorito == true){ 
@@ -75,7 +100,49 @@ angular.module('app')
                     //console.log('invalido');
                 }
             }
-		}
+		};
+
+        $scope.salvarEdic = function(user, dtNasc){
+            $scope.loading = true;
+            console.log("Linha 115");
+            console.log(user)
+            apiSalvarEdic.getApi(user, dtNasc).then(function(result){
+                //console.log(result);
+                //console.log("oi");
+                
+                if (result.data.message == "Sucesso!") {
+                    //redireciona
+                    console.log("sucesso");
+                    $cookieStore.put('usuario', result.data.object);
+                    //console.log($cookieStore.usuario);
+                    $('body').pgNotification({
+                        style: 'simple',
+                        title: $filter('translate')('REGISTER.FORM.NOTIF1_TITLE'),
+                        message: $filter('translate')('REGISTER.FORM.NOTIF1'),
+                        position: 'top-right',
+                        showClose: false,
+                        timeout: 6000,
+                        type: 'success',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show();
+                }
+                else {
+                    console.log("fracasso");
+                    $scope.social.$invalid = true; 
+                    $scope.loading = false; 
+                    $('body').pgNotification({
+                        style: 'simple',
+                        title: $filter('translate')('REGISTER.FORM.ERROR10_TITLE'),
+                        message: $filter('translate')('REGISTER.FORM.ERROR10'),
+                        position: 'top-right',
+                        showClose: false,
+                        timeout: 6000,
+                        type: 'danger',
+                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
+                    }).show(); 
+                }
+            })
+        }
 
     }]);
 
