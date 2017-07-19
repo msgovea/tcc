@@ -24,7 +24,7 @@ angular.module('app')
     })
     // Social controller 
     .controller('FeedCtrl', ['$scope', '$stateParams', '$rootScope', '$http', '$filter', '$cookieStore','$base64', '$state',  function($scope, $stateParams, $rootScope, $http, $filter, $cookieStore, $base64, $state) {
-        // Apply recommended theme for Calendar
+        // Apply recommended theme for Calendar 
 
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
 

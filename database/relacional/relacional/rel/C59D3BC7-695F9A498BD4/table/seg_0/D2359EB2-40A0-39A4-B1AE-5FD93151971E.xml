@@ -62,9 +62,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="3DA02D3D-89FD-CE07-E7A9-3D86DF226F76" referredColumn="21DB64D4-E3D9-E0D1-2C38-4442A446F8E1"/>
-</associations>
 </Column>
 <Column name="USR_STC_SITUACAO_CONTA" id="B8FF7065-0ECC-0999-BB30-663CE9B262E0">
 <createdBy>Cacilda</createdBy>
@@ -105,16 +102,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="9DD338E3-EC95-024D-DEB8-D62B13EA8E24"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="1ED22920-C6F8-49DC-FDF9-7DC93301CBE3" name="USR_X_TPC_FK">
-<createdBy>Cacilda</createdBy>
-<createdTime>2017-03-08 21:55:39 UTC</createdTime>
-<ownerDesignName>Relacional</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="50EF4B64-3BB3-C8AA-8B6E-46DC1E2DA245"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="CB5EE2E7-D38F-4C15-51BD-19CB58927102" name="USR_X_STC_FK">
