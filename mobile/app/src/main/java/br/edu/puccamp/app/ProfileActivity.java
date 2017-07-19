@@ -34,8 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView edit = (TextView) findViewById(R.id.testemgoveaa);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        TextView edit = (TextView) findViewById(R.id.user_profile_name);
 
         if (getIntent().getLongExtra("idUsuario",0) != 0) {
             //asyntask para obter informações
@@ -49,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
 
-        toolbar.setTitle(usuario.getNome());
+        //toolbar.setTitle(usuario.getNome());
 
 
     }
