@@ -90,7 +90,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-11 text-right">
-                                                            <a translate class="text-info small" ui-sref="#modalSlideUp">Editar</a>
+                                                            <a translate class="hint-text m-t-5 small" href="#" data-toggle="modal" data-target="#modalGostos">Editar</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -511,7 +511,9 @@
         <div class="modal-content-wrapper">
             <div class="modal-content">
                 <div class="modal-header clearfix text-left">
-
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>Dados pessoais</h5>
                 </div>
                 <div class="modal-body">
                     <form id="form-social" class="p-t-15" role="form" name="social">
@@ -559,6 +561,37 @@
                         </div>
                         <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="social.$invalid || birthdayError || loading" ng-click="salvarEdic(user, dataNascimento)" translate>Salvar</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade slide-up disable-scroll" id="modalGostos" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="SocialCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>GOSTO_MUSICAL.CAD_GOSTOS.HEADLINE</h5>
+                    <p class="p-b-10" translate>GOSTO_MUSICAL.CAD_GOSTOS.SUBTITLE</p>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <div class="checkbox check-primary col-md-4" ng-repeat="gosto in gostosAPI">
+                                        <input type="checkbox" id="checkbox{{gosto.codigo}}" ng-model="gosto.selecionado" />
+                                        <label for="checkbox{{gosto.codigo}}">{{gosto.descricao}}</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="btn btn-primary btn-cons m-t-10" align="center" ng-click="cadastrarGostos()" translate>GOSTO_MUSICAL.CAD_GOSTOS.SEND</button>
+
+                    </div>
                 </div>
             </div>
         </div>

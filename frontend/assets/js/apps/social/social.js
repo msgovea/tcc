@@ -10,25 +10,20 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                 console.log(usuario);
                 var parts = (dNasc.split('/'));
                 var dataNasc = parts[2] + '-' + parts[1] + '-' + parts[0];
+                usuario.dataNascimento = dataNasc;
                 return $http({
                     method: 'POST',
                     url: 'http://192.198.90.26:82/musicsocial/usuario/atualizar',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    data: {
-                        usuario
-                    }
+                    data: usuario
                 })
             }
         }
     })
 
-
-
-
-
-    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter) {
+    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', '$cookieStore', '$http', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter, $cookieStore, $http) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
         var parts = $scope.user.dataNascimento.split('-');
@@ -36,6 +31,15 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         $scope.mesNasc = parts[1];
         $scope.anoNasc = parts[0];
         $scope.gostos = $scope.user.gostosMusicais;
+        $scope.gostosAPI = [];
+        $scope.gostoFavAPI = {favorito: null};
+
+        $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
+            for(var i = 0; i < result.object.length; i++){
+                $scope.gostosAPI[i] = result.object[i]; 
+            }
+        });
+
         for(var i = 0; i < $scope.gostos.length; i++){
             if ($scope.gostos[i].favorito == true){
                 $scope.gostoFavorito = $scope.gostos[i]; 
@@ -124,10 +128,11 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                     console.log("sucesso");
                     $cookieStore.put('usuario', result.data.object);
                     //console.log($cookieStore.usuario);
+                    $('#modalEdDadosPe').modal('hide'); 
                     $('body').pgNotification({
                         style: 'simple',
-                        title: $filter('translate')('REGISTER.FORM.NOTIF1_TITLE'),
-                        message: $filter('translate')('REGISTER.FORM.NOTIF1'),
+                        title: $filter('translate')('Sucesso'),
+                        message: $filter('translate')('Alteração realizada com sucesso!'),
                         position: 'top-right',
                         showClose: false,
                         timeout: 6000,
@@ -139,10 +144,10 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                     console.log("fracasso");
                     $scope.social.$invalid = true; 
                     $scope.loading = false; 
-                    $('body').pgNotification({
+                     $('#modalEdDadosPe').pgNotification({
                         style: 'simple',
-                        title: $filter('translate')('REGISTER.FORM.ERROR10_TITLE'),
-                        message: $filter('translate')('REGISTER.FORM.ERROR10'),
+                        title: $filter('translate')('Falha'),
+                        message: $filter('translate')('Não foi possível realizar as alterações.'),
                         position: 'top-right',
                         showClose: false,
                         timeout: 6000,
