@@ -1,5 +1,6 @@
 package br.edu.puccamp.app;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -110,6 +111,7 @@ public class ProfileTabbedActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, EditProfileActivity.class));
             return true;
         }
 

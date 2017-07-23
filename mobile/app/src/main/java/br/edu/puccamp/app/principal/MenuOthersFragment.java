@@ -108,7 +108,13 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
             //intent.putExtra("idUsuario", Long.valueOf(12));
             startActivity(intent);
         }
-        else Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_SHORT).show();
+        else {
+        Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
+        //intent.putExtra("idUsuario", Long.valueOf(12));
+        startActivity(intent);
+
+    }
     }
 
     @Override
