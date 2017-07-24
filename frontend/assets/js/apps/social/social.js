@@ -6,8 +6,6 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         
         return {
             getApi: function(usuario, dNasc) {
-                console.log("Linha 6");
-                console.log(usuario);
                 var parts = (dNasc.split('/'));
                 var dataNasc = parts[2] + '-' + parts[1] + '-' + parts[0];
                 usuario.dataNascimento = dataNasc;
@@ -33,12 +31,19 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         $scope.gostos = $scope.user.gostosMusicais;
         $scope.gostosAPI = [];
         $scope.gostoFavAPI = {favorito: null};
-
+        
         $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
                 $scope.gostosAPI[i] = result.object[i]; 
+                for (var j = 0; j < $scope.gostos.length; j++){
+                    if ($scope.gostosAPI[i].codigo == $scope.gostos[j].pk.gostoMusical.codigo){
+                        $scope.gostosAPI[i].selecionado = true;
+                    }
+                }
             }
-        });
+        })
+
+       
 
         for(var i = 0; i < $scope.gostos.length; i++){
             if ($scope.gostos[i].favorito == true){
@@ -117,15 +122,12 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
 
         $scope.salvarEdic = function(user, dtNasc){
             $scope.loading = true;
-            console.log("Linha 115");
-            console.log(user)
             apiSalvarEdic.getApi(user, dtNasc).then(function(result){
                 //console.log(result);
                 //console.log("oi");
                 
                 if (result.data.message == "Sucesso!") {
                     //redireciona
-                    console.log("sucesso");
                     $cookieStore.put('usuario', result.data.object);
                     //console.log($cookieStore.usuario);
                     $('#modalEdDadosPe').modal('hide'); 
@@ -141,7 +143,6 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                     }).show();
                 }
                 else {
-                    console.log("fracasso");
                     $scope.social.$invalid = true; 
                     $scope.loading = false; 
                      $('#modalEdDadosPe').pgNotification({
