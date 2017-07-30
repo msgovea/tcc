@@ -102,10 +102,10 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
             prefs.edit().clear().apply();
             startActivity(new Intent(getActivity(), TesteLogin.class));
             getActivity().finish();
-        } if (item.getIconeRid() == 2130837637 ) {
+        } if (item.getTexto().equals(getString(R.string.language)) ) {
 
             Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
-            //intent.putExtra("idUsuario", Long.valueOf(12));
+            intent.putExtra("idUsuario", Long.valueOf(12));
             startActivity(intent);
         }
         else {
