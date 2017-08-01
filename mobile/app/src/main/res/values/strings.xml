@@ -64,12 +64,16 @@
     <string name="account_banned_text">Your account is banned, contact us for clarification</string>
 
     <string name="error">An unexpected error has occurred, contact your system administrator</string>
+    <string name="error_edit_profile">Failed to update your profile, try again later</string>
 
     <string name="logoff">Logoff</string>
 
     <string name="language">Language</string>
 
     <string name="politics">Terms and Policies</string>
+
+    <string name="update_profile_success">Profile updated</string>
+    <string name="success">Success</string>
 
     <string-array name="countries_array">
         <item>Afghanistan</item>
