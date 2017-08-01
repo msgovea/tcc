@@ -23,9 +23,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.profile.ProfileEditActivity;
 import br.edu.puccamp.app.util.Strings;
 
 public class ProfileTabbedActivity extends AppCompatActivity {
@@ -44,6 +43,9 @@ public class ProfileTabbedActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private TextView mTextUserProfileName;
+    private TextView mTextUserBio;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +75,8 @@ public class ProfileTabbedActivity extends AppCompatActivity {
             }
         });
 
-        Usuario usuario;
-
-        TextView mTextUserProfileName = (TextView) findViewById(R.id.user_profile_name);
-        TextView mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
+        mTextUserProfileName = (TextView) findViewById(R.id.user_profile_name);
+        mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
 
         if (getIntent().getLongExtra("idUsuario",0) != 0) {
             //asyntask para obter informações
@@ -94,6 +94,20 @@ public class ProfileTabbedActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        if (getIntent().getLongExtra("idUsuario",0) == 0) {
+            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            Gson gson = new Gson();
+            usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+            //edit.setText(usuario.getNome());
+            getSupportActionBar().setTitle(usuario.getNome());
+            mTextUserProfileName.setText(usuario.getNome());
+            mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
