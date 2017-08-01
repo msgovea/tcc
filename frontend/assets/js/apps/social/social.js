@@ -24,6 +24,8 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
     .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', '$cookieStore', '$http', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter, $cookieStore, $http) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
+        $scope.usuCadastrado = copiarObj($scope.user);
+
         var parts = $scope.user.dataNascimento.split('-');
         $scope.diaNasc = parts[2];
         $scope.mesNasc = parts[1];
@@ -33,6 +35,17 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         $scope.gostoFavAPI = {favorito: null};
         $rootScope.gostosCadastrados = [];
         
+        function copiarObj(obj) {
+            if (obj === null || typeof obj !== 'object') {
+                return obj;
+            }
+            var temp = obj.constructor();
+            for (var key in obj) {
+                temp[key] = copiarObj(obj[key]);
+            }
+            return temp;
+        }
+
         $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
                 $scope.gostosAPI[i] = result.object[i]; 
@@ -158,6 +171,10 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                     }).show(); 
                 }
             })
+        }
+
+        $scope.fecharModGos = function (){
+            $scope.usuCadastrado = copiarObj($scope.user);
         }
 
          $scope.cadastrarGostos = function (){

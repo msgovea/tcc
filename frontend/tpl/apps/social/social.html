@@ -45,7 +45,7 @@
                                                     </div> 
                                                 </div>-->
                                                 <p class="hint-text m-t-5 small">{{user.cidade}} - {{user.estado}} - {{user.pais}}</p>
-                                                 <a translate class="hint-text m-t-5 small" href="#" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
+                                                 <a translate class="hint-text m-t-5 small" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
                                                 <p class="hint-text m-t-5 small"></p>
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-11 text-right">
-                                                            <a translate class="hint-text m-t-5 small" href="#" data-toggle="modal" data-target="#modalGostos">Editar</a>
+                                                            <a translate class="hint-text m-t-5 small" data-toggle="modal" data-target="#modalGostos">Editar</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -531,7 +531,7 @@
                             <div class="col-sm-12">
                                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': social.country.$invalid && !social.country.$pristine }">
                                     <label translate>REGISTER.FORM.COUNTRY</label>
-                                    <input type="text" name="country" placeholder="United States" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.pais" required>
+                                    <input type="text" name="country" placeholder="United States" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="usuCadastrado.pais" required>
                                 </div>
                                 <label class="error" for="country" ng-show="social.country.$error.pattern && !social.country.$pristine" translate> REGISTER.FORM.ERROR9</label>
                             </div>
@@ -540,7 +540,7 @@
                             <div class="col-sm-12">
                                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': social.state.$invalid && !social.state.$pristine }">
                                     <label translate>REGISTER.FORM.STATE</label>
-                                    <input type="text" name="state" placeholder="California" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.estado" required>
+                                    <input type="text" name="state" placeholder="California" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="usuCadastrado.estado" required>
                                 </div>
                                 <label class="error" for="state" ng-show="social.state.$error.pattern && !social.state.$pristine" translate> REGISTER.FORM.ERROR9</label>
                             </div>
@@ -549,7 +549,7 @@
                             <div class="col-sm-12">
                                 <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': social.city.$invalid && !social.city.$pristine }">
                                     <label translate>REGISTER.FORM.CITY</label>
-                                    <input type="text" name="city" placeholder="San Francisco" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.cidade" required>
+                                    <input type="text" name="city" placeholder="San Francisco" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="usuCadastrado.cidade" required>
                                 </div>
                                 <label class="error" for="city" ng-show="social.city.$error.pattern && !social.city.$pristine" translate> REGISTER.FORM.ERROR9</label>
                             </div>
@@ -572,7 +572,7 @@
         <div class="modal-content-wrapper">
             <div class="modal-content">
                 <div class="modal-header clearfix text-left">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    <button type="button" class="close" ng-click="fecharModGos()" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
                     </button>
                     <h5 translate>GOSTO_MUSICAL.CAD_GOSTOS.HEADLINE</h5>
                     <p class="p-b-10" translate>GOSTO_MUSICAL.CAD_GOSTOS.SUBTITLE</p>
