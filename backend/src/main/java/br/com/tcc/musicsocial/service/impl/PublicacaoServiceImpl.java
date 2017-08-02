@@ -45,4 +45,15 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		return true;
 	}
 
+	@Override
+	@Transactional
+	public Boolean removerPublicacao(Long codigo) {
+		Publicacao publicacao = publicacaoDAO.find(codigo);
+		if(publicacao != null) {
+			publicacao.setAtiva(false);
+			return true;
+		}
+		return false;
+	}
+
 }

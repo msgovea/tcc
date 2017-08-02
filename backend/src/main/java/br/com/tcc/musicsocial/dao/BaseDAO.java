@@ -9,5 +9,5 @@ public interface BaseDAO<T> {
 	
 	List<T> findAll();
 	
-	T find(Integer pk);
+	T find(Object pk);
 }

@@ -9,4 +9,6 @@ public interface PublicacaoService {
 	List<Publicacao> getPublicacoes(String idUsuario);
 	
 	Publicacao cadastrarPublicacao(Publicacao publicacao);
+	
+	Boolean removerPublicacao(Long codigo);
 }

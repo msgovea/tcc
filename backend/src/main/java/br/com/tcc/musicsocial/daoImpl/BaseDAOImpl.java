@@ -44,7 +44,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T find(Integer pk) {
+	public T find(Object pk) {
 		return (T) em.find(getType(), pk);
 	}
 }
