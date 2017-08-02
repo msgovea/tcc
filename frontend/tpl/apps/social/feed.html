@@ -93,7 +93,7 @@
                                         <span>
                                         <label for="status-q1" translate>FEED.HEADLINE</label>
                                     </span>
-                                        <input type="text" name="q1" class="form-control" ng-model="feed.q1"/>                    
+                                        <input type="text" name="q1" class="form-control" ng-model="feed.q1" />
                                         <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="feed.q1.$invalid" ng-click="post(feed.q1)" translate>FEED.POST</button>
                                     </li>
                                 </ol>
@@ -121,37 +121,44 @@
                         <ul class="list-unstyled ">
                             <li class="m-r-10">
                                 <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg" alt="Profile Image" src="assets/img/profiles/1.jpg">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/1.jpg">
                                 </div>
                             </li>
                             <li>
                                 <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/2x.jpg" data-src="assets/img/profiles/2.jpg" alt="Profile Image" src="assets/img/profiles/2.jpg">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/2x.jpg" data-src="assets/img/profiles/2.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/2.jpg">
                                 </div>
                             </li>
                             <li>
                                 <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/3x.jpg" data-src="assets/img/profiles/3.jpg" alt="Profile Image" src="assets/img/profiles/3.jpg">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/3x.jpg" data-src="assets/img/profiles/3.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/3.jpg">
                                 </div>
                             </li>
                             <li>
                                 <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" alt="Profile Image" src="assets/img/profiles/4.jpg">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/4.jpg">
                                 </div>
                             </li>
                             <li>
                                 <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg" alt="Profile Image" src="assets/img/profiles/5.jpg">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/5.jpg">
                                 </div>
                             </li>
                             <li>
                                 <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6.jpg" alt="Profile Image" src="assets/img/profiles/6.jpg">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/6.jpg">
                                 </div>
                             </li>
                             <li>
                                 <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/7x.jpg" data-src="assets/img/profiles/7.jpg" alt="Profile Image" src="assets/img/profiles/7.jpg">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/7x.jpg" data-src="assets/img/profiles/7.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/7.jpg">
                                 </div>
                             </li>
                             <li>
@@ -185,7 +192,8 @@
                         </div>
                         <div class="card-header clearfix">
                             <div class="user-pic">
-                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar.jpg" data-src="assets/img/profiles/avatar.jpg" ng-src="assets/img/profiles/avatar.jpg">
+                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar.jpg" data-src="assets/img/profiles/avatar.jpg"
+                                    ng-src="assets/img/profiles/avatar.jpg">
                             </div>
                             <h5>{{publicacao.usuario.nome}}</h5>
                             <h6>{{publicacao.dataPublicacao | date}}
@@ -195,7 +203,7 @@
                         <div class="card-description">
                             <p>{{publicacao.conteudo}}</p>
                         </div>
-                        <div class="card-content" ng-show="publicacao.imagem.length" >
+                        <div class="card-content" ng-show="publicacao.imagem.length">
                             <ul class="buttons ">
                                 <li>
                                     <a href=""><i class="fa fa-expand"></i>
@@ -245,7 +253,7 @@
                             <form class="form-horizontal">
                                 <div class="col-md-12">
                                     <div class="checkbox check-primary col-md-4" ng-repeat="gosto in gostos">
-                                        <input type="checkbox" id="checkbox{{gosto.codigo}}" ng-model="gosto.selecionado"/>
+                                        <input type="checkbox" id="checkbox{{gosto.codigo}}" ng-model="gosto.selecionado" />
                                         <label for="checkbox{{gosto.codigo}}">{{gosto.descricao}}</label>
                                     </div>
                                 </div>
@@ -275,7 +283,8 @@
                             <form class="form-horizontal">
                                 <div class="col-md-12">
                                     <div class="radio radio-primary" ng-repeat="gostoCadastrado in gostosCadastrados">
-                                        <input type="radio" name="groupName" id="radio{{gostoCadastrado.codigo}}" ng-value="gostoCadastrado.codigo"  ng-model="gostoFavorito.favorito"/>
+                                        <input type="radio" name="groupName" id="radio{{gostoCadastrado.codigo}}" ng-value="gostoCadastrado.codigo" ng-model="gostoFavorito.favorito"
+                                        />
                                         <label for="radio{{gostoCadastrado.codigo}}">{{gostoCadastrado.descricao}}</label>
                                     </div>
                                 </div>

@@ -14,4 +14,8 @@ public interface UsuarioService {
 	
 	Boolean cadastrarGostoMusical(Integer codUsuario, List<Integer> codGostosMusicais, Integer favorito);
 	List<GostoMusical> getGostos();
+	UsuarioDetalhe atualizarUsuario(UsuarioDetalhe usuario);
+
+	UsuarioDetalhe buscarPorId(Integer id);
+	List<UsuarioDetalhe> buscarPorNome(String nome);
 }

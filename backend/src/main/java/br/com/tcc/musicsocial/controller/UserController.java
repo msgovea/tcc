@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -130,6 +132,52 @@ public class UserController {
 		try { 
 			List<GostoMusical> gostoMusical = usuarioService.getGostos();
 			return new Response(MessagesEnum.SUCESSO.getDescricao(), gostoMusical);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/usuario/atualizar",
+		consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		method = RequestMethod.POST)
+	public Response<?> atualizarUsuario(@RequestBody UsuarioDetalhe user) {
+		try {
+			return new Response<UsuarioDetalhe>(MessagesEnum.SUCESSO.getDescricao(),
+					usuarioService.atualizarUsuario(user));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping("/usuario/buscar/{codigo}")
+	public Response<?> buscarPorCodigo(@PathVariable("codigo") Integer codigo) {
+		try { 
+			UsuarioDetalhe usuario = usuarioService.buscarPorId(codigo);
+			if (usuario != null) {
+				return new Response(MessagesEnum.SUCESSO.getDescricao(), usuario);
+			} else {
+				return new Response(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping("/usuario/buscar")
+	public Response<?> buscarPorNome(@RequestParam String nome) {
+		try { 
+			if (!StringUtils.isEmpty(nome)) {
+				return new Response(MessagesEnum.SUCESSO.getDescricao(), usuarioService.buscarPorNome(nome));
+			} else {
+				return new Response(MessagesEnum.INVALIDO.getDescricao());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);

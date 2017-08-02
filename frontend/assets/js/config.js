@@ -381,7 +381,8 @@ angular.module('app')
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load([
                                 'isotope',
-                                'stepsForm'
+                                'stepsForm',
+                                 'datepicker'
                             ], {
                                 insertBefore: '#lazyload_placeholder'
                             })

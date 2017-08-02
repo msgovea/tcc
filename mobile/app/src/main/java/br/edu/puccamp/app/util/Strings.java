@@ -10,6 +10,7 @@ public interface Strings {
     String URL        = "http://192.198.90.26:82/musicsocial/";
 
     String REGISTER              = "usuario/cadastro";
+    String ATUALIZAR_PERFIL      = "usuario/atualizar";
     String LOGIN                 = "usuario/login";
     String RECOVERY              = "usuario/recuperar";
     String GOSTOS_MUSICAIS       = "usuario/getGostosMusicais";
