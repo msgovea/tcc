@@ -38,12 +38,6 @@
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DefaultActivity"
-            android:label="@string/title_activity_default"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".RecoveryActivity"
             android:label="@string/title_recovery_activity"
             android:screenOrientation="portrait">
@@ -115,6 +109,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.edu.puccamp.app.ProfileTabbedActivity" />
+        </activity>
+        <activity
+            android:name=".profile.EditPasswordActivity"
+            android:label="@string/title_activity_edit_password"
+            android:parentActivityName=".EditProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.edu.puccamp.app.EditProfileActivity" />
         </activity>
     </application>
 

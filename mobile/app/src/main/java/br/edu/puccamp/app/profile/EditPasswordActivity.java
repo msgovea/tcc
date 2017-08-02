@@ -2,7 +2,6 @@ package br.edu.puccamp.app.profile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,37 +14,30 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-import br.edu.puccamp.app.GostoMusicalActivity;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.AsyncEditProfile;
-import br.edu.puccamp.app.async.AsyncLogin;
+import br.edu.puccamp.app.async.AsyncRegister;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Hash;
 import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.Validation;
 
-import static java.security.AccessController.getContext;
+public class EditPasswordActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
 
-public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
+    private EditText etOldPassword;
+    private EditText etNewPassword;
+    private EditText etConfirmNewPassword;
 
-    private EditText etName;
-    private EditText etEmail;
-    private EditText etCountry;
-    private EditText etState;
-    private EditText etCity;
-    private EditText etBirthday;
-
-    private Button btnEditProfile;
+    private Button btnEditPassword;
 
     private SharedPreferences prefs;
     private Usuario usuario;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_edit);
+        setContentView(R.layout.activity_edit_password);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,37 +47,27 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                atualizarSenha();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Instanciando os EditTexts
 
-        etName     = (EditText) findViewById(R.id.etName);
-        etEmail    = (EditText) findViewById(R.id.etEmail);
-        etCountry  = (EditText) findViewById(R.id.etCountry);
-        etState    = (EditText) findViewById(R.id.etState);
-        etCity     = (EditText) findViewById(R.id.etCity);
-        etBirthday = (EditText) findViewById(R.id.etBirthday);
+        etOldPassword = (EditText) findViewById(R.id.et_old_password);
+        etNewPassword = (EditText) findViewById(R.id.et_new_password);
+        etConfirmNewPassword  = (EditText) findViewById(R.id.et_confirm_new_password);
 
-        btnEditProfile = (Button) findViewById(R.id.btn_edit_profile);
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+        btnEditPassword = (Button) findViewById(R.id.btn_update_password);
+        btnEditPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateProfile();
+                atualizaSenha();
+                //TODO
             }
 
 
         });
 
         obtemUsuarioAtualizado();
-
-
-    }
-
-    private void atualizarSenha() {
-        startActivity(new Intent(this, EditPasswordActivity.class));
 
     }
 
@@ -95,35 +77,66 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         Gson gson = new Gson();
         prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
         usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
-
-        // Populando as informações nos EditTexts
-
-        etName.setText(usuario.getNome());
-        etEmail.setText(usuario.getEmail());
-        etCountry.setText(usuario.getPais());
-        etState.setText(usuario.getEstado());
-        etCity.setText(usuario.getCidade());
-        etBirthday.setText(usuario.getDataNascimento());
     }
 
-    private void updateProfile() {
-        usuario.setNome(etName.getText().toString());
-        usuario.setEmail(etEmail.getText().toString());
-        usuario.setPais(etCountry.getText().toString());
-        usuario.setEstado(etState.getText().toString());
-        usuario.setCidade(etCity.getText().toString());
-        usuario.setDataNascimento(etBirthday.getText().toString());
+    private void atualizaSenha() {
+        // Reset errors.
+        etOldPassword.setError(null);
+        etNewPassword.setError(null);
+        etConfirmNewPassword.setError(null);
 
-        showLoadingProgressDialog();
 
-        AsyncEditProfile sinc = new AsyncEditProfile(this);
-        sinc.execute(usuario);
+        // Store values at the time of the login attempt.
+        String oldPassword = etOldPassword.getText().toString();
+        String newPassword = etNewPassword.getText().toString();
+        String confirmNewPassword = etConfirmNewPassword.getText().toString();
+
+        Validation validation = new Validation();
+        validation.context = getApplicationContext();
+
+        etOldPassword = validation.isFieldValid(etOldPassword, false);
+        //etNewPassword = validation.isFieldValid(etNewPassword, false);
+        //etConfirmNewPassword = validation.isFieldValid(etConfirmNewPassword, false);
+
+        // Check for a valid password
+        if (!Validation.isPasswordValid(newPassword)) {
+            etNewPassword.setError(getString(R.string.error_invalid_password));
+            validation.focusView = (validation.focusView == null) ? etNewPassword : validation.focusView;
+            validation.error = true;
+        }
+
+        etConfirmNewPassword = validation.isFieldValid(etConfirmNewPassword, false);
+
+
+        if (!newPassword.equals(confirmNewPassword)) {
+            etConfirmNewPassword.setError(getString(R.string.error_confirm_password));
+            validation.focusView = (validation.focusView == null) ? etConfirmNewPassword : validation.focusView;
+            validation.error = true;
+        }
+
+        if (validation.error) {
+            validation.focusView.requestFocus();
+        } else {
+            if (Hash.MD5(oldPassword).equals(usuario.getSenha())) {
+                showLoadingProgressDialog();
+
+                usuario.setSenha(Hash.MD5(etNewPassword.getText().toString()));
+
+                AsyncEditProfile sinc = new AsyncEditProfile(this);
+                sinc.execute(usuario);
+            } else {
+                etOldPassword.setError("A SENHA ANTIGA NAO CONFERE"); //TODO
+                validation.focusView = (validation.focusView == null) ? etOldPassword : validation.focusView;
+                validation.error = true;
+            }
+
+        }
     }
+
 
     @Override
     public void onLoaded(Object o) {
         dismissProgressDialog();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (o.getClass() == Usuario.class) {
@@ -141,8 +154,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
             builder.show();
 
             atualizaUsuario((Usuario)o);
-
-
 
         } else {
             builder.setTitle(getString(R.string.error));
@@ -164,16 +175,5 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
         Gson json = new Gson();
         prefs.edit().putString(Strings.USUARIO, json.toJson(usuarioAtualizado)).apply();
-        //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
-
-        etName.setText(usuarioAtualizado.getNome());
-        etEmail.setText(usuarioAtualizado.getEmail());
-        etCountry.setText(usuarioAtualizado.getPais());
-        etState.setText(usuarioAtualizado.getEstado());
-        etCity.setText(usuarioAtualizado.getCidade());
-        etBirthday.setText(usuarioAtualizado.getDataNascimento());
-
     }
-
-
 }

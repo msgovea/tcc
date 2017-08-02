@@ -131,5 +131,6 @@
 
 
     <string name="response">comentários</string>
+    <string name="old_password">Senha Atual</string>
 
 </resources>

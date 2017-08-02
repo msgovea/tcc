@@ -30,7 +30,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.puccamp.app.DefaultActivity;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.TesteLogin;
 import br.edu.puccamp.app.async.AsyncMakePublication;
