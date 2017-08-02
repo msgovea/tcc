@@ -195,7 +195,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
     public String theMonth(int month){
         String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month+1];
+        return monthNames[month-1];
     }
 
     private void showProgress(final boolean show) {

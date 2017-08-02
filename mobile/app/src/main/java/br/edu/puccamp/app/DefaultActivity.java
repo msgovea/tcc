@@ -201,7 +201,8 @@ public class DefaultActivity extends AbstractAsyncActivity implements AsyncPubli
 //            Log.e("data2", partes[1]);
 //            Log.e("data3", partes[2]);
 
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
+            dataFinal = data;
+            //dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
 
             return dataFinal;
         } catch (Exception e) {

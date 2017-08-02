@@ -128,12 +128,14 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    finish();
                 }
             });
             builder.setCancelable(false);
             builder.show();
 
             atualizaUsuario((Usuario)o);
+
 
 
         } else {
