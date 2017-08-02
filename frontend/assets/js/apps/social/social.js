@@ -26,6 +26,8 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
         $scope.usuCadastrado = copiarObj($scope.user);
 
+        console.log($scope.usuCadastrado);
+        
         var parts = $scope.user.dataNascimento.split('-');
         $scope.diaNasc = parts[2];
         $scope.mesNasc = parts[1];
@@ -34,6 +36,12 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         $scope.gostosAPI = [];
         $scope.gostoFavAPI = {favorito: null};
         $rootScope.gostosCadastrados = [];
+
+        for(var i = 0; i < $scope.gostos.length; i++){
+            if ($scope.gostos[i].favorito == true){
+                $scope.gostoFavorito = $scope.gostos[i]; 
+            }
+        }
         
         function copiarObj(obj) {
             if (obj === null || typeof obj !== 'object') {
@@ -59,11 +67,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
 
        
 
-        for(var i = 0; i < $scope.gostos.length; i++){
-            if ($scope.gostos[i].favorito == true){
-                $scope.gostoFavorito = $scope.gostos[i]; 
-            }
-        }
+        
         // For demo purposes only. Changes the theme back to pages default when switching the state. 
         $rootScope.$on('$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams) {
@@ -141,9 +145,12 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                 //console.log("oi");
                 
                 if (result.data.message == "Sucesso!") {
-                    //redireciona
                     $cookieStore.put('usuario', result.data.object);
-                    //console.log($cookieStore.usuario);
+                    $scope.user = $cookieStore.get('usuario');
+                    
+                    location.reload();
+
+
                     $('#modalEdDadosPe').modal('hide'); 
                     $('body').pgNotification({
                         style: 'simple',
@@ -173,8 +180,9 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             })
         }
 
-        $scope.fecharModGos = function (){
+        $scope.fecharModDPe = function (){
             $scope.usuCadastrado = copiarObj($scope.user);
+            $('#modalEdDadosPe').modal('hide');
         }
 
          $scope.cadastrarGostos = function (){

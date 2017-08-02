@@ -45,7 +45,7 @@
                                                     </div> 
                                                 </div>-->
                                                 <p class="hint-text m-t-5 small">{{user.cidade}} - {{user.estado}} - {{user.pais}}</p>
-                                                 <a translate class="hint-text m-t-5 small" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
+                                                 <a translate class="hint-text m-t-5 small" href= "" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
                                                 <p class="hint-text m-t-5 small"></p>
                                             </div>
                                         </div>
@@ -511,12 +511,30 @@
         <div class="modal-content-wrapper">
             <div class="modal-content">
                 <div class="modal-header clearfix text-left">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    <button type="button" class="close" ng-click="fecharModDPe()" aria-hidden="true"><i class="pg-close fs-14"></i>
                     </button>
                     <h5 translate>Dados pessoais</h5>
                 </div>
                 <div class="modal-body">
                     <form id="form-social" class="p-t-15" role="form" name="social">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': social.name.$invalid && !social.name.$pristine }">
+                                    <label translate>REGISTER.FORM.NAME</label>
+                                    <input type="text" name="name" placeholder="John Wherley" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="usuCadastrado.nome" required>
+                                </div>
+                                <label class="error" for="name" ng-show="social.name.$error.pattern && !social.name.$pristine" translate> REGISTER.FORM.ERROR9</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': social.uname.$invalid && !social.uname.$pristine }">
+                                    <label translate>REGISTER.FORM.USERNAME</label>
+                                    <input type="text" name="uname" placeholder="johnw" class="form-control" ng-model="usuCadastrado.apelido" required>
+                                </div>
+                                <label class="error" for="uname" ng-show="social.uname.$invalid && !social.uname.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div pg-form-group class="form-group form-group-default input-group col-sm-12" ng-class="{ 'has-error': birthdayError}">
@@ -554,12 +572,15 @@
                                 <label class="error" for="city" ng-show="social.city.$error.pattern && !social.city.$pristine" translate> REGISTER.FORM.ERROR9</label>
                             </div>
                         </div>
+                        <div class="col-md-11 text-right">
+                            <a translate class="hint-text m-t-5 small" href= "" data-toggle="modal" data-target="#modalAltSenha">Alterar senha</a>
+                        </div>
                         <div class="full-height">
                             <div class="panel-body text-center">
                                 <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="social.$invalid || birthdayError || loading" ng-click="salvarEdic(user, dataNascimento)" translate>Salvar</button>
+                        <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="social.$invalid || birthdayError || loading" ng-click="salvarEdic(usuCadastrado, dataNascimento)" translate>Salvar</button>
                     </form>
                 </div>
             </div>
@@ -622,6 +643,58 @@
                         </div>
                         <button class="btn btn-primary btn-cons m-t-10" align="center" ng-click="cadastrarGostoFavorito()" translate>GOSTO_MUSICAL.CAD_FAVORITO.SEND</button>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade slide-up disable-scroll" id="modalAltSenha" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="SocialCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>Alterar senha</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passatu.$invalid && !register.passatu.$pristine }">
+                                    <label translate>Senha atual</label>
+                                    <input type="password" name="passatu" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" ng-change="finished()" required>
+                                </div>
+                                <label class="error" for="passatu" ng-show="register.passatu.$invalid && !register.passatu.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                                <label class="error" for="passatu" ng-show="register.passatu.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                                <label class="error" for="passatu" ng-show="register.passatu.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.pass.$invalid && !register.pass.$pristine }">
+                                    <label translate>Nova senha</label>
+                                    <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" ng-change="finished()" required>
+                                </div>
+                                <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                                <label class="error" for="pass" ng-show="register.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                                <label class="error" for="pass" ng-show="register.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passequal && !register.cpass.$pristine}">
+                                    <label translate>Confirmar nova senha</label>
+                                    <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
+                                </div>
+                                <label class="error" for="cpass" ng-show="register.passequal && !register.cpass.$pristine" translate>REGISTER.FORM.ERROR7</label>
+
+                            </div>
+                        </div>
+                      </div>
+                    <button translate></button>
                     </div>
                 </div>
             </div>
