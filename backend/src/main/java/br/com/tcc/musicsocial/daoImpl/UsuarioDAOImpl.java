@@ -7,7 +7,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
