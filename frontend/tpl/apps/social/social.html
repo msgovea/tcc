@@ -661,38 +661,41 @@
                 </div>
                 <div class="modal-body">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passatu.$invalid && !register.passatu.$pristine }">
-                                    <label translate>Senha atual</label>
-                                    <input type="password" name="passatu" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" ng-change="finished()" required>
+                        <form id="form-altSenha" class="p-t-15" role="form" name="altSenha">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passatu.$invalid && !altSenha.passatu.$pristine }">
+                                        <label translate>Senha atual</label>
+                                        <input type="password" name="passatu" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="usSenha.passAtu" ng-change="validSenha()" required>
+                                    </div>
+                                    <label class="error" for="passatu" ng-show="altSenha.passatu.$invalid && !altSenha.passatu.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                                    <label class="error" for="passatu" ng-show="altSenha.passatu.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                                    <label class="error" for="passatu" ng-show="altSenha.passatu.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
+                                {{altSenha.passAtu}}
                                 </div>
-                                <label class="error" for="passatu" ng-show="register.passatu.$invalid && !register.passatu.$pristine" translate>REGISTER.FORM.ERROR1</label>
-                                <label class="error" for="passatu" ng-show="register.passatu.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
-                                <label class="error" for="passatu" ng-show="register.passatu.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.pass.$invalid && !register.pass.$pristine }">
-                                    <label translate>Nova senha</label>
-                                    <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" ng-change="finished()" required>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.pass.$invalid && !altSenha.pass.$pristine }">
+                                        <label translate>Nova senha</label>
+                                        <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="usSenha.password" ng-change="finished()" required>
+                                    </div>
+                                    <label class="error" for="pass" ng-show="altSenha.pass.$invalid && !altSenha.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                                    <label class="error" for="pass" ng-show="altSenha.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                                    <label class="error" for="pass" ng-show="altSenha.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
                                 </div>
-                                <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
-                                <label class="error" for="pass" ng-show="register.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
-                                <label class="error" for="pass" ng-show="register.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passequal && !register.cpass.$pristine}">
-                                    <label translate>Confirmar nova senha</label>
-                                    <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
-                                </div>
-                                <label class="error" for="cpass" ng-show="register.passequal && !register.cpass.$pristine" translate>REGISTER.FORM.ERROR7</label>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passequal && !altSenha.cpass.$pristine}">
+                                        <label translate>Confirmar nova senha</label>
+                                        <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="usSenha.cpassword" ng-change="finished()" required>
+                                    </div>
+                                    <label class="error" for="cpass" ng-show="altSenha.passequal && !altSenha.cpass.$pristine" translate>REGISTER.FORM.ERROR7</label>
 
+                                </div>
                             </div>
-                        </div>
+                        </form>
                       </div>
                     <button translate></button>
                     </div>

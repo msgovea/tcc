@@ -21,7 +21,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         }
     })
 
-    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', '$cookieStore', '$http', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter, $cookieStore, $http) {
+    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', '$cookieStore', '$http', 'md5', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter, $cookieStore, $http, md5) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
         $scope.usuCadastrado = copiarObj($scope.user);
@@ -73,18 +73,6 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             function(event, toState, toParams, fromState, fromParams) {
                 $scope.app.layout.theme = 'pages/css/themes/simple.css';
             })
-        
-        var parts = $scope.user.dataNascimento.split('-'); 
-        $scope.diaNasc = parts[2]; 
-        $scope.mesNasc = parts[1]; 
-        $scope.anoNasc = parts[0]; 
-        $scope.dataNascimento = $scope.diaNasc + '/' + $scope.mesNasc + '/' + $scope.anoNasc
-        $scope.gostos = $scope.user.gostosMusicais; 
-        for(var i = 0; i < $scope.gostos.length; i++){ 
-            if ($scope.gostos[i].favorito == true){ 
-                $scope.gostoFavorito = $scope.gostos[i];  
-            } 
-        } 
 
 
         var today=new Date();
@@ -185,7 +173,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             $('#modalEdDadosPe').modal('hide');
         }
 
-         $scope.cadastrarGostos = function (){
+        $scope.cadastrarGostos = function (){
             var i = 0;
             for(var j = 0; j < $scope.gostosAPI.length; j++){
                 if ($scope.gostosAPI[j].selecionado){
@@ -274,6 +262,12 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                     }).show(); 
                 }
             })
+        }
+
+        $scope.validSenha = function(){
+            if ($scope.usSenha.passAtu != null){
+                $scope.altSenha.passAtu = ($scope.user.senha == md5.createHash($scope.usSenha.passAtu)) ? false : true;
+            }
         }
     }]);
 
