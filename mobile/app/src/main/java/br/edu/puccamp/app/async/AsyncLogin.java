@@ -18,7 +18,7 @@ import java.net.URL;
 
 import br.edu.puccamp.app.entity.ResponseUsuario;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 
 public class AsyncLogin extends AsyncTask<Usuario, String, String> {
@@ -41,7 +41,7 @@ public class AsyncLogin extends AsyncTask<Usuario, String, String> {
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(Strings.URL + Strings.LOGIN);
+            URL url = new URL(API.URL + API.LOGIN);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");

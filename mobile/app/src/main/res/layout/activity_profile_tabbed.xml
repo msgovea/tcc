@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="br.edu.puccamp.app.ProfileTabbedActivity">
+    tools:context="br.edu.puccamp.app.profile.ProfileTabbedActivity">
 
 
     <android.support.v4.view.ViewPager

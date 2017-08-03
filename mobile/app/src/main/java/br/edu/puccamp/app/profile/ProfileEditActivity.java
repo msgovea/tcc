@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -15,16 +14,11 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
-import br.edu.puccamp.app.GostoMusicalActivity;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.AsyncEditProfile;
-import br.edu.puccamp.app.async.AsyncLogin;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
-import br.edu.puccamp.app.util.Hash;
-import br.edu.puccamp.app.util.Strings;
-
-import static java.security.AccessController.getContext;
 
 public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
 
@@ -93,8 +87,8 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         // Obtendo as informações do usuário logado
 
         Gson gson = new Gson();
-        prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-        usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+        prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+        usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
 
         // Populando as informações nos EditTexts
 
@@ -161,9 +155,9 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
 
     private void atualizaUsuario(Usuario usuarioAtualizado){
 
-        prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+        prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
         Gson json = new Gson();
-        prefs.edit().putString(Strings.USUARIO, json.toJson(usuarioAtualizado)).apply();
+        prefs.edit().putString(API.USUARIO, json.toJson(usuarioAtualizado)).apply();
         //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
 
         etName.setText(usuarioAtualizado.getNome());

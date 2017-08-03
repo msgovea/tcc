@@ -6,14 +6,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -22,7 +18,7 @@ import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
+public class AsyncProfile extends AsyncTask<Long, String, String> {
 
     public interface Listener {
         void onLoaded(Object o);
@@ -30,33 +26,25 @@ public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
 
     private Listener mListener;
 
-    public AsyncEditProfile(Listener mListener) {
+    public AsyncProfile(Listener mListener) {
 
         this.mListener = mListener;
 
     }
     @Override
-    protected String doInBackground(Usuario... n) {
+    protected String doInBackground(Long... n) {
 
-        Usuario usuario = n[0];
+        Long id = n[0];
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(API.URL + API.ATUALIZAR_PERFIL);
+
+            URL url = new URL(API.URL + API.BUSCAR_USUARIO + "/" + id);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestProperty("Accept-Encoding", "application/json");
+            urlConnection.setRequestMethod("GET");
 
-            Gson gson = new Gson();
-            String json = gson.toJson(usuario);
-
-            OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
-            writer.write(json);
-            writer.flush();
-            writer.close();
-            outputStream.close();
+            urlConnection.connect();
 
             InputStream inputStream;
             // get stream
@@ -72,7 +60,6 @@ public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
                 response += temp;
             }
             return response;
-
 
         } catch (IOException | JsonParseException e) {
             e.printStackTrace();

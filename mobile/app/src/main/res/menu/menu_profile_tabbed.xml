@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.edu.puccamp.app.ProfileTabbedActivity">
+    tools:context="br.edu.puccamp.app.profile.ProfileTabbedActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/edit_profile"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 </menu>

@@ -19,8 +19,7 @@ import java.net.URL;
 
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Response;
-import br.edu.puccamp.app.entity.ResponseUsuario;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 
 public class AsyncMakePublication extends AsyncTask<Publicacao, String, String> {
@@ -45,7 +44,7 @@ public class AsyncMakePublication extends AsyncTask<Publicacao, String, String> 
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(Strings.URL + Strings.PUBLICATION_REGISTER);
+            URL url = new URL(API.URL + API.PUBLICATION_REGISTER);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");

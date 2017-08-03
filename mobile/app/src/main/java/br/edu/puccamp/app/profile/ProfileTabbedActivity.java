@@ -1,5 +1,7 @@
-package br.edu.puccamp.app;
+package br.edu.puccamp.app.profile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
@@ -23,11 +25,13 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.AsyncProfile;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.profile.ProfileEditActivity;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
-public class ProfileTabbedActivity extends AppCompatActivity {
+public class ProfileTabbedActivity extends AppCompatActivity implements AsyncProfile.Listener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -46,6 +50,7 @@ public class ProfileTabbedActivity extends AppCompatActivity {
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
     private Usuario usuario;
+    private boolean myProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,20 +83,32 @@ public class ProfileTabbedActivity extends AppCompatActivity {
         mTextUserProfileName = (TextView) findViewById(R.id.user_profile_name);
         mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
 
-        if (getIntent().getLongExtra("idUsuario",0) != 0) {
-            //asyntask para obter informações
-            //edit.setText("bla");
-            getSupportActionBar().setTitle("bla");
+        // se obtem idUsuario, bate na API e traz as informações do usuário
+        Long idUsuario = getIntent().getLongExtra("idUsuario", 0);
+
+        if (idUsuario != 0) {
+            myProfile = false;
+            AsyncProfile sinc = new AsyncProfile(this);
+            sinc.execute(idUsuario);
         } else {
-            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            myProfile = true;
+            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
-            //edit.setText(usuario.getNome());
-            getSupportActionBar().setTitle(usuario.getNome());
-            mTextUserProfileName.setText(usuario.getNome());
-            mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+
+            populaPerfil(usuario);
         }
 
+
+
+
+
+    }
+
+    private void populaPerfil(Usuario usuario) {
+        getSupportActionBar().setTitle(usuario.getNome());
+        mTextUserProfileName.setText(usuario.getNome());
+        mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
     }
 
     @Override
@@ -99,9 +116,9 @@ public class ProfileTabbedActivity extends AppCompatActivity {
         super.onResume();
         
         if (getIntent().getLongExtra("idUsuario",0) == 0) {
-            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
             //edit.setText(usuario.getNome());
             getSupportActionBar().setTitle(usuario.getNome());
             mTextUserProfileName.setText(usuario.getNome());
@@ -113,6 +130,10 @@ public class ProfileTabbedActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_profile_tabbed, menu);
+        MenuItem item = menu.findItem(R.id.action_settings);
+
+        item.setVisible(myProfile);
+
         return true;
     }
 
@@ -130,6 +151,40 @@ public class ProfileTabbedActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLoaded(Object o) {
+       // dismissProgressDialog();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        if (o.getClass() == Usuario.class) {
+
+            builder.setTitle("PEGOU O OBJETO");
+            builder.setMessage("bla");
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
+
+            populaPerfil((Usuario)o);
+
+        } else {
+            builder.setTitle(getString(R.string.error));
+            builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
+        }
     }
 
     /**

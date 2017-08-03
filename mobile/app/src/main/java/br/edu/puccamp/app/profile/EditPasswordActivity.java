@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +15,10 @@ import com.google.gson.Gson;
 
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.AsyncEditProfile;
-import br.edu.puccamp.app.async.AsyncRegister;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Hash;
-import br.edu.puccamp.app.util.Strings;
 import br.edu.puccamp.app.util.Validation;
 
 public class EditPasswordActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
@@ -75,8 +73,8 @@ public class EditPasswordActivity extends AbstractAsyncActivity implements Async
         // Obtendo as informações do usuário logado
 
         Gson gson = new Gson();
-        prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-        usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+        prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+        usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
     }
 
     private void atualizaSenha() {
@@ -171,8 +169,8 @@ public class EditPasswordActivity extends AbstractAsyncActivity implements Async
 
     private void atualizaUsuario(Usuario usuarioAtualizado){
 
-        prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+        prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
         Gson json = new Gson();
-        prefs.edit().putString(Strings.USUARIO, json.toJson(usuarioAtualizado)).apply();
+        prefs.edit().putString(API.USUARIO, json.toJson(usuarioAtualizado)).apply();
     }
 }

@@ -18,9 +18,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import br.edu.puccamp.app.entity.GostoUsuario;
-import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Response;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 
 public class AsyncMakeGostoMusical extends AsyncTask<GostoUsuario, String, String> {
@@ -45,7 +44,7 @@ public class AsyncMakeGostoMusical extends AsyncTask<GostoUsuario, String, Strin
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(Strings.URL + Strings.GOSTOS_MUSICAIS_REGISTER);
+            URL url = new URL(API.URL + API.GOSTOS_MUSICAIS_REGISTER);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");

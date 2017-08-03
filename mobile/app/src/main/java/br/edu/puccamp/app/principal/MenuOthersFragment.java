@@ -23,7 +23,8 @@ import br.edu.puccamp.app.*;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.listview.AdapterListView;
 import br.edu.puccamp.app.listview.ItemListView;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.profile.ProfileTabbedActivity;
+import br.edu.puccamp.app.util.API;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -69,8 +70,8 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         itens = new ArrayList<ItemListView>();
 
         Gson gson = new Gson();
-        prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-        Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+        prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+        Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
 
         ItemListView item1 = new ItemListView(usuario.getNome(), R.drawable.ic_person_black_24dp,1);
         ItemListView item2 = new ItemListView(getString(R.string.language), R.drawable.ic_language_black_24dp,2);
@@ -98,14 +99,14 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         //Demostração
         Log.e("TODO", ( String.valueOf(item.getIconeRid())));
         if (item.getTexto().equals(getString(R.string.logoff))){
-            SharedPreferences prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            SharedPreferences prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             prefs.edit().clear().apply();
             startActivity(new Intent(getActivity(), TesteLogin.class));
             getActivity().finish();
         } if (item.getTexto().equals(getString(R.string.language)) ) {
 
             Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
-            intent.putExtra("idUsuario", Long.valueOf(12));
+            intent.putExtra("idUsuario", Long.valueOf(42));
             startActivity(intent);
         }
         else {
@@ -142,7 +143,7 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
 //        mIcon.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+//                prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 //                prefs.edit().clear().apply();
 //                startActivity(new Intent(DefaultActivity.this, br.edu.puccamp.app.MainActivity.class));
 //                finish();

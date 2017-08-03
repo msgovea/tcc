@@ -5,7 +5,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,31 +14,23 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.TesteLogin;
-import br.edu.puccamp.app.async.AsyncMakePublication;
 import br.edu.puccamp.app.async.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.util.AbstractAsyncFragment;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -126,7 +117,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 //        mIcon.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+//                prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 //                prefs.edit().clear().apply();
 //                startActivity(new Intent(getContext(), TesteLogin.class));
 //                getActivity().finish();
@@ -155,8 +146,8 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         showProgress(true);
         //getContext().showLoadingProgressDialog();
         Gson gson = new Gson();
-        prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-        Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+        prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+        Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
         AsyncPublication sinc = new AsyncPublication(this);
         sinc.execute(usuario.getCodigoUsuario().toString());
     }

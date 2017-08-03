@@ -7,7 +7,7 @@
 
     <string name="loading">Loading. Please wait...</string>
 
-    <!-- Strings related to login -->
+    <!-- API related to login -->
     <string name="prompt_email">E-MAIL</string>
     <string name="prompt_password">PASSWORD</string>
     <string name="prompt_city">CITY</string>
@@ -233,10 +233,10 @@
     <string name="title_activity_profile_tabbed">ProfileTabbedActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="follow">follow</string>
-    <string name="edit_profile">edit_profile</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="title_activity_edit_profile">Edit Profile</string>
 
-    <!-- Strings related to Settings -->
+    <!-- API related to Settings -->
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

@@ -21,9 +21,8 @@ import br.edu.puccamp.app.entity.GostoUsuario;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.gosto_musical.Gosto;
 import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapterFavorito;
-import br.edu.puccamp.app.principal.*;
+import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
-import br.edu.puccamp.app.util.Strings;
 
 //import br.edu.puccamp.app.gosto_musical.GostosAdapter;
 
@@ -93,7 +92,7 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
 
     private GostoUsuario verificaGosto() {
         Gson gson = new Gson();
-        SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
         GostoUsuario gostoUsuario = new GostoUsuario();
         ArrayList<Integer> gostos = new ArrayList<>();
 
@@ -106,7 +105,7 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
 
         if (favorito != null) {
             gostoUsuario.setCodigosGostosMusicais(gostos);
-            gostoUsuario.setCodigoUsuario((gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class)).getCodigoUsuario());
+            gostoUsuario.setCodigoUsuario((gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class)).getCodigoUsuario());
             gostoUsuario.setFavorito(favorito);
 
             return gostoUsuario;

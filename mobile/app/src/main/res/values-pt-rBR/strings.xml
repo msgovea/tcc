@@ -10,7 +10,7 @@
 
 
 
-    <!-- Strings related to login -->
+    <!-- API related to login -->
     <string name="prompt_email">E-MAIL</string>
     <string name="prompt_password">SENHA</string>
     <string name="prompt_city">CIDADE</string>
