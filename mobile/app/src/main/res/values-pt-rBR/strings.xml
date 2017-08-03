@@ -6,6 +6,8 @@
     <string name="title_recovery_activity">Recuperação de conta</string>
 
     <string name="loading">Carregando. Aguarde...</string>
+    <string name="error_old_password_invalid">A senha antiga não confere</string>
+
 
 
     <!-- Strings related to login -->

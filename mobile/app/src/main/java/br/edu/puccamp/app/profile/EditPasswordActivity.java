@@ -125,14 +125,13 @@ public class EditPasswordActivity extends AbstractAsyncActivity implements Async
                 AsyncEditProfile sinc = new AsyncEditProfile(this);
                 sinc.execute(usuario);
             } else {
-                etOldPassword.setError("A SENHA ANTIGA NAO CONFERE"); //TODO
+                etOldPassword.setError(getString(R.string.error_old_password_invalid));
                 validation.focusView = (validation.focusView == null) ? etOldPassword : validation.focusView;
                 validation.error = true;
             }
 
         }
     }
-
 
     @Override
     public void onLoaded(Object o) {

@@ -135,6 +135,8 @@
 
     <string name="old_password">Current password</string>
 
+    <string name="error_old_password_invalid">Old password does not match</string>
+
 
     <string name="response">responses</string>
     <string name="title_activity_profile">ProfileActivity</string>
