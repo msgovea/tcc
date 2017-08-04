@@ -90,7 +90,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-11 text-right">
-                                                            <a translate class="hint-text m-t-5 small" data-toggle="modal" data-target="#modalGostos">Editar</a>
+                                                            <a translate class="hint-text m-t-5 small" href = "" data-toggle="modal" data-target="#modalGostos">Editar</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -573,7 +573,7 @@
                             </div>
                         </div>
                         <div class="col-md-11 text-right">
-                            <a translate class="hint-text m-t-5 small" href= "" data-toggle="modal" data-target="#modalAltSenha">Alterar senha</a>
+                            <a translate class="hint-text m-t-5 small" href= "" data-toggle="modal" data-target="#modalAltSenha" ng-click = "fecModDPe()">Alterar senha</a>
                         </div>
                         <div class="full-height">
                             <div class="panel-body text-center">
@@ -664,14 +664,11 @@
                         <form id="form-altSenha" class="p-t-15" role="form" name="altSenha">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passatu.$invalid && !altSenha.passatu.$pristine }">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passCorr && !altSenha.passatu.$pristine }">
                                         <label translate>Senha atual</label>
                                         <input type="password" name="passatu" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="usSenha.passAtu" ng-change="validSenha()" required>
                                     </div>
-                                    <label class="error" for="passatu" ng-show="altSenha.passatu.$invalid && !altSenha.passatu.$pristine" translate>REGISTER.FORM.ERROR1</label>
-                                    <label class="error" for="passatu" ng-show="altSenha.passatu.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
-                                    <label class="error" for="passatu" ng-show="altSenha.passatu.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
-                                {{altSenha.passAtu}}
+                                    <label class="error" for="passatu" ng-show="altSenha.passCorr && !altSenha.passatu.$pristine" translate>Senha incorreta.</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -697,7 +694,7 @@
                             </div>
                         </form>
                       </div>
-                    <button translate></button>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || register.passequal || loading" ng-click="AlterarSenha(usSenha)" translate>Alterar</button>
                     </div>
                 </div>
             </div>
