@@ -106,7 +106,7 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         } if (item.getTexto().equals(getString(R.string.language)) ) {
 
             Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
-            intent.putExtra("idUsuario", Long.valueOf(42));
+            intent.putExtra("idUsuario", Long.valueOf(303));
             startActivity(intent);
         }
         else {

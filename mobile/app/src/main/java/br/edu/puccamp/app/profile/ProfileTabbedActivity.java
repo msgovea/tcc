@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -30,8 +31,9 @@ import br.edu.puccamp.app.async.AsyncProfile;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.profile.ProfileEditActivity;
 import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
-public class ProfileTabbedActivity extends AppCompatActivity implements AsyncProfile.Listener {
+public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,8 +51,12 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
     private ViewPager mViewPager;
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
+
+    private Button mButtonFollow;
+
     private Usuario usuario;
     private boolean myProfile;
+    private Long idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +90,14 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
         mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
 
         // se obtem idUsuario, bate na API e traz as informações do usuário
-        Long idUsuario = getIntent().getLongExtra("idUsuario", 0);
+        idUsuario = getIntent().getLongExtra("idUsuario", 0);
+
+        mButtonFollow = (Button) findViewById(R.id.btn_follow);
 
         if (idUsuario != 0) {
             myProfile = false;
+            mButtonFollow.setVisibility(View.VISIBLE);
+            showLoadingProgressDialog();
             AsyncProfile sinc = new AsyncProfile(this);
             sinc.execute(idUsuario);
         } else {
@@ -95,12 +105,11 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
             SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             Gson gson = new Gson();
             usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+            idUsuario = usuario.getCodigoUsuario().longValue();
+            mButtonFollow.setVisibility(View.INVISIBLE);
 
             populaPerfil(usuario);
         }
-
-
-
 
 
     }
@@ -130,9 +139,11 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_profile_tabbed, menu);
-        MenuItem item = menu.findItem(R.id.action_settings);
+        MenuItem edit = menu.findItem(R.id.action_settings);
+        MenuItem pass = menu.findItem(R.id.action_edit_password);
 
-        item.setVisible(myProfile);
+        edit.setVisible(myProfile);
+        pass.setVisible(myProfile);
 
         return true;
     }
@@ -145,9 +156,18 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, ProfileEditActivity.class));
-            return true;
+        switch (id) {
+            case R.id.action_edit_password:
+                startActivity(new Intent(this, EditPasswordActivity.class));
+                break;
+            case R.id.action_settings:
+                startActivity(new Intent(this, ProfileEditActivity.class));
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                return false;
         }
 
         return super.onOptionsItemSelected(item);
@@ -155,23 +175,14 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
 
     @Override
     public void onLoaded(Object o) {
-       // dismissProgressDialog();
+        dismissProgressDialog();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (o.getClass() == Usuario.class) {
 
-            builder.setTitle("PEGOU O OBJETO");
-            builder.setMessage("bla");
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
 
-            populaPerfil((Usuario)o);
+            usuario = (Usuario)o;
+            populaPerfil(usuario);
 
         } else {
             builder.setTitle(getString(R.string.error));
@@ -184,41 +195,6 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
             });
             builder.setCancelable(false);
             builder.show();
-        }
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_profile_tabbed, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
         }
     }
 
@@ -236,7 +212,7 @@ public class ProfileTabbedActivity extends AppCompatActivity implements AsyncPro
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PublicationProfileFragment.newInstance(idUsuario);
         }
 
         @Override

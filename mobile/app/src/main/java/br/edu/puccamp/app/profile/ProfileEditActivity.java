@@ -23,7 +23,7 @@ import br.edu.puccamp.app.util.AbstractAsyncActivity;
 public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
 
     private EditText etName;
-    private EditText etEmail;
+    private EditText etUsername;
     private EditText etCountry;
     private EditText etState;
     private EditText etCity;
@@ -43,30 +43,23 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                atualizarSenha();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Instanciando os EditTexts
 
-        etName     = (EditText) findViewById(R.id.etName);
-        etEmail    = (EditText) findViewById(R.id.etEmail);
-        etCountry  = (EditText) findViewById(R.id.etCountry);
-        etState    = (EditText) findViewById(R.id.etState);
-        etCity     = (EditText) findViewById(R.id.etCity);
-        etBirthday = (EditText) findViewById(R.id.etBirthday);
+        etName     = (EditText) findViewById(R.id.et_name);
+        etUsername = (EditText) findViewById(R.id.et_user_name);
+        etCountry  = (EditText) findViewById(R.id.et_country);
+        etState    = (EditText) findViewById(R.id.et_state);
+        etCity     = (EditText) findViewById(R.id.et_city);
+        etBirthday = (EditText) findViewById(R.id.et_birthday);
 
         btnEditProfile = (Button) findViewById(R.id.btn_edit_profile);
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 updateProfile();
             }
 
@@ -75,11 +68,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
 
         obtemUsuarioAtualizado();
 
-
-    }
-
-    private void atualizarSenha() {
-        startActivity(new Intent(this, EditPasswordActivity.class));
 
     }
 
@@ -93,7 +81,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         // Populando as informações nos EditTexts
 
         etName.setText(usuario.getNome());
-        etEmail.setText(usuario.getEmail());
+        etUsername.setText(usuario.getApelido());
         etCountry.setText(usuario.getPais());
         etState.setText(usuario.getEstado());
         etCity.setText(usuario.getCidade());
@@ -102,7 +90,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
 
     private void updateProfile() {
         usuario.setNome(etName.getText().toString());
-        usuario.setEmail(etEmail.getText().toString());
+        usuario.setApelido(etUsername.getText().toString());
         usuario.setPais(etCountry.getText().toString());
         usuario.setEstado(etState.getText().toString());
         usuario.setCidade(etCity.getText().toString());
@@ -161,7 +149,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
 
         etName.setText(usuarioAtualizado.getNome());
-        etEmail.setText(usuarioAtualizado.getEmail());
+        etUsername.setText(usuarioAtualizado.getApelido());
         etCountry.setText(usuarioAtualizado.getPais());
         etState.setText(usuarioAtualizado.getEstado());
         etCity.setText(usuarioAtualizado.getCidade());
