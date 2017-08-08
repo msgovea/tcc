@@ -51,6 +51,7 @@ public class PublicacaoController {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping("/remover")
 	public Response<?> removerPublicacao(@RequestParam Long codigo) {
 		try {

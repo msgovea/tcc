@@ -155,6 +155,7 @@ public class UserController {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/usuario/buscar/{codigo}")
+	@CrossOrigin
 	public Response<?> buscarPorCodigo(@PathVariable("codigo") Integer codigo) {
 		try { 
 			UsuarioDetalhe usuario = usuarioService.buscarPorId(codigo);
@@ -171,6 +172,7 @@ public class UserController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("/usuario/buscar")
+	@CrossOrigin
 	public Response<?> buscarPorNome(@RequestParam String nome) {
 		try { 
 			if (!StringUtils.isEmpty(nome)) {
