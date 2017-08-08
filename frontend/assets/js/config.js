@@ -372,7 +372,7 @@ angular.module('app')
             })
             // Social app
             .state('app.social', {
-                url: '/social',
+                url: '/social/:codUser',
                 data: {
                         requireLogin: false
                 },

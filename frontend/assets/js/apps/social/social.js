@@ -23,6 +23,8 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
         $scope.usuCadastrado = copiarObj($scope.user);
+
+        console.log($stateParams.codUser);
         
         var parts = $scope.user.dataNascimento.split('-');
         $scope.diaNasc = parts[2];
@@ -50,6 +52,11 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             }
             return temp;
         }
+
+        $http.get('http://192.198.90.26:82/musicsocial/usuario/buscar/21').success(function(result){
+            $scope.userPage = result;
+            console.log($scope.userPage);
+        })
 
         $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
@@ -210,24 +217,26 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         $scope.cadastrarGostoFavorito = function(){
             var objeto  = {};
             var usuario = {};
+            var tamanho = $scope.user.gostosMusicais.length;
 
-            usuario.email = $cookieStore.get('usuario').email;
-            usuario.senha = $cookieStore.get('usuario').senha;
-
-            objeto.codigoUsuario = $cookieStore.get('usuario').codigoUsuario; 
-            objeto.codigosGostosMusicais= [];
-
-            /*for(var i = 0; i < $rootScope.gostosCadastrados.length; i++){
-                objeto.codigosGostosMusicais.push($scope.gostosCadastrados[i].codigo);
+            for(var i = 0; i < tamanho; i++){
+                $scope.user.gostosMusicais.shift();
             }
-            objeto.favorito =  $scope.gostoFavorito.favorito;*/
+
+            /*objeto.codigoUsuario = $cookieStore.get('usuario').codigoUsuario; 
+            objeto.codigosGostosMusicais= [];*/
+
+            for(var i = 0; i < $rootScope.gostosCadastrados.length; i++){
+                $scope.user.gostosMusicais.push($scope.gostosCadastrados[i].codigo);
+            }
+            objeto.favorito =  $scope.gostoFavorito.favorito;
 
 
-            console.log($scope.gostosCadastrados);
+            /*console.log($scope.gostosCadastrados);
             console.log($scope.user.gostosMusicais);
             $scope.user.gostosMusicais = $scope.gostosCadastrados
 
-            console.log($scope.user.gostosMusicais);
+            console.log($scope.user.gostosMusicais);*/
 
             $http.post(
                 'http://192.198.90.26:82/musicsocial/usuario/gostosmusicais', 
