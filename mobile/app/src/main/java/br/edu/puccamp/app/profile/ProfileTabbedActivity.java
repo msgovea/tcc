@@ -217,10 +217,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                     return PublicationProfileFragment.newInstance(idUsuario);
                 case 1:
                     return GostoMusicalProfileFragment.newInstance(idUsuario);
-                case 2:
-                    return null;
                 default:
-                    return null;
+                    return PublicationProfileFragment.newInstance(idUsuario);
             }
         }
 

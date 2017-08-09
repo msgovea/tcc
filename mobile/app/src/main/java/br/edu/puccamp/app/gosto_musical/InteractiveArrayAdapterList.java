@@ -5,6 +5,9 @@ package br.edu.puccamp.app.gosto_musical;
  */
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,41 +16,51 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.List;
+import java.util.Random;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.entity.GostosMusicai;
+import br.edu.puccamp.app.posts.Question;
+import br.edu.puccamp.app.posts.QuestionsAdapter;
 
-public class InteractiveArrayAdapterList extends ArrayAdapter<Gosto> {
+public class InteractiveArrayAdapterList extends RecyclerView.Adapter<InteractiveArrayAdapterList.ViewHolder>  {
 
-    private final List<Gosto> list;
-    private final Activity context;
+    private List<GostosMusicai> mGostos;
+    private Context mContext;
 
-
-
-    public InteractiveArrayAdapterList(Activity context, List<Gosto> list) {
-        super(context, R.layout.gosto_musical_list_exibicao, list);
-        this.context = context;
-        this.list = list;
-    }
-
-    static class ViewHolder {
-        protected TextView text;
+    public InteractiveArrayAdapterList(Context context, List<GostosMusicai> gostos) {
+        mContext = context;
+        mGostos = gostos;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = null;
-        if (convertView == null) {
-            LayoutInflater inflator = context.getLayoutInflater();
-            view = inflator.inflate(R.layout.gosto_musical_list_exibicao, null);
-            final ViewHolder viewHolder = new ViewHolder();
-            viewHolder.text = (TextView) view.findViewById(R.id.text_name_gosto);
-            view.setTag(viewHolder);
-        } else {
-            view = convertView;
+    public InteractiveArrayAdapterList.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new InteractiveArrayAdapterList.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.gosto_musical_list_exibicao, null, false));
+    }
+
+    @Override
+    public void onBindViewHolder(InteractiveArrayAdapterList.ViewHolder holder, int position) {
+        GostosMusicai gosto = mGostos.get(position);
+
+        holder.text.setText(gosto.getPk().getGostoMusical().getDescricao());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mGostos.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView text;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            text = (TextView) itemView.findViewById(R.id.text_name_gosto_exibicao);
         }
-        ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).getDescricao());
-        return view;
     }
 }

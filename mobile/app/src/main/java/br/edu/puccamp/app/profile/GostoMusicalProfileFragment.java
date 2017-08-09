@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import java.util.List;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.AsyncProfile;
 import br.edu.puccamp.app.async.AsyncPublication;
+import br.edu.puccamp.app.entity.GostosMusicai;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.gosto_musical.Gosto;
@@ -44,11 +46,10 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
     private String mText;
     private int mColor;
 
-    private RecyclerView mRecyclerView;
     public  View mProgressView;
-    private QuestionsAdapter mAdapter;
+    private InteractiveArrayAdapterList mAdapter;
     private Long idUsuario;
-    private ListView listView;
+    private RecyclerView listView;
 
     private AppCompatImageView mIcon;
     private AppCompatImageView mIconSearch;
@@ -81,8 +82,8 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
 
 
         // iniciando recycleview - exibicao das publicacoes
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        listView = (RecyclerView) view.findViewById(R.id.listPosts2);
+        listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mProgressView = (View) view.findViewById(R.id.publication_progress);
 
@@ -98,48 +99,13 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
     }
 
     private void loadPublication() {
-        showProgress(true);
+        showProgress(false);
         //getContext().showLoadingProgressDialog();
         Gson gson = new Gson();
-//        AsyncPublication sinc = new AsyncPublication(this);
-//        sinc.execute(idUsuario.toString());
+        AsyncProfile sinc = new AsyncProfile(this);
+        sinc.execute(idUsuario);
     }
 
-    private List<Question> getQuestions(final ArrayList<Publicacao> lista) {
-        return new ArrayList<Question>() {{
-            for (Publicacao item : lista) {
-                add(new Question(item.getUsuario().getNome(),
-                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
-                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
-                        trataData(item.getDataPublicacao()),
-                        item.getConteudo()));
-            }
-        }};
-    }
-
-    private String trataData(String data) {
-        try {
-            String dataFinal;
-
-            String[] partes = data.split("-");
-
-//            Log.e("data1", partes[0]);
-//            Log.e("data2", partes[1]);
-//            Log.e("data3", partes[2]);
-
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
-
-            return dataFinal;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-    }
-
-    public String theMonth(int month){
-        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month-1];
-    }
 
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -149,12 +115,12 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
-                mRecyclerView.animate().setDuration(shortAnimTime).alpha(
+                listView.setVisibility(show ? View.GONE : View.VISIBLE);
+                listView.animate().setDuration(shortAnimTime).alpha(
                         show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                        listView.setVisibility(show ? View.GONE : View.VISIBLE);
                     }
                 });
 
@@ -170,7 +136,7 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
                 // The ViewPropertyAnimator APIs are not available, so simply show
                 // and hide the relevant UI components.
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                listView.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         }
         catch (Exception e) {
@@ -216,11 +182,25 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
 
     @Override
     public void onLoaded(Object o) {
-        List<Gosto> lista = null;
-        ((Usuario)o).getGostosMusicais();
+        List<GostosMusicai> lista = ((Usuario)o).getGostosMusicais();
+        Log.e("RETORNO GOSTO MUSICAL", lista.toString());
+        Log.e("IGUAL", lista.get(0).toString());
         //gostos = lista;
-        ArrayAdapter<Gosto> adapter = new InteractiveArrayAdapterList(getActivity(), lista);
-        listView.setAdapter(adapter);
+//        ArrayAdapter<GostosMusicai> adapter = new InteractiveArrayAdapterList(getActivity(), lista);
+//        listView.setAdapter(adapter);
+
+        ArrayList<String> opcoes = new ArrayList<String>();
+
+        opcoes.add("Navegar na Internet");
+        opcoes.add("Fazer uma ligação");
+        opcoes.add("Sobre");
+        opcoes.add("Sair");
+
+        //listView.new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, opcoes);
+        //listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, opcoes));
+
+        listView.setAdapter(mAdapter = new InteractiveArrayAdapterList(getActivity(), lista));
+
 
     }
 }
