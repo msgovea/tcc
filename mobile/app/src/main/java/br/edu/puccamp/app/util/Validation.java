@@ -54,6 +54,7 @@ public final class Validation {
 
         if (!TextUtils.isEmpty(texto)) {
             if (sPattern.matcher(c).matches() || !validaNumero) {
+                text.setError(null);
                 return text;
             } else {
                 text.setError(context.getString(R.string.error_field_letter));

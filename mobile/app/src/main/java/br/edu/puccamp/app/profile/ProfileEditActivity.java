@@ -8,17 +8,24 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
 
+import java.util.Date;
+
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.AsyncEditProfile;
+import br.edu.puccamp.app.async.AsyncRegister;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.Hash;
+import br.edu.puccamp.app.util.Validation;
 
 public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
 
@@ -27,7 +34,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
     private EditText etCountry;
     private EditText etState;
     private EditText etCity;
-    private EditText etBirthday;
+    private DatePicker dpBirthday;
 
     private Button btnEditProfile;
 
@@ -52,7 +59,9 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         etCountry  = (EditText) findViewById(R.id.et_country);
         etState    = (EditText) findViewById(R.id.et_state);
         etCity     = (EditText) findViewById(R.id.et_city);
-        etBirthday = (EditText) findViewById(R.id.et_birthday);
+        dpBirthday = (DatePicker) findViewById(R.id.dp_birthday);
+        dpBirthday.setMaxDate(new Date().getTime());
+
 
         btnEditProfile = (Button) findViewById(R.id.btn_edit_profile);
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -60,15 +69,31 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                updateProfile();
+                attempUpdate();
             }
 
 
         });
 
         obtemUsuarioAtualizado();
+    }
 
+    private void attempUpdate() {
 
+        Validation validation = new Validation();
+        validation.context = getApplicationContext();
+
+        etName = validation.isFieldValid(etName, true);
+        etUsername = validation.isFieldValid(etUsername, false);
+        etCountry = validation.isFieldValid(etCountry, true);
+        etState = validation.isFieldValid(etState, true);
+        etCity = validation.isFieldValid(etCity, true);
+
+        if (validation.error) {
+            validation.focusView.requestFocus();
+        } else {
+            updateProfile();
+        }
     }
 
     private void obtemUsuarioAtualizado() {
@@ -85,7 +110,12 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         etCountry.setText(usuario.getPais());
         etState.setText(usuario.getEstado());
         etCity.setText(usuario.getCidade());
-        etBirthday.setText(usuario.getDataNascimento());
+        String[] partes = usuario.getDataNascimento().split("-");
+        Log.e("MATEUS", partes[0]);
+        Log.e("MATEUS", partes[1]);
+        Log.e("MATEUS", partes[2]);
+
+        dpBirthday.updateDate(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
     }
 
     private void updateProfile() {
@@ -94,7 +124,9 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         usuario.setPais(etCountry.getText().toString());
         usuario.setEstado(etState.getText().toString());
         usuario.setCidade(etCity.getText().toString());
-        usuario.setDataNascimento(etBirthday.getText().toString());
+        usuario.setDataNascimento(dpBirthday.getYear() + "-" +
+                (dpBirthday.getMonth() + 1) + "-" +
+                dpBirthday.getDayOfMonth());
 
         showLoadingProgressDialog();
 
@@ -153,7 +185,8 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         etCountry.setText(usuarioAtualizado.getPais());
         etState.setText(usuarioAtualizado.getEstado());
         etCity.setText(usuarioAtualizado.getCidade());
-        etBirthday.setText(usuarioAtualizado.getDataNascimento());
+        String[] partes = usuarioAtualizado.getDataNascimento().split("-");
+        dpBirthday.updateDate(Integer.parseInt(partes[2]), Integer.parseInt(partes[1]), Integer.parseInt(partes[0]));
 
     }
 
