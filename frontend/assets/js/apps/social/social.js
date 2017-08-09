@@ -22,11 +22,10 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
     .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', '$cookieStore', '$http', 'md5', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter, $cookieStore, $http, md5) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
-        $scope.usuCadastrado = copiarObj($scope.user);
-
-        console.log($stateParams.codUser);
         
         var parts = $scope.user.dataNascimento.split('-');
+        
+
         $scope.diaNasc = parts[2];
         $scope.mesNasc = parts[1];
         $scope.anoNasc = parts[0];
@@ -53,11 +52,18 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             return temp;
         }
 
-        $http.get('http://192.198.90.26:82/musicsocial/usuario/buscar/21').success(function(result){
-            $scope.userPage = result;
-            console.log($scope.userPage);
-        })
+        $http.get('http://192.198.90.26:82/musicsocial/usuario/buscar/303').success(function(result){
+            $scope.lPerUsu = true;
+            $scope.userPage = result.object;
 
+
+            if ($scope.userPage.codigoUsuario != $scope.user.codigoUsuario)
+                $scope.lPerUsu = false;
+            
+            $scope.usuCadastrado = copiarObj($scope.userPage);
+            
+            console.log($scope.usuCadastrado);
+        })
         $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
                 $scope.gostosAPI[i] = result.object[i]; 
@@ -213,6 +219,8 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                 $('#modalGostoFavorito').modal('show');
             }   
         }
+
+        
        
         $scope.cadastrarGostoFavorito = function(){
             var objeto  = {};
@@ -334,6 +342,8 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         $scope.fecModDPe = function (){
             $('#modalEdDadosPe').modal('hide'); 
         }
+
+        console.log($scope.usuCadastrado)
     }]);
 
 

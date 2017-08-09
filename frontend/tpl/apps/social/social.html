@@ -36,7 +36,7 @@
                                                 <!-- <i class="fa fa-check-circle text-success fs-16 m-t-10"></i>-->
                                             </div>
                                             <div class="col-xs-height p-l-20">
-                                                <h3 class="no-margin">{{user.nome}}</h3>
+                                                <h3 class="no-margin">{{userPage.nome}}</h3>
                                                 <p class="hint-text m-t-5 small">{{diaNasc}}/{{mesNasc}}/{{anoNasc}} </p>
 
                                                 <!--<div class="row center-margin m-b-10"> 
@@ -44,8 +44,8 @@
                                                         <i class="fs-14 fa fa-paint-brush"></i> 
                                                     </div> 
                                                 </div>-->
-                                                <p class="hint-text m-t-5 small">{{user.cidade}} - {{user.estado}} - {{user.pais}}</p>
-                                                 <a translate class="hint-text m-t-5 small" href= "" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
+                                                <p class="hint-text m-t-5 small">{{userPage.cidade}} - {{userPage.estado}} - {{userPage.pais}}</p>
+                                                 <a translate class="hint-text m-t-5 small" href= "" ng-show = "lPerUsu" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
                                                 <p class="hint-text m-t-5 small"></p>
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-11 text-right">
-                                                            <a translate class="hint-text m-t-5 small" href = "" data-toggle="modal" data-target="#modalGostos">Editar</a>
+                                                            <a translate class="hint-text m-t-5 small" href = "" ng-show = "lPerUsu" data-toggle="modal"  data-target="#modalGostos">Editar</a>
                                                         </div>
                                                     </div>
                                                 </div>
