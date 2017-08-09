@@ -212,7 +212,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PublicationProfileFragment.newInstance(idUsuario);
+            switch (position) {
+                case 0:
+                    return PublicationProfileFragment.newInstance(idUsuario);
+                case 1:
+                    return GostoMusicalProfileFragment.newInstance(idUsuario);
+                case 2:
+                    return null;
+                default:
+                    return null;
+            }
         }
 
         @Override

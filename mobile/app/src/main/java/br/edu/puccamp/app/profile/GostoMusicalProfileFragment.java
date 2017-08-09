@@ -5,7 +5,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -25,20 +25,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.AsyncProfile;
 import br.edu.puccamp.app.async.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.gosto_musical.Gosto;
+import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapter;
+import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapterList;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.util.API;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 /**
  * Fragment class for each nav menu item
  */
-public class PublicationProfileFragment extends Fragment implements AsyncPublication.Listener {
+public class GostoMusicalProfileFragment extends Fragment implements AsyncProfile.Listener {
 
     private String mText;
     private int mColor;
@@ -53,7 +54,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     private AppCompatImageView mIconSearch;
 
     public static Fragment newInstance(Long idUsuario) {
-        Fragment frag = new PublicationProfileFragment();
+        Fragment frag = new GostoMusicalProfileFragment();
         Bundle args = new Bundle();
         args.putLong("ID", idUsuario);
         frag.setArguments(args);
@@ -64,7 +65,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_tabbed, container, false);
+        return inflater.inflate(R.layout.fragment_gostomusical_tabbed, container, false);
     }
 
     @Override
@@ -86,6 +87,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
         mProgressView = (View) view.findViewById(R.id.publication_progress);
 
         loadPublication();
+
     }
 
     @Override
@@ -99,8 +101,8 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
         showProgress(true);
         //getContext().showLoadingProgressDialog();
         Gson gson = new Gson();
-        AsyncPublication sinc = new AsyncPublication(this);
-        sinc.execute(idUsuario.toString());
+//        AsyncPublication sinc = new AsyncPublication(this);
+//        sinc.execute(idUsuario.toString());
     }
 
     private List<Question> getQuestions(final ArrayList<Publicacao> lista) {
@@ -180,37 +182,45 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     // Metodos de retorno Async
     // ***************************************
 
-    @Override
-    public void onLoaded(ArrayList<Publicacao> lista) {
-        List<Question> l = getQuestions(lista);
-//        if (l.size() == 0) {
-//            MainActivity i = (MainActivity) getActivity();
-//            //TODO
-//            i.openPublication(R.id.menu_post);
-//        } else {
-            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
-            showProgress(false);
-//        }
-        //dismissProgressDialog();
-    }
+//    @Override
+//    public void onLoaded(ArrayList<Publicacao> lista) {
+//        List<Question> l = getQuestions(lista);
+////        if (l.size() == 0) {
+////            MainActivity i = (MainActivity) getActivity();
+////            //TODO
+////            i.openPublication(R.id.menu_post);
+////        } else {
+//            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
+//            showProgress(false);
+////        }
+//        //dismissProgressDialog();
+//    }
+
+//    @Override
+//    public void onLoadedError(String s) {
+//        showProgress(false);
+//        //dismissProgressDialog();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//        builder.setTitle(getString(R.string.error));
+//        builder.setMessage(getString(R.string.error));
+//        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                //b.finish();
+//            }
+//        });
+//        builder.setCancelable(false);
+//        builder.show();
+//    }
+
 
     @Override
-    public void onLoadedError(String s) {
-        showProgress(false);
-        //dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getString(R.string.error));
-        builder.setMessage(getString(R.string.error));
-        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //b.finish();
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
+    public void onLoaded(Object o) {
+        List<Gosto> lista = null;
+        ((Usuario)o).getGostosMusicais();
+        //gostos = lista;
+        ArrayAdapter<Gosto> adapter = new InteractiveArrayAdapterList(getActivity(), lista);
+        listView.setAdapter(adapter);
+
     }
-
-
-
 }
