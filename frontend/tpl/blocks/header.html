@@ -189,7 +189,7 @@
                 <ul class="dropdown-menu profile-dropdown" role="menu">
                     <li><a href= "" translate>HEADER.USER_INFO.SETTINGS</a>
                     </li>
-                    <li><a href= "" translate>HEADER.USER_INFO.FEEDBACK</a>
+                    <li><a href= "" data-toggle="modal" data-target="#modalAltSenha" translate>HEADER.USER_INFO.FEEDBACK</a>
                     </li>
                     <li><a href="" translate>HEADER.USER_INFO.HELP</a>
                     </li>
@@ -206,3 +206,55 @@
     </div>
 </div>
 <!-- END HEADER -->
+
+<div class="modal fade slide-up disable-scroll" id="modalAltSenha" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="HeaderCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>Alterar senha</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <form id="form-altSenha" class="p-t-15" role="form" name="altSenha">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passCorr && !altSenha.passatu.$pristine }">
+                                        <label translate>Senha atual</label>
+                                        <input type="password" name="passatu" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="usSenha.passAtu" ng-change="validSenha()" required>
+                                    </div>
+                                    <label class="error" for="passatu" ng-show="altSenha.passCorr && !altSenha.passatu.$pristine" translate>Senha incorreta.</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.pass.$invalid && !altSenha.pass.$pristine }">
+                                        <label translate>Nova senha</label>
+                                        <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="usSenha.password" ng-change="finished()" required>
+                                    </div>
+                                    <label class="error" for="pass" ng-show="altSenha.pass.$invalid && !altSenha.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                                    <label class="error" for="pass" ng-show="altSenha.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                                    <label class="error" for="pass" ng-show="altSenha.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passequal && !altSenha.cpass.$pristine}">
+                                        <label translate>Confirmar nova senha</label>
+                                        <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="usSenha.cpassword" ng-change="finished()" required>
+                                    </div>
+                                    <label class="error" for="cpass" ng-show="altSenha.passequal && !altSenha.cpass.$pristine" translate>REGISTER.FORM.ERROR7</label>
+
+                                </div>
+                            </div>
+                        </form>
+                      </div>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || register.passequal || loading" ng-click="AlterarSenha(usSenha)" translate>Alterar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

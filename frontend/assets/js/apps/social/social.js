@@ -19,7 +19,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
         }
     })
 
-    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', '$cookieStore', '$http', 'md5', function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter, $cookieStore, $http, md5) {
+    .controller('SocialCtrl', ['$scope', '$stateParams', '$rootScope', 'apiSalvarEdic','$filter', '$cookieStore', '$http',  function($scope, $stateParams, $rootScope, apiSalvarEdic, $filter, $cookieStore, $http) {
         // Apply recommended theme for Calendar
         $scope.app.layout.theme = 'pages/css/themes/simple.css';
         
@@ -52,7 +52,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             return temp;
         }
 
-        $http.get('http://192.198.90.26:82/musicsocial/usuario/buscar/303').success(function(result){
+        $http.get('http://192.198.90.26:82/musicsocial/usuario/buscar/'+ $stateParams.codUser).success(function(result){
             $scope.lPerUsu = true;
             $scope.userPage = result.object;
 
@@ -288,62 +288,8 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             })
         }
 
-        $scope.validSenha = function(){
-            if ($scope.usSenha.passAtu != null){
-                $scope.altSenha.passCorr = ($scope.user.senha == md5.createHash($scope.usSenha.passAtu)) ? false : true;
-            }
-        }
+        
 
-        $scope.finished = function() {
-             $scope.altSenha.passequal = ($scope.usSenha.password == $scope.usSenha.cpassword) ? false : true; 
-            //alert("Wizard finished :)");
-        }
-
-        $scope.AlterarSenha = function(usSenha){
-            $scope.user.senha = md5.createHash(usSenha.password);
-
-            $scope.loading = true;
-            apiSalvarEdic.getApi($scope.user).then(function(result){
-                
-                if (result.data.message == "Sucesso!") {
-                    $cookieStore.put('usuario', result.data.object);
-                    $scope.user = $cookieStore.get('usuario');
-
-                    $('#modalAltSenha').modal('hide'); 
-                    $('body').pgNotification({
-                        style: 'simple',
-                        title: $filter('translate')('Sucesso'),
-                        message: $filter('translate')('Alteração realizada com sucesso!'),
-                        position: 'top-right',
-                        showClose: false,
-                        timeout: 6000,
-                        type: 'success',
-                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
-                    }).show();
-                }
-                else {
-                    $scope.social.$invalid = true; 
-                    $scope.loading = false; 
-                     $('#modalEdDadosPe').pgNotification({
-                        style: 'simple',
-                        title: $filter('translate')('Falha'),
-                        message: $filter('translate')('Não foi possível realizar as alterações.'),
-                        position: 'top-right',
-                        showClose: false,
-                        timeout: 6000,
-                        type: 'danger',
-                        thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
-                    }).show(); 
-                }
-            })
-
-        }
-
-        $scope.fecModDPe = function (){
-            $('#modalEdDadosPe').modal('hide'); 
-        }
-
-        console.log($scope.usuCadastrado)
     }]);
 
 
