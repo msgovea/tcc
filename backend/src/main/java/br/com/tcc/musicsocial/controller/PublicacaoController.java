@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tcc.musicsocial.dto.Response;
+import br.com.tcc.musicsocial.entity.Comentario;
 import br.com.tcc.musicsocial.entity.Publicacao;
 import br.com.tcc.musicsocial.service.PublicacaoService;
 import br.com.tcc.musicsocial.util.MessagesEnum;
@@ -63,6 +64,38 @@ public class PublicacaoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(
+			value = "/comentar",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public Response<?> comentarPublicacao(@RequestBody Comentario comentario) {
+		try {
+			if (publicacaoService.comentarPublicacao(comentario)) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/comentarios/listar")
+	public Response<?> listarComentarios(@RequestParam Long codigoPublicacao) {
+		try {
+			return new Response<List<Comentario>>(MessagesEnum.SUCESSO.getDescricao(),
+					publicacaoService.listarComentarios(codigoPublicacao));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
 }

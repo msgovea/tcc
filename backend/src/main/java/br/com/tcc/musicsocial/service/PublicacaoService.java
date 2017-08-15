@@ -2,6 +2,7 @@ package br.com.tcc.musicsocial.service;
 
 import java.util.List;
 
+import br.com.tcc.musicsocial.entity.Comentario;
 import br.com.tcc.musicsocial.entity.Publicacao;
 
 public interface PublicacaoService {
@@ -11,4 +12,8 @@ public interface PublicacaoService {
 	Publicacao cadastrarPublicacao(Publicacao publicacao);
 	
 	Boolean removerPublicacao(Long codigo);
+
+	Boolean comentarPublicacao(Comentario comentario);
+
+	List<Comentario> listarComentarios(Long codigoPublicacao);
 }

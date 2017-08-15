@@ -39,7 +39,7 @@ public class Publicacao {
 	@ManyToOne(targetEntity = UsuarioDetalhe.class)
 	@JoinColumn(name = "PBC_USR_CODIGO", referencedColumnName = "USR_CODIGO")
 	private UsuarioDetalhe usuario;
-
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -87,5 +87,5 @@ public class Publicacao {
 	public void setUsuario(UsuarioDetalhe usuario) {
 		this.usuario = usuario;
 	}
-	
+
 }

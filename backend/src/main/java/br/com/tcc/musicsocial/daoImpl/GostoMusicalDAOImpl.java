@@ -11,7 +11,6 @@ import br.com.tcc.musicsocial.entity.UsuarioGostoMusical;
 @Repository
 public class GostoMusicalDAOImpl extends BaseDAOImpl<UsuarioGostoMusical> implements GostoMusicalDAO {
 	
-	
 	@SuppressWarnings("unchecked")
 	public List<GostoMusical> findAllGostos() {
 		return getEntityManager().createQuery("from GostoMusical").getResultList();

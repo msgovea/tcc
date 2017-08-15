@@ -25,20 +25,20 @@ import br.com.tcc.musicsocial.util.SituacaoConta;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
-	
+
 	private static final String ASSUNTO = "Confirmação de Email";
 
 	private static final String HOST = "urmusic.me";
-	
+
 	@Autowired
 	private UsuarioDAO usuarioDAO;
-	
+
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Autowired
 	private GostoMusicalDAO gostoMusicalDAO;
-	
+
 	@Override
 	@Transactional
 	public UsuarioDetalhe cadastrarUsuario(UsuarioDetalhe usuario) {
@@ -46,7 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (usuarioBanco != null) {
 			throw new RuntimeException("Usuario já cadastrado!");
 		}
-		
+
 		usuario.setSituacaoConta(SituacaoConta.AGUARDANDO_CONFIRMACAO.getEntity());
 		usuario.setDataInsrt(new Date(Calendar.getInstance().getTimeInMillis()));
 		usuarioDAO.save(usuario);
@@ -64,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String montarEmailConfirmacao() {
 		StringBuilder email = new StringBuilder();
 		email.append("Olá %s, <br>");
@@ -73,7 +73,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		email.append("<a href=\"http://%s/#/access/confirmarCadastro/%s/%s\">Confirmar Cadastro</a> <br>");
 		return email.toString();
 	}
-	
+
 	private String montarEmailRecuperacao() {
 		StringBuilder email = new StringBuilder();
 		email.append("Olá %s, <br>");
@@ -82,7 +82,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		email.append("<a href=\"http://%s/#/access/redefinirSenha/%s/%s\">Redefinir senha</a> <br>");
 		return email.toString();
 	}
-	
+
 	@Override
 	public UsuarioDetalhe efetuarLogin(String email, String senha) {
 		UsuarioDetalhe usuario = usuarioDAO.consultarPorEmail(email);
@@ -99,8 +99,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Integer id = Integer.parseInt(new String(array));
 		UsuarioDetalhe usuario;
 		usuario = usuarioDAO.find(id);
-		
-		if(usuario != null && emailEncoded.equals(GeradorHash.gerarHash(usuario.getEmail()))) {
+
+		if (usuario != null && emailEncoded.equals(GeradorHash.gerarHash(usuario.getEmail()))) {
 			usuario.setSituacaoConta(SituacaoConta.ATIVA.getEntity());
 			return true;
 		}
@@ -123,16 +123,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	@Transactional
 	public Boolean redefinirSenha(String idBase, String emailHash, String senhaHash) {
 		try {
 			Integer idUsuario = Integer.parseInt(new String(Base64Utils.decodeFromString(idBase)));
-		
+
 			UsuarioDetalhe user = usuarioDAO.find(idUsuario);
 			if (user != null && emailHash.equals(GeradorHash.gerarHash(user.getEmail()))) {
 				user.setSenha(senhaHash);
@@ -147,11 +147,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public Boolean cadastrarGostoMusical(Integer codUsuario, List<Integer> codGostosMusicais, Integer favorito) {
-		if(codUsuario == null || codGostosMusicais == null || codGostosMusicais.size() < 1) {
+		if (codUsuario == null || codGostosMusicais == null || codGostosMusicais.size() < 1) {
 			return false;
 		}
-		
-		
+
 		Usuario user = new Usuario();
 		user.setCodigoUsuario(codUsuario);
 		for (Integer codGostoMusical : codGostosMusicais) {
@@ -160,15 +159,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 			gosto.setCodigo(codGostoMusical);
 			ugm.setPk(new UsuarioGostoMusicalPk(gosto, user));
 			ugm.setFavorito(false);
-			if(codGostoMusical.equals(favorito)) {
+			if (codGostoMusical.equals(favorito)) {
 				ugm.setFavorito(true);
 			}
 			gostoMusicalDAO.save(ugm);
 		}
-		
+
 		return true;
 	}
-	
+
 	public List<GostoMusical> getGostos() {
 		return gostoMusicalDAO.findAllGostos();
 	}
@@ -176,7 +175,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public UsuarioDetalhe atualizarUsuario(UsuarioDetalhe usuario) {
-		if(usuario.getGostosMusicais() != null && !usuario.getGostosMusicais().isEmpty()) {
+		if (usuario.getGostosMusicais() != null && !usuario.getGostosMusicais().isEmpty()) {
 			for (UsuarioGostoMusical usuarioGosto : usuario.getGostosMusicais()) {
 				usuarioGosto.getPk().setUsuario(usuario);
 			}
