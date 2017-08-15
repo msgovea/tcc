@@ -36,7 +36,7 @@
                                                 <!-- <i class="fa fa-check-circle text-success fs-16 m-t-10"></i>-->
                                             </div>
                                             <div class="col-xs-height p-l-20">
-                                                <h3 class="no-margin">{{user.nome}}</h3>
+                                                <h3 class="no-margin">{{userPage.nome}}</h3>
                                                 <p class="hint-text m-t-5 small">{{diaNasc}}/{{mesNasc}}/{{anoNasc}} </p>
 
                                                 <!--<div class="row center-margin m-b-10"> 
@@ -44,8 +44,8 @@
                                                         <i class="fs-14 fa fa-paint-brush"></i> 
                                                     </div> 
                                                 </div>-->
-                                                <p class="hint-text m-t-5 small">{{user.cidade}} - {{user.estado}} - {{user.pais}}</p>
-                                                 <a translate class="hint-text m-t-5 small" href= "" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
+                                                <p class="hint-text m-t-5 small">{{userPage.cidade}} - {{userPage.estado}} - {{userPage.pais}}</p>
+                                                 <a translate class="hint-text m-t-5 small" href= "" ng-show = "lPerUsu" data-toggle="modal" data-target="#modalEdDadosPe">Editar</a>
                                                 <p class="hint-text m-t-5 small"></p>
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-11 text-right">
-                                                            <a translate class="hint-text m-t-5 small" href = "" data-toggle="modal" data-target="#modalGostos">Editar</a>
+                                                            <a translate class="hint-text m-t-5 small" href = "" ng-show = "lPerUsu" data-toggle="modal"  data-target="#modalGostos">Editar</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -572,9 +572,6 @@
                                 <label class="error" for="city" ng-show="social.city.$error.pattern && !social.city.$pristine" translate> REGISTER.FORM.ERROR9</label>
                             </div>
                         </div>
-                        <div class="col-md-11 text-right">
-                            <a translate class="hint-text m-t-5 small" href= "" data-toggle="modal" data-target="#modalAltSenha" ng-click = "fecModDPe()">Alterar senha</a>
-                        </div>
                         <div class="full-height">
                             <div class="panel-body text-center">
                                 <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
@@ -650,54 +647,3 @@
     </div>
 </div>
 
-<div class="modal fade slide-up disable-scroll" id="modalAltSenha" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="SocialCtrl">
-    <div class="modal-dialog ">
-        <div class="modal-content-wrapper">
-            <div class="modal-content">
-                <div class="modal-header clearfix text-left">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
-                    </button>
-                    <h5 translate>Alterar senha</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="panel-body">
-                        <form id="form-altSenha" class="p-t-15" role="form" name="altSenha">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passCorr && !altSenha.passatu.$pristine }">
-                                        <label translate>Senha atual</label>
-                                        <input type="password" name="passatu" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="usSenha.passAtu" ng-change="validSenha()" required>
-                                    </div>
-                                    <label class="error" for="passatu" ng-show="altSenha.passCorr && !altSenha.passatu.$pristine" translate>Senha incorreta.</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.pass.$invalid && !altSenha.pass.$pristine }">
-                                        <label translate>Nova senha</label>
-                                        <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="usSenha.password" ng-change="finished()" required>
-                                    </div>
-                                    <label class="error" for="pass" ng-show="altSenha.pass.$invalid && !altSenha.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
-                                    <label class="error" for="pass" ng-show="altSenha.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
-                                    <label class="error" for="pass" ng-show="altSenha.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': altSenha.passequal && !altSenha.cpass.$pristine}">
-                                        <label translate>Confirmar nova senha</label>
-                                        <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="usSenha.cpassword" ng-change="finished()" required>
-                                    </div>
-                                    <label class="error" for="cpass" ng-show="altSenha.passequal && !altSenha.cpass.$pristine" translate>REGISTER.FORM.ERROR7</label>
-
-                                </div>
-                            </div>
-                        </form>
-                      </div>
-                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || register.passequal || loading" ng-click="AlterarSenha(usSenha)" translate>Alterar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

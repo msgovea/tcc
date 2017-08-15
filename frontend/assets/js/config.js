@@ -91,7 +91,7 @@ var translationsEN = {
         SEARCH1: "Type anywhere to search",
         USER_INFO: {
             SETTINGS:   "Settings",
-            FEEDBACK:   "Feedback",
+            FEEDBACK:   "Change Password",
             HELP:       "Help",
             LOGOUT:     "Logout"
         }
@@ -228,7 +228,7 @@ var translationsBR = {
         SEARCH1: "Digite em qualquer lugar para pesquisar",
         USER_INFO: {
             SETTINGS:   "Configurações",
-            FEEDBACK:   "Comentários",
+            FEEDBACK:   "Alterar senha",
             HELP:       "Ajuda",
             LOGOUT:     "Sair"
         }
@@ -372,7 +372,7 @@ angular.module('app')
             })
             // Social app
             .state('app.social', {
-                url: '/social',
+                url: '/social/:codUser',
                 data: {
                         requireLogin: false
                 },
