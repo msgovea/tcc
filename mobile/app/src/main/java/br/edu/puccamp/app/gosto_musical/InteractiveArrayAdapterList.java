@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +34,17 @@ public class InteractiveArrayAdapterList extends RecyclerView.Adapter<Interactiv
 
     public InteractiveArrayAdapterList(Context context, List<GostosMusicai> gostos) {
         mContext = context;
-        mGostos = gostos;
+
+        ArrayList<GostosMusicai> gostosNaoFavoritos = new ArrayList<>();
+
+        for (GostosMusicai gosto: gostos
+             ) {
+            if (!gosto.getFavorito()){
+                gostosNaoFavoritos.add(gosto);
+            }
+        }
+
+        mGostos = gostosNaoFavoritos;
     }
 
     @Override

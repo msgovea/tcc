@@ -71,8 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/user_profile_photo"
-                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/user_profile_photo"
                 android:background="#7e5fb4b9"
 
@@ -129,21 +129,23 @@
                     android:id="@+id/user_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="76dp"
                     android:text="Profile Name"
                     android:textColor="#fff"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_alignTop="@+id/verifed_account"
-                    android:layout_marginLeft="16dp"/>
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/verifed_account"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="76dp"
                     android:layout_toRightOf="@id/user_profile_name"
-                    android:src="@drawable/ic_password_visibility" />
+                    android:src="@drawable/ic_password_visibility"
+                    android:layout_alignTop="@id/user_profile_name"
+                    android:layout_alignBottom="@id/user_profile_name"
+                    />
 
                 <TextView
                     android:id="@+id/user_profile_short_bio"

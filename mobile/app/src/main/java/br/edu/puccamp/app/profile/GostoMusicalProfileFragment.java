@@ -19,8 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,7 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
     private InteractiveArrayAdapterList mAdapter;
     private Long idUsuario;
     private RecyclerView listView;
+    private TextView mGostoFavorito;
 
     private AppCompatImageView mIcon;
     private AppCompatImageView mIconSearch;
@@ -86,6 +90,7 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
         listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mProgressView = (View) view.findViewById(R.id.publication_progress);
+        mGostoFavorito = (TextView) view.findViewById(R.id.text_gosto_favorito);
 
         loadPublication();
 
@@ -144,63 +149,30 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
         }
     }
 
-    // ***************************************
-    // Metodos de retorno Async
-    // ***************************************
-
-//    @Override
-//    public void onLoaded(ArrayList<Publicacao> lista) {
-//        List<Question> l = getQuestions(lista);
-////        if (l.size() == 0) {
-////            MainActivity i = (MainActivity) getActivity();
-////            //TODO
-////            i.openPublication(R.id.menu_post);
-////        } else {
-//            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
-//            showProgress(false);
-////        }
-//        //dismissProgressDialog();
-//    }
-
-//    @Override
-//    public void onLoadedError(String s) {
-//        showProgress(false);
-//        //dismissProgressDialog();
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//        builder.setTitle(getString(R.string.error));
-//        builder.setMessage(getString(R.string.error));
-//        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                //b.finish();
-//            }
-//        });
-//        builder.setCancelable(false);
-//        builder.show();
-//    }
 
 
     @Override
     public void onLoaded(Object o) {
-        List<GostosMusicai> lista = ((Usuario)o).getGostosMusicais();
-        Log.e("RETORNO GOSTO MUSICAL", lista.toString());
-        Log.e("IGUAL", lista.get(0).toString());
-        //gostos = lista;
+        try {
+
+            List<GostosMusicai> lista = ((Usuario) o).getGostosMusicais();
+            Log.e("RETORNO GOSTO MUSICAL", lista.toString());
+            Log.e("IGUAL", lista.get(0).toString());
+            //gostos = lista;
 //        ArrayAdapter<GostosMusicai> adapter = new InteractiveArrayAdapterList(getActivity(), lista);
 //        listView.setAdapter(adapter);
 
-        ArrayList<String> opcoes = new ArrayList<String>();
+            for (GostosMusicai gosto : lista
+                    ) {
+                if (gosto.getFavorito()) {
+                    mGostoFavorito.setText(gosto.getPk().getGostoMusical().getDescricao());
+                }
+            }
 
-        opcoes.add("Navegar na Internet");
-        opcoes.add("Fazer uma ligação");
-        opcoes.add("Sobre");
-        opcoes.add("Sair");
-
-        //listView.new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, opcoes);
-        //listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, opcoes));
-
-        listView.setAdapter(mAdapter = new InteractiveArrayAdapterList(getActivity(), lista));
-
+            listView.setAdapter(mAdapter = new InteractiveArrayAdapterList(getActivity(), lista));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

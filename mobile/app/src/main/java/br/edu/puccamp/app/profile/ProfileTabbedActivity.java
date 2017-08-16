@@ -215,7 +215,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             switch (position) {
                 case 0:
                     return PublicationProfileFragment.newInstance(idUsuario);
-                case 1:
+                case 2:
                     return GostoMusicalProfileFragment.newInstance(idUsuario);
                 default:
                     return PublicationProfileFragment.newInstance(idUsuario);
