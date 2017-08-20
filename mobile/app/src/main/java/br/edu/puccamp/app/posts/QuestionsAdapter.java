@@ -62,6 +62,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         //holder.secondFilter.setBackgroundDrawable(drawable1);
     }
 
+    public Question getItem(int position) {
+        return mQuestions.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return mQuestions.size();

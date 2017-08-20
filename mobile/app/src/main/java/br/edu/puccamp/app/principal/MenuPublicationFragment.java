@@ -15,9 +15,11 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -31,6 +33,7 @@ import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
 import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.RecyclerItemClickListener;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -157,7 +160,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
             for (Publicacao item : lista) {
                 add(new Question(item.getUsuario().getNome(),
                         item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
-                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
+                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884",
                         trataData(item.getDataPublicacao()),
                         item.getConteudo()));
             }
@@ -231,16 +234,21 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-        List<Question> l = getQuestions(lista);
-//        if (l.size() == 0) {
-//            MainActivity i = (MainActivity) getActivity();
-//            //TODO
-//            i.openPublication(R.id.menu_post);
-//        } else {
-            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
+        mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista));
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    onItemClicado(position);
+                }
+            }));
             showProgress(false);
 //        }
         //dismissProgressDialog();
+    }
+
+    private void onItemClicado(int position){
+        Toast.makeText(getContext(),"Cliquei no item "+mAdapter.getItem(position).getText(),Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
@@ -47,6 +48,10 @@ public class MainActivity extends AbstractAsyncActivity {
             selectedItem = mBottomNav.getMenu().getItem(2);
         }
         selectFragment(selectedItem);
+    }
+
+    public void test(View view) {
+        Toast.makeText(view.getContext(), "teste", Toast.LENGTH_LONG).show();
     }
 
     @Override
