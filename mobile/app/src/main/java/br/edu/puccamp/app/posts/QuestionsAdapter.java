@@ -1,6 +1,7 @@
 package br.edu.puccamp.app.posts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Random;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
@@ -131,9 +133,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
             avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar);
 
+            AppCompatImageView appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
+
             avatar.setOnClickListener(this);
             textAuthorName.setOnClickListener(this);
-            AppCompatImageView appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
             appCompatImageView.setOnClickListener(this);
         }
 
@@ -150,6 +153,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     break;
                 case R.id.view_settings:
                     Log.e("MGOVEAA", "SELECTED "+position);
+                    break;
+                case R.id.text_name:
+                    Intent intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
+                    intent.putExtra("idUsuario", Long.valueOf(303));
+                    view.getContext().startActivity(intent);
+
+
                 default:
                     Log.e("mgoveaaa", view.getId()+"");
             }

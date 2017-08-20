@@ -161,10 +161,6 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
             String[] partes = data.split("-");
 
-//            Log.e("data1", partes[0]);
-//            Log.e("data2", partes[1]);
-//            Log.e("data3", partes[2]);
-
             dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
 
             return dataFinal;
@@ -225,26 +221,27 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista));
             mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    //int pos = listView.getPositionForView(view);
-                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
+//        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, int position) {
+//                    //int pos = listView.getPositionForView(view);
+//                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
+//
+//                    switch(view.getId())
+//                    {
+//                        case R.id.avatar :
+//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
+//                            break;
+//                        case R.id.view_settings :
+//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
+//                            break;
+//                        default:
+//                            onItemClicado(position);
+//                            break;
+//                    }
+//                }
+//            }));
 
-                    switch(view.getId())
-                    {
-                        case R.id.avatar :
-                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
-                            break;
-                        case R.id.view_settings :
-                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
-                            break;
-                        default:
-                            onItemClicado(position);
-                            break;
-                    }
-                }
-            }));
             showProgress(false);
 //        }
         //dismissProgressDialog();
