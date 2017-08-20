@@ -182,16 +182,8 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-        List<Question> l = getQuestions(lista);
-//        if (l.size() == 0) {
-//            MainActivity i = (MainActivity) getActivity();
-//            //TODO
-//            i.openPublication(R.id.menu_post);
-//        } else {
-            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
+            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), lista));
             showProgress(false);
-//        }
-        //dismissProgressDialog();
     }
 
     @Override

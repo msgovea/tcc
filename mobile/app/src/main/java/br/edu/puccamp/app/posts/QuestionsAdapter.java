@@ -22,27 +22,23 @@ import java.util.List;
 import java.util.Random;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
-    private List<Question> mQuestions;
+    private List<Publicacao> mQuestions;
     private Context mContext;
 
     @Nullable
     private OnItemClickListener listener;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        if (null != listener) {
-            this.listener = listener;
-        }
-    }
 
     public interface OnItemClickListener {
         void onClick(Question question, int position);
     }
 
-    public QuestionsAdapter(Context context, List<Question> questions) {
+    public QuestionsAdapter(Context context, List<Publicacao> questions) {
         mContext = context;
         mQuestions = questions;
     }
@@ -52,41 +48,50 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false));
     }
 
-    public List<Question> getQuestions() {
+    public List<Publicacao> getQuestions() {
         return mQuestions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(List<Publicacao> questions) {
         this.mQuestions = questions;
     }
 
+    private String trataData(String data) {
+        try {
+            String dataFinal;
 
+            String[] partes = data.split("-");
+
+            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
+
+            return dataFinal;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return data;
+        }
+    }
+
+    public String theMonth(int month){
+        String[] monthNames = mContext.getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month-1];
+    }
 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final Question question = mQuestions.get(position);
+        final Publicacao question = mQuestions.get(position);
 
         Random random = new Random();
 
 
-        holder.avatar.setImageURI(question.getAuthorAvatar());
-        holder.textAuthorName.setText(question.getAuthorName());
-        holder.textJobTitle.setText(question.getAuthorJobTitle());
-        holder.textDate.setText(question.getDate());
-        holder.textQuestion.setText(question.getText());
+        holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+        holder.textAuthorName.setText(question.getUsuario().getNome());
+        holder.textJobTitle.setText(question.getUsuario().getCidade() +  " - " + question.getUsuario().getEstado());
+        holder.textDate.setText(trataData(question.getDataPublicacao()));
+        holder.textQuestion.setText(question.getConteudo());
         holder.textLikesCount.setText((String.valueOf(random.nextInt(99))));
         holder.textChatCount.setText((String.valueOf(random.nextInt(99))) + " " + mContext.getResources().getString(R.string.response));
 
-        holder.avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onClick(question, position);
-                    Log.e("MATEUS", question + "" + position);
-                }
-            }
-        });
 
 
         GradientDrawable drawable = new GradientDrawable();
@@ -103,7 +108,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         return listener;
     }
 
-    public Question getItem(int position) {
+    public Publicacao getItem(int position) {
         return mQuestions.get(position);
     }
 
@@ -156,7 +161,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     break;
                 case R.id.text_name:
                     Intent intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
-                    intent.putExtra("idUsuario", Long.valueOf(303));
+                    intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
 
 
@@ -165,4 +170,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             }
         }
     }
+
+
 }

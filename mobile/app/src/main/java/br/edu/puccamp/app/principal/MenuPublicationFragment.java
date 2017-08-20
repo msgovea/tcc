@@ -218,13 +218,13 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-        mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista));
+        mAdapter = new QuestionsAdapter(getContext(), lista);
             mRecyclerView.setAdapter(mAdapter);
 
-//        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(View view, int position) {
-//                    //int pos = listView.getPositionForView(view);
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //int pos = listView.getPositionForView(view);
 //                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
 //
 //                    switch(view.getId())
@@ -239,8 +239,8 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 //                            onItemClicado(position);
 //                            break;
 //                    }
-//                }
-//            }));
+                }
+            }));
 
             showProgress(false);
 //        }
@@ -248,7 +248,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
     }
 
     private void onItemClicado(int position){
-        Toast.makeText(getContext(),"Cliquei no item "+mAdapter.getItem(position).getText(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Cliquei no item "+mAdapter.getItem(position).getConteudo(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
