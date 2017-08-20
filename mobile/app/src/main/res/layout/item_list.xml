@@ -157,7 +157,6 @@
         android:layout_below="@+id/divider"
         android:layout_margin="16dp"
         android:src="@drawable/ic_more"
-        android:onClick="test"
         android:tint="#827f93" />
 
     <TextView

@@ -132,7 +132,7 @@
                 android:background="#ebebeb" />
 
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/view_settings"
+                android:id="@+id/options_publication"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"

@@ -91,8 +91,6 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         // initialize views
         mContent = view.findViewById(R.id.fragment_content);
 
-
-
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -101,18 +99,8 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
         loadPublication();
 
-//        ImagePipelineConfig config = ImagePipelineConfig
-//                .newBuilder(getContext())
-//                .setDownsampleEnabled(true)
-//                .build();
-        //Fresco.initialize(getContext(), config);
-
-            if(mText != null) Snackbar.make(view, R.string.publication_success , Snackbar.LENGTH_LONG)
+        if(mText != null) Snackbar.make(view, R.string.publication_success , Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-
-
-
-
 
         //////// TODO MGOVEA1
 
@@ -236,10 +224,25 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
     public void onLoaded(ArrayList<Publicacao> lista) {
         mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista));
             mRecyclerView.setAdapter(mAdapter);
-            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    onItemClicado(position);
+                    //int pos = listView.getPositionForView(view);
+                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
+
+                    switch(view.getId())
+                    {
+                        case R.id.avatar :
+                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.view_settings :
+                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            onItemClicado(position);
+                            break;
+                    }
                 }
             }));
             showProgress(false);
