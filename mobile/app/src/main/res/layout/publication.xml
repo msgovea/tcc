@@ -142,7 +142,7 @@
                 android:tint="#827f93" />
 
             <EditText
-                android:id="@+id/text_question"
+                android:id="@+id/text_publication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="What is the first step to transform an idea into an actual project?"

@@ -8,21 +8,18 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Random;
 
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.entity.Publicacao;
+import br.edu.puccamp.app.posts.comments.CommentsActivity;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
@@ -130,19 +127,20 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textAuthorName = (TextView) itemView.findViewById(R.id.text_name);
+            textAuthorName = (TextView) itemView.findViewById(R.id.user_name_publication);
             textJobTitle = (TextView) itemView.findViewById(R.id.text_job_title);
             textDate = (TextView) itemView.findViewById(R.id.text_date);
-            textQuestion = (TextView) itemView.findViewById(R.id.text_question);
+            textQuestion = (TextView) itemView.findViewById(R.id.text_publication);
             textLikesCount = (TextView) itemView.findViewById(R.id.text_likes_count);
             textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
-            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar);
+            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
 
             AppCompatImageView appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
 
             avatar.setOnClickListener(this);
             textAuthorName.setOnClickListener(this);
             appCompatImageView.setOnClickListener(this);
+            textChatCount.setOnClickListener(this);
         }
 
         @Override
@@ -151,20 +149,24 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
             Log.e("1", view.getId()+"");
 
-            switch (view.getId()){
-                case R.id.avatar:
-                    Log.e("MGOVEAA", "Selected"+position);
+            Intent intent;
 
+            switch (view.getId()){
+                case R.id.avatar_publication:
+                    intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
+                    intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
+                    view.getContext().startActivity(intent);
                     break;
                 case R.id.view_settings:
                     Log.e("MGOVEAA", "SELECTED "+position);
                     break;
-                case R.id.text_name:
-                    Intent intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
+                case R.id.user_name_publication:
+                    intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
-
-
+                    break;
+                case R.id.text_chat_count:
+                    view.getContext().startActivity(new Intent(view.getContext(), CommentsActivity.class));
                 default:
                     Log.e("mgoveaaa", view.getId()+"");
             }

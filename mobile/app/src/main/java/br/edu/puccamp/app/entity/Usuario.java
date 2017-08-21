@@ -14,6 +14,11 @@ public class Usuario {
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 
+    public Usuario(String nome, Integer codigoUsuario) {
+        this.nome = nome;
+        this.codigoUsuario = codigoUsuario;
+    }
+
     private Integer codigoUsuario;
 
     private String email;

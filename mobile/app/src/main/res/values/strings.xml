@@ -312,5 +312,6 @@
     <string name="update_password">update_password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
+    <string name="title_activity_comments">Comentários</string>
 
 </resources>

@@ -1,6 +1,5 @@
 package br.edu.puccamp.app.principal;
 
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
@@ -36,7 +35,6 @@ import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.RecyclerItemClickListener;
 
 import static android.content.Context.MODE_PRIVATE;
-
 
 /**
  * Fragment class for each nav menu item
@@ -143,38 +141,6 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         sinc.execute(usuario.getCodigoUsuario().toString());
     }
 
-    private List<Question> getQuestions(final ArrayList<Publicacao> lista) {
-        return new ArrayList<Question>() {{
-            for (Publicacao item : lista) {
-                add(new Question(item.getUsuario().getNome(),
-                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
-                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884",
-                        trataData(item.getDataPublicacao()),
-                        item.getConteudo()));
-            }
-        }};
-    }
-
-    private String trataData(String data) {
-        try {
-            String dataFinal;
-
-            String[] partes = data.split("-");
-
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
-
-            return dataFinal;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-    }
-
-    public String theMonth(int month){
-        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month-1];
-    }
-
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -267,7 +233,5 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         builder.setCancelable(false);
         builder.show();
     }
-
-
 
 }
