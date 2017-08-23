@@ -98,16 +98,20 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         public void onClick(View view) {
             int position = getAdapterPosition();
 
+            Intent intent;
+
             switch (view.getId()){
-                case R.id.avatar_publication:
-                    Log.e("MGOVEAA", "Selected"+position);
-                    break;
+
+                case R.id.avatar_comment:
+                    intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
+                    intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
+                    view.getContext().startActivity(intent);
                 case R.id.user_name_comment:
-                    Intent intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
+                    intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
                 default:
-                    Log.e("mgoveaaa", view.getId()+"");
+                    Log.e("mgoveaaa error", view.getId()+"");
             }
         }
     }

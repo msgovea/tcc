@@ -1,55 +1,65 @@
 package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
-import br.edu.puccamp.app.entity.Comentario;
 import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.ResponseComentarios;
-import br.edu.puccamp.app.entity.ResponsePublicacoes;
+import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncComments extends AsyncTask<String, String, String> {
+public class AsyncMakePublication extends AsyncTask<Publicacao, String, String> {
 
     public interface Listener {
-        void onLoaded(ArrayList<Comentario> lista);
         void onLoadedError(String s);
+        void onLoadedPublication(Boolean bool);
+
     }
 
     private Listener mListener;
 
-    public AsyncComments(Listener mListener) {
+    public AsyncMakePublication(Listener mListener) {
 
         this.mListener = mListener;
 
     }
     @Override
-    protected String doInBackground(String... n) {
+    protected String doInBackground(Publicacao... n) {
 
+        Publicacao publicacao = n[0];
         HttpURLConnection urlConnection;
 
         try {
-
-            URL url = new URL(API.URL + API.COMMENTS + n[0]);
+            URL url = new URL(API.URL + API.PUBLICATION_REGISTER);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Accept-Encoding", "application/json");
 
-            Log.e("mgovealindo", url.toString());
-            urlConnection.connect();
+            Gson gson = new Gson();
+            String json = gson.toJson(publicacao);
+
+            OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
+            writer.write(json);
+            Log.i(null, json);
+            writer.flush();
+            writer.close();
+            outputStream.close();
 
             InputStream inputStream;
             // get stream
@@ -76,28 +86,25 @@ public class AsyncComments extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
-            Gson publicacoesGson = new Gson();
-            Log.e("teste", result);
-            ResponseComentarios response = publicacoesGson.fromJson(result, ResponseComentarios.class);
-
-            ArrayList<Comentario> listaPublicacoes = response.getPublicacoes();
+            Gson publicacaoGson = new Gson();
+            Response<Object> response = publicacaoGson.fromJson(result, Response.class);
 
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
-                if (mListener != null) {
-                    mListener.onLoaded(listaPublicacoes);
-                }
+               if (mListener != null) {
+                   mListener.onLoadedPublication(true);
+               }
 
-            } else {
-                if (mListener != null) {
-                    mListener.onLoadedError("erro");
-                }
-            }
+           } else {
+               if (mListener != null) {
+                   mListener.onLoadedError("Erro ao carregar");
+               }
+           }
 
         } catch (Exception e) {
             e.printStackTrace();
             if (mListener != null) {
-                mListener.onLoadedError(e.getMessage());
+                mListener.onLoadedError(e.toString());
             }
         }
 

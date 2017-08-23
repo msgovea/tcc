@@ -166,7 +166,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     view.getContext().startActivity(intent);
                     break;
                 case R.id.text_chat_count:
-                    view.getContext().startActivity(new Intent(view.getContext(), CommentsActivity.class));
+                    intent = new Intent(view.getContext(), CommentsActivity.class);
+                    intent.putExtra("idPublicacao", Long.valueOf(getItem(position).getCodigo()));
+                    view.getContext().startActivity(intent);
                 default:
                     Log.e("mgoveaaa", view.getId()+"");
             }

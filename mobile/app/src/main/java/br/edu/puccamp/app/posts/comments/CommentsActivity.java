@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,23 +14,35 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.AsyncComments;
+import br.edu.puccamp.app.async.AsyncMakeComment;
 import br.edu.puccamp.app.entity.Comentario;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
+import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.RecyclerItemClickListener;
 
-public class CommentsActivity extends AppCompatActivity implements AsyncComments.Listener {
+public class CommentsActivity extends AppCompatActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 
     private RecyclerView mRecyclerView;
     public  View mProgressView;
     private CommentsAdapter mAdapter;
+
+    private Long idPublicacao;
+
+    private ImageButton mEnviarComentario;
+    private EditText mComentario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +51,10 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        idPublicacao = getIntent().getLongExtra("idPublicacao", 0);
+        Toast.makeText(this, String.valueOf(idPublicacao), Toast.LENGTH_SHORT).show();
 
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView = (RecyclerView) findViewById(R.id.list_comments);
@@ -54,15 +62,48 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
 
         mProgressView = (View) findViewById(R.id.comments_progress);
 
+        enviarComentario();
         //
         ArrayList<Comentario> lista = new ArrayList<>();
-        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Mateus", Integer.valueOf("1")), "Teste"));
+        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+
+
         mAdapter = new CommentsAdapter(this, lista);
         mRecyclerView.setAdapter(mAdapter);
 
         //
 
 //        loadComments();
+    }
+
+    private void enviarComentario(){
+        mEnviarComentario = (ImageButton) findViewById(R.id.button_send);
+        mComentario = (EditText) findViewById(R.id.edittext_input_comment);
+
+        mEnviarComentario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mComentario.getText().toString().isEmpty()) {
+
+                    try {
+                        SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+                        Gson gson = new Gson();
+                        Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+
+                        Comentario comentario = new Comentario(null, idPublicacao, usuario, mComentario.getText().toString());
+
+                        AsyncMakeComment sinc = new AsyncMakeComment(CommentsActivity.this);
+                        sinc.execute(comentario);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
     }
 
     private void loadComments() {
@@ -157,6 +198,11 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
         });
         builder.setCancelable(false);
         builder.show();
+    }
+
+    @Override
+    public void onLoadedComment(Boolean bool) {
+
     }
 
 

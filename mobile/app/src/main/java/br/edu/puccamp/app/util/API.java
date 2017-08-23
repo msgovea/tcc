@@ -18,6 +18,8 @@ public interface API {
     String GOSTOS_MUSICAIS_REGISTER = "usuario/gostosmusicais";
     String PUBLICATION           = "publicacoes/get";
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
+    String COMMENTS_REGISTER     = "publicacoes/comentar";
+    String COMMENTS              = "comentarios/listar?codigoPublicacao=";
 
     //SHAREDPREFERENCE
 

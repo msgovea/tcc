@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:background="@android:color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="br.edu.puccamp.app.posts.comments.CommentsActivity"
     tools:showIn="@layout/activity_comments">
@@ -31,10 +32,54 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_comments"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:listitem="@layout/comments_list" />
 
-
     </FrameLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <View
+            android:id="@+id/divider_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#ebebeb"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageButton
+            android:id="@+id/button_send"
+            android:layout_width="48dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/ic_send_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/edittext_input_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:maxHeight="100dp"
+            android:ems="10"
+            android:hint="@string/comment_input"
+            android:inputType="text|textMultiLine"
+            app:layout_constraintBottom_toBottomOf="@id/button_send"
+            app:layout_constraintHorizontal_bias="0.256"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/button_send"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" />
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
