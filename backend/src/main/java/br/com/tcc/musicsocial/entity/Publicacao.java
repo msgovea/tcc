@@ -17,29 +17,29 @@ import javax.persistence.Table;
 @Table(name = "PBC_PUBLICACOES")
 @SequenceGenerator(name = "GERADOR_COD_PBC", sequenceName = "SEQ_COD_PUBLICACAO", allocationSize = 1)
 public class Publicacao {
-	
+
 	@Id
 	@Column(name = "PBC_CODIGO")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GERADOR_COD_PBC")
 	private Long codigo;
-	
+
 	@Column(name = "PBC_CONTEUDO")
 	private String conteudo;
-	
+
 	@Column(name = "PBC_IMAGEM")
 	@Lob
 	private byte[] imagem;
-	
+
 	@Column(name = "PBC_DATA_PUBLICACAO")
 	private Date dataPublicacao;
-	
+
 	@Column(name = "PBC_ATIVA")
 	private Boolean ativa;
-	
+
 	@ManyToOne(targetEntity = UsuarioDetalhe.class)
 	@JoinColumn(name = "PBC_USR_CODIGO", referencedColumnName = "USR_CODIGO")
 	private UsuarioDetalhe usuario;
-	
+
 	public Long getCodigo() {
 		return codigo;
 	}

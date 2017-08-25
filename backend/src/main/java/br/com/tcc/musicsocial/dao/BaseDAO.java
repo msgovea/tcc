@@ -10,4 +10,6 @@ public interface BaseDAO<T> {
 	List<T> findAll();
 	
 	T find(Object pk);
+
+	void remove(T t);
 }

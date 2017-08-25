@@ -12,8 +12,10 @@ import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import br.com.tcc.musicsocial.dao.ComentarioDAO;
+import br.com.tcc.musicsocial.dao.CurtidasDAO;
 import br.com.tcc.musicsocial.dao.PublicacaoDAO;
 import br.com.tcc.musicsocial.entity.Comentario;
+import br.com.tcc.musicsocial.entity.Curtida;
 import br.com.tcc.musicsocial.entity.Publicacao;
 import br.com.tcc.musicsocial.service.PublicacaoService;
 
@@ -25,6 +27,9 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
 	@Autowired
 	private ComentarioDAO comentarioDAO;
+
+	@Autowired
+	private CurtidasDAO curtidasDAO;
 
 	@Override
 	public List<Publicacao> getPublicacoes(String idUsuario) {
@@ -77,9 +82,23 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 				&& comentario.getUsuario().getCodigoUsuario() != null
 				&& !StringUtils.isEmpty(comentario.getComentario());
 	}
-	
+
 	@Override
 	public List<Comentario> listarComentarios(Long codigoPublicacao) {
 		return comentarioDAO.listarComentarios(codigoPublicacao);
+	}
+
+	@Override
+	@Transactional
+	public Boolean curtir(Curtida curtida) {
+		if (curtida.getUsuario() == null || curtida.getUsuario().getCodigoUsuario() == null || curtida.getCodigoPublicacao() == null) {
+			return false;
+		}
+		if (curtidasDAO.findByPk(curtida.getUsuario().getCodigoUsuario(), curtida.getCodigoPublicacao()) == null) {
+			curtidasDAO.save(curtida);
+		} else {
+			curtidasDAO.remove(curtida);
+		}
+		return true;
 	}
 }

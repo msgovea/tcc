@@ -47,4 +47,9 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	public T find(Object pk) {
 		return (T) em.find(getType(), pk);
 	}
+	
+	@Override
+	public void remove(T t) {
+		em.remove(em.contains(t) ? t : em.merge(t));
+	}
 }

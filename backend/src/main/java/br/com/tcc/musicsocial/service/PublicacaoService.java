@@ -3,6 +3,7 @@ package br.com.tcc.musicsocial.service;
 import java.util.List;
 
 import br.com.tcc.musicsocial.entity.Comentario;
+import br.com.tcc.musicsocial.entity.Curtida;
 import br.com.tcc.musicsocial.entity.Publicacao;
 
 public interface PublicacaoService {
@@ -16,4 +17,6 @@ public interface PublicacaoService {
 	Boolean comentarPublicacao(Comentario comentario);
 
 	List<Comentario> listarComentarios(Long codigoPublicacao);
+
+	Boolean curtir(Curtida curtida);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tcc.musicsocial.dto.Response;
 import br.com.tcc.musicsocial.entity.Comentario;
+import br.com.tcc.musicsocial.entity.Curtida;
 import br.com.tcc.musicsocial.entity.Publicacao;
 import br.com.tcc.musicsocial.service.PublicacaoService;
 import br.com.tcc.musicsocial.util.MessagesEnum;
@@ -96,6 +97,21 @@ public class PublicacaoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping("/curtir")
+	public Response<?> curtirPublicacao(@RequestBody Curtida curtida) {
+		try {
+			if (publicacaoService.curtir(curtida)) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
 }
