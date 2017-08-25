@@ -63,20 +63,21 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
         mProgressView = (View) findViewById(R.id.comments_progress);
 
         enviarComentario();
-        //
-        ArrayList<Comentario> lista = new ArrayList<>();
-        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-
-
-        mAdapter = new CommentsAdapter(this, lista);
-        mRecyclerView.setAdapter(mAdapter);
 
         //
+//        ArrayList<Comentario> lista = new ArrayList<>();
+//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
+//
+//
+//        mAdapter = new CommentsAdapter(this, lista);
+//        mRecyclerView.setAdapter(mAdapter);
 
-//        loadComments();
+        //
+
+        loadComments();
     }
 
     private void enviarComentario(){
@@ -95,6 +96,9 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
 
                         Comentario comentario = new Comentario(null, idPublicacao, usuario, mComentario.getText().toString());
 
+                        mEnviarComentario.setEnabled(false);
+                        mComentario.setEnabled(false);
+
                         AsyncMakeComment sinc = new AsyncMakeComment(CommentsActivity.this);
                         sinc.execute(comentario);
                     }catch (Exception e){
@@ -110,7 +114,7 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
         showProgress(true);
 
         AsyncComments sinc = new AsyncComments(this);
-        //sinc.execute(publicacao);
+        sinc.execute(idPublicacao.toString());
     }
 
     private void showProgress(final boolean show) {
@@ -202,7 +206,11 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
 
     @Override
     public void onLoadedComment(Boolean bool) {
-
+        mEnviarComentario.setEnabled(true);
+        mComentario.setEnabled(true);
+        mComentario.setText(null);
+        //TODO STRING
+        Toast.makeText(getApplicationContext(), "SUCESSO", Toast.LENGTH_SHORT).show();
     }
 
 

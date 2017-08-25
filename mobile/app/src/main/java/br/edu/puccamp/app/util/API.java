@@ -7,7 +7,7 @@ package br.edu.puccamp.app.util;
 public interface API {
 
     //API
-    String URL        = "http://192.198.90.26:82/musicsocial/";
+    String URL        = "http://192.198.90.26/musicsocial/";
 
     String REGISTER              = "usuario/cadastro";
     String BUSCAR_USUARIO        = "usuario/buscar";
@@ -19,11 +19,9 @@ public interface API {
     String PUBLICATION           = "publicacoes/get";
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
     String COMMENTS_REGISTER     = "publicacoes/comentar";
-    String COMMENTS              = "comentarios/listar?codigoPublicacao=";
+    String COMMENTS              = "publicacoes/comentarios/listar?codigoPublicacao=";
 
     //SHAREDPREFERENCE
 
     String USUARIO = "USUARIO";
-
-
 }
