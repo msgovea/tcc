@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import br.edu.puccamp.app.*;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.listview.AdapterListView;
 import br.edu.puccamp.app.listview.ItemListView;
+import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 import br.edu.puccamp.app.util.API;
 
@@ -44,6 +46,7 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
     private ListView listView;
     private ArrayList<ItemListView> itens;
     private AdapterListView adapterListView;
+    private Usuario usuario;
 
 //    private BottomNavigationView bottomNavigationView;
 
@@ -71,7 +74,7 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
 
         Gson gson = new Gson();
         prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-        Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+        usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
 
         ItemListView item1 = new ItemListView(usuario.getNome(), R.drawable.ic_person_black_24dp,1);
         ItemListView item2 = new ItemListView(getString(R.string.language), R.drawable.ic_language_black_24dp,2);
@@ -103,18 +106,19 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
             prefs.edit().clear().apply();
             startActivity(new Intent(getActivity(), TesteLogin.class));
             getActivity().finish();
-        } if (item.getTexto().equals(getString(R.string.language)) ) {
+        } else if (item.getTexto().equals(getString(R.string.language))) {
 
             Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
             intent.putExtra("idUsuario", Long.valueOf(303));
             startActivity(intent);
+        } else if (item.getTexto().equals(usuario.getNome())) {
+            Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
+            startActivity(intent);
         }
         else {
         Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
-        //intent.putExtra("idUsuario", Long.valueOf(12));
-        startActivity(intent);
-
+        BottomSheetDialogFragment bottomSheetDialogFragment = new CustomBottomSheetDialogFragment();
+        bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
     }
     }
 

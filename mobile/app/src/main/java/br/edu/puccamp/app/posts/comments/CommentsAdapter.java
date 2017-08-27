@@ -51,6 +51,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         this.mComments = questions;
     }
 
+    public void addComment(Comentario comentario) {
+        this.mComments.add(comentario);
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Comentario question = mComments.get(position);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,7 @@ import java.util.Random;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.posts.comments.CommentsActivity;
+import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
@@ -159,6 +161,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     break;
                 case R.id.view_settings:
                     Log.e("MGOVEAA", "SELECTED "+position);
+                    //
+
+                    //options.startActivity(intent);
                     break;
                 case R.id.user_name_publication:
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);

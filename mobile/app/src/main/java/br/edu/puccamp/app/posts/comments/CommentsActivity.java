@@ -43,6 +43,9 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
 
     private ImageButton mEnviarComentario;
     private EditText mComentario;
+    private Comentario comentario;
+
+    private ArrayList<Comentario> listaComentarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +97,7 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
                         Gson gson = new Gson();
                         Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
 
-                        Comentario comentario = new Comentario(null, idPublicacao, usuario, mComentario.getText().toString());
+                        comentario = new Comentario(null, idPublicacao, usuario, mComentario.getText().toString());
 
                         mEnviarComentario.setEnabled(false);
                         mComentario.setEnabled(false);
@@ -160,29 +163,9 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
 
     @Override
     public void onLoaded(ArrayList<Comentario> lista) {
+        listaComentarios = lista;
         mAdapter = new CommentsAdapter(this, lista);
         mRecyclerView.setAdapter(mAdapter);
-
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //int pos = listView.getPositionForView(view);
-//                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
-//
-//                    switch(view.getId())
-//                    {
-//                        case R.id.avatar :
-//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
-//                            break;
-//                        case R.id.view_settings :
-//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
-//                            break;
-//                        default:
-//                            onItemClicado(position);
-//                            break;
-//                    }
-            }
-        }));
 
         showProgress(false);
     }
@@ -209,8 +192,12 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
         mEnviarComentario.setEnabled(true);
         mComentario.setEnabled(true);
         mComentario.setText(null);
-        //TODO STRING
-        Toast.makeText(getApplicationContext(), "SUCESSO", Toast.LENGTH_SHORT).show();
+
+        mAdapter.addComment(comentario);
+        mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+
+        //Toast.makeText(getApplicationContext(), "SUCESSO", Toast.LENGTH_SHORT).show();
     }
 
 
