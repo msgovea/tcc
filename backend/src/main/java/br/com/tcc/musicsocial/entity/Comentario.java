@@ -25,7 +25,7 @@ public class Comentario {
 	
 	@ManyToOne
 	@JoinColumn(name = "COM_USR_CODIGO")
-	private Usuario usuario;
+	private UsuarioDetalhe usuario;
 	
 	@Column(name = "COM_COMENTARIO")
 	private String comentario;
@@ -46,11 +46,11 @@ public class Comentario {
 		this.codigoPublicacao = codigoPublicacao;
 	}
 
-	public Usuario getUsuario() {
+	public UsuarioDetalhe getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioDetalhe usuario) {
 		this.usuario = usuario;
 	}
 

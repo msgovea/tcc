@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
+import br.com.tcc.musicsocial.dao.AmigosDAO;
 import br.com.tcc.musicsocial.dao.GostoMusicalDAO;
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
+import br.com.tcc.musicsocial.entity.Amigo;
 import br.com.tcc.musicsocial.entity.GostoMusical;
 import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
@@ -21,6 +23,7 @@ import br.com.tcc.musicsocial.entity.UsuarioGostoMusicalPk;
 import br.com.tcc.musicsocial.service.EmailService;
 import br.com.tcc.musicsocial.service.UsuarioService;
 import br.com.tcc.musicsocial.util.GeradorHash;
+import br.com.tcc.musicsocial.util.ReturnType;
 import br.com.tcc.musicsocial.util.SituacaoConta;
 
 @Service
@@ -38,6 +41,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private GostoMusicalDAO gostoMusicalDAO;
+	
+	@Autowired
+	private AmigosDAO amigosDAO;
 
 	@Override
 	@Transactional
@@ -191,5 +197,27 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public List<UsuarioDetalhe> buscarPorNome(String nome) {
 		return usuarioDAO.consultarPorNome(nome);
+	}
+	
+	@Override
+	@Transactional
+	public ReturnType seguir(Amigo amigo) {
+		if(isAmigoValid(amigo)) {
+			if(amigosDAO.findByPk(amigo) == null) {
+				amigosDAO.save(amigo);
+				return ReturnType.INSERIDO;
+			} else {
+				amigosDAO.remove(amigo);
+				return ReturnType.REMOVIDO;
+			}
+		}
+		return ReturnType.INVALIDO;
+	}
+
+	private boolean isAmigoValid(Amigo amigo) {
+		return amigo != null && amigo.getSegue() != null && amigo.getSegue().getCodigoUsuario() != null
+				&& amigo.getSeguido() != null && amigo.getSeguido().getCodigoUsuario() != null
+				&& usuarioDAO.find(amigo.getSegue().getCodigoUsuario()) != null
+				&& usuarioDAO.find(amigo.getSeguido().getCodigoUsuario()) != null;
 	}
 }

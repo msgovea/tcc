@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.tcc.musicsocial.dto.CadastrarGostosMusicaisRequest;
 import br.com.tcc.musicsocial.dto.LoginRequest;
 import br.com.tcc.musicsocial.dto.Response;
+import br.com.tcc.musicsocial.entity.Amigo;
 import br.com.tcc.musicsocial.entity.GostoMusical;
 import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 import br.com.tcc.musicsocial.service.UsuarioService;
 import br.com.tcc.musicsocial.util.MessagesEnum;
+import br.com.tcc.musicsocial.util.ReturnType;
 
 @RestController
 public class UserController {
@@ -179,6 +181,22 @@ public class UserController {
 				return new Response(MessagesEnum.SUCESSO.getDescricao(), usuarioService.buscarPorNome(nome));
 			} else {
 				return new Response(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping("/usuario/seguir")
+	public Response<?> seguir(@RequestBody Amigo amigo) {
+		try {
+			ReturnType resposta = usuarioService.seguir(amigo);
+			if (resposta != ReturnType.INVALIDO) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), resposta);
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
