@@ -133,6 +133,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 return;
             }
         }
+        Log.e("ERROR EXCLUSÃO", "ERRO");
     }
 
     @Override
