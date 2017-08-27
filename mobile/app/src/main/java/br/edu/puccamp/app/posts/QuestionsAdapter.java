@@ -3,8 +3,10 @@ package br.edu.puccamp.app.posts;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -23,6 +26,7 @@ import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.posts.comments.CommentsActivity;
 import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
+import br.edu.puccamp.app.util.API;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
@@ -31,6 +35,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     @Nullable
     private OnItemClickListener listener;
+    private BottomSheetDialogFragment bottomSheetDialogFragment;
 
 
     public interface OnItemClickListener {
@@ -111,6 +116,25 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         return mQuestions.get(position);
     }
 
+    public void removePublicacaoPorID(Long idPublicacao) {
+        for (Publicacao p : mQuestions) {
+            if (p.getCodigo().equals(idPublicacao)) {
+                mQuestions.remove(p);
+                notifyDataSetChanged();
+
+                bottomSheetDialogFragment.dismiss();
+
+                //TODO MSG PUBLICACAO REMOVIDA
+                Toast.makeText(mContext,
+                        "Publicação removida com sucesso!",
+                        Toast.LENGTH_SHORT)
+                        .show();
+
+                return;
+            }
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mQuestions.size();
@@ -125,19 +149,20 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         TextView textLikesCount;
         TextView textChatCount;
         SimpleDraweeView avatar;
+        private final AppCompatImageView appCompatImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textAuthorName = (TextView) itemView.findViewById(R.id.user_name_publication);
-            textJobTitle = (TextView) itemView.findViewById(R.id.text_job_title);
-            textDate = (TextView) itemView.findViewById(R.id.text_date);
-            textQuestion = (TextView) itemView.findViewById(R.id.text_publication);
-            textLikesCount = (TextView) itemView.findViewById(R.id.text_likes_count);
-            textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
-            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
+            textAuthorName  = (TextView) itemView.findViewById(R.id.user_name_publication);
+            textJobTitle    = (TextView) itemView.findViewById(R.id.text_job_title);
+            textDate        = (TextView) itemView.findViewById(R.id.text_date);
+            textQuestion    = (TextView) itemView.findViewById(R.id.text_publication);
+            textLikesCount  = (TextView) itemView.findViewById(R.id.text_likes_count);
+            textChatCount   = (TextView) itemView.findViewById(R.id.text_chat_count);
+            avatar  = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
 
-            AppCompatImageView appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
+            appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
 
             avatar.setOnClickListener(this);
             textAuthorName.setOnClickListener(this);
@@ -161,9 +186,17 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     break;
                 case R.id.view_settings:
                     Log.e("MGOVEAA", "SELECTED "+position);
-                    //
+                    // TODO 27/08
 
-                    //options.startActivity(intent);
+                    Bundle args = new Bundle();
+                    args.putLong(API.PUBLICACAO, getItem(position).getCodigo());
+                    bottomSheetDialogFragment = new CustomBottomSheetDialogFragment();
+                    bottomSheetDialogFragment.setArguments(args);
+                    bottomSheetDialogFragment.show(((FragmentActivity)mContext).getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+
+                    Log.e("APÓS - MGOVEAA", "SELECTED "+position);
+
+                    //
                     break;
                 case R.id.user_name_publication:
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);

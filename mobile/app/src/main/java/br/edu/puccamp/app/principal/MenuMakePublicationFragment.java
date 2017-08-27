@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncMakePublication;
+import br.edu.puccamp.app.async.publication.AsyncMakePublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.QuestionsAdapter;

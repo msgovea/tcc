@@ -53,6 +53,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     public void addComment(Comentario comentario) {
         this.mComments.add(comentario);
+        notifyDataSetChanged();
     }
 
     @Override

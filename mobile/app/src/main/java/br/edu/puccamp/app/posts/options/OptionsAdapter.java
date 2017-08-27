@@ -4,25 +4,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.publication.AsyncRemovePublication;
 import br.edu.puccamp.app.entity.Comentario;
+import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.posts.Question;
+import br.edu.puccamp.app.posts.QuestionsAdapter;
+import br.edu.puccamp.app.principal.MenuPublicationFragment;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
+import br.edu.puccamp.app.profile.PublicationProfileFragment;
 import br.edu.puccamp.app.util.Menu;
 
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHolder> {
 
+    private Long mIdPublicacao;
     private List<Menu> mMenus;
     private Context mContext;
 
@@ -34,9 +43,10 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         void onClick(Question question, int position);
     }
 
-    public OptionsAdapter(Context context, List<Menu> questions) {
+    public OptionsAdapter(Context context, List<Menu> questions, Long id) {
         mContext = context;
         mMenus = questions;
+        mIdPublicacao = id;
     }
 
     @Override
@@ -77,7 +87,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         return mMenus.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncRemovePublication.Listener {
 
         TextView mNameOption;
         TextView mSubNameOption;
@@ -94,12 +104,36 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
 
             mMenuOption.setOnClickListener(this);
+            mIconOption.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Toast.makeText(view.getContext(), "CLICOU NA OPÇÃO: " + position, Toast.LENGTH_SHORT);
+
+            switch (position) {
+                case 0:
+                    AsyncRemovePublication sinc = new AsyncRemovePublication(this);
+                    sinc.execute(mIdPublicacao);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+            //view.startAnimation(buttonClick);
+            Log.e("FUNCIONO", "CLICOU NA OPÇÃO: " + position);
+        }
+
+        @Override
+        public void onLoaded(Boolean bool) {
+            ((QuestionsAdapter) MenuPublicationFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
+            ((QuestionsAdapter) PublicationProfileFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
+        }
+
+        @Override
+        public void onLoadedError(String s) {
+
         }
     }
 

@@ -19,6 +19,7 @@ import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.entity.Comentario;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
+import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.Menu;
 
 /**
@@ -26,8 +27,6 @@ import br.edu.puccamp.app.util.Menu;
  */
 public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
-    private TextView mOffsetText;
-    private TextView mStateText;
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
         @Override
@@ -69,17 +68,23 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
             ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
         }
 
+        Long idPublicacao = getArguments().getLong(API.PUBLICACAO);
+
         //
         mRecyclerView = (RecyclerView) contentView.findViewById(R.id.recyclerview_options);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
+        /*
+        * TODO PALOMA
+        * TEXTOS COM DESCRIÇÃO E SUBDESCRIÇÃO DOS MENUS
+            QUE APARECEM QUANDO SE CLICA NOS 3 PONTINHOS DA PUBLICAÇÃO
+            */
         ArrayList<Menu> menu = new ArrayList<>();
-        menu.add(new Menu("Menu 1", "SubTexto 1"));
-        menu.add(new Menu("Menu 2", "SubTexto 2"));
-        menu.add(new Menu("Menu 3", "SubTexto 3"));
-        menu.add(new Menu("Menu 4", "SubTexto 4"));
+        menu.add(new Menu("Excluir", "Esta ação removerá completamente sua publicação"));
+        menu.add(new Menu("Impulsionar publicação", "Leve seu conteúdo para mais gente"));
+        menu.add(new Menu("Denunciar publicação", "Envie esta publicação para uma análise"));
 
-        mAdapter = new OptionsAdapter(getContext(), menu);
+        mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao);
         mRecyclerView.setAdapter(mAdapter);
 
     }

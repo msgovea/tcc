@@ -195,7 +195,7 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
 
         mAdapter.addComment(comentario);
         mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        //mRecyclerView.getAdapter().notifyDataSetChanged();
 
         //Toast.makeText(getApplicationContext(), "SUCESSO", Toast.LENGTH_SHORT).show();
     }

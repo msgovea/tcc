@@ -5,11 +5,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,14 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncPublication;
+import br.edu.puccamp.app.async.publication.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.util.API;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -43,7 +37,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     private String mText;
     private int mColor;
 
-    private RecyclerView mRecyclerView;
+    public static RecyclerView mRecyclerView;
     public  View mProgressView;
     private QuestionsAdapter mAdapter;
     private Long idUsuario;

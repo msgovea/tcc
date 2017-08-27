@@ -20,8 +20,10 @@ public interface API {
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
     String COMMENTS_REGISTER     = "publicacoes/comentar";
     String COMMENTS              = "publicacoes/comentarios/listar?codigoPublicacao=";
+    String REMOVE_PUBLICATION    = "publicacoes/remover?codigo=";
 
     //SHAREDPREFERENCE
 
     String USUARIO = "USUARIO";
+    String PUBLICACAO = "PUBLICAÇÃO";
 }

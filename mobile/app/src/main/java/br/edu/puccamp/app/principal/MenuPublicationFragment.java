@@ -14,7 +14,6 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -23,13 +22,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncPublication;
+import br.edu.puccamp.app.async.publication.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.RecyclerItemClickListener;
@@ -47,7 +44,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
     private int mColor;
 
     private View mContent;
-    private RecyclerView mRecyclerView;
+    public static RecyclerView mRecyclerView;
     public  View mProgressView;
     private QuestionsAdapter mAdapter;
     private SharedPreferences prefs;
