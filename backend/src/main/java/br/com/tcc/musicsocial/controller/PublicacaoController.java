@@ -104,8 +104,9 @@ public class PublicacaoController {
 	@RequestMapping("/curtir")
 	public Response<?> curtirPublicacao(@RequestBody Curtida curtida) {
 		try {
-			if (publicacaoService.curtir(curtida)) {
-				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+			Integer resposta = publicacaoService.curtir(curtida);
+			if (resposta != 0) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), resposta);
 			} else {
 				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
 			}

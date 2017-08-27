@@ -18,5 +18,5 @@ public interface PublicacaoService {
 
 	List<Comentario> listarComentarios(Long codigoPublicacao);
 
-	Boolean curtir(Curtida curtida);
+	Integer curtir(Curtida curtida);
 }

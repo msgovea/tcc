@@ -18,6 +18,7 @@ import br.com.tcc.musicsocial.entity.Comentario;
 import br.com.tcc.musicsocial.entity.Curtida;
 import br.com.tcc.musicsocial.entity.Publicacao;
 import br.com.tcc.musicsocial.service.PublicacaoService;
+import br.com.tcc.musicsocial.service.UsuarioService;
 
 @Service
 public class PublicacaoServiceImpl implements PublicacaoService {
@@ -30,6 +31,9 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
 	@Autowired
 	private CurtidasDAO curtidasDAO;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@Override
 	public List<Publicacao> getPublicacoes(String idUsuario) {
@@ -90,15 +94,16 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
 	@Override
 	@Transactional
-	public Boolean curtir(Curtida curtida) {
-		if (curtida.getUsuario() == null || curtida.getUsuario().getCodigoUsuario() == null || curtida.getCodigoPublicacao() == null) {
-			return false;
+	public Integer curtir(Curtida curtida) {
+		if (curtida.getUsuario() == null || curtida.getUsuario().getCodigoUsuario() == null || curtida.getCodigoPublicacao() == null || publicacaoDAO.find(curtida.getCodigoPublicacao()) == null || usuarioService.buscarPorId(curtida.getUsuario().getCodigoUsuario()) == null) {
+			return 0;
 		}
 		if (curtidasDAO.findByPk(curtida.getUsuario().getCodigoUsuario(), curtida.getCodigoPublicacao()) == null) {
 			curtidasDAO.save(curtida);
+			return 1;
 		} else {
 			curtidasDAO.remove(curtida);
+			return 2;
 		}
-		return true;
 	}
 }
