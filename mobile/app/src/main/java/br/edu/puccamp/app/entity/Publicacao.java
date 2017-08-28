@@ -22,6 +22,30 @@ public class Publicacao {
 
     private Usuario usuario;
 
+    /* TODO MGOVEA - REMOVER QND WAGNER IMPLEMENTAR */
+
+    private Long curtidas = Long.valueOf(0);
+
+    private Long comentarios = Long.valueOf(0);
+
+    public Long getCurtidas() {
+        return curtidas;
+    }
+
+    public void setCurtidas(Long curtidas) {
+        this.curtidas = curtidas;
+    }
+
+    public Long getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(Long comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    // END TODO MGOVEA - REMOVER QND WAGNER IMPLEMENTAR
+
     public Long getCodigo() {
         return codigo;
     }

@@ -1,7 +1,10 @@
 package br.edu.puccamp.app.posts;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,17 +20,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Random;
 
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.follow.AsyncFollowUser;
+import br.edu.puccamp.app.async.publication.AsyncLikePublication;
+import br.edu.puccamp.app.entity.Curtida;
 import br.edu.puccamp.app.entity.Publicacao;
+import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.comments.CommentsActivity;
 import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 import br.edu.puccamp.app.util.API;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
@@ -67,7 +76,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
             String[] partes = data.split("-");
 
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
+            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " + partes[0];
 
             return dataFinal;
         } catch (Exception e) {
@@ -76,9 +85,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         }
     }
 
-    public String theMonth(int month){
+    public String theMonth(int month) {
         String[] monthNames = mContext.getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month-1];
+        return monthNames[month - 1];
     }
 
 
@@ -86,15 +95,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Publicacao question = mQuestions.get(position);
 
-        Random random = new Random();
-
         holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
         holder.textAuthorName.setText(question.getUsuario().getNome());
-        holder.textJobTitle.setText(question.getUsuario().getCidade() +  " - " + question.getUsuario().getEstado());
+        holder.textJobTitle.setText(question.getUsuario().getCidade() + " - " + question.getUsuario().getEstado());
         holder.textDate.setText(trataData(question.getDataPublicacao()));
         holder.textQuestion.setText(question.getConteudo());
-        holder.textLikesCount.setText((String.valueOf(random.nextInt(99))));
-        holder.textChatCount.setText((String.valueOf(random.nextInt(99))) + " " + mContext.getResources().getString(R.string.response));
+        holder.textLikesCount.setText(question.getCurtidas().toString());
+        holder.textChatCount.setText(question.getComentarios() + " " + mContext.getResources().getString(R.string.response));
 
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(1000);
@@ -112,6 +119,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     public Publicacao getItem(int position) {
         return mQuestions.get(position);
+    }
+
+    public void curtir(int position) {
+        mQuestions.get(position).setCurtidas(mQuestions.get(position).getCurtidas() + 1);
+        notifyDataSetChanged();
+    }
+
+    public void descurtir(int position) {
+        mQuestions.get(position).setCurtidas(mQuestions.get(position).getCurtidas() - 1);
+        notifyDataSetChanged();
     }
 
     public void removePublicacaoPorID(Long idPublicacao) {
@@ -139,7 +156,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         return mQuestions.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncFollowUser.Listener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncLikePublication.Listener {
 
         TextView textAuthorName;
         TextView textJobTitle;
@@ -155,13 +172,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textAuthorName  = (TextView) itemView.findViewById(R.id.user_name_publication);
-            textJobTitle    = (TextView) itemView.findViewById(R.id.text_job_title);
-            textDate        = (TextView) itemView.findViewById(R.id.text_date);
-            textQuestion    = (TextView) itemView.findViewById(R.id.text_publication);
-            textLikesCount  = (TextView) itemView.findViewById(R.id.text_likes_count);
-            textChatCount   = (TextView) itemView.findViewById(R.id.text_chat_count);
-            avatar  = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
+            textAuthorName = (TextView) itemView.findViewById(R.id.user_name_publication);
+            textJobTitle = (TextView) itemView.findViewById(R.id.text_job_title);
+            textDate = (TextView) itemView.findViewById(R.id.text_date);
+            textQuestion = (TextView) itemView.findViewById(R.id.text_publication);
+            textLikesCount = (TextView) itemView.findViewById(R.id.text_likes_count);
+            textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
+            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
 
             appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
             imgFollow = (AppCompatImageView) itemView.findViewById(R.id.view_likes);
@@ -175,33 +192,39 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         @Override
         public void onClick(View view) {
-            int position  =   getAdapterPosition();
+            int position = getAdapterPosition();
 
-            Log.e("1", view.getId()+"");
+            Log.e("1", view.getId() + "");
 
             Intent intent;
+            Gson gson = new Gson();
+            SharedPreferences prefs = mContext.getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.view_likes:
-                    //TODO LIKE, NÃO FOLLOW KKKKK
-                    AsyncFollowUser sinc = new AsyncFollowUser(this);
-                    sinc.execute();
+                    Curtida curtidaPublicacao = new Curtida(
+                            gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class), //usuario
+                            getItem(position).getCodigo()); //codigoPublicacao
+
+                    AsyncLikePublication sinc = new AsyncLikePublication(this);
+                    sinc.execute(curtidaPublicacao);
+                    break;
                 case R.id.avatar_publication:
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
                     break;
                 case R.id.view_settings:
-                    Log.e("MGOVEAA", "SELECTED "+position);
+                    Log.e("MGOVEAA", "SELECTED " + position);
                     // TODO 27/08
 
                     Bundle args = new Bundle();
                     args.putLong(API.PUBLICACAO, getItem(position).getCodigo());
                     bottomSheetDialogFragment = new CustomBottomSheetDialogFragment();
                     bottomSheetDialogFragment.setArguments(args);
-                    bottomSheetDialogFragment.show(((FragmentActivity)mContext).getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                    bottomSheetDialogFragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
 
-                    Log.e("APÓS - MGOVEAA", "SELECTED "+position);
+                    Log.e("APÓS - MGOVEAA", "SELECTED " + position);
 
                     //
                     break;
@@ -215,19 +238,45 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     intent.putExtra("idPublicacao", Long.valueOf(getItem(position).getCodigo()));
                     view.getContext().startActivity(intent);
                 default:
-                    Log.e("mgoveaaa", view.getId()+"");
+                    Log.e("mgoveaaa", view.getId() + "");
             }
         }
 
         @Override
         public void onLoadedError(String s) {
-            //TODO LIKE USER
+//            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//            builder.setTitle(mContext.getString(R.string.error));
+//            builder.setMessage(mContext.getString(R.string.error));
+//            builder.setPositiveButton(mContext.getString(R.string.close), new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    finish();
+//                }
+//            });
+//            builder.setCancelable(false);
+//            builder.show();
+            //TODO MGOVEA MSG ERRO
+            Log.e("ERRO GERAL", s);
         }
 
         @Override
-        public void onLoaded(String s) {
+        public void onLoaded(Double l) {
+            switch (l.intValue()) {
+                case 1:
+                    curtir(getAdapterPosition());
+                    Log.e("STATUS_CURTIDA", "CURTIU");
+                    break;
+                case 2:
+                    Log.e("STATUS_CURTIDA", "DESCURTIU");
+                    descurtir(getAdapterPosition());
+                    break;
+                default:
+                    //ERRO
+                    break;
+            }
             //TODO LIKE USER
         }
+
     }
 
 

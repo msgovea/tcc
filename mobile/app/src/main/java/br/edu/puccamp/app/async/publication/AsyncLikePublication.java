@@ -18,16 +18,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import br.edu.puccamp.app.entity.Amigo;
+import br.edu.puccamp.app.entity.Curtida;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncLikePublication extends AsyncTask<Publicacao, String, String> {
+public class AsyncLikePublication extends AsyncTask<Curtida, String, String> {
 
     public interface Listener {
         void onLoadedError(String s);
-        void onLoaded(Long l);
+        void onLoaded(Double l);
 
     }
 
@@ -39,9 +40,9 @@ public class AsyncLikePublication extends AsyncTask<Publicacao, String, String> 
 
     }
     @Override
-    protected String doInBackground(Publicacao... n) {
+    protected String doInBackground(Curtida... n) {
 
-        Publicacao publicacao = n[0];
+        Curtida curtida = n[0];
         HttpURLConnection urlConnection;
 
         try {
@@ -52,7 +53,7 @@ public class AsyncLikePublication extends AsyncTask<Publicacao, String, String> 
             urlConnection.setRequestProperty("Accept-Encoding", "application/json");
 
             Gson gson = new Gson();
-            String json = gson.toJson(publicacao);
+            String json = gson.toJson(curtida);
 
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
@@ -88,7 +89,7 @@ public class AsyncLikePublication extends AsyncTask<Publicacao, String, String> 
     protected void onPostExecute(String result) {
         try {
             Gson followGson = new Gson();
-            Response<Long> response = followGson.fromJson(result, Response.class);
+            Response<Double> response = followGson.fromJson(result, Response.class);
 
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
