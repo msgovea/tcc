@@ -40,6 +40,11 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		Integer id = Integer.parseInt(new String(Base64Utils.decodeFromString(idUsuario)));
 		return publicacaoDAO.getPublicacoes(id);
 	}
+	
+	@Override
+	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
+		return publicacaoDAO.getPublicacoesDeAmigos(idUsuario);
+	}
 
 	@Override
 	@Transactional

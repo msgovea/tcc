@@ -196,7 +196,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public List<UsuarioDetalhe> buscarPorNome(String nome) {
-		return usuarioDAO.consultarPorNome(nome);
+		String nomeDecodificado = new String(Base64Utils.decodeFromString(nome));
+		return usuarioDAO.consultarPorNome(nomeDecodificado);
 	}
 	
 	@Override

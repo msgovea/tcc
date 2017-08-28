@@ -25,5 +25,19 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 		query.setParameter("ativa", true);
 		return query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
+		StringBuilder hql = new StringBuilder();
+		hql.append("select p from Publicacao p ");
+		hql.append("where p.usuario.codigoUsuario in (select a.seguido.codigoUsuario from Amigo a where a.segue.codigoUsuario = :codigo) ");
+		hql.append("and p.ativa = :ativa ");
+		hql.append("order by p.codigo desc ");
+		Query query = getEntityManager().createQuery(hql.toString());
+		query.setParameter("codigo", idUsuario);
+		query.setParameter("ativa", true);
+		return query.getResultList();
+	}
 
 }

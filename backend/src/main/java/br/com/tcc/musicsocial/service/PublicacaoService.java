@@ -19,4 +19,6 @@ public interface PublicacaoService {
 	List<Comentario> listarComentarios(Long codigoPublicacao);
 
 	Integer curtir(Curtida curtida);
+
+	List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario);
 }

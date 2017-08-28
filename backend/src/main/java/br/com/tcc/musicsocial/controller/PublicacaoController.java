@@ -37,6 +37,18 @@ public class PublicacaoController {
 			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/get/amigos/{idUsuario}")
+	public Response<?> getPublicacoesDeAmigos(@PathVariable("idUsuario") Integer idUsuario) {
+		try {
+			return new Response<List<Publicacao>>(MessagesEnum.SUCESSO.getDescricao(),
+					publicacaoService.getPublicacoesDeAmigos(idUsuario));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
 
 	@RequestMapping(value = "/cadastrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@CrossOrigin
