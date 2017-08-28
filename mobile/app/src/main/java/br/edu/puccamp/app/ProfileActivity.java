@@ -7,13 +7,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -42,9 +41,9 @@ public class ProfileActivity extends AppCompatActivity {
             edit.setText("bla");
 
         } else {
-            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
             edit.setText(usuario.getNome());
 
         }

@@ -1,11 +1,9 @@
 package br.edu.puccamp.app.principal;
 
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,35 +13,25 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import br.edu.puccamp.app.DefaultActivity;
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.TesteLogin;
-import br.edu.puccamp.app.async.AsyncMakePublication;
-import br.edu.puccamp.app.async.AsyncPublication;
+import br.edu.puccamp.app.async.publication.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.util.AbstractAsyncFragment;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.RecyclerItemClickListener;
 
 import static android.content.Context.MODE_PRIVATE;
-
 
 /**
  * Fragment class for each nav menu item
@@ -56,7 +44,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
     private int mColor;
 
     private View mContent;
-    private RecyclerView mRecyclerView;
+    public static RecyclerView mRecyclerView;
     public  View mProgressView;
     private QuestionsAdapter mAdapter;
     private SharedPreferences prefs;
@@ -98,8 +86,6 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         // initialize views
         mContent = view.findViewById(R.id.fragment_content);
 
-
-
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -108,18 +94,8 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
         loadPublication();
 
-//        ImagePipelineConfig config = ImagePipelineConfig
-//                .newBuilder(getContext())
-//                .setDownsampleEnabled(true)
-//                .build();
-        //Fresco.initialize(getContext(), config);
-
-            if(mText != null) Snackbar.make(view, R.string.publication_success , Snackbar.LENGTH_LONG)
+        if(mText != null) Snackbar.make(view, R.string.publication_success , Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
-
-
-
-
 
         //////// TODO MGOVEA1
 
@@ -127,7 +103,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 //        mIcon.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+//                prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 //                prefs.edit().clear().apply();
 //                startActivity(new Intent(getContext(), TesteLogin.class));
 //                getActivity().finish();
@@ -156,46 +132,10 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         showProgress(true);
         //getContext().showLoadingProgressDialog();
         Gson gson = new Gson();
-        prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-        Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+        prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+        Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
         AsyncPublication sinc = new AsyncPublication(this);
         sinc.execute(usuario.getCodigoUsuario().toString());
-    }
-
-    private List<Question> getQuestions(final ArrayList<Publicacao> lista) {
-        return new ArrayList<Question>() {{
-            for (Publicacao item : lista) {
-                add(new Question(item.getUsuario().getNome(),
-                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
-                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
-                        trataData(item.getDataPublicacao()),
-                        item.getConteudo()));
-            }
-        }};
-    }
-
-    private String trataData(String data) {
-        try {
-            String dataFinal;
-
-            String[] partes = data.split("-");
-
-//            Log.e("data1", partes[0]);
-//            Log.e("data2", partes[1]);
-//            Log.e("data3", partes[2]);
-
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
-
-            return dataFinal;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-    }
-
-    public String theMonth(int month){
-        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month+1];
     }
 
     private void showProgress(final boolean show) {
@@ -241,16 +181,37 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-        List<Question> l = getQuestions(lista);
-//        if (l.size() == 0) {
-//            MainActivity i = (MainActivity) getActivity();
-//            //TODO
-//            i.openPublication(R.id.menu_post);
-//        } else {
-            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), getQuestions(lista)));
+        mAdapter = new QuestionsAdapter(getContext(), lista);
+            mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    //int pos = listView.getPositionForView(view);
+//                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
+//
+//                    switch(view.getId())
+//                    {
+//                        case R.id.avatar :
+//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
+//                            break;
+//                        case R.id.view_settings :
+//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
+//                            break;
+//                        default:
+//                            onItemClicado(position);
+//                            break;
+//                    }
+                }
+            }));
+
             showProgress(false);
 //        }
         //dismissProgressDialog();
+    }
+
+    private void onItemClicado(int position){
+        Toast.makeText(getContext(),"Cliquei no item "+mAdapter.getItem(position).getConteudo(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -269,7 +230,5 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         builder.setCancelable(false);
         builder.show();
     }
-
-
 
 }

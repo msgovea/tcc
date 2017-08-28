@@ -35,7 +35,7 @@ public class ExampleActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(this, getQuestions()));
+        //mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(this, getQuestions()));
     }
 
     private void calculateDiff(final List<Question> oldList, final List<Question> newList) {

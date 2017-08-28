@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.edu.puccamp.app.profile.GostoMusicalProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/favorito"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/text_gosto_favorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Default text"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/gosto_favorito"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_password_visibility"
+            android:layout_alignTop="@+id/text_gosto_favorito"
+            android:layout_alignBottom="@+id/text_gosto_favorito"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            />
+
+    </RelativeLayout>
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listPosts2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/gosto_musical_list_exibicao"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/favorito"/>
+
+</RelativeLayout>

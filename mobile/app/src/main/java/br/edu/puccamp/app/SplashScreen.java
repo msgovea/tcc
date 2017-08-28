@@ -10,21 +10,15 @@ import android.view.WindowManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.google.gson.Gson;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 public class SplashScreen extends Activity {
 
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
-//        SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+//        SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 //        if (!prefs.getString("usuario", null).isEmpty()) {
 //            startActivity(new Intent(this, DefaultActivity.class));
 //        }
@@ -56,8 +50,8 @@ public class SplashScreen extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                    if (prefs.getString(Strings.USUARIO, null) == null) {
+                    SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+                    if (prefs.getString(API.USUARIO, null) == null) {
                         TaskStackBuilder.create(SplashScreen.this)
                                 .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin.class))
                                 .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))

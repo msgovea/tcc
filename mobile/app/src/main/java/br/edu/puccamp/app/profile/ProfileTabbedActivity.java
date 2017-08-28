@@ -1,5 +1,7 @@
-package br.edu.puccamp.app;
+package br.edu.puccamp.app.profile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
@@ -19,15 +21,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.AsyncProfile;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.profile.ProfileEditActivity;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
-public class ProfileTabbedActivity extends AppCompatActivity {
+public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,7 +51,12 @@ public class ProfileTabbedActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
+
+    private Button mButtonFollow;
+
     private Usuario usuario;
+    private boolean myProfile;
+    private Long idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,20 +89,35 @@ public class ProfileTabbedActivity extends AppCompatActivity {
         mTextUserProfileName = (TextView) findViewById(R.id.user_profile_name);
         mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
 
-        if (getIntent().getLongExtra("idUsuario",0) != 0) {
-            //asyntask para obter informações
-            //edit.setText("bla");
-            getSupportActionBar().setTitle("bla");
+        // se obtem idUsuario, bate na API e traz as informações do usuário
+        idUsuario = getIntent().getLongExtra("idUsuario", 0);
+
+        mButtonFollow = (Button) findViewById(R.id.btn_follow);
+
+        if (idUsuario != 0) {
+            myProfile = false;
+            mButtonFollow.setVisibility(View.VISIBLE);
+            showLoadingProgressDialog();
+            AsyncProfile sinc = new AsyncProfile(this);
+            sinc.execute(idUsuario);
         } else {
-            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            myProfile = true;
+            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
-            //edit.setText(usuario.getNome());
-            getSupportActionBar().setTitle(usuario.getNome());
-            mTextUserProfileName.setText(usuario.getNome());
-            mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+            idUsuario = usuario.getCodigoUsuario().longValue();
+            mButtonFollow.setVisibility(View.INVISIBLE);
+
+            populaPerfil(usuario);
         }
 
+
+    }
+
+    private void populaPerfil(Usuario usuario) {
+        getSupportActionBar().setTitle(usuario.getNome());
+        mTextUserProfileName.setText(usuario.getNome());
+        mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
     }
 
     @Override
@@ -99,9 +125,9 @@ public class ProfileTabbedActivity extends AppCompatActivity {
         super.onResume();
         
         if (getIntent().getLongExtra("idUsuario",0) == 0) {
-            SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
             //edit.setText(usuario.getNome());
             getSupportActionBar().setTitle(usuario.getNome());
             mTextUserProfileName.setText(usuario.getNome());
@@ -113,6 +139,12 @@ public class ProfileTabbedActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_profile_tabbed, menu);
+        MenuItem edit = menu.findItem(R.id.action_settings);
+        MenuItem pass = menu.findItem(R.id.action_edit_password);
+
+        edit.setVisible(myProfile);
+        pass.setVisible(myProfile);
+
         return true;
     }
 
@@ -124,46 +156,45 @@ public class ProfileTabbedActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, ProfileEditActivity.class));
-            return true;
+        switch (id) {
+            case R.id.action_edit_password:
+                startActivity(new Intent(this, EditPasswordActivity.class));
+                break;
+            case R.id.action_settings:
+                startActivity(new Intent(this, ProfileEditActivity.class));
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                return false;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    @Override
+    public void onLoaded(Object o) {
+        dismissProgressDialog();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        public PlaceholderFragment() {
-        }
+        if (o.getClass() == Usuario.class) {
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_profile_tabbed, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+            usuario = (Usuario)o;
+            populaPerfil(usuario);
+
+        } else {
+            builder.setTitle(getString(R.string.error));
+            builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
         }
     }
 
@@ -181,7 +212,14 @@ public class ProfileTabbedActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return PublicationProfileFragment.newInstance(idUsuario);
+                case 2:
+                    return GostoMusicalProfileFragment.newInstance(idUsuario);
+                default:
+                    return PublicationProfileFragment.newInstance(idUsuario);
+            }
         }
 
         @Override

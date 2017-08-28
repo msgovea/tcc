@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.async;
+package br.edu.puccamp.app.async.publication;
 
 import android.os.AsyncTask;
 import android.util.Base64;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.ResponsePublicacoes;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 
 public class AsyncPublication extends AsyncTask<String, String, String> {
@@ -43,7 +43,7 @@ public class AsyncPublication extends AsyncTask<String, String, String> {
 
         try {
 
-            URL url = new URL(Strings.URL + Strings.PUBLICATION + "/" + id);
+            URL url = new URL(API.URL + API.PUBLICATION + "/" + id);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");

@@ -38,12 +38,6 @@
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DefaultActivity"
-            android:label="@string/title_activity_default"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".RecoveryActivity"
             android:label="@string/title_recovery_activity"
             android:screenOrientation="portrait">
@@ -82,14 +76,16 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".principal.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.edu.puccamp.app.principal.MainActivity" />
         </activity>
         <activity
-            android:name=".ProfileTabbedActivity"
+            android:name=".profile.ProfileTabbedActivity"
             android:label="@string/title_activity_profile_tabbed"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
             <!-- <intent-filter> -->
@@ -100,21 +96,33 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".EditProfileActivity"
-            android:label="@string/title_activity_edit_profile"
-            android:parentActivityName=".ProfileTabbedActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.ProfileTabbedActivity" />
-        </activity>
-        <activity
             android:name=".profile.ProfileEditActivity"
             android:label="@string/title_activity_profile_edit"
-            android:parentActivityName=".ProfileTabbedActivity"
+            android:parentActivityName=".profile.ProfileTabbedActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.ProfileTabbedActivity" />
+                android:value="br.edu.puccamp.app.profile.ProfileTabbedActivity" />
+        </activity>
+        <activity
+            android:name=".profile.EditPasswordActivity"
+            android:label="@string/title_activity_edit_password"
+            android:parentActivityName=".profile.ProfileTabbedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.edu.puccamp.app.profile.ProfileTabbedActivity" />
+        </activity>
+        <activity
+            android:name=".posts.comments.CommentsActivity"
+            android:label="@string/title_activity_comments"
+            android:parentActivityName=".posts.ExampleActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.edu.puccamp.app.posts.ExampleActivity" />
         </activity>
     </application>
 

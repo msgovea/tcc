@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
@@ -49,6 +50,7 @@ public class MainActivity extends AbstractAsyncActivity {
         selectFragment(selectedItem);
     }
 
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(SELECTED_ITEM, mSelectedItem);
@@ -84,20 +86,6 @@ public class MainActivity extends AbstractAsyncActivity {
                 frag = MenuMakePublicationFragment.newInstance(null,
                         getColorFromRes(R.color.primary_light));
                 break;
-
-                //                MyLayout layout = (MyLayout) findViewById(R.id.fragment_make_publication);
-                //                layout.setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
-                //                    @Override
-                //                    public void onShown() {
-                //                        Log.e("FUU","DEU");
-                //                        findViewById(R.id.navigation).setVisibility(View.GONE);
-                //                    }
-                //                    @Override
-                //                    public void onHidden() {
-                //                        Log.e("FUU","DEU naoo");
-                //                        findViewById(R.id.navigation).setVisibility(View.VISIBLE);
-                //                    }
-                //                });
 
             default:
                 frag = MenuFragment.newInstance(getString(R.string.account_banned_text),

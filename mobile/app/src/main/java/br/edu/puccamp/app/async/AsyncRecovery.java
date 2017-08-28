@@ -15,7 +15,7 @@ import java.net.URL;
 
 import br.edu.puccamp.app.entity.ResponseUsuario;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 
 public class AsyncRecovery extends AsyncTask<String, String, String> {
@@ -40,7 +40,7 @@ public class AsyncRecovery extends AsyncTask<String, String, String> {
 
         try {
 
-            URL url = new URL(Strings.URL + Strings.RECOVERY + "/" + email);
+            URL url = new URL(API.URL + API.RECOVERY + "/" + email);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");

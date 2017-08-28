@@ -1,6 +1,7 @@
 package br.edu.puccamp.app.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.puccamp.app.gosto_musical.Gosto;
 
@@ -13,6 +14,11 @@ public class Usuario {
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 
+    public Usuario(String nome, Integer codigoUsuario) {
+        this.nome = nome;
+        this.codigoUsuario = codigoUsuario;
+    }
+
     private Integer codigoUsuario;
 
     private String email;
@@ -23,15 +29,17 @@ public class Usuario {
 
     private SituacaoConta situacaoConta;
 
-    public ArrayList<Object> getGostosMusicais() {
+    private List<GostosMusicai> gostosMusicais;
+
+
+
+    public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;
     }
 
-    public void setGostosMusicais(ArrayList<Object> gostosMusicais) {
+    public void setGostosMusicais(List<GostosMusicai> gostosMusicais) {
         this.gostosMusicais = gostosMusicais;
     }
-
-    private ArrayList<Object> gostosMusicais;
 
     public Integer getCodigoUsuario() {
         return codigoUsuario;

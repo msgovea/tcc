@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,10 +22,9 @@ import com.google.gson.Gson;
 
 import br.edu.puccamp.app.async.AsyncLogin;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.principal.*;
+import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Hash;
-import br.edu.puccamp.app.util.Strings;
 import br.edu.puccamp.app.util.Validation;
 
 
@@ -40,7 +38,7 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
 
 
     /**
-     * Set up the {@link android.app.ActionBar}, if the Strings is available.
+     * Set up the {@link android.app.ActionBar}, if the API is available.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void setupActionBar() {
@@ -162,9 +160,9 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
                     builder.show();
                     break;
                 case 1: //conta ativa
-                    SharedPreferences prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+                    SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
                     Gson json = new Gson();
-                    prefs.edit().putString(Strings.USUARIO, json.toJson(o)).apply();
+                    prefs.edit().putString(API.USUARIO, json.toJson(o)).apply();
                     //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
                     if (((Usuario) o).getGostosMusicais().toString().equals("[]")) startActivity(new Intent(this, GostoMusicalActivity.class));
                     else startActivity(new Intent(this, br.edu.puccamp.app.principal.MainActivity.class));

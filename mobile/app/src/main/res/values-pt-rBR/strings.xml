@@ -6,9 +6,11 @@
     <string name="title_recovery_activity">Recuperação de conta</string>
 
     <string name="loading">Carregando. Aguarde...</string>
+    <string name="error_old_password_invalid">A senha antiga não confere</string>
 
 
-    <!-- Strings related to login -->
+
+    <!-- API related to login -->
     <string name="prompt_email">E-MAIL</string>
     <string name="prompt_password">SENHA</string>
     <string name="prompt_city">CIDADE</string>
@@ -131,5 +133,7 @@
 
 
     <string name="response">comentários</string>
+    <string name="old_password">Senha Atual</string>
+    <string name="comment_input">Escreva um comentário...</string>
 
 </resources>

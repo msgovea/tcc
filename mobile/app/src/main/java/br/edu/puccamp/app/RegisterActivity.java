@@ -114,7 +114,6 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     }
 
     private void attemptLogin() {
-        Log.i(null, mBirthdayDataPickerView.getYear() + "-" + (mBirthdayDataPickerView.getMonth()+1) + "-" + mBirthdayDataPickerView.getDayOfMonth());
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);

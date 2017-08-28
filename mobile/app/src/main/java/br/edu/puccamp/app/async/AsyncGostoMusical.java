@@ -1,7 +1,6 @@
 package br.edu.puccamp.app.async;
 
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -15,11 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.ResponseGosto;
-import br.edu.puccamp.app.entity.ResponsePublicacoes;
 import br.edu.puccamp.app.gosto_musical.Gosto;
-import br.edu.puccamp.app.util.Strings;
+import br.edu.puccamp.app.util.API;
 
 
 public class AsyncGostoMusical extends AsyncTask<String, String, String> {
@@ -44,7 +41,7 @@ public class AsyncGostoMusical extends AsyncTask<String, String, String> {
 
         try {
 
-            URL url = new URL(Strings.URL + Strings.GOSTOS_MUSICAIS);
+            URL url = new URL(API.URL + API.GOSTOS_MUSICAIS);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");

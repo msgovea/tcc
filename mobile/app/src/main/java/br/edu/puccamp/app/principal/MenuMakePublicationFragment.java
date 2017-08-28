@@ -10,37 +10,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncMakePublication;
+import br.edu.puccamp.app.async.publication.AsyncMakePublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
+import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.MyLayout;
-import br.edu.puccamp.app.util.Strings;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -136,7 +124,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
 //        mIcon.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                prefs = getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
+//                prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 //                prefs.edit().clear().apply();
 //                startActivity(new Intent(DefaultActivity.this, br.edu.puccamp.app.MainActivity.class));
 //                finish();
@@ -176,8 +164,8 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
 
                     Gson gson = new Gson();
 
-                    prefs = getContext().getSharedPreferences(Strings.USUARIO, MODE_PRIVATE);
-                    Usuario usuario = gson.fromJson(prefs.getString(Strings.USUARIO, null), Usuario.class);
+                    prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+                    Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
                     Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
 
                     showProgress(true);
