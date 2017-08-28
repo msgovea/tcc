@@ -274,10 +274,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     //ERRO
                     break;
             }
-            //TODO LIKE USER
         }
-
     }
-
-
 }
