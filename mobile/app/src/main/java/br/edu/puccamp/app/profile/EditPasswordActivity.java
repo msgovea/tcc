@@ -14,7 +14,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncEditProfile;
+import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;

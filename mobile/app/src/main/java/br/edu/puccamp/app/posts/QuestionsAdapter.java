@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Random;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.follow.AsyncFollowUser;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.posts.comments.CommentsActivity;
 import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
@@ -87,7 +88,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         Random random = new Random();
 
-
         holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
         holder.textAuthorName.setText(question.getUsuario().getNome());
         holder.textJobTitle.setText(question.getUsuario().getCidade() +  " - " + question.getUsuario().getEstado());
@@ -95,8 +95,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         holder.textQuestion.setText(question.getConteudo());
         holder.textLikesCount.setText((String.valueOf(random.nextInt(99))));
         holder.textChatCount.setText((String.valueOf(random.nextInt(99))) + " " + mContext.getResources().getString(R.string.response));
-
-
 
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(1000);
@@ -141,7 +139,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         return mQuestions.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncFollowUser.Listener {
 
         TextView textAuthorName;
         TextView textJobTitle;
@@ -151,6 +149,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         TextView textChatCount;
         SimpleDraweeView avatar;
         private final AppCompatImageView appCompatImageView;
+        AppCompatImageView imgFollow;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -164,11 +164,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             avatar  = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
 
             appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
+            imgFollow = (AppCompatImageView) itemView.findViewById(R.id.view_likes);
 
             avatar.setOnClickListener(this);
             textAuthorName.setOnClickListener(this);
             appCompatImageView.setOnClickListener(this);
             textChatCount.setOnClickListener(this);
+            imgFollow.setOnClickListener(this);
         }
 
         @Override
@@ -180,6 +182,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             Intent intent;
 
             switch (view.getId()){
+                case R.id.view_likes:
+                    //TODO LIKE, NÃO FOLLOW KKKKK
+                    AsyncFollowUser sinc = new AsyncFollowUser(this);
+                    sinc.execute();
                 case R.id.avatar_publication:
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
@@ -211,6 +217,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 default:
                     Log.e("mgoveaaa", view.getId()+"");
             }
+        }
+
+        @Override
+        public void onLoadedError(String s) {
+            //TODO LIKE USER
+        }
+
+        @Override
+        public void onLoaded(String s) {
+            //TODO LIKE USER
         }
     }
 

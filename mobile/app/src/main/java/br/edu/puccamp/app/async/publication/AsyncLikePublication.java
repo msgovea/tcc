@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.async;
+package br.edu.puccamp.app.async.publication;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,43 +17,47 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.edu.puccamp.app.entity.ResponseUsuario;
-import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.entity.Amigo;
+import br.edu.puccamp.app.entity.Publicacao;
+import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
+public class AsyncLikePublication extends AsyncTask<Publicacao, String, String> {
 
     public interface Listener {
-        void onLoaded(Object o);
+        void onLoadedError(String s);
+        void onLoaded(Long l);
+
     }
 
     private Listener mListener;
 
-    public AsyncEditProfile(Listener mListener) {
+    public AsyncLikePublication(Listener mListener) {
 
         this.mListener = mListener;
 
     }
     @Override
-    protected String doInBackground(Usuario... n) {
+    protected String doInBackground(Publicacao... n) {
 
-        Usuario usuario = n[0];
+        Publicacao publicacao = n[0];
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(API.URL + API.ATUALIZAR_PERFIL);
+            URL url = new URL(API.URL + API.LIKE_PUBLICATION);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept-Encoding", "application/json");
 
             Gson gson = new Gson();
-            String json = gson.toJson(usuario);
+            String json = gson.toJson(publicacao);
 
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
             writer.write(json);
+            Log.e("LIKE", json);
             writer.flush();
             writer.close();
             outputStream.close();
@@ -83,29 +87,25 @@ public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
-            Gson usuarioGson = new Gson();
-            ResponseUsuario response = usuarioGson.fromJson(result, ResponseUsuario.class);
-
-            Log.e("MATEUSGOVEA", result);
-
-            Usuario u = response.getObject();
+            Gson followGson = new Gson();
+            Response<Long> response = followGson.fromJson(result, Response.class);
 
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
-                if (mListener != null) {
-                    mListener.onLoaded(u);
-                }
+               if (mListener != null) {
+                   mListener.onLoaded(response.getObject());
+               }
 
-            } else {
-                if (mListener != null) {
-                    mListener.onLoaded("invalid");
-                }
-            }
+           } else {
+               if (mListener != null) {
+                   mListener.onLoadedError("Erro ao carregar");
+               }
+           }
 
         } catch (Exception e) {
             e.printStackTrace();
             if (mListener != null) {
-                mListener.onLoaded(e.toString());
+                mListener.onLoadedError(e.toString());
             }
         }
 

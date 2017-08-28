@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.async;
+package br.edu.puccamp.app.async.gosto_musical;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,47 +17,47 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Publicacao;
+import br.edu.puccamp.app.entity.GostoUsuario;
 import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncMakeComment extends AsyncTask<Comentario, String, String> {
+public class AsyncMakeGostoMusical extends AsyncTask<GostoUsuario, String, String> {
 
     public interface Listener {
         void onLoadedError(String s);
-        void onLoadedComment(Boolean bool);
+        void onLoadedPublication(Boolean bool);
 
     }
 
     private Listener mListener;
 
-    public AsyncMakeComment(Listener mListener) {
+    public AsyncMakeGostoMusical(Listener mListener) {
 
         this.mListener = mListener;
 
     }
     @Override
-    protected String doInBackground(Comentario... n) {
+    protected String doInBackground(GostoUsuario... n) {
 
-        Comentario comentario = n[0];
+        GostoUsuario gostoUsuario = n[0];
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(API.URL + API.COMMENTS_REGISTER);
+            URL url = new URL(API.URL + API.GOSTOS_MUSICAIS_REGISTER);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept-Encoding", "application/json");
 
             Gson gson = new Gson();
-            String json = gson.toJson(comentario);
+            String json = gson.toJson(gostoUsuario);
+            Log.e("MATEUS GOVEA", json);
 
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
             writer.write(json);
-            Log.e("teste", json);
+            Log.i(null, json);
             writer.flush();
             writer.close();
             outputStream.close();
@@ -93,12 +93,12 @@ public class AsyncMakeComment extends AsyncTask<Comentario, String, String> {
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
                if (mListener != null) {
-                   mListener.onLoadedComment(true);
+                   mListener.onLoadedPublication(true);
                }
 
            } else {
                if (mListener != null) {
-                   mListener.onLoadedError("Erro ao carregar");
+                   mListener.onLoadedError("Erro ao carregar" + response.getMessage());
                }
            }
 

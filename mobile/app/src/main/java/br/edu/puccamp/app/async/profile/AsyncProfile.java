@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.async;
+package br.edu.puccamp.app.async.profile;
 
 import android.os.AsyncTask;
 import android.util.Log;

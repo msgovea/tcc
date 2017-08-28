@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,18 +18,14 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncComments;
-import br.edu.puccamp.app.async.AsyncMakeComment;
+import br.edu.puccamp.app.async.comments.AsyncComments;
+import br.edu.puccamp.app.async.comments.AsyncMakeComment;
 import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
 import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.RecyclerItemClickListener;
 
 public class CommentsActivity extends AppCompatActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 

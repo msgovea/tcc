@@ -2,10 +2,8 @@ package br.edu.puccamp.app.profile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,12 +17,10 @@ import com.google.gson.Gson;
 import java.util.Date;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncEditProfile;
-import br.edu.puccamp.app.async.AsyncRegister;
+import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
-import br.edu.puccamp.app.util.Hash;
 import br.edu.puccamp.app.util.Validation;
 
 public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{

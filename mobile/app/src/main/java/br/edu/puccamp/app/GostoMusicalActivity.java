@@ -11,11 +11,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.async.AsyncGostoMusical;
+import br.edu.puccamp.app.async.gosto_musical.AsyncGostoMusical;
 import br.edu.puccamp.app.gosto_musical.Gosto;
 //import br.edu.puccamp.app.gosto_musical.GostosAdapter;
 import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapter;
-import br.edu.puccamp.app.principal.*;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
 public class GostoMusicalActivity extends AbstractAsyncActivity implements AsyncGostoMusical.Listener {

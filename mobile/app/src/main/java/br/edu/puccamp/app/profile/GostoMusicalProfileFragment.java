@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncProfile;
+import br.edu.puccamp.app.async.profile.AsyncProfile;
 import br.edu.puccamp.app.entity.GostosMusicai;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapterList;
