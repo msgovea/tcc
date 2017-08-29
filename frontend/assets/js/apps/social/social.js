@@ -11,7 +11,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                 usuario.dataNascimento = dataNasc;
                 return $http({
                     method: 'POST',
-                    url: 'http://192.198.90.26:82/musicsocial/usuario/atualizar',
+                    url: 'http://192.198.90.26:80/musicsocial/usuario/atualizar',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -46,7 +46,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             return temp;
         }
 
-        $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
+        $http.get('http://192.198.90.26:80/musicsocial/usuario/getGostosMusicais').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
                 $scope.gostosAPI[i] = result.object[i]; 
                 for (var j = 0; j < $scope.gostos.length; j++){
@@ -227,12 +227,12 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             objeto.favorito =  $scope.gostoFavorito.favorito;
 
             $http.post(
-                'http://192.198.90.26:82/musicsocial/usuario/gostosmusicais', 
+                'http://192.198.90.26:80/musicsocial/usuario/gostosmusicais',
                 objeto
             ).success(function(response){
                 if(response.message === 'Sucesso!'){
                     $http.post(
-                        'http://192.198.90.26:82/musicsocial/usuario/login', 
+                        'http://192.198.90.26:80/musicsocial/usuario/login',
                         usuario
                     ).success(function(retorno){
                         if(retorno.message === 'Sucesso!'){

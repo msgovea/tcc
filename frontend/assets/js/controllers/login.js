@@ -9,7 +9,7 @@ angular.module('app')
                 
                 return $http({
                     method:'POST',
-                    url:'http://192.198.90.26:82/musicsocial/usuario/login',
+                    url:'http://192.198.90.26:80/musicsocial/usuario/login',
                     headers: {
                         'Content-Type': 'application/json'
                         //'postman-token': '534835a0-f817-9f22-b88a-e1ed9f40d1ea'//, text/plain //undefined//'application/json'
