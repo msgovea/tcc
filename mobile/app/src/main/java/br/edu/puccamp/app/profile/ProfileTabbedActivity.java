@@ -24,12 +24,14 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.follow.AsyncFollowUser;
 import br.edu.puccamp.app.async.profile.AsyncProfile;
+import br.edu.puccamp.app.entity.Amigo;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
-public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener {
+public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -53,6 +55,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private Usuario usuario;
     private boolean myProfile;
     private Long idUsuario;
+    private Usuario usuarioLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,23 +93,33 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         mButtonFollow = (Button) findViewById(R.id.btn_follow);
 
-        if (idUsuario != 0) {
+        SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+        Gson gson = new Gson();
+        usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+
+        if (idUsuario != usuario.getCodigoUsuario().longValue() && idUsuario != 0) {
             myProfile = false;
             mButtonFollow.setVisibility(View.VISIBLE);
             showLoadingProgressDialog();
             AsyncProfile sinc = new AsyncProfile(this);
             sinc.execute(idUsuario);
         } else {
-            myProfile = true;
-            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-            Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
             idUsuario = usuario.getCodigoUsuario().longValue();
             mButtonFollow.setVisibility(View.INVISIBLE);
 
             populaPerfil(usuario);
         }
 
+        mButtonFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Amigo amigo = new Amigo();
+                amigo.setSegue(usuario);
+                amigo.setSeguido(usuarioLoad);
+                AsyncFollowUser sinc = new AsyncFollowUser(ProfileTabbedActivity.this);
+                sinc.execute(amigo);
+            }
+        });
 
     }
 
@@ -119,15 +132,9 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     @Override
     protected void onResume() {
         super.onResume();
-        
-        if (getIntent().getLongExtra("idUsuario",0) == 0) {
-            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-            Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
-            //edit.setText(usuario.getNome());
-            getSupportActionBar().setTitle(usuario.getNome());
-            mTextUserProfileName.setText(usuario.getNome());
-            mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+
+        if (idUsuario == usuario.getCodigoUsuario().longValue() || idUsuario == 0) {
+            populaPerfil(usuario);
         }
     }
 
@@ -172,26 +179,23 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     @Override
     public void onLoaded(Object o) {
         dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (o.getClass() == Usuario.class) {
-
-
-            usuario = (Usuario)o;
-            populaPerfil(usuario);
-
+            usuarioLoad = (Usuario)o;
+            populaPerfil(usuarioLoad);
         } else {
-            builder.setTitle(getString(R.string.error));
-            builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
+            showErrorMessage();
         }
+    }
+
+    @Override
+    public void onLoadedError(String s) {
+        showErrorMessage(s);
+    }
+
+    @Override
+    public void onLoaded(String s) {
+        mButtonFollow.setText(s.equals("INSERIDO") ? "UNFOLLOW" : "FOLLOW");
     }
 
     /**

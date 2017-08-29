@@ -17,6 +17,7 @@ public interface API {
     String GOSTOS_MUSICAIS       = "usuario/getGostosMusicais";
     String GOSTOS_MUSICAIS_REGISTER = "usuario/gostosmusicais";
     String PUBLICATION           = "publicacoes/get";
+    String PUBLICATION_FRIEND    = "publicacoes/get/amigos";
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
     String COMMENTS_REGISTER     = "publicacoes/comentar";
     String COMMENTS              = "publicacoes/comentarios/listar?codigoPublicacao=";

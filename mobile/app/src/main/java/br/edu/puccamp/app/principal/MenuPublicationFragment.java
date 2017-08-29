@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.follow.AsyncFollowUser;
+import br.edu.puccamp.app.async.publication.AsyncFriendsPublication;
 import br.edu.puccamp.app.async.publication.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
@@ -36,7 +38,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Fragment class for each nav menu item
  */
-public class MenuPublicationFragment extends Fragment implements AsyncPublication.Listener {
+public class MenuPublicationFragment extends Fragment implements AsyncFriendsPublication.Listener {
     private static final String ARG_TEXT = "arg_text";
     private static final String ARG_COLOR = "arg_color";
 
@@ -134,7 +136,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncPublicatio
         Gson gson = new Gson();
         prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
         Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
-        AsyncPublication sinc = new AsyncPublication(this);
+        AsyncFriendsPublication sinc = new AsyncFriendsPublication(this);
         sinc.execute(usuario.getCodigoUsuario().toString());
     }
 
