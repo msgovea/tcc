@@ -113,6 +113,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
             switch (position) {
                 case 0:
+                    //TODO MGOVEA - VALIDAR PARA EXCLUIR SO MINHAS PUBLICACOES
                     AsyncRemovePublication sinc = new AsyncRemovePublication(this);
                     sinc.execute(mIdPublicacao);
                     break;
