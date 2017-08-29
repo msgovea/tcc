@@ -24,9 +24,19 @@ public class Publicacao {
 
     /* TODO MGOVEA - REMOVER QND WAGNER IMPLEMENTAR */
 
+    private Boolean curtido = false;
+
     private Long curtidas = Long.valueOf(0);
 
     private Long comentarios = Long.valueOf(0);
+
+    public Boolean getCurtido() {
+        return curtido;
+    }
+
+    public void setCurtido(Boolean curtido) {
+        this.curtido = curtido;
+    }
 
     public Long getCurtidas() {
         return curtidas;

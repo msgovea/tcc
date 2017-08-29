@@ -95,7 +95,7 @@
         android:layout_below="@+id/divider"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_heart"
+        android:src="@drawable/ic_like_vazio"
         android:tint="#827f93" />
 
     <TextView

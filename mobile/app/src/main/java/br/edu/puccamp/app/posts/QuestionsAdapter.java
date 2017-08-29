@@ -103,6 +103,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         holder.textLikesCount.setText(question.getCurtidas().toString());
         holder.textChatCount.setText(question.getComentarios() + " " + mContext.getResources().getString(R.string.response));
 
+        holder.imgFollow.setBackgroundDrawable(mContext.getResources().getDrawable(question.getCurtido() ? R.drawable.ic_like_cheio : R.drawable.ic_like_vazio));
+
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(1000);
         //holder.firstFilter.setBackgroundDrawable(drawable);
@@ -123,11 +125,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     public void curtir(int position) {
         mQuestions.get(position).setCurtidas(mQuestions.get(position).getCurtidas() + 1);
+        mQuestions.get(position).setCurtido(true);
         notifyDataSetChanged();
     }
 
     public void descurtir(int position) {
         mQuestions.get(position).setCurtidas(mQuestions.get(position).getCurtidas() - 1);
+        mQuestions.get(position).setCurtido(false);
         notifyDataSetChanged();
     }
 
