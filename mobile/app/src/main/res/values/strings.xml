@@ -314,5 +314,6 @@
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="title_activity_comments">Comentários</string>
     <string name="comment_input">Escreva um comentário...</string>
+    <string name="title_activity_teste_storage">TesteActivityStorage</string>
 
 </resources>

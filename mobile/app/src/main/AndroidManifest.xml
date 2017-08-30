@@ -119,11 +119,16 @@
             android:name=".posts.comments.CommentsActivity"
             android:label="@string/title_activity_comments"
             android:parentActivityName=".posts.ExampleActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.edu.puccamp.app.posts.ExampleActivity" />
         </activity>
+        <activity
+            android:name=".TesteActivityStorage"
+            android:label="@string/title_activity_teste_storage"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
