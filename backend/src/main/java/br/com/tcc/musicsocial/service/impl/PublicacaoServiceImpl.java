@@ -38,12 +38,12 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	@Override
 	public List<Publicacao> getPublicacoes(String idUsuario) {
 		Integer id = Integer.parseInt(new String(Base64Utils.decodeFromString(idUsuario)));
-		return publicacaoDAO.getPublicacoes(id);
+		return populaQtdComentarios(publicacaoDAO.getPublicacoes(id));
 	}
 	
 	@Override
 	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
-		return publicacaoDAO.getPublicacoesDeAmigos(idUsuario);
+		return populaQtdComentarios(publicacaoDAO.getPublicacoesDeAmigos(idUsuario));
 	}
 
 	@Override
@@ -111,4 +111,19 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 			return 2;
 		}
 	}
+	
+	private Publicacao populaQtdComentarios(Publicacao publicacao) {
+		if (publicacao != null) {
+			publicacao.setQtdComentarios(publicacaoDAO.consultarQtdComentarios(publicacao));
+		}
+		return publicacao;
+	}
+	
+	private List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes) {
+		for (Publicacao publicacao : publicacoes) {
+			populaQtdComentarios(publicacao);
+		}
+		return publicacoes;
+	}
+	
 }

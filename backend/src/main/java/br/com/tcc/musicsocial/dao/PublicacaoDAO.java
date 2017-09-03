@@ -8,4 +8,6 @@ public interface PublicacaoDAO extends BaseDAO<Publicacao> {
 	List<Publicacao>  getPublicacoes(Integer idUsuario);
 
 	List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario);
+
+	Integer consultarQtdComentarios(Publicacao publicacao);
 }

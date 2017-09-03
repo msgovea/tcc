@@ -39,5 +39,13 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 		query.setParameter("ativa", true);
 		return query.getResultList();
 	}
+	
+	@Override
+	public Integer consultarQtdComentarios(Publicacao publicacao) {
+		String hql = "select count(1) from Comentario c where c.codigoPublicacao = :codigo";
+		Query query = getEntityManager().createQuery(hql);
+		query.setParameter("codigo", publicacao.getCodigo());
+		return ((Long) query.getSingleResult()).intValue();
+	}
 
 }
