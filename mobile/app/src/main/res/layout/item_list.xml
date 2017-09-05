@@ -11,15 +11,17 @@
         android:layout_height="20dp"
         android:background="#E4E6E3" />
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/avatar_publication"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_below="@id/dividerTop"
         android:layout_margin="16dp"
-        fresco:actualImageScaleType="focusCrop"
+         />
+
+    <!--fresco:actualImageScaleType="focusCrop"
         fresco:roundAsCircle="true"
-        fresco:roundWithOverlayColor="@android:color/white" />
+        fresco:roundWithOverlayColor="@android:color/white"-->
 
     <TextView
         android:id="@+id/user_name_publication"

@@ -31,7 +31,16 @@ public class Usuario {
 
     private List<GostosMusicai> gostosMusicais;
 
+    private byte[] imagemPerfil = null;
 
+    public void setImagemPerfil (byte[] imagem) {
+        this.imagemPerfil = imagem;
+    }
+
+
+    public byte[] getImagemPerfil () {
+        return this.imagemPerfil;
+    }
 
     public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;

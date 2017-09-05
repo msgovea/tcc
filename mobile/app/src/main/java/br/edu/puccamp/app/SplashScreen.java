@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.posts.ExampleActivity;
 import br.edu.puccamp.app.util.API;
 
@@ -62,32 +63,30 @@ public class SplashScreen extends Activity {
 
         //END TODO
 
-//        Thread timerThread = new Thread() {
-//            public void run() {
-//                try {
-//                    sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-//                    if (prefs.getString(API.USUARIO, null) == null) {
-//                        TaskStackBuilder.create(SplashScreen.this)
-//                                .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin.class))
-//                                .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
-//                                .startActivities();
-//                    } else {
-//                        startActivity(new Intent(SplashScreen.this, br.edu.puccamp.app.principal.MainActivity.class));
-//                    }
-//                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                    startActivityForResult(intent, 1);
-////                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-////                    startActivity(intent);
-//                }
-//            }
-//        };
-        //timerThread.start();
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 1);
+        Thread timerThread = new Thread() {
+            public void run() {
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+                    if (prefs.getString(API.USUARIO, null) == null) {
+                        TaskStackBuilder.create(SplashScreen.this)
+                                .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin.class))
+                                .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
+                                .startActivities();
+                    } else {
+                        startActivity(new Intent(SplashScreen.this, br.edu.puccamp.app.principal.MainActivity.class));
+                    }
+//                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+//                    startActivity(intent);
+                }
+            }
+        };
+        timerThread.start();
+//        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(intent, 1);
     }
 
     @Override
@@ -109,11 +108,14 @@ public class SplashScreen extends Activity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 imagem.compress(Bitmap.CompressFormat.WEBP, 0, stream);
 
+                String teste = new String(stream.toByteArray());
                 //Cria um array de bytes da imagem
-                byte[] byteArray = stream.toByteArray();
+                byte[] byteArray = null;//stream.toByteArray();
 
                 Log.d("img", byteArray.toString());
                 Log.d("img", byteArray.length + "");
+
+                byteArray = teste.getBytes();
 
                 Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
@@ -129,8 +131,6 @@ public class SplashScreen extends Activity {
             }
         }
     }
-
-
 
     @Override
     protected void onPause(){

@@ -1,5 +1,7 @@
 package br.edu.puccamp.app.entity;
 
+import java.util.ArrayList;
+
 public class Publicacao {
 
     public Publicacao(Usuario usuario, String conteudo) {
@@ -28,7 +30,9 @@ public class Publicacao {
 
     private Long curtidas = Long.valueOf(0);
 
-    private Long comentarios = Long.valueOf(0);
+    private ArrayList<Usuario> likes;
+
+    private Long qtdComentarios = Long.valueOf(0);
 
     public Boolean getCurtido() {
         return curtido;
@@ -46,12 +50,12 @@ public class Publicacao {
         this.curtidas = curtidas;
     }
 
-    public Long getComentarios() {
-        return comentarios;
+    public Long getQtdComentarios() {
+        return qtdComentarios;
     }
 
-    public void setComentarios(Long comentarios) {
-        this.comentarios = comentarios;
+    public void setQtdComentarios(Long qtdComentarios) {
+        this.qtdComentarios = qtdComentarios;
     }
 
     // END TODO MGOVEA - REMOVER QND WAGNER IMPLEMENTAR

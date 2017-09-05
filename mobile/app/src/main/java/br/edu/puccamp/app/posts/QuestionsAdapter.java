@@ -1,10 +1,10 @@
 package br.edu.puccamp.app.posts;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,17 +16,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.Random;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.follow.AsyncFollowUser;
 import br.edu.puccamp.app.async.publication.AsyncLikePublication;
 import br.edu.puccamp.app.entity.Curtida;
 import br.edu.puccamp.app.entity.Publicacao;
@@ -95,13 +93,29 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Publicacao question = mQuestions.get(position);
 
-        holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+        byte[] byteArray ;
+
+        Bitmap bitmap = null;
+
+        try {
+            byteArray = question.getUsuario().getImagemPerfil();
+            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            holder.avatar.setImageBitmap(bitmap);
+        }
+
+
+        //holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+        //holder.avatar.setImageBitmap(bitmap);
         holder.textAuthorName.setText(question.getUsuario().getNome());
         holder.textJobTitle.setText(question.getUsuario().getCidade() + " - " + question.getUsuario().getEstado());
         holder.textDate.setText(trataData(question.getDataPublicacao()));
         holder.textQuestion.setText(question.getConteudo());
         holder.textLikesCount.setText(question.getCurtidas().toString());
-        holder.textChatCount.setText(question.getComentarios() + " " + mContext.getResources().getString(R.string.response));
+        holder.textChatCount.setText(question.getQtdComentarios() + " " + mContext.getResources().getString(R.string.response));
 
         holder.imgFollow.setBackgroundDrawable(mContext.getResources().getDrawable(question.getCurtido() ? R.drawable.ic_like_cheio : R.drawable.ic_like_vazio));
 
@@ -168,10 +182,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         TextView textQuestion;
         TextView textLikesCount;
         TextView textChatCount;
-        SimpleDraweeView avatar;
+        ImageView avatar;
         private final AppCompatImageView appCompatImageView;
         AppCompatImageView imgFollow;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -182,7 +195,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             textQuestion = (TextView) itemView.findViewById(R.id.text_publication);
             textLikesCount = (TextView) itemView.findViewById(R.id.text_likes_count);
             textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
-            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
+            avatar = (ImageView) itemView.findViewById(R.id.avatar_publication);
 
             appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
             imgFollow = (AppCompatImageView) itemView.findViewById(R.id.view_likes);

@@ -104,6 +104,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             AsyncProfile sinc = new AsyncProfile(this);
             sinc.execute(idUsuario);
         } else {
+            myProfile = true;
             idUsuario = usuario.getCodigoUsuario().longValue();
             mButtonFollow.setVisibility(View.INVISIBLE);
 

@@ -98,7 +98,7 @@
                 android:background="#E4E6E3" />
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/avatar_publication"
+                android:id="@+id/avatar_publication_make"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_below="@+id/dividerTop"
