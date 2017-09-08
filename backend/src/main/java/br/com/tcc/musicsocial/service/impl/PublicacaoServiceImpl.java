@@ -125,5 +125,10 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		}
 		return publicacoes;
 	}
+
+	@Override
+	public List<Publicacao> getPublicacoesEmAlta() {
+		return populaQtdComentarios(publicacaoDAO.getPublicacoesEmAlta());
+	}
 	
 }
