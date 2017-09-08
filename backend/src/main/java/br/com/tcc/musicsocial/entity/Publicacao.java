@@ -52,8 +52,12 @@ public class Publicacao {
 	})
 	private List<Usuario> likes;
 	
+	@Column(name = "PBC_IMPULSIONADA")
+	private Boolean impulsionada;
+	
 	@Transient
 	private Integer qtdComentarios;
+	
 
 	public Long getCodigo() {
 		return codigo;
@@ -109,6 +113,14 @@ public class Publicacao {
 
 	public void setLikes(List<Usuario> likes) {
 		this.likes = likes;
+	}
+	
+	public Boolean getImpulsionada() {
+		return impulsionada;
+	}
+
+	public void setImpulsionada(Boolean impulsionada) {
+		this.impulsionada = impulsionada;
 	}
 
 	public Integer getQtdComentarios() {

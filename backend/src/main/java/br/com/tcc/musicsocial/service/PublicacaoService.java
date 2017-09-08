@@ -21,4 +21,6 @@ public interface PublicacaoService {
 	Integer curtir(Curtida curtida);
 
 	List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario);
+
+	List<Publicacao> getPublicacoesEmAlta();
 }

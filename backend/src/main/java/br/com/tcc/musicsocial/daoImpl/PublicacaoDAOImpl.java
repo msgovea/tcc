@@ -48,4 +48,17 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 		return ((Long) query.getSingleResult()).intValue();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Publicacao> getPublicacoesEmAlta() {
+		StringBuilder hql = new StringBuilder();
+		hql.append("select p from Publicacao p ");
+		hql.append("where p.impulsionada = :impulsionada ");
+		hql.append("and p.ativa = :ativa ");
+		hql.append("order by p.codigo desc ");
+		Query query = getEntityManager().createQuery(hql.toString());
+		query.setParameter("impulsionada", true);
+		query.setParameter("ativa", true);
+		return query.getResultList();
+	}
 }
