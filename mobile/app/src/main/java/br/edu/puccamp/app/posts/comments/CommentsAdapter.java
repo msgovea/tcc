@@ -93,8 +93,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 mComments.remove(p);
                 notifyDataSetChanged();
 
-                bottomSheetDialogFragment.dismiss();
-
                 //TODO MSG PUBLICACAO REMOVIDA
                 Toast.makeText(mContext,
                         "Comentário removido com sucesso!",
@@ -107,7 +105,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         Log.e("ERROR EXCLUSÃO", "ERRO");
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncRemoveComments.Listener {
 
         TextView mName;
         TextView mText;
@@ -139,7 +137,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             switch (view.getId()){
 
                 case R.id.remove_comment:
+                    //TODO MGOVEA - MUDAR ORDEM QUANDO API OK
                     mComments.remove(position);
+                    notifyDataSetChanged();
                     AsyncRemoveComments sinc = new AsyncRemoveComments(this);
                     sinc.execute(getItem(position).getCodigo());
                     break;
@@ -156,6 +156,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 default:
                     Log.e("mgoveaaa error", view.getId()+"");
             }
+        }
+
+        @Override
+        public void onLoaded(Boolean bool) {
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public void onLoadedError(String s) {
+
         }
     }
 
