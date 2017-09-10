@@ -1,5 +1,6 @@
 package br.edu.puccamp.app.entity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,26 @@ public class Usuario {
         this.nome = nome;
         this.codigoUsuario = codigoUsuario;
     }
+
+    public Long getQtdSeguidos() {
+        return this.qtdSeguidos;
+    }
+
+    public void setQtdSeguidos(Long qtdSeguidos) {
+        this.qtdSeguidos = qtdSeguidos;
+    }
+
+    private ArrayList<Usuario> seguidores;
+
+    public ArrayList<Usuario> getSeguidores() {
+        return this.seguidores;
+    }
+
+    public void setSeguidores(ArrayList<Usuario> seguidores) {
+        this.seguidores = seguidores;
+    }
+
+    private Long qtdSeguidos;
 
     private Integer codigoUsuario;
 

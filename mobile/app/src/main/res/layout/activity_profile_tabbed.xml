@@ -105,9 +105,10 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="36dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_toLeftOf="@id/qtd_followers"
-                    android:src="@drawable/ic_alarm" />
+                    android:src="@drawable/ic_alarm"
+                    android:layout_alignTop="@+id/qtd_follows"
+                    android:layout_toStartOf="@+id/qtd_followers"
+                    android:layout_marginEnd="36dp" />
 
                 <TextView
                     android:id="@+id/qtd_follows"

@@ -2,29 +2,52 @@ package br.edu.puccamp.app.entity;
 
 import android.util.Base64;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioByte {
 
     public UsuarioByte(Usuario u) {
-        this.codigoUsuario = u.getCodigoUsuario();
-        this.email = u.getEmail();
-        this.senha = u.getSenha();
-        this.nivelUsuario = u.getNivelUsuario();
-        this.situacaoConta = u.getSituacaoConta();
-        this.gostosMusicais = u.getGostosMusicais();
+        codigoUsuario = u.getCodigoUsuario();
+        email = u.getEmail();
+        senha = u.getSenha();
+        nivelUsuario = u.getNivelUsuario();
+        situacaoConta = u.getSituacaoConta();
+        gostosMusicais = u.getGostosMusicais();
         try {
-            this.imagemPerfil = Base64.decode(u.getImagemPerfil(), Base64.DEFAULT);
+            imagemPerfil = Base64.decode(u.getImagemPerfil(), Base64.DEFAULT);
         } catch (Exception e) {
 
         }
-        this.nome = u.getNome();
-        this.apelido = u.getApelido();
-        this.dataNascimento = u.getDataNascimento();
-        this.cidade = u.getCidade();
-        this.estado = u.getEstado();
-        this.pais = u.getPais();
+        nome = u.getNome();
+        apelido = u.getApelido();
+        dataNascimento = u.getDataNascimento();
+        cidade = u.getCidade();
+        estado = u.getEstado();
+        pais = u.getPais();
+        qtdSeguidos = u.getQtdSeguidos();
+        seguidores = u.getSeguidores();
     }
+
+    private ArrayList<Usuario> seguidores;
+
+    public ArrayList<Usuario> getSeguidores() {
+        return this.seguidores;
+    }
+
+    public void setSeguidores(ArrayList<Usuario> seguidores) {
+        this.seguidores = seguidores;
+    }
+
+    public Long getQtdSeguidos() {
+        return this.qtdSeguidos;
+    }
+
+    public void setQtdSeguidos(Long qtdSeguidos) {
+        this.qtdSeguidos = qtdSeguidos;
+    }
+
+    private Long qtdSeguidos;
 
     public UsuarioByte() {
         nivelUsuario = new NivelUsuario();

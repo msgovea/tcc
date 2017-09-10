@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.follow.AsyncFollowUser;
 import br.edu.puccamp.app.async.profile.AsyncProfile;
@@ -54,6 +56,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
     private ImageView mImageView;
+    private TextView mQtdSeguidores;
+    private TextView mQtdSeguidos;
 
     private Button mButtonFollow;
 
@@ -82,6 +86,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         tabLayout.setupWithViewPager(mViewPager);
 
         mImageView = (ImageView) findViewById(R.id.user_profile_photo);
+        mQtdSeguidores = (TextView) findViewById(R.id.qtd_followers);
+        mQtdSeguidos = (TextView) findViewById(R.id.qtd_follows);
 
         mTextUserProfileName = (TextView) findViewById(R.id.user_profile_name);
         mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
@@ -122,23 +128,34 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
     }
 
-    private void populaPerfil(Usuario usuario) {
-        getSupportActionBar().setTitle(usuario.getApelido());
-        mTextUserProfileName.setText(usuario.getNome());
+    private void populaPerfil(Usuario usuarioPopulaPerfil) {
+        getSupportActionBar().setTitle(usuarioPopulaPerfil.getApelido());
+        mTextUserProfileName.setText(usuarioPopulaPerfil.getNome());
 
-        byte[] byteArray ;
+        mQtdSeguidores.setText(usuarioPopulaPerfil.getSeguidores().size() + " seguidores");
+        mQtdSeguidos.setText(usuarioPopulaPerfil.getQtdSeguidos() + " seguindo");
+
+        if (!myProfile) {
+            for (Usuario u :
+                    usuarioPopulaPerfil.getSeguidores()) {
+                if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
+                    mButtonFollow.setText("UNFOLLOW");
+                }
+            }
+        }
+
+        byte[] byteArray;
 
         Bitmap bitmap = null;
 
         try {
-            byteArray = Base64.decode(usuario.getImagemPerfil().getBytes(), Base64.DEFAULT);
+            byteArray = Base64.decode(usuarioPopulaPerfil.getImagemPerfil().getBytes(), Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             mImageView.setImageBitmap(bitmap);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             mImageView.setImageDrawable(getDrawable(R.drawable.ic_account_box_black_24dp));
         }
-        mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+        mTextUserBio.setText(usuarioPopulaPerfil.getCidade() + " - " + usuarioPopulaPerfil.getEstado());
 
     }
 
@@ -194,7 +211,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         dismissProgressDialog();
 
         if (o.getClass() == Usuario.class) {
-            usuarioLoad = (Usuario)o;
+            usuarioLoad = (Usuario) o;
             populaPerfil(usuarioLoad);
         } else {
             showErrorMessage();
