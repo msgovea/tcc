@@ -31,14 +31,14 @@ public class Usuario {
 
     private List<GostosMusicai> gostosMusicais;
 
-    private byte[] imagemPerfil = null;
+    private String imagemPerfil = null;
 
-    public void setImagemPerfil (byte[] imagem) {
+    public void setImagemPerfil (String imagem) {
         this.imagemPerfil = imagem;
     }
 
 
-    public byte[] getImagemPerfil () {
+    public String getImagemPerfil () {
         return this.imagemPerfil;
     }
 

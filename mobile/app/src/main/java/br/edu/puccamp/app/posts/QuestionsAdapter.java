@@ -12,6 +12,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,12 +98,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         Bitmap bitmap = null;
 
+        //TODO MGOVEA IMAGEM QUEBRANDO
         try {
-            byteArray = question.getUsuario().getImagemPerfil();
+            byteArray = Base64.decode(question.getUsuario().getImagemPerfil().getBytes(), Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            bitmap = null;
         } finally {
             holder.avatar.setImageBitmap(bitmap);
         }

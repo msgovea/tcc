@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -161,7 +162,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 //Cria um array de bytes da imagem
                 byte[] byteArray = stream.toByteArray();
 
-                usuario.setImagemPerfil(byteArray);
+                usuario.setImagemPerfil(Base64.encodeToString(byteArray, Base64.DEFAULT));
 
                 AsyncEditProfile sinc = new AsyncEditProfile(this);
                 sinc.execute(usuario);

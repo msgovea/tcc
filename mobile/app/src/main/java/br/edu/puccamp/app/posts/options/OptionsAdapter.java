@@ -74,7 +74,6 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
     @Nullable
     public OnItemClickListener getListener() {
-
         return listener;
     }
 
