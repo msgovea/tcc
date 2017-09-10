@@ -34,6 +34,27 @@ public class Publicacao {
 
     private Long qtdComentarios = Long.valueOf(0);
 
+    public ArrayList<Usuario> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(ArrayList<Usuario> likes) {
+        this.likes = likes;
+    }
+
+    public void addLike(Usuario usuario) {
+        this.likes.add(usuario);
+    }
+
+    public void removeLike(Usuario usuario) {
+        for (Usuario u :
+                this.likes) {
+            if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
+                this.likes.remove(u);
+            }
+        }
+    }
+
     public Boolean getCurtido() {
         return curtido;
     }

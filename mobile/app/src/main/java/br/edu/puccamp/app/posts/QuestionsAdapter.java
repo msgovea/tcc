@@ -41,6 +41,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     private List<Publicacao> mQuestions;
     private Context mContext;
+    private Usuario usuario;
 
     @Nullable
     private OnItemClickListener listener;
@@ -54,6 +55,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public QuestionsAdapter(Context context, List<Publicacao> questions) {
         mContext = context;
         mQuestions = questions;
+
+        SharedPreferences prefs = context.getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+        Gson gson = new Gson();
+        usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
     }
 
     @Override
@@ -115,11 +120,15 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         holder.textJobTitle.setText(question.getUsuario().getCidade() + " - " + question.getUsuario().getEstado());
         holder.textDate.setText(trataData(question.getDataPublicacao()));
         holder.textQuestion.setText(question.getConteudo());
-        holder.textLikesCount.setText(question.getCurtidas().toString());
+        holder.textLikesCount.setText(question.getLikes().size() + "");
         holder.textChatCount.setText(question.getQtdComentarios() + " " + mContext.getResources().getString(R.string.response));
 
-        holder.imgFollow.setBackgroundDrawable(mContext.getResources().getDrawable(question.getCurtido() ? R.drawable.ic_like_cheio : R.drawable.ic_like_vazio));
-
+        holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_vazio));
+        for (Usuario u : question.getLikes()) {
+            if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
+                holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_cheio));
+            }
+        }
         GradientDrawable drawable = new GradientDrawable();
         drawable.setCornerRadius(1000);
         //holder.firstFilter.setBackgroundDrawable(drawable);
@@ -139,14 +148,12 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     }
 
     public void curtir(int position) {
-        mQuestions.get(position).setCurtidas(mQuestions.get(position).getCurtidas() + 1);
-        mQuestions.get(position).setCurtido(true);
+        mQuestions.get(position).addLike(usuario);
         notifyDataSetChanged();
     }
 
     public void descurtir(int position) {
-        mQuestions.get(position).setCurtidas(mQuestions.get(position).getCurtidas() - 1);
-        mQuestions.get(position).setCurtido(false);
+        mQuestions.get(position).removeLike(usuario);
         notifyDataSetChanged();
     }
 

@@ -10,15 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.comments.AsyncRemoveComments;
+import br.edu.puccamp.app.async.publication.AsyncLikePublication;
 import br.edu.puccamp.app.entity.Comentario;
+import br.edu.puccamp.app.entity.Curtida;
+import br.edu.puccamp.app.entity.Publicacao;
+import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
+import br.edu.puccamp.app.util.API;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
@@ -80,11 +87,32 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         return mComments.size();
     }
 
+    public void removeComentarioByID(Long idComentario) {
+        for (Comentario p : mComments) {
+            if (p.getCodigo().equals(idComentario)) {
+                mComments.remove(p);
+                notifyDataSetChanged();
+
+                bottomSheetDialogFragment.dismiss();
+
+                //TODO MSG PUBLICACAO REMOVIDA
+                Toast.makeText(mContext,
+                        "Comentário removido com sucesso!",
+                        Toast.LENGTH_SHORT)
+                        .show();
+
+                return;
+            }
+        }
+        Log.e("ERROR EXCLUSÃO", "ERRO");
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView mName;
         TextView mText;
         SimpleDraweeView avatar;
+        AppCompatImageView removeComment;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,12 +120,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             mName = (TextView) itemView.findViewById(R.id.user_name_comment);
             mText = (TextView) itemView.findViewById(R.id.text_comment);
             avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_comment);
+            removeComment = (AppCompatImageView) itemView.findViewById(R.id.remove_comment);
 
             AppCompatImageView appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
 
+            removeComment.setOnClickListener(this);
             avatar.setOnClickListener(this);
             mName.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {
@@ -107,14 +138,21 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
             switch (view.getId()){
 
+                case R.id.remove_comment:
+                    mComments.remove(position);
+                    AsyncRemoveComments sinc = new AsyncRemoveComments(this);
+                    sinc.execute(getItem(position).getCodigo());
+                    break;
                 case R.id.avatar_comment:
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
+                    break;
                 case R.id.user_name_comment:
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
+                    break;
                 default:
                     Log.e("mgoveaaa error", view.getId()+"");
             }
