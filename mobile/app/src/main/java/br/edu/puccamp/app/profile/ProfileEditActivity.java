@@ -27,6 +27,7 @@ import java.util.Date;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.entity.UsuarioByte;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Validation;
@@ -162,10 +163,11 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 //Cria um array de bytes da imagem
                 byte[] byteArray = stream.toByteArray();
 
-                usuario.setImagemPerfil(Base64.encodeToString(byteArray, Base64.DEFAULT));
+                UsuarioByte usuarioByte = new UsuarioByte(usuario);
+                usuarioByte.setImagemPerfil(byteArray);
 
                 AsyncEditProfile sinc = new AsyncEditProfile(this);
-                sinc.execute(usuario);
+                sinc.execute(usuarioByte);
 
 //                Log.d("img", byteArray.toString());
 //                Log.d("img", byteArray.length + "");

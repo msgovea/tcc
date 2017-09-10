@@ -102,11 +102,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         try {
             byteArray = Base64.decode(question.getUsuario().getImagemPerfil().getBytes(), Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            holder.avatar.setImageBitmap(bitmap);
         }
         catch (Exception e) {
-            bitmap = null;
-        } finally {
-            holder.avatar.setImageBitmap(bitmap);
+            holder.avatar.setImageDrawable(mContext.getDrawable(R.drawable.ic_account_box_black_24dp));
         }
 
 

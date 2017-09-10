@@ -31,6 +31,7 @@ import java.util.Date;
 
 import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.posts.ExampleActivity;
+import br.edu.puccamp.app.profile.ProfileEditActivity;
 import br.edu.puccamp.app.util.API;
 
 public class SplashScreen extends Activity {
@@ -77,6 +78,7 @@ public class SplashScreen extends Activity {
                                 .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
                                 .startActivities();
                     } else {
+                        //startActivity(new Intent(SplashScreen.this, ProfileEditActivity.class));
                         startActivity(new Intent(SplashScreen.this, br.edu.puccamp.app.principal.MainActivity.class));
                     }
 //                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);

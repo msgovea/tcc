@@ -15,14 +15,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -52,30 +44,29 @@
             <ImageView
                 android:id="@+id/header_cover_image"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bg" />
 
-            <ImageButton
+
+            <ImageView
                 android:id="@+id/user_profile_photo"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_below="@+id/header_cover_image"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="-60dp"
-                android:background="@drawable/profile_circular_border_imageview"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="-40dp"
                 android:elevation="5dp"
-                android:padding="20dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/common_full_open_on_phone" />
+                android:scaleType="centerCrop"/>
 
             <Button
                 android:id="@+id/btn_follow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
                 android:layout_alignTop="@+id/user_profile_photo"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@+id/user_profile_photo"
                 android:background="#7e5fb4b9"
 
@@ -92,8 +83,8 @@
 
                 <ImageView
                     android:id="@+id/followers"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
@@ -102,7 +93,7 @@
                 <TextView
                     android:id="@+id/qtd_followers"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="20dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_toLeftOf="@id/followers"
@@ -111,8 +102,8 @@
 
                 <ImageView
                     android:id="@+id/follows"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginRight="36dp"
                     android:layout_marginTop="16dp"
                     android:layout_toLeftOf="@id/qtd_followers"
@@ -121,7 +112,7 @@
                 <TextView
                     android:id="@+id/qtd_follows"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="20dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_toLeftOf="@id/follows"
@@ -133,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="76dp"
+                    android:layout_marginTop="56dp"
                     android:text="Profile Name"
                     android:textColor="#fff"
                     android:textSize="18sp"
@@ -145,7 +136,7 @@
                     android:layout_height="22dp"
                     android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/user_profile_name"
-                    android:src="@drawable/ic_password_visibility"
+                    android:src="@drawable/ic_verified_user_black_24dp"
                     android:layout_alignTop="@id/user_profile_name"
                     android:layout_alignBottom="@id/user_profile_name"
                     />
@@ -156,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/user_profile_name"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="5dp"
                     android:text="Another profile information"
                     android:textColor="#fff"
                     android:textSize="10sp" />

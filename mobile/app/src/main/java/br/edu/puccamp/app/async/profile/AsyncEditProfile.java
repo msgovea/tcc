@@ -19,10 +19,11 @@ import java.net.URL;
 
 import br.edu.puccamp.app.entity.ResponseUsuario;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.entity.UsuarioByte;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
+public class AsyncEditProfile extends AsyncTask<UsuarioByte, String, String> {
 
     public interface Listener {
         void onLoaded(Object o);
@@ -36,9 +37,9 @@ public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
 
     }
     @Override
-    protected String doInBackground(Usuario... n) {
+    protected String doInBackground(UsuarioByte... n) {
 
-        Usuario usuario = n[0];
+        UsuarioByte usuario = n[0];
         HttpURLConnection urlConnection;
 
         try {

@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.entity.UsuarioByte;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 import br.edu.puccamp.app.util.Hash;
@@ -121,7 +122,7 @@ public class EditPasswordActivity extends AbstractAsyncActivity implements Async
                 usuario.setSenha(Hash.MD5(etNewPassword.getText().toString()));
 
                 AsyncEditProfile sinc = new AsyncEditProfile(this);
-                sinc.execute(usuario);
+                sinc.execute(new UsuarioByte(usuario));
             } else {
                 etOldPassword.setError(getString(R.string.error_old_password_invalid));
                 validation.focusView = (validation.focusView == null) ? etOldPassword : validation.focusView;

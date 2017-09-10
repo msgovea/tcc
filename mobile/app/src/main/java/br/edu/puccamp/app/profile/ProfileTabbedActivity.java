@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,11 +16,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -49,6 +53,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private ViewPager mViewPager;
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
+    private ImageView mImageView;
 
     private Button mButtonFollow;
 
@@ -76,14 +81,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        mImageView = (ImageView) findViewById(R.id.user_profile_photo);
 
         mTextUserProfileName = (TextView) findViewById(R.id.user_profile_name);
         mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
@@ -125,9 +123,23 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     }
 
     private void populaPerfil(Usuario usuario) {
-        getSupportActionBar().setTitle(usuario.getNome());
+        getSupportActionBar().setTitle(usuario.getApelido());
         mTextUserProfileName.setText(usuario.getNome());
+
+        byte[] byteArray ;
+
+        Bitmap bitmap = null;
+
+        try {
+            byteArray = Base64.decode(usuario.getImagemPerfil().getBytes(), Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            mImageView.setImageBitmap(bitmap);
+        }
+        catch (Exception e) {
+            mImageView.setImageDrawable(getDrawable(R.drawable.ic_account_box_black_24dp));
+        }
         mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+
     }
 
     @Override
