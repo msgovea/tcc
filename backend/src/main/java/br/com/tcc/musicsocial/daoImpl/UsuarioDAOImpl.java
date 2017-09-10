@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
+import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 
 @Repository
@@ -47,4 +48,11 @@ public class UsuarioDAOImpl extends BaseDAOImpl<UsuarioDetalhe> implements Usuar
 		}
 	}
 
+	@Override
+	public Integer consultarQtdSeguidores(Usuario usuario) {
+		String hql = "select count(1) from Amigo a where a.segue.codigoUsuario = :codigo";
+		Query query = getEntityManager().createQuery(hql);
+		query.setParameter("codigo", usuario.getCodigoUsuario());
+		return ((Long) query.getSingleResult()).intValue();
+	}
 }

@@ -93,7 +93,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioDetalhe efetuarLogin(String email, String senha) {
 		UsuarioDetalhe usuario = usuarioDAO.consultarPorEmail(email);
 		if (usuario != null && usuario.getSenha().equals(senha)) {
-			return usuario;
+			return popularQtdSeguidos(usuario);
 		}
 		return null;
 	}
@@ -186,18 +186,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 				usuarioGosto.getPk().setUsuario(usuario);
 			}
 		}
-		return usuarioDAO.update(usuario);
+		return popularQtdSeguidos(usuarioDAO.update(usuario));
 	}
 
 	@Override
 	public UsuarioDetalhe buscarPorId(Integer id) {
-		return usuarioDAO.find(id);
+		return popularQtdSeguidos(usuarioDAO.find(id));
 	}
 
 	@Override
 	public List<UsuarioDetalhe> buscarPorNome(String nome) {
 		String nomeDecodificado = new String(Base64Utils.decodeFromString(nome));
-		return usuarioDAO.consultarPorNome(nomeDecodificado);
+		return populaQtdSeguidos(usuarioDAO.consultarPorNome(nomeDecodificado));
 	}
 	
 	@Override
@@ -220,5 +220,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 				&& amigo.getSeguido() != null && amigo.getSeguido().getCodigoUsuario() != null
 				&& usuarioDAO.find(amigo.getSegue().getCodigoUsuario()) != null
 				&& usuarioDAO.find(amigo.getSeguido().getCodigoUsuario()) != null;
+	}
+	
+	private UsuarioDetalhe popularQtdSeguidos(UsuarioDetalhe usuario) {
+		if (usuario != null) {
+			usuario.setQtdSeguidos(usuarioDAO.consultarQtdSeguidores(usuario));
+		}
+		return usuario;
+	}
+	
+	private List<UsuarioDetalhe> populaQtdSeguidos(List<UsuarioDetalhe> usuarios) {
+		for (UsuarioDetalhe usuario : usuarios) {
+			popularQtdSeguidos(usuario);
+		}
+		return usuarios;
 	}
 }
