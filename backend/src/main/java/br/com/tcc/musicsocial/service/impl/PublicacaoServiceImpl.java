@@ -31,7 +31,7 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
 	@Autowired
 	private CurtidasDAO curtidasDAO;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -40,7 +40,7 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		Integer id = Integer.parseInt(new String(Base64Utils.decodeFromString(idUsuario)));
 		return populaQtdComentarios(publicacaoDAO.getPublicacoes(id));
 	}
-	
+
 	@Override
 	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
 		return populaQtdComentarios(publicacaoDAO.getPublicacoesDeAmigos(idUsuario));
@@ -100,7 +100,9 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	@Override
 	@Transactional
 	public Integer curtir(Curtida curtida) {
-		if (curtida.getUsuario() == null || curtida.getUsuario().getCodigoUsuario() == null || curtida.getCodigoPublicacao() == null || publicacaoDAO.find(curtida.getCodigoPublicacao()) == null || usuarioService.buscarPorId(curtida.getUsuario().getCodigoUsuario()) == null) {
+		if (curtida.getUsuario() == null || curtida.getUsuario().getCodigoUsuario() == null
+				|| curtida.getCodigoPublicacao() == null || publicacaoDAO.find(curtida.getCodigoPublicacao()) == null
+				|| usuarioService.buscarPorId(curtida.getUsuario().getCodigoUsuario()) == null) {
 			return 0;
 		}
 		if (curtidasDAO.findByPk(curtida.getUsuario().getCodigoUsuario(), curtida.getCodigoPublicacao()) == null) {
@@ -111,14 +113,14 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 			return 2;
 		}
 	}
-	
+
 	private Publicacao populaQtdComentarios(Publicacao publicacao) {
 		if (publicacao != null) {
 			publicacao.setQtdComentarios(publicacaoDAO.consultarQtdComentarios(publicacao));
 		}
 		return publicacao;
 	}
-	
+
 	private List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes) {
 		for (Publicacao publicacao : publicacoes) {
 			populaQtdComentarios(publicacao);
@@ -130,5 +132,15 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	public List<Publicacao> getPublicacoesEmAlta() {
 		return populaQtdComentarios(publicacaoDAO.getPublicacoesEmAlta());
 	}
-	
+
+	@Override
+	@Transactional
+	public Boolean removerComentario(Long codigoComentario) {
+		Comentario comentario = comentarioDAO.find(codigoComentario);
+		if (comentario != null) {
+			comentarioDAO.remove(comentario);
+			return true;
+		}
+		return false;
+	}
 }

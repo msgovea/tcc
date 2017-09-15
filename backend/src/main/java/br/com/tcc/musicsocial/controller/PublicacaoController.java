@@ -139,4 +139,19 @@ public class PublicacaoController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
+	
+	@CrossOrigin
+	@RequestMapping("/comentario/remover/{codigoComentario}")
+	public Response<?> removerComentario(@PathVariable Long codigoComentario) {
+		try {
+			if (publicacaoService.removerComentario(codigoComentario)) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
 }

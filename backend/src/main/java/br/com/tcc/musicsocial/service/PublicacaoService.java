@@ -23,4 +23,6 @@ public interface PublicacaoService {
 	List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario);
 
 	List<Publicacao> getPublicacoesEmAlta();
+
+	Boolean removerComentario(Long codigoComentario);
 }
