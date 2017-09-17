@@ -81,7 +81,7 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
             */
         ArrayList<Menu> menu = new ArrayList<>();
         menu.add(new Menu("Excluir", "Sua publicação será definitivamente removida."));
-        menu.add(new Menu("Impulsionar", "Leve seu conteúdo para um maior número de usuários!"));
+        menu.add(new Menu("Impulsionar", "Seu conteúdo para um maior número de usuários!"));
         menu.add(new Menu("Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
 
         mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao);
