@@ -14,11 +14,12 @@ public class UsuarioByte {
         nivelUsuario = u.getNivelUsuario();
         situacaoConta = u.getSituacaoConta();
         gostosMusicais = u.getGostosMusicais();
-        try {
-            imagemPerfil = Base64.decode(u.getImagemPerfil(), Base64.DEFAULT);
-        } catch (Exception e) {
-
-        }
+        //TODO IMAGEM
+//        try {
+//            imagemPerfil = Base64.decode(u.getImagemPerfil(), Base64.DEFAULT);
+//        } catch (Exception e) {
+//
+//        }
         nome = u.getNome();
         apelido = u.getApelido();
         dataNascimento = u.getDataNascimento();
@@ -72,17 +73,17 @@ public class UsuarioByte {
     private SituacaoConta situacaoConta;
 
     private List<GostosMusicai> gostosMusicais;
-
-    private byte[] imagemPerfil = null;
-
-    public void setImagemPerfil (byte[] imagem) {
-        this.imagemPerfil = imagem;
-    }
-
-
-    public byte[] getImagemPerfil () {
-        return this.imagemPerfil;
-    }
+//TODO IMAGEM
+//    private byte[] imagemPerfil = null;
+//
+//    public void setImagemPerfil (byte[] imagem) {
+//        this.imagemPerfil = imagem;
+//    }
+//
+//
+//    public byte[] getImagemPerfil () {
+//        return this.imagemPerfil;
+//    }
 
     public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;

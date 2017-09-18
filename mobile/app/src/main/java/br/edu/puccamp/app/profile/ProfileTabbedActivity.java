@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -149,9 +150,10 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         Bitmap bitmap = null;
 
         try {
-            byteArray = Base64.decode(usuarioPopulaPerfil.getImagemPerfil().getBytes(), Base64.DEFAULT);
-            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            mImageView.setImageBitmap(bitmap);
+            //TODO IMAGEM
+//            byteArray = Base64.decode(usuarioPopulaPerfil.getImagemPerfil().getBytes(), Base64.DEFAULT);
+//            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//            mImageView.setImageBitmap(bitmap);
         } catch (Exception e) {
             mImageView.setImageDrawable(getDrawable(R.drawable.ic_account_box_black_24dp));
         }
@@ -242,14 +244,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            Log.e("position", position + " ");
             switch (position) {
                 case 0:
                     return PublicationProfileFragment.newInstance(idUsuario);
+//                case 1:
+//                    return GostoMusicalProfileFragment.newInstance(idUsuario);
                 case 2:
                     return GostoMusicalProfileFragment.newInstance(idUsuario);
-                default:
-                    return PublicationProfileFragment.newInstance(idUsuario);
             }
+            return new Fragment();
         }
 
         @Override

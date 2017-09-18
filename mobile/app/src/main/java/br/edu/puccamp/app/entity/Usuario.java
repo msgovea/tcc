@@ -51,17 +51,17 @@ public class Usuario {
     private SituacaoConta situacaoConta;
 
     private List<GostosMusicai> gostosMusicais;
-
-    private String imagemPerfil = null;
-
-    public void setImagemPerfil (String imagem) {
-        this.imagemPerfil = imagem;
-    }
-
-
-    public String getImagemPerfil () {
-        return this.imagemPerfil;
-    }
+//TODO IMAGEM
+//    private String imagemPerfil = null;
+//
+//    public void setImagemPerfil (String imagem) {
+//        this.imagemPerfil = imagem;
+//    }
+//
+//
+//    public String getImagemPerfil () {
+//        return this.imagemPerfil;
+//    }
 
     public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;
