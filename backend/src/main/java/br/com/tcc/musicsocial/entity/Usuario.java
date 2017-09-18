@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -48,10 +47,6 @@ public class Usuario {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.usuario")
 	private List<UsuarioGostoMusical> gostosMusicais;
-	
-	@Column(name = "USR_IMG_PERFIL")
-	@Lob
-	private byte[] imagemPerfil;
 
 	public Integer getCodigoUsuario() {
 		return codigoUsuario;
@@ -107,14 +102,6 @@ public class Usuario {
 
 	public void setGostosMusicais(List<UsuarioGostoMusical> gostosMusicais) {
 		this.gostosMusicais = gostosMusicais;
-	}
-
-	public byte[] getImagemPerfil() {
-		return imagemPerfil;
-	}
-
-	public void setImagemPerfil(byte[] imagemPerfil) {
-		this.imagemPerfil = imagemPerfil;
 	}
 
 	@Override
