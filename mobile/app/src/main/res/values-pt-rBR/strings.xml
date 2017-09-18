@@ -136,4 +136,7 @@
     <string name="old_password">Senha Atual</string>
     <string name="comment_input">Escreva um comentário...</string>
 
+    <string name="title_activity_profile_edit">Editar Perfil</string>
+    <string name="title_activity_edit_password">Editar Senha</string>
+
 </resources>
