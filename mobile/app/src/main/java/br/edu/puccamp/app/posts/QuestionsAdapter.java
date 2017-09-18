@@ -126,7 +126,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_vazio));
         for (Usuario u : question.getLikes()) {
-            if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
+            if (u.getCodigoUsuario().equals(usuario.getCodigoUsuario())) {
                 holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_cheio));
             }
         }

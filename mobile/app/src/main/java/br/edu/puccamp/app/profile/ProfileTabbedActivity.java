@@ -139,7 +139,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         if (!myProfile) {
             for (Usuario u :
                     usuarioPopulaPerfil.getSeguidores()) {
-                if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
+                if (u.getCodigoUsuario().equals(usuario.getCodigoUsuario())) {
                     mButtonFollow.setText("UNFOLLOW");
                 }
             }
