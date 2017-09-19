@@ -54,6 +54,7 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		}
 		publicacao.setDataPublicacao(new Date(Calendar.getInstance().getTimeInMillis()));
 		publicacao.setAtiva(true);
+		publicacao.setImpulsionada(false);
 		publicacaoDAO.save(publicacao);
 		return publicacao;
 	}

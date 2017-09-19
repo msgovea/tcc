@@ -1,6 +1,7 @@
 package br.com.tcc.musicsocial.service.impl;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.sql.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,7 +33,7 @@ public class DenunciaServiceImpl implements DenunciaService {
 	public Denuncia denunciarPublicacao(Denuncia denuncia) {
 		if(isDenunciaValida(denuncia)) {
 			denuncia.setStatus(StatusDenuncia.INICIADA.getValue());
-			denuncia.setData(new Date());
+			denuncia.setData(new Date(Calendar.getInstance().getTimeInMillis()));
 			denunciaDAO.save(denuncia);
 			return denuncia;
 		}
