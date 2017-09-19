@@ -315,5 +315,6 @@
     <string name="title_activity_comments">Comentários</string>
     <string name="comment_input">Escreva um comentário...</string>
     <string name="title_activity_teste_storage">TesteActivityStorage</string>
+    <string name="title_activity_search">Search</string>
 
 </resources>
