@@ -21,7 +21,7 @@ public interface API {
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
     String COMMENTS_REGISTER     = "publicacoes/comentar";
     String COMMENTS              = "publicacoes/comentarios/listar?codigoPublicacao=";
-    String REMOVE_COMMENTS       = "publicacoes/comentarios/remover?codigo=";
+    String REMOVE_COMMENTS       = "publicacoes/comentario/remover/";
     String REMOVE_PUBLICATION    = "publicacoes/remover?codigo=";
     String FOLLOW_USER           = "usuario/seguir";
     String LIKE_PUBLICATION      = "publicacoes/curtir";

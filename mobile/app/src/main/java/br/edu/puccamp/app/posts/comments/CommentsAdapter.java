@@ -111,6 +111,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         TextView mText;
         SimpleDraweeView avatar;
         AppCompatImageView removeComment;
+        private int position;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -130,7 +131,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            int position = getAdapterPosition();
+            position = getAdapterPosition();
 
             Intent intent;
 
@@ -138,7 +139,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
                 case R.id.remove_comment:
                     //TODO MGOVEA - MUDAR ORDEM QUANDO API OK
-                    mComments.remove(position);
                     notifyDataSetChanged();
                     AsyncRemoveComments sinc = new AsyncRemoveComments(this);
                     sinc.execute(getItem(position).getCodigo());
@@ -160,12 +160,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
         @Override
         public void onLoaded(Boolean bool) {
+            mComments.remove(position);
             notifyDataSetChanged();
         }
 
         @Override
         public void onLoadedError(String s) {
-
+            Toast.makeText(mContext,
+                    "Erro ao remover comentário!\n" + s,
+                    Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 
