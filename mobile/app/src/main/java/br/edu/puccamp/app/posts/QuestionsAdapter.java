@@ -105,9 +105,10 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         //TODO MGOVEA IMAGEM QUEBRANDO
         try {
-            byteArray = Base64.decode(question.getUsuario().getImagemPerfil().getBytes(), Base64.DEFAULT);
-            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            holder.avatar.setImageBitmap(bitmap);
+            //TODO IMAGEM
+//            byteArray = Base64.decode(question.getUsuario().getImagemPerfil().getBytes(), Base64.DEFAULT);
+//            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//            holder.avatar.setImageBitmap(bitmap);
         }
         catch (Exception e) {
             holder.avatar.setImageDrawable(mContext.getDrawable(R.drawable.ic_account_box_black_24dp));
@@ -125,7 +126,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_vazio));
         for (Usuario u : question.getLikes()) {
-            if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
+            if (u.getCodigoUsuario().equals(usuario.getCodigoUsuario())) {
                 holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_cheio));
             }
         }

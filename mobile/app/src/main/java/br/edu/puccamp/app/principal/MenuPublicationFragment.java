@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.SearchActivity;
 import br.edu.puccamp.app.async.follow.AsyncFollowUser;
 import br.edu.puccamp.app.async.publication.AsyncFriendsPublication;
 import br.edu.puccamp.app.async.publication.AsyncPublication;
@@ -112,13 +114,13 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 //            }
 //        });
 //
-//        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
-//        mIconSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getContext(), TesteLogin.class));
-//            }
-//        });
+        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
+        mIconSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
+            }
+        });
 
         //////// END TODO
     }

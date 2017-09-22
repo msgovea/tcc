@@ -164,7 +164,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 byte[] byteArray = stream.toByteArray();
 
                 UsuarioByte usuarioByte = new UsuarioByte(usuario);
-                usuarioByte.setImagemPerfil(byteArray);
+                //TODO IMAGEM usuarioByte.setImagemPerfil(byteArray);
 
                 AsyncEditProfile sinc = new AsyncEditProfile(this);
                 sinc.execute(usuarioByte);

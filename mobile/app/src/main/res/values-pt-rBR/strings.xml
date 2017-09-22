@@ -112,7 +112,7 @@
     <string name="title_activity_teste_login">TesteLoginActivity</string>
     <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
     <string name="title_activity_gosto_favorito">Agora, selecione o favorito</string>
-    <string name="prompt_publication">O que está em sua mente?</string>
+    <string name="prompt_publication">Qual a sintonia de hoje?</string>
     <string name="error_gosto_musical">Nenhum gosto musical selecionado</string>
     <string name="prompt_post">Publicar</string>
     <string name="skip">Pular</string>
@@ -135,5 +135,8 @@
     <string name="response">comentários</string>
     <string name="old_password">Senha Atual</string>
     <string name="comment_input">Escreva um comentário...</string>
+
+    <string name="title_activity_profile_edit">Editar Perfil</string>
+    <string name="title_activity_edit_password">Editar Senha</string>
 
 </resources>
