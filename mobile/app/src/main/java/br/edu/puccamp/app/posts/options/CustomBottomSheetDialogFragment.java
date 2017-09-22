@@ -80,9 +80,9 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
             QUE APARECEM QUANDO SE CLICA NOS 3 PONTINHOS DA PUBLICAÇÃO
             */
         ArrayList<Menu> menu = new ArrayList<>();
-        menu.add(new Menu("Excluir", "Esta ação removerá completamente sua publicação"));
-        menu.add(new Menu("Impulsionar publicação", "Leve seu conteúdo para mais gente"));
-        menu.add(new Menu("Denunciar publicação", ""));
+        menu.add(new Menu("Excluir", "Sua publicação será definitivamente removida."));
+        menu.add(new Menu("Impulsionar", "Seu conteúdo para um maior número de usuários!"));
+        menu.add(new Menu("Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
 
         mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao);
         mRecyclerView.setAdapter(mAdapter);
