@@ -130,7 +130,7 @@
             android:label="@string/title_activity_teste_storage"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".search.SearchActivity"
             android:label="@string/title_activity_search"
             android:parentActivityName=".principal.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

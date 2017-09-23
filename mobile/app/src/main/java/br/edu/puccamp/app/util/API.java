@@ -7,10 +7,13 @@ package br.edu.puccamp.app.util;
 public interface API {
 
     //API
-    String URL        = "http://192.198.90.26/musicsocial/";
+    String PORTA      = "80";
+    String NOME_APLICACAO = "musicsocial";
+    String URL        = "http://192.198.90.26:" + PORTA + "/"+ NOME_APLICACAO +"/";
 
     String REGISTER              = "usuario/cadastro";
     String BUSCAR_USUARIO        = "usuario/buscar";
+    String BUSCAR_USUARIO_NOME   = "usuario/buscar?nome=";
     String ATUALIZAR_PERFIL      = "usuario/atualizar";
     String LOGIN                 = "usuario/login";
     String RECOVERY              = "usuario/recuperar";

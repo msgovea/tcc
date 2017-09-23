@@ -1,4 +1,4 @@
-package br.edu.puccamp.app;
+package br.edu.puccamp.app.search;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -12,11 +12,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import br.edu.puccamp.app.GostoFavoritoActivity;
+import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.gosto_musical.AsyncMakeGostoMusical;
+import br.edu.puccamp.app.async.search.AsyncSearch;
+import br.edu.puccamp.app.entity.Usuario;
 
 /**
  * A placeholder fragment containing a simple view.
- */
-public class SearchActivityFragment extends Fragment {
+ **/
+public class SearchActivityFragment extends Fragment implements AsyncSearch.Listener{
 
     public SearchActivityFragment() {
     }
@@ -58,7 +67,8 @@ public class SearchActivityFragment extends Fragment {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     Log.i("onQueryTextSubmit", query);
-
+                    AsyncSearch sinc = new AsyncSearch(SearchActivityFragment.this);
+                    sinc.execute(query);
                     return true;
                 }
             };
@@ -78,5 +88,15 @@ public class SearchActivityFragment extends Fragment {
         }
         searchView.setOnQueryTextListener(queryTextListener);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLoaded(ArrayList<Usuario> listaUsuarios) {
+        Toast.makeText(getContext(), listaUsuarios.size() + "", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoadedError(String s) {
+        Toast.makeText(getContext(), "ERRO - FUDEU", Toast.LENGTH_SHORT).show();
     }
 }

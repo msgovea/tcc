@@ -25,10 +25,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.SearchActivity;
-import br.edu.puccamp.app.async.follow.AsyncFollowUser;
+import br.edu.puccamp.app.search.SearchActivity;
 import br.edu.puccamp.app.async.publication.AsyncFriendsPublication;
-import br.edu.puccamp.app.async.publication.AsyncPublication;
 import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
