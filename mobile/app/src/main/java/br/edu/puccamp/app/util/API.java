@@ -8,7 +8,7 @@ public interface API {
 
     //API
     String PORTA      = "80";
-    String NOME_APLICACAO = "musicsocial";
+    String NOME_APLICACAO = "";
     String URL        = "http://192.198.90.26:" + PORTA + "/"+ NOME_APLICACAO +"/";
 
     String REGISTER              = "usuario/cadastro";

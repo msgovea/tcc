@@ -1,9 +1,15 @@
 package br.edu.puccamp.app.search;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.SearchManager;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,12 +26,21 @@ import br.edu.puccamp.app.GostoFavoritoActivity;
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.gosto_musical.AsyncMakeGostoMusical;
 import br.edu.puccamp.app.async.search.AsyncSearch;
+import br.edu.puccamp.app.entity.Comentario;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.posts.comments.CommentsAdapter;
 
 /**
  * A placeholder fragment containing a simple view.
  **/
 public class SearchActivityFragment extends Fragment implements AsyncSearch.Listener{
+
+    private RecyclerView mRecyclerView;
+    public  View mProgressView;
+    private SearchAdapter mAdapter;
+
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
 
     public SearchActivityFragment() {
     }
@@ -36,13 +51,22 @@ public class SearchActivityFragment extends Fragment implements AsyncSearch.List
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
-    private SearchView searchView = null;
-    private SearchView.OnQueryTextListener queryTextListener;
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.list_users);
+        mProgressView = view.findViewById(R.id.user_progress);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
 
     @Override
@@ -69,6 +93,7 @@ public class SearchActivityFragment extends Fragment implements AsyncSearch.List
                     Log.i("onQueryTextSubmit", query);
                     AsyncSearch sinc = new AsyncSearch(SearchActivityFragment.this);
                     sinc.execute(query);
+                    showProgress(true);
                     return true;
                 }
             };
@@ -91,12 +116,57 @@ public class SearchActivityFragment extends Fragment implements AsyncSearch.List
     }
 
     @Override
-    public void onLoaded(ArrayList<Usuario> listaUsuarios) {
-        Toast.makeText(getContext(), listaUsuarios.size() + "", Toast.LENGTH_SHORT).show();
+    public void onLoadedError(String s) {
+        Toast.makeText(getContext(), "Erro", Toast.LENGTH_SHORT).show();
+        //TODO MSG PALOMA
+        Log.e("ERRO GERAL", s);    }
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+                int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView.animate().setDuration(shortAnimTime).alpha(
+                        show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    }
+                });
+
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                mProgressView.animate().setDuration(shortAnimTime).alpha(
+                        show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                    }
+                });
+            } else {
+                // The ViewPropertyAnimator APIs are not available, so simply show
+                // and hide the relevant UI components.
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        }
+        catch (Exception e) {
+            e.getCause();
+        }
     }
 
+    // ***************************************
+    // Metodos de retorno Async
+    // ***************************************
+
     @Override
-    public void onLoadedError(String s) {
-        Toast.makeText(getContext(), "ERRO - FUDEU", Toast.LENGTH_SHORT).show();
+    public void onLoaded(ArrayList<Usuario> listaUsuarios) {
+        mAdapter = new SearchAdapter(getContext(), listaUsuarios);
+        mRecyclerView.setAdapter(mAdapter);
+
+        showProgress(false);
     }
 }
