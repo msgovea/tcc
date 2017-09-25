@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     tools:context="br.edu.puccamp.app.profile.ProfileTabbedActivity$PlaceholderFragment">
 
+    <ProgressBar
+        android:id="@+id/publication_progress_profile"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listPosts"
         android:layout_width="match_parent"

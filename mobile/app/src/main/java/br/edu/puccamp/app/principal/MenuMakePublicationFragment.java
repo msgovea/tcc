@@ -233,17 +233,22 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
     public void onLoadedError(String s) {
         showProgress(false);
         //dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getString(R.string.error));
-        builder.setMessage(getString(R.string.error));
-        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //b.finish();
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(getString(R.string.error));
+            builder.setMessage(getString(R.string.error));
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //b.finish();
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
+        }
     }
 
     @Override

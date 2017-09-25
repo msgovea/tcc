@@ -191,37 +191,43 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
     public void onLoaded(Object o) {
         dismissProgressDialog();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        if (o.getClass() == Usuario.class) {
-
-            builder.setTitle(getString(R.string.success));
-            builder.setMessage(getString(R.string.update_profile_success));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    finish();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
-
-            atualizaUsuario((Usuario)o);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 
+            if (o.getClass() == Usuario.class) {
 
-        } else {
-            builder.setTitle(getString(R.string.error));
-            builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
+                builder.setTitle(getString(R.string.success));
+                builder.setMessage(getString(R.string.update_profile_success));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
+
+                atualizaUsuario((Usuario) o);
+
+
+            } else {
+                builder.setTitle(getString(R.string.error));
+                builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
         }
 
     }

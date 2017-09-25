@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -36,6 +37,8 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
     private int mColor;
 
     public  View mProgressView;
+    public LinearLayout mLayout;
+
     private InteractiveArrayAdapterList mAdapter;
     private Long idUsuario;
     private RecyclerView listView;
@@ -75,7 +78,9 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
         listView = (RecyclerView) view.findViewById(R.id.listPosts2);
         listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        mProgressView = (View) view.findViewById(R.id.publication_progress);
+        mProgressView = (View) view.findViewById(R.id.progress_gosto_musical);
+        mLayout = (LinearLayout) view.findViewById(R.id.gostos_musicais);
+
         mGostoFavorito = (TextView) view.findViewById(R.id.text_gosto_favorito);
 
         loadPublication();
@@ -90,7 +95,7 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
     }
 
     private void loadPublication() {
-        showProgress(false);
+        showProgress(true);
         //getContext().showLoadingProgressDialog();
         Gson gson = new Gson();
         AsyncProfile sinc = new AsyncProfile(this);
@@ -106,8 +111,8 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-                listView.setVisibility(show ? View.GONE : View.VISIBLE);
-                listView.animate().setDuration(shortAnimTime).alpha(
+                mLayout.setVisibility(show ? View.GONE : View.VISIBLE);
+                mLayout.animate().setDuration(shortAnimTime).alpha(
                         show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -127,7 +132,7 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
                 // The ViewPropertyAnimator APIs are not available, so simply show
                 // and hide the relevant UI components.
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                listView.setVisibility(show ? View.GONE : View.VISIBLE);
+                mLayout.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         }
         catch (Exception e) {
@@ -156,8 +161,10 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
             }
 
             listView.setAdapter(mAdapter = new InteractiveArrayAdapterList(getActivity(), lista));
+            showProgress(false);
         }catch (Exception e) {
             e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
         }
 
     }

@@ -235,6 +235,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
             builder.show();
         } catch (Exception e) {
             e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
         }
 
     }

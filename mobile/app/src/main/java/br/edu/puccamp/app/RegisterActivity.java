@@ -204,30 +204,36 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     @Override
     public void onLoaded(String string) {
         dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (string == "true") {
-            builder.setTitle(getString(R.string.success_register_account));
-            builder.setMessage(getString(R.string.register_confirm_account));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            builder.setCancelable(false);
 
-        } else {
-            builder.setTitle(getString(R.string.error_register_account));
-            builder.setMessage(getString(R.string.error_invalid_account));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            if (string == "true") {
+                builder.setTitle(getString(R.string.success_register_account));
+                builder.setMessage(getString(R.string.register_confirm_account));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                builder.setCancelable(false);
+
+            } else {
+                builder.setTitle(getString(R.string.error_register_account));
+                builder.setMessage(getString(R.string.error_invalid_account));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+            }
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
         }
-        builder.show();
     }
 
 
