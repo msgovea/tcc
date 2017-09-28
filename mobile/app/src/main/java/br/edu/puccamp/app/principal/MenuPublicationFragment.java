@@ -3,6 +3,10 @@ package br.edu.puccamp.app.principal;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,7 +52,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 
     private View mContent;
     public static RecyclerView mRecyclerView;
-    public  View mProgressView;
+    public View mProgressView;
     private QuestionsAdapter mAdapter;
     private SharedPreferences prefs;
     private ListView listView;
@@ -96,22 +101,45 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 
         loadPublication();
 
-        if(mText != null) Snackbar.make(view, R.string.publication_success , Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+        if (mText != null) Snackbar.make(view, R.string.publication_success, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
 
         //////// TODO MGOVEA1
 
-//        mIcon = (AppCompatImageView) view.findViewById(R.id.iconAlarm);
-//        mIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-//                prefs.edit().clear().apply();
-//                startActivity(new Intent(getContext(), TesteLogin.class));
-//                getActivity().finish();
-//            }
-//        });
-//
+        mIcon = (AppCompatImageView) view.findViewById(R.id.iconAlarm);
+        mIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(getActivity())
+                                .setSmallIcon(R.drawable.logo)
+                                .setContentTitle("My notification")
+                                .setContentText("Hello World!");
+                // Creates an explicit intent for an Activity in your app
+                Intent resultIntent = new Intent(getActivity(), SearchActivity.class);
+
+                // The stack builder object will contain an artificial back stack for the
+                // started Activity.
+                // This ensures that navigating backward from the Activity leads out of
+                // your application to the Home screen.
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
+                // Adds the back stack for the Intent (but not the Intent itself)
+                stackBuilder.addParentStack(SearchActivity.class);
+                // Adds the Intent that starts the Activity to the top of the stack
+                stackBuilder.addNextIntent(resultIntent);
+                PendingIntent resultPendingIntent =
+                        stackBuilder.getPendingIntent(
+                                0,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        );
+                mBuilder.setContentIntent(resultPendingIntent);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                // mId allows you to update the notification later on.
+                mNotificationManager.notify(123, mBuilder.build());
+            }
+        });
+
         mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
         mIconSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,8 +199,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getCause();
         }
     }
@@ -184,12 +211,12 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
         mAdapter = new QuestionsAdapter(getContext(), lista);
-            mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    //int pos = listView.getPositionForView(view);
+            @Override
+            public void onItemClick(View view, int position) {
+                //int pos = listView.getPositionForView(view);
 //                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
 //
 //                    switch(view.getId())
@@ -204,16 +231,16 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 //                            onItemClicado(position);
 //                            break;
 //                    }
-                }
-            }));
+            }
+        }));
 
-            showProgress(false);
+        showProgress(false);
 //        }
         //dismissProgressDialog();
     }
 
-    private void onItemClicado(int position){
-        Toast.makeText(getContext(),"Cliquei no item "+mAdapter.getItem(position).getConteudo(),Toast.LENGTH_SHORT).show();
+    private void onItemClicado(int position) {
+        Toast.makeText(getContext(), "Cliquei no item " + mAdapter.getItem(position).getConteudo(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
