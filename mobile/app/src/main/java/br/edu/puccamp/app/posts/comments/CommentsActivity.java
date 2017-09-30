@@ -52,7 +52,6 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         idPublicacao = getIntent().getLongExtra("idPublicacao", 0);
-        Toast.makeText(this, String.valueOf(idPublicacao), Toast.LENGTH_SHORT).show();
 
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView = (RecyclerView) findViewById(R.id.list_comments);

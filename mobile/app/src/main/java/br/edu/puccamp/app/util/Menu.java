@@ -11,7 +11,8 @@ public class Menu {
     private String optionSubTitle;
 
 
-    public Menu(String option_title, String option_sub_title) {
+    public Menu(int id, String option_title, String option_sub_title) {
+        this.id = id;
         this.optionTitle = option_title;
         this.optionSubTitle = option_sub_title;
     }

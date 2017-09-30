@@ -12,12 +12,18 @@
         android:layout_height="10dp"
         android:background="#E4E6E3" />
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/avatar_usuario"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_below="@id/dividerTop"
-        android:layout_margin="16dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:roundAsCircle="true"
+        fresco:roundWithOverlayColor="@android:color/white" />
 
     <TextView
         android:id="@+id/user_name_usuario"

@@ -57,12 +57,12 @@ public class UsuarioByte {
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 
-    public UsuarioByte(String nome, Integer codigoUsuario) {
+    public UsuarioByte(String nome, Long codigoUsuario) {
         this.nome = nome;
         this.codigoUsuario = codigoUsuario;
     }
 
-    private Integer codigoUsuario;
+    private Long codigoUsuario;
 
     private String email;
 
@@ -93,11 +93,11 @@ public class UsuarioByte {
         this.gostosMusicais = gostosMusicais;
     }
 
-    public Integer getCodigoUsuario() {
+    public Long getCodigoUsuario() {
         return codigoUsuario;
     }
 
-    public void setCodigoUsuario(Integer codigoUsuario) {
+    public void setCodigoUsuario(Long codigoUsuario) {
         this.codigoUsuario = codigoUsuario;
     }
 

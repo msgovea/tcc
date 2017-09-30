@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -103,20 +104,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         Bitmap bitmap = null;
 
-        //TODO MGOVEA IMAGEM QUEBRANDO
+        //TODO IMAGEM OFICIAL
         try {
-            //TODO IMAGEM
-//            byteArray = Base64.decode(question.getUsuario().getImagemPerfil().getBytes(), Base64.DEFAULT);
-//            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//            holder.avatar.setImageBitmap(bitmap);
+            holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
         }
         catch (Exception e) {
             holder.avatar.setImageDrawable(mContext.getDrawable(R.drawable.ic_account_box_black_24dp));
         }
-
-
-        //holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
-        //holder.avatar.setImageBitmap(bitmap);
         holder.textAuthorName.setText(question.getUsuario().getNome());
         holder.textJobTitle.setText(question.getUsuario().getCidade() + " - " + question.getUsuario().getEstado());
         holder.textDate.setText(trataData(question.getDataPublicacao()));
@@ -191,7 +185,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         TextView textQuestion;
         TextView textLikesCount;
         TextView textChatCount;
-        ImageView avatar;
+        SimpleDraweeView avatar;
         private final AppCompatImageView appCompatImageView;
         AppCompatImageView imgFollow;
 
@@ -204,7 +198,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             textQuestion = (TextView) itemView.findViewById(R.id.text_publication);
             textLikesCount = (TextView) itemView.findViewById(R.id.text_likes_count);
             textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
-            avatar = (ImageView) itemView.findViewById(R.id.avatar_publication);
+            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
 
             appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
             imgFollow = (AppCompatImageView) itemView.findViewById(R.id.view_likes);
@@ -246,6 +240,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
                     Bundle args = new Bundle();
                     args.putLong(API.PUBLICACAO, getItem(position).getCodigo());
+                    args.putLong(API.USUARIO, getItem(position).getUsuario().getCodigoUsuario());
                     bottomSheetDialogFragment = new CustomBottomSheetDialogFragment();
                     bottomSheetDialogFragment.setArguments(args);
                     bottomSheetDialogFragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), bottomSheetDialogFragment.getTag());

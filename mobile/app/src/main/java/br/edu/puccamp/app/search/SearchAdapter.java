@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -105,11 +106,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         //TODO MGOVEA IMAGEM QUEBRANDO
         try {
-            //TODO IMAGEM
-//            byteArray = Base64.decode(question.getUsuario().getImagemPerfil().getBytes(), Base64.DEFAULT);
-//            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//            holder.avatar.setImageBitmap(bitmap);
-        } catch (Exception e) {
+            holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+        }
+        catch (Exception e) {
             holder.avatar.setImageDrawable(mContext.getDrawable(R.drawable.ic_account_box_black_24dp));
         }
 
@@ -144,7 +143,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         TextView textAuthorName;
         TextView textJobTitle;
-        ImageView avatar;
+        SimpleDraweeView avatar;
         RelativeLayout all;
 
         public ViewHolder(View itemView) {
@@ -152,7 +151,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
             textAuthorName = (TextView) itemView.findViewById(R.id.user_name_usuario);
             textJobTitle = (TextView) itemView.findViewById(R.id.location_usuario);
-            avatar = (ImageView) itemView.findViewById(R.id.avatar_usuario);
+            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_usuario);
             all = (RelativeLayout) itemView.findViewById(R.id.usuario);
 
             all.setOnClickListener(this);

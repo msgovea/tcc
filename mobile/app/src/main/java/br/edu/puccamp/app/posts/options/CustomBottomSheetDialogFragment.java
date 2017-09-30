@@ -10,6 +10,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.Menu;
+import br.edu.puccamp.app.util.Preferencias;
 
 /**
  * Created by Nikola D. on 2/25/2016.
@@ -69,8 +71,12 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         }
 
         Long idPublicacao = getArguments().getLong(API.PUBLICACAO);
+        Long idUsuario = getArguments().getLong(API.USUARIO);
 
-        //
+        Log.i("IDUSUARIO", idUsuario + "");
+        Preferencias pref = new Preferencias(getContext());
+        Log.i("IDMEUUSUARIO", pref.getDadosUsuario().getCodigoUsuario() + "");
+
         mRecyclerView = (RecyclerView) contentView.findViewById(R.id.recyclerview_options);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -79,10 +85,17 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         * TEXTOS COM DESCRIÇÃO E SUBDESCRIÇÃO DOS MENUS
             QUE APARECEM QUANDO SE CLICA NOS 3 PONTINHOS DA PUBLICAÇÃO
             */
+
         ArrayList<Menu> menu = new ArrayList<>();
-        menu.add(new Menu("Excluir", "Sua publicação será definitivamente removida."));
-        menu.add(new Menu("Impulsionar", "Seu conteúdo para um maior número de usuários!"));
-        menu.add(new Menu("Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
+
+        //Preferencias pref = new Preferencias(getContext());
+
+        if (pref.getDadosUsuario().getCodigoUsuario().equals(idUsuario)) {
+            menu.add(new Menu(1, "Excluir", "Sua publicação será definitivamente removida."));
+            menu.add(new Menu(2, "Impulsionar", "Seu conteúdo para um maior número de usuários!"));
+        } else {
+            menu.add(new Menu(3, "Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
+        }
 
         mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao);
         mRecyclerView.setAdapter(mAdapter);

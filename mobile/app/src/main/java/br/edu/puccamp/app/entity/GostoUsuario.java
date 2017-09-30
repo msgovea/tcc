@@ -7,26 +7,26 @@ import java.util.ArrayList;
  */
 
 public class GostoUsuario {
-    Integer codigoUsuario;
+    Long codigoUsuario;
     ArrayList<Integer> codigosGostosMusicais;
     Integer favorito;
 
     public GostoUsuario() {
     }
 
-    public GostoUsuario(Integer codigoUsuario, ArrayList<Integer> codigosGostosMusicais, Integer favorito) {
+    public GostoUsuario(Long codigoUsuario, ArrayList<Integer> codigosGostosMusicais, Integer favorito) {
 
         this.codigoUsuario = codigoUsuario;
         this.codigosGostosMusicais = codigosGostosMusicais;
         this.favorito = favorito;
     }
 
-    public Integer getCodigoUsuario() {
+    public Long getCodigoUsuario() {
 
         return codigoUsuario;
     }
 
-    public void setCodigoUsuario(Integer codigoUsuario) {
+    public void setCodigoUsuario(Long codigoUsuario) {
         this.codigoUsuario = codigoUsuario;
     }
 

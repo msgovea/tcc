@@ -73,7 +73,21 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Menu menu = mMenus.get(position);
 
-        holder.mIconOption.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+        switch (mMenus.get(position).getId()) {
+            case 1:
+                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_remove_publication));
+                break;
+            case 2:
+                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_impulsionar));
+                break;
+            case 3:
+                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_report));
+                break;
+            default:
+                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_report));
+
+        }
+        //holder.mIconOption.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
         holder.mNameOption.setText(menu.getOptionTitle());
         holder.mSubNameOption.setText(menu.getOptionSubTitle());
     }
@@ -137,14 +151,17 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
             switch (position) {
                 case 0:
-                    //TODO MGOVEA - VALIDAR PARA EXCLUIR SO MINHAS PUBLICACOES
-                    loading(true);
-                    AsyncRemovePublication sinc = new AsyncRemovePublication(this);
-                    sinc.execute(mIdPublicacao);
+                    if (mMenus.get(position).getId() == 1) {
+                        //TODO MGOVEA - VALIDAR PARA EXCLUIR SO MINHAS PUBLICACOES
+                        loading(true);
+                        AsyncRemovePublication sinc = new AsyncRemovePublication(this);
+                        sinc.execute(mIdPublicacao);
+                    } else {
+                        //DENUNCIAR
+                    }
                     break;
                 case 1:
-                    break;
-                case 2:
+                    //IMPULSIONAR
                     break;
             }
             //view.startAnimation(buttonClick);

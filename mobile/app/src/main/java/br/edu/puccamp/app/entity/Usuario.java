@@ -15,7 +15,7 @@ public class Usuario {
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 
-    public Usuario(String nome, Integer codigoUsuario) {
+    public Usuario(String nome, Long codigoUsuario) {
         this.nome = nome;
         this.codigoUsuario = codigoUsuario;
     }
@@ -40,7 +40,7 @@ public class Usuario {
 
     private Long qtdSeguidos;
 
-    private Integer codigoUsuario;
+    private Long codigoUsuario;
 
     private String email;
 
@@ -71,11 +71,11 @@ public class Usuario {
         this.gostosMusicais = gostosMusicais;
     }
 
-    public Integer getCodigoUsuario() {
+    public Long getCodigoUsuario() {
         return codigoUsuario;
     }
 
-    public void setCodigoUsuario(Integer codigoUsuario) {
+    public void setCodigoUsuario(Long codigoUsuario) {
         this.codigoUsuario = codigoUsuario;
     }
 

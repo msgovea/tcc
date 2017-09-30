@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
@@ -60,7 +61,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private ViewPager mViewPager;
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
-    private ImageView mImageView;
+    private SimpleDraweeView mImageView;
     private TextView mQtdSeguidores;
     private TextView mQtdSeguidos;
 
@@ -90,7 +91,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        mImageView = (ImageView) findViewById(R.id.user_profile_photo);
+        mImageView = (SimpleDraweeView) findViewById(R.id.user_profile_photo);
         mQtdSeguidores = (TextView) findViewById(R.id.qtd_followers);
         mQtdSeguidos = (TextView) findViewById(R.id.qtd_follows);
 
@@ -154,13 +155,12 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         Bitmap bitmap = null;
 
         try {
-            //TODO IMAGEM
-//            byteArray = Base64.decode(usuarioPopulaPerfil.getImagemPerfil().getBytes(), Base64.DEFAULT);
-//            bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//            mImageView.setImageBitmap(bitmap);
-        } catch (Exception e) {
+            mImageView.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+        }
+        catch (Exception e) {
             mImageView.setImageDrawable(getDrawable(R.drawable.ic_account_box_black_24dp));
         }
+
         mTextUserBio.setText(usuarioPopulaPerfil.getCidade() + " - " + usuarioPopulaPerfil.getEstado());
 
     }

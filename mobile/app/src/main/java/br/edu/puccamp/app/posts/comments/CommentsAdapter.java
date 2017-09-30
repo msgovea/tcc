@@ -205,15 +205,23 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         public void onLoaded(Boolean bool) {
             mComments.remove(position);
             notifyDataSetChanged();
+            //TODO PALOMA TEXTO
+            Toast.makeText(mContext,
+                    "Comentário removido com sucesso!",
+                    Toast.LENGTH_LONG)
+                    .show();
+            //FIM TODO PALOMA
             loading(false);
         }
 
         @Override
         public void onLoadedError(String s) {
+            //TODO PALOMA TEXTO
             Toast.makeText(mContext,
                     "Erro ao remover comentário!\n" + s,
                     Toast.LENGTH_SHORT)
                     .show();
+            //FIM TODO PALOMA TEXTO
             loading(false);
         }
     }
