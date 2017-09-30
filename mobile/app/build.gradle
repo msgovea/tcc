@@ -1,14 +1,20 @@
 apply plugin: 'com.android.application'
 
+def versionMajor = 1
+def versionMinor = 4
+def versionPatch = 2
+def versionBuild = 0
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
         applicationId "br.edu.puccamp.app"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 1
-        versionName "0.4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

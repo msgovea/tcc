@@ -133,12 +133,14 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 (dpBirthday.getMonth() + 1) + "-" +
                 dpBirthday.getDayOfMonth());
 
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 1);
 
+        //TODO ATT IMAGEM
+//        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(intent, 1);
         showLoadingProgressDialog();
 
-
+        AsyncEditProfile sinc = new AsyncEditProfile(this);
+        sinc.execute(usuario);
     }
 
     @Override
@@ -163,11 +165,8 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 //Cria um array de bytes da imagem
                 byte[] byteArray = stream.toByteArray();
 
-                UsuarioByte usuarioByte = new UsuarioByte(usuario);
-                //TODO IMAGEM usuarioByte.setImagemPerfil(byteArray);
-
                 AsyncEditProfile sinc = new AsyncEditProfile(this);
-                sinc.execute(usuarioByte);
+                sinc.execute(usuario);
 
 //                Log.d("img", byteArray.toString());
 //                Log.d("img", byteArray.length + "");

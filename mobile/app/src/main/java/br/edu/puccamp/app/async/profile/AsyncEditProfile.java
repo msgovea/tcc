@@ -23,7 +23,7 @@ import br.edu.puccamp.app.entity.UsuarioByte;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncEditProfile extends AsyncTask<UsuarioByte, String, String> {
+public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
 
     public interface Listener {
         void onLoaded(Object o);
@@ -37,9 +37,9 @@ public class AsyncEditProfile extends AsyncTask<UsuarioByte, String, String> {
 
     }
     @Override
-    protected String doInBackground(UsuarioByte... n) {
+    protected String doInBackground(Usuario... n) {
 
-        UsuarioByte usuario = n[0];
+        Usuario usuario = n[0];
         HttpURLConnection urlConnection;
 
         try {

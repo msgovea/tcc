@@ -122,7 +122,7 @@ public class EditPasswordActivity extends AbstractAsyncActivity implements Async
                 usuario.setSenha(Hash.MD5(etNewPassword.getText().toString()));
 
                 AsyncEditProfile sinc = new AsyncEditProfile(this);
-                sinc.execute(new UsuarioByte(usuario));
+                sinc.execute(usuario);
             } else {
                 etOldPassword.setError(getString(R.string.error_old_password_invalid));
                 validation.focusView = (validation.focusView == null) ? etOldPassword : validation.focusView;
