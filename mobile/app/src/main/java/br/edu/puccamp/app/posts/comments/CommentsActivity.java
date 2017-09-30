@@ -31,7 +31,7 @@ import br.edu.puccamp.app.util.AbstractAsyncActivity;
 public class CommentsActivity extends AbstractAsyncActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 
     private RecyclerView mRecyclerView;
-    public  View mProgressView;
+    public View mProgressView;
     private CommentsAdapter mAdapter;
 
     private Long idPublicacao;
@@ -77,7 +77,7 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         loadComments();
     }
 
-    private void enviarComentario(){
+    private void enviarComentario() {
         mEnviarComentario = (ImageButton) findViewById(R.id.button_send);
         mComentario = (EditText) findViewById(R.id.edittext_input_comment);
 
@@ -98,7 +98,7 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
 
                         AsyncMakeComment sinc = new AsyncMakeComment(CommentsActivity.this);
                         sinc.execute(comentario);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -145,8 +145,7 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getCause();
         }
     }
@@ -171,7 +170,7 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            builder.setTitle(getString(R.string.error));
+            builder.setTitle(getString(R.string.error_title));
             builder.setMessage(getString(R.string.error));
             builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                 @Override
@@ -188,16 +187,22 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
     }
 
     @Override
-    public void onLoadedComment(Boolean bool) {
+    public void onLoadedComment(Long idComentario) {
+        try {
+            comentario.setCodigo(idComentario);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO
+        }
+        mAdapter.addComment(comentario);
+        mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
+
         mEnviarComentario.setEnabled(true);
         mComentario.setEnabled(true);
         mComentario.setText(null);
 
-        mAdapter.addComment(comentario);
-        mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
-        //mRecyclerView.getAdapter().notifyDataSetChanged();
-
-        //Toast.makeText(getApplicationContext(), "SUCESSO", Toast.LENGTH_SHORT).show();
+        //TODO PALOMA TEXTO
+        Toast.makeText(getApplicationContext(), "Comentário publicado com sucesso!", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -27,7 +27,7 @@ public class AsyncMakeComment extends AsyncTask<Comentario, String, String> {
 
     public interface Listener {
         void onLoadedError(String s);
-        void onLoadedComment(Boolean bool);
+        void onLoadedComment(Long idComentario);
 
     }
 
@@ -88,12 +88,13 @@ public class AsyncMakeComment extends AsyncTask<Comentario, String, String> {
     protected void onPostExecute(String result) {
         try {
             Gson publicacaoGson = new Gson();
-            Response<Object> response = publicacaoGson.fromJson(result, Response.class);
+            Response response = publicacaoGson.fromJson(result, Response.class);
 
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
                if (mListener != null) {
-                   mListener.onLoadedComment(true);
+                   //por algum motivo divino o json vem como double, por isso a conversao para long
+                   mListener.onLoadedComment(((Double)response.getObject()).longValue());
                }
 
            } else {
@@ -108,8 +109,5 @@ public class AsyncMakeComment extends AsyncTask<Comentario, String, String> {
                 mListener.onLoadedError(e.toString());
             }
         }
-
-
     }
-
 }
