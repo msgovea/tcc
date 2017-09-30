@@ -26,8 +26,9 @@ import br.edu.puccamp.app.async.comments.AsyncMakeComment;
 import br.edu.puccamp.app.entity.Comentario;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
-public class CommentsActivity extends AppCompatActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
+public class CommentsActivity extends AbstractAsyncActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 
     private RecyclerView mRecyclerView;
     public  View mProgressView;

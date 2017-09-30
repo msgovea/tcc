@@ -1,6 +1,9 @@
 package br.edu.puccamp.app.posts.comments;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
@@ -26,11 +29,14 @@ import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.Preferencias;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
     private List<Comentario> mComments;
     private Context mContext;
+    private ProgressDialog progressDialog;
+
 
     @Nullable
     private OnItemClickListener listener;
@@ -59,13 +65,27 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
     public void addComment(Comentario comentario) {
-        this.mComments.add(comentario);
+        this.mComments.add(mComments.size(), comentario);
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Comentario question = mComments.get(position);
+
+        boolean myComment = false;
+        try {
+            Preferencias pref = new Preferencias(mContext);
+            Long idComentario = Long.valueOf(question.getUsuario().getCodigoUsuario());
+            Long idUsuario = Long.valueOf(pref.getDadosUsuario().getCodigoUsuario());
+            myComment = idComentario.equals(idUsuario);
+        } catch (Exception e){
+            e.printStackTrace();
+            myComment = false;
+            // TODO ERRO NAO TRATADO
+        } finally {
+            holder.removeComment.setVisibility(myComment ? View.VISIBLE : View.INVISIBLE);
+        }
 
         holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
         holder.mName.setText(question.getUsuario().getNome());
@@ -105,6 +125,26 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         Log.e("ERROR EXCLUSÃO", "ERRO");
     }
 
+    public void loading(boolean load) {
+        try {
+            if (progressDialog == null) {
+                progressDialog = new ProgressDialog(mContext);
+                progressDialog.setIndeterminate(true);
+            }
+
+            if (load) {
+                progressDialog.setMessage(mContext.getString(R.string.loading));
+                progressDialog.show();
+            } else {
+                progressDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
+        }
+    }
+
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncRemoveComments.Listener {
 
         TextView mName;
@@ -133,13 +173,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         public void onClick(View view) {
             position = getAdapterPosition();
 
+            Log.e("POSICAO", position + "");
+
             Intent intent;
 
-            switch (view.getId()){
+            switch (view.getId()) {
 
                 case R.id.remove_comment:
                     //TODO MGOVEA - MUDAR ORDEM QUANDO API OK
-                    notifyDataSetChanged();
+                    //notifyDataSetChanged();
+                    loading(true);
                     AsyncRemoveComments sinc = new AsyncRemoveComments(this);
                     sinc.execute(getItem(position).getCodigo());
                     break;
@@ -154,7 +197,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                     view.getContext().startActivity(intent);
                     break;
                 default:
-                    Log.e("mgoveaaa error", view.getId()+"");
+                    Log.e("mgoveaaa error", view.getId() + "");
             }
         }
 
@@ -162,6 +205,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         public void onLoaded(Boolean bool) {
             mComments.remove(position);
             notifyDataSetChanged();
+            loading(false);
         }
 
         @Override
@@ -170,6 +214,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                     "Erro ao remover comentário!\n" + s,
                     Toast.LENGTH_SHORT)
                     .show();
+            loading(false);
         }
     }
 
