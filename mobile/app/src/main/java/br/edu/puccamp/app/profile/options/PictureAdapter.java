@@ -1,9 +1,13 @@
-package br.edu.puccamp.app.posts.options;
+package br.edu.puccamp.app.profile.options;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -11,20 +15,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import br.edu.puccamp.app.R;
+import br.edu.puccamp.app.async.profile.AsyncEditProfile;
+import br.edu.puccamp.app.async.profile.AsyncUploadImage;
 import br.edu.puccamp.app.async.publication.AsyncRemovePublication;
-import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.posts.QuestionsAdapter;
 import br.edu.puccamp.app.principal.MenuPublicationFragment;
@@ -32,11 +34,9 @@ import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 import br.edu.puccamp.app.profile.PublicationProfileFragment;
 import br.edu.puccamp.app.util.Menu;
 
-import static java.security.AccessController.getContext;
+public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
 
-public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHolder> {
-
-    private Long mIdPublicacao;
+    private Long idUsuario;
     private List<Menu> mMenus;
     private Context mContext;
     private ProgressDialog progressDialog;
@@ -49,10 +49,10 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         void onClick(Question question, int position);
     }
 
-    public OptionsAdapter(Context context, List<Menu> questions, Long id) {
+    public PictureAdapter(Context context, List<Menu> menus, Long id) {
         mContext = context;
-        mMenus = questions;
-        mIdPublicacao = id;
+        mMenus = menus;
+        idUsuario = id;
     }
 
     @Override
@@ -68,26 +68,21 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         this.mMenus = menus;
     }
 
-
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Menu menu = mMenus.get(position);
 
         switch (mMenus.get(position).getId()) {
             case 1:
-                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_delete));
+                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_view));
                 break;
             case 2:
-                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_impulsionar));
-                break;
-            case 3:
-                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_report));
+                holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_edit));
                 break;
             default:
                 holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_report));
 
         }
-        //holder.mIconOption.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
         holder.mNameOption.setText(menu.getOptionTitle());
         holder.mSubNameOption.setText(menu.getOptionSubTitle());
     }
@@ -125,7 +120,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncRemovePublication.Listener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView mNameOption;
         TextView mSubNameOption;
@@ -149,55 +144,16 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
             switch (position) {
                 case 0:
-                    if (mMenus.get(position).getId() == 1) {
-                        loading(true);
-                        AsyncRemovePublication sinc = new AsyncRemovePublication(this);
-                        sinc.execute(mIdPublicacao);
-                    } else {
-                        //DENUNCIAR
-                    }
+                    //TODO VIEW IMAGE
                     break;
                 case 1:
-                    //IMPULSIONAR
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    ((ProfileTabbedActivity)mContext).startActivityForResult(intent, 1);
                     break;
             }
-            //view.startAnimation(buttonClick);
             Log.e("FUNCIONO", "CLICOU NA OPÇÃO: " + position);
         }
 
-        @Override
-        public void onLoaded(Boolean bool) {
-            try {
-                ((QuestionsAdapter) MenuPublicationFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
-            } catch (Exception e) {}
-            try {
-                ((QuestionsAdapter) PublicationProfileFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
-            } catch (Exception e) {}
-
-            loading(false);
-        }
-
-        @Override
-        public void onLoadedError(String s) {
-            try {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle(mContext.getString(R.string.error));
-                builder.setMessage(mContext.getString(R.string.error));
-                builder.setPositiveButton(mContext.getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //b.finish();
-                    }
-                });
-                builder.setCancelable(false);
-                loading(false);
-                builder.show();
-            } catch (Exception e) {
-                loading(false);
-                e.printStackTrace();
-                //TODO MSG ERRO APP QUEBRADO
-            }
-        }
     }
 
 

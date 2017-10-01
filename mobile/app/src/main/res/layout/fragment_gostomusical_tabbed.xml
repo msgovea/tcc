@@ -33,7 +33,7 @@
             android:id="@+id/gosto_favorito"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:src="@drawable/ic_password_visibility"
+            android:src="@drawable/ic_favorito"
             android:layout_alignTop="@+id/text_gosto_favorito"
             android:layout_alignBottom="@+id/text_gosto_favorito"
             android:layout_alignParentEnd="true"

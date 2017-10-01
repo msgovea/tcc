@@ -134,56 +134,10 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 dpBirthday.getDayOfMonth());
 
 
-        //TODO ATT IMAGEM
-//        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(intent, 1);
         showLoadingProgressDialog();
 
         AsyncEditProfile sinc = new AsyncEditProfile(this);
         sinc.execute(usuario);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Log.d("img", "Imagem selecionada");
-        //Testar processo de retorno dos dados
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-
-            //recuperar local do recurso
-            Uri localImagemSelecionada = data.getData();
-
-            //recupera a imagem do local que foi selecionada
-            try {
-                Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
-
-                //comprimir no formato PNG
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imagem.compress(Bitmap.CompressFormat.WEBP, 0, stream);
-
-                //Cria um array de bytes da imagem
-                byte[] byteArray = stream.toByteArray();
-
-                AsyncEditProfile sinc = new AsyncEditProfile(this);
-                sinc.execute(usuario);
-
-//                Log.d("img", byteArray.toString());
-//                Log.d("img", byteArray.length + "");
-//
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//
-//                ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-//                imageView.setImageBitmap(bitmap);
-//
-//                Gson gson = new Gson();
-//                String json = gson.toJson(byteArray);
-//                Log.d("img", json);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override

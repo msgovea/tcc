@@ -8,9 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 
@@ -35,15 +39,22 @@ import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
+
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.follow.AsyncFollowUser;
+import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.async.profile.AsyncProfile;
+import br.edu.puccamp.app.async.profile.AsyncUploadImage;
 import br.edu.puccamp.app.entity.Amigo;
+import br.edu.puccamp.app.entity.ImagemUsuario;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
+import br.edu.puccamp.app.profile.options.PictureBottomSheetDialogFragment;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
-public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener {
+public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener, AsyncUploadImage.Listener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -66,6 +77,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private TextView mQtdSeguidos;
 
     private Button mButtonFollow;
+
+    private BottomSheetDialogFragment bottomSheetDialogFragment;
 
     private Usuario usuario;
     private boolean myProfile;
@@ -129,6 +142,21 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                 amigo.setSeguido(usuarioLoad);
                 AsyncFollowUser sinc = new AsyncFollowUser(ProfileTabbedActivity.this);
                 sinc.execute(amigo);
+            }
+        });
+
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myProfile) {
+                    Bundle args = new Bundle();
+                    args.putLong(API.USUARIO, idUsuario);
+                    bottomSheetDialogFragment = new PictureBottomSheetDialogFragment();
+                    bottomSheetDialogFragment.setArguments(args);
+                    bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                } else {
+                    //TODO VIEW IMAGE
+                }
             }
         });
 
@@ -210,6 +238,46 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("img", "Imagem selecionada");
+        //Testar processo de retorno dos dados
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+
+            //recuperar local do recurso
+            Uri localImagemSelecionada = data.getData();
+
+            //recupera a imagem do local que foi selecionada
+            try {
+                showLoadingProgressDialog();
+
+                Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+
+                //comprimir no formato PNG
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imagem.compress(Bitmap.CompressFormat.WEBP, 0, stream);
+
+                //Cria um array de bytes da imagem
+                byte[] byteArray = stream.toByteArray();
+
+                ImagemUsuario imagemUsuario = new ImagemUsuario(idUsuario, byteArray);
+                AsyncUploadImage sinc = new AsyncUploadImage(this);
+                sinc.execute(imagemUsuario);
+
+
+                //TODO EXIBIR BYTE ARRAY BYTE
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//                imageView.setImageBitmap(bitmap);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

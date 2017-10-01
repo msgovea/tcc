@@ -1,7 +1,6 @@
-package br.edu.puccamp.app.posts.options;
+package br.edu.puccamp.app.profile.options;
 
 import android.app.Dialog;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,14 +11,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.Question;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.Menu;
 import br.edu.puccamp.app.util.Preferencias;
@@ -27,7 +22,7 @@ import br.edu.puccamp.app.util.Preferencias;
 /**
  * Created by mgovea on 9/90/2017.
  */
-public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
+public class PictureBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -37,7 +32,6 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
             if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                 dismiss();
             }
-
         }
 
         @Override
@@ -46,7 +40,7 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         }
     };
     private RecyclerView mRecyclerView;
-    private OptionsAdapter mAdapter;
+    private PictureAdapter mAdapter;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -70,12 +64,7 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
             ((BottomSheetBehavior) behavior).setBottomSheetCallback(mBottomSheetBehaviorCallback);
         }
 
-        Long idPublicacao = getArguments().getLong(API.PUBLICACAO);
         Long idUsuario = getArguments().getLong(API.USUARIO);
-
-        Log.i("IDUSUARIO", idUsuario + "");
-        Preferencias pref = new Preferencias(getContext());
-        Log.i("IDMEUUSUARIO", pref.getDadosUsuario().getCodigoUsuario() + "");
 
         mRecyclerView = (RecyclerView) contentView.findViewById(R.id.recyclerview_options);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -83,21 +72,14 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         /*
         * TODO PALOMA
         * TEXTOS COM DESCRIÇÃO E SUBDESCRIÇÃO DOS MENUS
-            QUE APARECEM QUANDO SE CLICA NOS 3 PONTINHOS DA PUBLICAÇÃO
-            */
+        * QUE APARECEM QUANDO SE CLICA NA FOTO DO PROPRIO PERFIL
+        */
 
         ArrayList<Menu> menu = new ArrayList<>();
+        menu.add(new Menu(1, "Visualizar", "Visualize sua imagem de perfil"));
+        menu.add(new Menu(2, "Alterar", "Altere sua imagem de perfil"));
 
-        //Preferencias pref = new Preferencias(getContext());
-
-        if (pref.getDadosUsuario().getCodigoUsuario().equals(idUsuario)) {
-            menu.add(new Menu(1, "Excluir", "Sua publicação será definitivamente removida."));
-            menu.add(new Menu(2, "Impulsionar", "Seu conteúdo para um maior número de usuários!"));
-        } else {
-            menu.add(new Menu(3, "Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
-        }
-
-        mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao);
+        mAdapter = new PictureAdapter(getContext(), menu, idUsuario);
         mRecyclerView.setAdapter(mAdapter);
 
     }

@@ -13,6 +13,7 @@ public interface API {
     String BUSCAR_USUARIO        = "usuario/buscar";
     String BUSCAR_USUARIO_NOME   = "usuario/buscar?nome=";
     String ATUALIZAR_PERFIL      = "usuario/atualizar";
+    String UPLOAD_IMAGEM         = "upload/imagem";
     String LOGIN                 = "usuario/login";
     String RECOVERY              = "usuario/recuperar";
     String GOSTOS_MUSICAIS       = "usuario/getGostosMusicais";
