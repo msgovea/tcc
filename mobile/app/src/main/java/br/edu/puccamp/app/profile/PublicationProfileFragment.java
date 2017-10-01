@@ -66,8 +66,13 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
         super.onViewCreated(view, savedInstanceState);
         // retrieve text and color from bundle or savedInstanceState
         if (savedInstanceState == null) {
-            Bundle args = getArguments();
-            idUsuario = args.getLong("ID");
+            try {
+                Bundle args = getArguments();
+                idUsuario = args.getLong("ID");
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO MSG ERRO GERAL
+            }
         } else {
             //TODO
         }
@@ -77,36 +82,38 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
         mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        mProgressView = (View) view.findViewById(R.id.publication_progress);
+        mProgressView = (View) view.findViewById(R.id.publication_progress_profile);
 
         loadPublication();
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            idUsuario = getArguments().getLong("ID");
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG CRASH
+        }
+        loadPublication();
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
-        //outState.putString(ARG_TEXT, mText);
-        //outState.putInt(ARG_COLOR, mColor);
+        outState.putLong("ID", idUsuario);
         super.onSaveInstanceState(outState);
     }
 
     private void loadPublication() {
-        showProgress(true);
-        //getContext().showLoadingProgressDialog();
-        Gson gson = new Gson();
-        AsyncPublication sinc = new AsyncPublication(this);
-        sinc.execute(idUsuario.toString());
-    }
-
-    private List<Question> getQuestions(final ArrayList<Publicacao> lista) {
-        return new ArrayList<Question>() {{
-            for (Publicacao item : lista) {
-                add(new Question(item.getUsuario().getNome(),
-                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
-                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
-                        trataData(item.getDataPublicacao()),
-                        item.getConteudo()));
-            }
-        }};
+        try {
+            showProgress(true);
+            AsyncPublication sinc = new AsyncPublication(this);
+            sinc.execute(idUsuario.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO ERRO CRASH APP
+        }
     }
 
     private String trataData(String data) {
@@ -114,10 +121,6 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
             String dataFinal;
 
             String[] partes = data.split("-");
-
-//            Log.e("data1", partes[0]);
-//            Log.e("data2", partes[1]);
-//            Log.e("data3", partes[2]);
 
             dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
 
@@ -184,19 +187,23 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     public void onLoadedError(String s) {
         showProgress(false);
         //dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getString(R.string.error));
-        builder.setMessage(getString(R.string.error));
-        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //b.finish();
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
+
+         try {
+             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+             builder.setTitle(getString(R.string.error));
+             builder.setMessage(getString(R.string.error));
+             builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+                     //b.finish();
+                 }
+             });
+             builder.setCancelable(false);
+             builder.show();
+         } catch (Exception e) {
+             e.printStackTrace();
+             //TODO MSG ERRO APP QUEBRADO
+         }
     }
-
-
 
 }

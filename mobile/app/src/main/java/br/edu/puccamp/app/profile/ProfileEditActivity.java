@@ -4,27 +4,32 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncEditProfile;
-import br.edu.puccamp.app.async.AsyncRegister;
+import br.edu.puccamp.app.async.profile.AsyncEditProfile;
 import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.entity.UsuarioByte;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
-import br.edu.puccamp.app.util.Hash;
 import br.edu.puccamp.app.util.Validation;
 
 public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
@@ -128,6 +133,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
                 (dpBirthday.getMonth() + 1) + "-" +
                 dpBirthday.getDayOfMonth());
 
+
         showLoadingProgressDialog();
 
         AsyncEditProfile sinc = new AsyncEditProfile(this);
@@ -138,37 +144,43 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
     public void onLoaded(Object o) {
         dismissProgressDialog();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        if (o.getClass() == Usuario.class) {
-
-            builder.setTitle(getString(R.string.success));
-            builder.setMessage(getString(R.string.update_profile_success));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    finish();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
-
-            atualizaUsuario((Usuario)o);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 
+            if (o.getClass() == Usuario.class) {
 
-        } else {
-            builder.setTitle(getString(R.string.error));
-            builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
+                builder.setTitle(getString(R.string.success));
+                builder.setMessage(getString(R.string.update_profile_success));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
+
+                atualizaUsuario((Usuario) o);
+
+
+            } else {
+                builder.setTitle(getString(R.string.error));
+                builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
         }
 
     }

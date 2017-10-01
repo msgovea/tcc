@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,23 +18,20 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncComments;
-import br.edu.puccamp.app.async.AsyncMakeComment;
+import br.edu.puccamp.app.async.comments.AsyncComments;
+import br.edu.puccamp.app.async.comments.AsyncMakeComment;
 import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
 import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.RecyclerItemClickListener;
+import br.edu.puccamp.app.util.AbstractAsyncActivity;
 
-public class CommentsActivity extends AppCompatActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
+public class CommentsActivity extends AbstractAsyncActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 
     private RecyclerView mRecyclerView;
-    public  View mProgressView;
+    public View mProgressView;
     private CommentsAdapter mAdapter;
 
     private Long idPublicacao;
@@ -57,7 +52,6 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         idPublicacao = getIntent().getLongExtra("idPublicacao", 0);
-        Toast.makeText(this, String.valueOf(idPublicacao), Toast.LENGTH_SHORT).show();
 
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView = (RecyclerView) findViewById(R.id.list_comments);
@@ -83,7 +77,7 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
         loadComments();
     }
 
-    private void enviarComentario(){
+    private void enviarComentario() {
         mEnviarComentario = (ImageButton) findViewById(R.id.button_send);
         mComentario = (EditText) findViewById(R.id.edittext_input_comment);
 
@@ -104,7 +98,7 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
 
                         AsyncMakeComment sinc = new AsyncMakeComment(CommentsActivity.this);
                         sinc.execute(comentario);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -151,8 +145,7 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getCause();
         }
     }
@@ -174,30 +167,42 @@ public class CommentsActivity extends AppCompatActivity implements AsyncComments
     public void onLoadedError(String s) {
         showProgress(false);
         //dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.error));
-        builder.setMessage(getString(R.string.error));
-        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //b.finish();
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle(getString(R.string.error_title));
+            builder.setMessage(getString(R.string.error));
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //b.finish();
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
+        }
     }
 
     @Override
-    public void onLoadedComment(Boolean bool) {
+    public void onLoadedComment(Long idComentario) {
+        try {
+            comentario.setCodigo(idComentario);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO
+        }
+        mAdapter.addComment(comentario);
+        mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
+
         mEnviarComentario.setEnabled(true);
         mComentario.setEnabled(true);
         mComentario.setText(null);
 
-        mAdapter.addComment(comentario);
-        mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
-        //mRecyclerView.getAdapter().notifyDataSetChanged();
-
-        //Toast.makeText(getApplicationContext(), "SUCESSO", Toast.LENGTH_SHORT).show();
+        //TODO PALOMA TEXTO
+        Toast.makeText(getApplicationContext(), "Comentário publicado com sucesso!", Toast.LENGTH_SHORT).show();
     }
 
 

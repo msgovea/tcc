@@ -15,22 +15,31 @@
         android:id="@+id/avatar_publication"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@id/dividerTop"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
         fresco:actualImageScaleType="focusCrop"
         fresco:roundAsCircle="true"
         fresco:roundWithOverlayColor="@android:color/white" />
 
+    <!--fresco:actualImageScaleType="focusCrop"
+        fresco:roundAsCircle="true"
+        fresco:roundWithOverlayColor="@android:color/white"-->
+
     <TextView
         android:id="@+id/user_name_publication"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/avatar_publication"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/avatar_publication"
+        android:maxLines="1"
         android:layout_toLeftOf="@+id/text_date"
         android:layout_toStartOf="@+id/text_date"
         android:text="Carol Bell"
+        android:textAlignment="textStart"
         android:textColor="#827f93"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -79,11 +88,33 @@
         android:layout_marginRight="16dp"
         android:background="#ebebeb" />
 
+    <TextView
+        android:id="@+id/text_publication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/avatar_publication"
+        android:layout_margin="16dp"
+        android:text="What is the first step to transform an idea into an actual project?"
+        android:textColor="#827f93" />
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_publication"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/text_publication"
+        android:textColor="#827f93"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:roundWithOverlayColor="@android:color/white" />
+
+
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/text_publication"
+        android:layout_below="@id/img_publication"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="#ebebeb" />
@@ -95,7 +126,7 @@
         android:layout_below="@+id/divider"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_heart"
+        android:src="@drawable/ic_like_vazio"
         android:tint="#827f93" />
 
     <TextView
@@ -140,14 +171,5 @@
         android:src="@drawable/ic_more"
         android:tint="#827f93" />
 
-    <TextView
-        android:id="@+id/text_publication"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/avatar_publication"
-        android:layout_margin="16dp"
-        android:text="What is the first step to transform an idea into an actual project?"
-        android:textColor="#827f93" />
 
 </RelativeLayout>

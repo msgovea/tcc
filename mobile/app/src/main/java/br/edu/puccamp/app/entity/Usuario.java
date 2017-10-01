@@ -1,5 +1,6 @@
 package br.edu.puccamp.app.entity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +15,32 @@ public class Usuario {
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 
-    public Usuario(String nome, Integer codigoUsuario) {
+    public Usuario(String nome, Long codigoUsuario) {
         this.nome = nome;
         this.codigoUsuario = codigoUsuario;
     }
 
-    private Integer codigoUsuario;
+    public Long getQtdSeguidos() {
+        return this.qtdSeguidos;
+    }
+
+    public void setQtdSeguidos(Long qtdSeguidos) {
+        this.qtdSeguidos = qtdSeguidos;
+    }
+
+    private ArrayList<Usuario> seguidores;
+
+    public ArrayList<Usuario> getSeguidores() {
+        return this.seguidores;
+    }
+
+    public void setSeguidores(ArrayList<Usuario> seguidores) {
+        this.seguidores = seguidores;
+    }
+
+    private Long qtdSeguidos;
+
+    private Long codigoUsuario;
 
     private String email;
 
@@ -30,8 +51,17 @@ public class Usuario {
     private SituacaoConta situacaoConta;
 
     private List<GostosMusicai> gostosMusicais;
-
-
+//TODO IMAGEM
+//    private String imagemPerfil = null;
+//
+//    public void setImagemPerfil (String imagem) {
+//        this.imagemPerfil = imagem;
+//    }
+//
+//
+//    public String getImagemPerfil () {
+//        return this.imagemPerfil;
+//    }
 
     public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;
@@ -41,11 +71,11 @@ public class Usuario {
         this.gostosMusicais = gostosMusicais;
     }
 
-    public Integer getCodigoUsuario() {
+    public Long getCodigoUsuario() {
         return codigoUsuario;
     }
 
-    public void setCodigoUsuario(Integer codigoUsuario) {
+    public void setCodigoUsuario(Long codigoUsuario) {
         this.codigoUsuario = codigoUsuario;
     }
 

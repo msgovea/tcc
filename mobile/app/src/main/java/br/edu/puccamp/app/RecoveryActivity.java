@@ -95,30 +95,37 @@ public class RecoveryActivity extends AbstractAsyncActivity implements AsyncReco
     @Override
     public void onLoaded(String string) {
         dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (string == "true") {
-            builder.setTitle(getString(R.string.success_recovery_account));
-            builder.setMessage(getString(R.string.success_recovery_account_text));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            builder.setCancelable(false);
 
-        } else {
-            builder.setTitle(getString(R.string.error_recovery_account));
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            if (string == "true") {
+                builder.setTitle(getString(R.string.success_recovery_account));
+                builder.setMessage(getString(R.string.success_recovery_account_text));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                builder.setCancelable(false);
 
-            builder.setMessage(getString(R.string.error_invalid_account));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
+            } else {
+                builder.setTitle(getString(R.string.error_recovery_account));
+
+                builder.setMessage(getString(R.string.error_invalid_account));
+                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+            }
+            builder.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
         }
-        builder.show();
     }
 }

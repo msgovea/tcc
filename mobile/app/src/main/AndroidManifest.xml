@@ -3,6 +3,8 @@
     package="br.edu.puccamp.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -119,10 +121,24 @@
             android:name=".posts.comments.CommentsActivity"
             android:label="@string/title_activity_comments"
             android:parentActivityName=".posts.ExampleActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.edu.puccamp.app.posts.ExampleActivity" />
+        </activity>
+        <activity
+            android:name=".TesteActivityStorage"
+            android:label="@string/title_activity_teste_storage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".search.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".principal.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.edu.puccamp.app.principal.MainActivity" />
         </activity>
     </application>
 

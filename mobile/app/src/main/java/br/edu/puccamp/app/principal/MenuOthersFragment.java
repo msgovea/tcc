@@ -1,13 +1,17 @@
 package br.edu.puccamp.app.principal;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +31,7 @@ import br.edu.puccamp.app.listview.ItemListView;
 import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.Permissao;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -67,8 +72,7 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         return inflater.inflate(R.layout.fragment_others_publication, container, false);
     }
 
-    private void createListView()
-    {
+    private void createListView() {
         //Criamos nossa lista que preenchera o ListView
         itens = new ArrayList<ItemListView>();
 
@@ -76,10 +80,10 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
         usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
 
-        ItemListView item1 = new ItemListView(usuario.getNome(), R.drawable.ic_person_black_24dp,1);
-        ItemListView item2 = new ItemListView(getString(R.string.language), R.drawable.ic_language_black_24dp,2);
-        ItemListView item3 = new ItemListView(getString(R.string.politics), R.drawable.ic_verified_user_black_24dp,3);
-        ItemListView item4 = new ItemListView(getString(R.string.logoff), R.drawable.ic_exit_to_app_black_24dp,4);
+        ItemListView item1 = new ItemListView(usuario.getNome(), R.drawable.ic_person_black_24dp, 1);
+        ItemListView item2 = new ItemListView(getString(R.string.language), R.drawable.ic_language_black_24dp, 2);
+        ItemListView item3 = new ItemListView(getString(R.string.politics), R.drawable.ic_verified_user_black_24dp, 3);
+        ItemListView item4 = new ItemListView(getString(R.string.logoff), R.drawable.ic_exit_to_app_black_24dp, 4);
 
         itens.add(item1);
         itens.add(item2);
@@ -96,28 +100,70 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         listView.setCacheColorHint(Color.TRANSPARENT);
     }
 
-    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-    {
+    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         //Pega o item que foi selecionado.
         ItemListView item = adapterListView.getItem(arg2);
         //Demostração
-        Log.e("TODO", ( String.valueOf(item.getIconeRid())));
-        if (item.getTexto().equals(getString(R.string.logoff))){
+        Log.e("TODO", (String.valueOf(item.getIconeRid())));
+        if (item.getTexto().equals(getString(R.string.logoff))) {
             SharedPreferences prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
             prefs.edit().clear().apply();
             startActivity(new Intent(getActivity(), TesteLogin.class));
             getActivity().finish();
         } else if (item.getTexto().equals(getString(R.string.language))) {
 
-            Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
-            intent.putExtra("idUsuario", Long.valueOf(303));
-            startActivity(intent);
+            String[] permissoesNecessarias = new String[]{
+                    android.Manifest.permission.SEND_SMS,
+                    android.Manifest.permission.READ_PHONE_STATE
+            };
+
+            if (Permissao.validaPermissoes(1, getActivity(), permissoesNecessarias)) {
+
+
+                //TODO MGOVEA - ENVIO SMS
+                SmsManager smsManager = SmsManager.getDefault();
+                try {
+                    smsManager.sendTextMessage("+5519981407342", null, "oi1, teste", null, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+            }
+
+
+//            Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
+//            intent.putExtra("idUsuario", Long.valueOf(303));
+//            startActivity(intent);
         } else if (item.getTexto().equals(usuario.getNome())) {
             Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
             startActivity(intent);
-        }
-        else {
+        } else {
             Toast.makeText(getContext(), "Você Clicou em: " + item.getTexto(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int resultado : grantResults) {
+            if (resultado == PackageManager.PERMISSION_DENIED) {
+                alertaValidacaoPermissao();
+            }
+        }
+    }
+
+    private void alertaValidacaoPermissao() {
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+            //TODO TEXTO
+            builder.setTitle("Permissões negadas");
+            builder.setMessage("Para usar o app, aceite as permissões");
+            builder.setPositiveButton(getString(R.string.close), null);
+            builder.setCancelable(false);
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO
         }
     }
 

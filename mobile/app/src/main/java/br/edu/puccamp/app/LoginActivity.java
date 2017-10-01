@@ -143,34 +143,65 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
     public void onLoaded(Object o) {
         dismissProgressDialog();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        try {
 
-        if (o.getClass() == Usuario.class) {
-            switch (((Usuario) o).getSituacaoConta().getCodigoSituacaoConta()) {
-                case 0: //aguardando confirmacao
-                    builder.setTitle(getString(R.string.necessary_confirmation));
-                    builder.setMessage(getString(R.string.necessary_confirmation_text));
-                    builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.setCancelable(false);
-                    builder.show();
-                    break;
-                case 1: //conta ativa
-                    SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-                    Gson json = new Gson();
-                    prefs.edit().putString(API.USUARIO, json.toJson(o)).apply();
-                    //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
-                    if (((Usuario) o).getGostosMusicais().toString().equals("[]")) startActivity(new Intent(this, GostoMusicalActivity.class));
-                    else startActivity(new Intent(this, br.edu.puccamp.app.principal.MainActivity.class));
-                    finish();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            if (o.getClass() == Usuario.class) {
+                switch (((Usuario) o).getSituacaoConta().getCodigoSituacaoConta()) {
+                    case 0: //aguardando confirmacao
+                        builder.setTitle(getString(R.string.necessary_confirmation));
+                        builder.setMessage(getString(R.string.necessary_confirmation_text));
+                        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
+                        break;
+                    case 1: //conta ativa
+                        SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
+                        Gson json = new Gson();
+                        prefs.edit().putString(API.USUARIO, json.toJson(o)).apply();
+                        //Log.e("PQP", ((Usuario) o).getGostosMusicais().toString());
+                        if (((Usuario) o).getGostosMusicais().toString().equals("[]"))
+                            startActivity(new Intent(this, GostoMusicalActivity.class));
+                        else
+                            startActivity(new Intent(this, br.edu.puccamp.app.principal.MainActivity.class));
+                        finish();
 
 
-                    break;
-                case 2: //conta inativa
+                        break;
+                    case 2: //conta inativa
+                        builder.setTitle(getString(R.string.error_invalid_login));
+                        builder.setMessage(getString(R.string.error_invalid_account));
+                        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
+                        break;
+                    case 3: //conta banida
+                        builder.setTitle(getString(R.string.account_banned));
+                        builder.setMessage(getString(R.string.account_banned_text));
+                        builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setCancelable(false);
+                        builder.show();
+                        break;
+                }
+
+            } else {
+                if (!o.equals("invalid")) {
                     builder.setTitle(getString(R.string.error_invalid_login));
                     builder.setMessage(getString(R.string.error_invalid_account));
                     builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
@@ -181,38 +212,16 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
                     });
                     builder.setCancelable(false);
                     builder.show();
-                    break;
-                case 3: //conta banida
-                    builder.setTitle(getString(R.string.account_banned));
-                    builder.setMessage(getString(R.string.account_banned_text));
-                    builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.setCancelable(false);
-                    builder.show();
-                    break;
+                } else {
+                    mEmailView.setError(getString(R.string.error_invalid_login));
+                    mPasswordView.setError(getString(R.string.error_invalid_login));
+                    mPasswordView.requestFocus();
+                }
             }
 
-        } else {
-            if (!o.equals("invalid")) {
-                builder.setTitle(getString(R.string.error_invalid_login));
-                builder.setMessage(getString(R.string.error_invalid_account));
-                builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setCancelable(false);
-                builder.show();
-            } else {
-                mEmailView.setError(getString(R.string.error_invalid_login));
-                mPasswordView.setError(getString(R.string.error_invalid_login));
-                mPasswordView.requestFocus();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
         }
 
     }

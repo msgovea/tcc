@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.async.AsyncMakeGostoMusical;
+import br.edu.puccamp.app.async.gosto_musical.AsyncMakeGostoMusical;
 import br.edu.puccamp.app.entity.GostoUsuario;
 import br.edu.puccamp.app.entity.Usuario;
 import br.edu.puccamp.app.gosto_musical.Gosto;

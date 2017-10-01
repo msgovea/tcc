@@ -42,12 +42,12 @@
 
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/view_settings"
+        android:id="@+id/remove_comment"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_more"
+        android:src="@drawable/ic_remove_black_24dp"
         android:tint="#827f93" />
 
     <TextView

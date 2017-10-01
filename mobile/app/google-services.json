@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "755397497563",
-    "firebase_url": "https://tccproject-c547a.firebaseio.com",
-    "project_id": "tccproject-c547a",
-    "storage_bucket": "tccproject-c547a.appspot.com"
+    "project_number": "981238017808",
+    "firebase_url": "https://urmusic-mobile.firebaseio.com",
+    "project_id": "urmusic-mobile",
+    "storage_bucket": "urmusic-mobile.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:755397497563:android:7164439101d549ee",
+        "mobilesdk_app_id": "1:981238017808:android:7164439101d549ee",
         "android_client_info": {
           "package_name": "br.edu.puccamp.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "755397497563-qt938cgbr76p6umtaodnk3nc570ooglv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "br.edu.puccamp.app",
-            "certificate_hash": "c618b4e15baad29b4cb7d9d2d518621c55e8ee8e"
-          }
-        },
-        {
-          "client_id": "755397497563-udor6s8gp00d8qdc31sk9piqnim2m1lk.apps.googleusercontent.com",
+          "client_id": "981238017808-50js67s6hhbibakb3ga1odmluljicc2v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDAieXoatQA18K_dAnp4LBTbz6mYyow6JY"
+          "current_key": "AIzaSyAd8ap8vh1wIbYIs3_hbIfyzW45TWjkYto"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "755397497563-udor6s8gp00d8qdc31sk9piqnim2m1lk.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

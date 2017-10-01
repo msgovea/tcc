@@ -1,13 +1,22 @@
 package br.edu.puccamp.app.profile;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -15,25 +24,39 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
+import java.io.ByteArrayOutputStream;
+
 import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.AsyncProfile;
+import br.edu.puccamp.app.async.follow.AsyncFollowUser;
+import br.edu.puccamp.app.async.profile.AsyncEditProfile;
+import br.edu.puccamp.app.async.profile.AsyncProfile;
+import br.edu.puccamp.app.async.profile.AsyncUploadImage;
+import br.edu.puccamp.app.entity.Amigo;
+import br.edu.puccamp.app.entity.ImagemUsuario;
 import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.profile.ProfileEditActivity;
+import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
+import br.edu.puccamp.app.profile.options.PictureBottomSheetDialogFragment;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.Preferencias;
 
-public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener {
+public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener, AsyncUploadImage.Listener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -48,20 +71,32 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+
+    private CoordinatorLayout mainContent;
+
     private ViewPager mViewPager;
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
+    private SimpleDraweeView mImageView;
+    private TextView mQtdSeguidores;
+    private TextView mQtdSeguidos;
 
     private Button mButtonFollow;
+
+    private BottomSheetDialogFragment bottomSheetDialogFragment;
 
     private Usuario usuario;
     private boolean myProfile;
     private Long idUsuario;
+    private Usuario usuarioLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_tabbed);
+
+        mainContent = (CoordinatorLayout) findViewById(R.id.main_content);
+        mainContent.setVisibility(View.INVISIBLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profile);
         setSupportActionBar(toolbar);
@@ -77,14 +112,9 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        mImageView = (SimpleDraweeView) findViewById(R.id.user_profile_photo);
+        mQtdSeguidores = (TextView) findViewById(R.id.qtd_followers);
+        mQtdSeguidos = (TextView) findViewById(R.id.qtd_follows);
 
         mTextUserProfileName = (TextView) findViewById(R.id.user_profile_name);
         mTextUserBio = (TextView) findViewById(R.id.user_profile_short_bio);
@@ -94,7 +124,10 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         mButtonFollow = (Button) findViewById(R.id.btn_follow);
 
-        if (idUsuario != 0) {
+        Preferencias pref = new Preferencias(this);
+        usuario = pref.getDadosUsuario();
+
+        if (idUsuario != usuario.getCodigoUsuario().longValue() && idUsuario != 0) {
             myProfile = false;
             mButtonFollow.setVisibility(View.VISIBLE);
             showLoadingProgressDialog();
@@ -102,36 +135,73 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             sinc.execute(idUsuario);
         } else {
             myProfile = true;
-            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-            Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
             idUsuario = usuario.getCodigoUsuario().longValue();
             mButtonFollow.setVisibility(View.INVISIBLE);
 
             populaPerfil(usuario);
         }
 
+        mButtonFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Amigo amigo = new Amigo();
+                amigo.setSegue(usuario);
+                amigo.setSeguido(usuarioLoad);
+                AsyncFollowUser sinc = new AsyncFollowUser(ProfileTabbedActivity.this);
+                sinc.execute(amigo);
+            }
+        });
+
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myProfile) {
+                    Bundle args = new Bundle();
+                    args.putLong(API.USUARIO, idUsuario);
+                    bottomSheetDialogFragment = new PictureBottomSheetDialogFragment();
+                    bottomSheetDialogFragment.setArguments(args);
+                    bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                } else {
+                    //TODO VIEW IMAGE
+                }
+            }
+        });
 
     }
 
-    private void populaPerfil(Usuario usuario) {
-        getSupportActionBar().setTitle(usuario.getNome());
-        mTextUserProfileName.setText(usuario.getNome());
-        mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+    private void populaPerfil(Usuario usuarioPopulaPerfil) {
+        getSupportActionBar().setTitle(usuarioPopulaPerfil.getApelido());
+        mTextUserProfileName.setText(usuarioPopulaPerfil.getNome());
+
+        mQtdSeguidores.setText(usuarioPopulaPerfil.getSeguidores().size() + "");
+        mQtdSeguidos.setText(usuarioPopulaPerfil.getQtdSeguidos().toString());
+
+        if (!myProfile) {
+            for (Usuario u :
+                    usuarioPopulaPerfil.getSeguidores()) {
+                if (u.getCodigoUsuario().equals(usuario.getCodigoUsuario())) {
+                    mButtonFollow.setText(getString(R.string.unfollow));
+                }
+            }
+        }
+        try {
+            mImageView.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+        }
+        catch (Exception e) {
+            mImageView.setImageDrawable(getDrawable(R.drawable.ic_account_box_black_24dp));
+        }
+
+        mTextUserBio.setText(usuarioPopulaPerfil.getCidade() + " - " + usuarioPopulaPerfil.getEstado());
+
+        mainContent.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        
-        if (getIntent().getLongExtra("idUsuario",0) == 0) {
-            SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-            Gson gson = new Gson();
-            usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
-            //edit.setText(usuario.getNome());
-            getSupportActionBar().setTitle(usuario.getNome());
-            mTextUserProfileName.setText(usuario.getNome());
-            mTextUserBio.setText(usuario.getCidade() + " - " + usuario.getEstado());
+
+        if (idUsuario == usuario.getCodigoUsuario().longValue() || idUsuario == 0) {
+            populaPerfil(usuario);
         }
     }
 
@@ -174,28 +244,74 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("img", "Imagem selecionada");
+        //Testar processo de retorno dos dados
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+
+            //recuperar local do recurso
+            Uri localImagemSelecionada = data.getData();
+
+            //recupera a imagem do local que foi selecionada
+            try {
+                showLoadingProgressDialog();
+
+                Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+
+                //comprimir no formato PNG
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imagem.compress(Bitmap.CompressFormat.WEBP, 0, stream);
+
+                //Cria um array de bytes da imagem
+                byte[] byteArray = stream.toByteArray();
+
+                ImagemUsuario imagemUsuario = new ImagemUsuario(idUsuario, byteArray);
+                AsyncUploadImage sinc = new AsyncUploadImage(this);
+                sinc.execute(imagemUsuario);
+
+
+                //TODO EXIBIR BYTE ARRAY BYTE
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//                imageView.setImageBitmap(bitmap);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public void onLoaded(Object o) {
         dismissProgressDialog();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if (o.getClass() == Usuario.class) {
-
-
-            usuario = (Usuario)o;
-            populaPerfil(usuario);
-
+            usuarioLoad = (Usuario) o;
+            populaPerfil(usuarioLoad);
         } else {
-            builder.setTitle(getString(R.string.error));
-            builder.setMessage(getString((o.equals("invalid")) ? R.string.error_edit_profile : R.string.error));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
+            showErrorMessage();
         }
+    }
+
+    @Override
+    public void onLoadedError(String s) {
+        showErrorMessage(s);
+    }
+
+    @Override
+    public void onLoaded(String s) {
+        boolean seguiu = s.equals("INSERIDO");
+        mButtonFollow.setText(getString(seguiu ? R.string.unfollow : R.string.follow));
+
+        //TODO REMOVER TEXTO FIXO
+        try {
+            if (seguiu)
+                mQtdSeguidores.setText((Long.valueOf(mQtdSeguidores.getText().toString()) + 1) + "");
+            else
+                mQtdSeguidores.setText((Long.valueOf(mQtdSeguidores.getText().toString()) - 1) + "");
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     /**
@@ -212,14 +328,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            Log.e("position", position + " ");
             switch (position) {
                 case 0:
                     return PublicationProfileFragment.newInstance(idUsuario);
+//                case 1:
+//                    return GostoMusicalProfileFragment.newInstance(idUsuario);
                 case 2:
                     return GostoMusicalProfileFragment.newInstance(idUsuario);
-                default:
-                    return PublicationProfileFragment.newInstance(idUsuario);
             }
+            return new Fragment();
         }
 
         @Override

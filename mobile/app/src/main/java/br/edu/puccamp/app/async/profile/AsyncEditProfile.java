@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.async;
+package br.edu.puccamp.app.async.profile;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -6,47 +6,58 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
-import br.edu.puccamp.app.entity.ResponseGosto;
-import br.edu.puccamp.app.gosto_musical.Gosto;
+import br.edu.puccamp.app.entity.ResponseUsuario;
+import br.edu.puccamp.app.entity.Usuario;
+import br.edu.puccamp.app.entity.UsuarioByte;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncGostoMusical extends AsyncTask<String, String, String> {
+public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
 
     public interface Listener {
-        void onLoaded(ArrayList<Gosto> lista);
-        void onLoadedError(String s);
+        void onLoaded(Object o);
     }
 
     private Listener mListener;
 
-    public AsyncGostoMusical(Listener mListener) {
+    public AsyncEditProfile(Listener mListener) {
 
         this.mListener = mListener;
 
     }
     @Override
-    protected String doInBackground(String... n) {
+    protected String doInBackground(Usuario... n) {
 
-//        String id = n[0];
+        Usuario usuario = n[0];
         HttpURLConnection urlConnection;
 
         try {
-
-            URL url = new URL(API.URL + API.GOSTOS_MUSICAIS);
+            URL url = new URL(API.URL + API.ATUALIZAR_PERFIL);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Accept-Encoding", "application/json");
 
-            urlConnection.connect();
+            Gson gson = new Gson();
+            String json = gson.toJson(usuario);
+
+            OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
+            writer.write(json);
+            writer.flush();
+            writer.close();
+            outputStream.close();
 
             InputStream inputStream;
             // get stream
@@ -73,28 +84,29 @@ public class AsyncGostoMusical extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
-            Gson publicacoesGson = new Gson();
-            Log.e("teste", result);
-            ResponseGosto response = publicacoesGson.fromJson(result, ResponseGosto.class);
+            Gson usuarioGson = new Gson();
+            ResponseUsuario response = usuarioGson.fromJson(result, ResponseUsuario.class);
 
-            ArrayList<Gosto> listaGostos = response.getGostos();
+            Log.e("MATEUSGOVEA", result);
+
+            Usuario u = response.getObject();
 
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
                 if (mListener != null) {
-                    mListener.onLoaded(listaGostos);
+                    mListener.onLoaded(u);
                 }
 
             } else {
                 if (mListener != null) {
-                    mListener.onLoadedError("erro");
+                    mListener.onLoaded("invalid");
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             if (mListener != null) {
-                mListener.onLoadedError(e.getMessage());
+                mListener.onLoaded(e.toString());
             }
         }
 

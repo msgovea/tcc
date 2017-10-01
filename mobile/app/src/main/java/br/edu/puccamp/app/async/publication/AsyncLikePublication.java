@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.async;
+package br.edu.puccamp.app.async.publication;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,47 +17,48 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.edu.puccamp.app.entity.GostoUsuario;
+import br.edu.puccamp.app.entity.Amigo;
+import br.edu.puccamp.app.entity.Curtida;
+import br.edu.puccamp.app.entity.Publicacao;
 import br.edu.puccamp.app.entity.Response;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncMakeGostoMusical extends AsyncTask<GostoUsuario, String, String> {
+public class AsyncLikePublication extends AsyncTask<Curtida, String, String> {
 
     public interface Listener {
         void onLoadedError(String s);
-        void onLoadedPublication(Boolean bool);
+        void onLoaded(Double l);
 
     }
 
     private Listener mListener;
 
-    public AsyncMakeGostoMusical(Listener mListener) {
+    public AsyncLikePublication(Listener mListener) {
 
         this.mListener = mListener;
 
     }
     @Override
-    protected String doInBackground(GostoUsuario... n) {
+    protected String doInBackground(Curtida... n) {
 
-        GostoUsuario gostoUsuario = n[0];
+        Curtida curtida = n[0];
         HttpURLConnection urlConnection;
 
         try {
-            URL url = new URL(API.URL + API.GOSTOS_MUSICAIS_REGISTER);
+            URL url = new URL(API.URL + API.LIKE_PUBLICATION);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept-Encoding", "application/json");
 
             Gson gson = new Gson();
-            String json = gson.toJson(gostoUsuario);
-            Log.e("MATEUS GOVEA", json);
+            String json = gson.toJson(curtida);
 
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
             writer.write(json);
-            Log.i(null, json);
+            Log.e("LIKE", json);
             writer.flush();
             writer.close();
             outputStream.close();
@@ -87,18 +88,18 @@ public class AsyncMakeGostoMusical extends AsyncTask<GostoUsuario, String, Strin
     @Override
     protected void onPostExecute(String result) {
         try {
-            Gson publicacaoGson = new Gson();
-            Response<Object> response = publicacaoGson.fromJson(result, Response.class);
+            Gson followGson = new Gson();
+            Response<Double> response = followGson.fromJson(result, Response.class);
 
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
                if (mListener != null) {
-                   mListener.onLoadedPublication(true);
+                   mListener.onLoaded(response.getObject());
                }
 
            } else {
                if (mListener != null) {
-                   mListener.onLoadedError("Erro ao carregar" + response.getMessage());
+                   mListener.onLoadedError("Erro ao carregar");
                }
            }
 

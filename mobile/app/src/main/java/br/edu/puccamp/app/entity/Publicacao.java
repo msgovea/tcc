@@ -1,5 +1,7 @@
 package br.edu.puccamp.app.entity;
 
+import java.util.ArrayList;
+
 public class Publicacao {
 
     public Publicacao(Usuario usuario, String conteudo) {
@@ -21,6 +23,39 @@ public class Publicacao {
     private Boolean ativa;
 
     private Usuario usuario;
+
+    private ArrayList<Usuario> likes;
+
+    private Long qtdComentarios = Long.valueOf(0);
+
+    public ArrayList<Usuario> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(ArrayList<Usuario> likes) {
+        this.likes = likes;
+    }
+
+    public void addLike(Usuario usuario) {
+        this.likes.add(usuario);
+    }
+
+    public void removeLike(Usuario usuario) {
+        for (Usuario u :
+                this.likes) {
+            if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
+                this.likes.remove(u);
+            }
+        }
+    }
+
+    public Long getQtdComentarios() {
+        return qtdComentarios;
+    }
+
+    public void setQtdComentarios(Long qtdComentarios) {
+        this.qtdComentarios = qtdComentarios;
+    }
 
     public Long getCodigo() {
         return codigo;

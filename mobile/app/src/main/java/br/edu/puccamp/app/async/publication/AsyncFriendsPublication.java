@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.async;
+package br.edu.puccamp.app.async.publication;
 
 import android.os.AsyncTask;
 import android.util.Base64;
@@ -15,23 +15,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.entity.Comentario;
 import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.ResponseComentarios;
 import br.edu.puccamp.app.entity.ResponsePublicacoes;
 import br.edu.puccamp.app.util.API;
 
 
-public class AsyncComments extends AsyncTask<String, String, String> {
+public class AsyncFriendsPublication extends AsyncTask<String, String, String> {
 
     public interface Listener {
-        void onLoaded(ArrayList<Comentario> lista);
+        void onLoaded(ArrayList<Publicacao> lista);
         void onLoadedError(String s);
     }
 
     private Listener mListener;
 
-    public AsyncComments(Listener mListener) {
+    public AsyncFriendsPublication(Listener mListener) {
 
         this.mListener = mListener;
 
@@ -43,7 +41,7 @@ public class AsyncComments extends AsyncTask<String, String, String> {
 
         try {
 
-            URL url = new URL(API.URL + API.COMMENTS + n[0]);
+            URL url = new URL(API.URL + API.PUBLICATION_FRIEND + "/" + n[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");
@@ -78,9 +76,9 @@ public class AsyncComments extends AsyncTask<String, String, String> {
         try {
             Gson publicacoesGson = new Gson();
             Log.e("teste", result);
-            ResponseComentarios response = publicacoesGson.fromJson(result, ResponseComentarios.class);
+            ResponsePublicacoes response = publicacoesGson.fromJson(result, ResponsePublicacoes.class);
 
-            ArrayList<Comentario> listaPublicacoes = response.getPublicacoes();
+            ArrayList<Publicacao> listaPublicacoes = response.getPublicacoes();
 
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
