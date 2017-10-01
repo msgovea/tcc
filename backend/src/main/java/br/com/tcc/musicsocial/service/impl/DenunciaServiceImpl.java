@@ -1,7 +1,7 @@
 package br.com.tcc.musicsocial.service.impl;
 
-import java.util.Calendar;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,7 +14,9 @@ import br.com.tcc.musicsocial.dao.PublicacaoDAO;
 import br.com.tcc.musicsocial.entity.Denuncia;
 import br.com.tcc.musicsocial.service.DenunciaService;
 import br.com.tcc.musicsocial.service.UsuarioService;
+import br.com.tcc.musicsocial.util.SituacaoConta;
 import br.com.tcc.musicsocial.util.StatusDenuncia;
+import br.com.tcc.musicsocial.util.TipoAprovacaoDenuncia;
 
 @Service
 public class DenunciaServiceImpl implements DenunciaService {
@@ -24,14 +26,14 @@ public class DenunciaServiceImpl implements DenunciaService {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
-	private PublicacaoDAO PublicacaoDAO;
-	
+	private PublicacaoDAO publicacaoDAO;
+
 	@Transactional
 	@Override
 	public Denuncia denunciarPublicacao(Denuncia denuncia) {
-		if(isDenunciaValida(denuncia)) {
+		if (isDenunciaValida(denuncia)) {
 			denuncia.setStatus(StatusDenuncia.INICIADA.getValue());
 			denuncia.setData(new Date(Calendar.getInstance().getTimeInMillis()));
 			denunciaDAO.save(denuncia);
@@ -39,18 +41,39 @@ public class DenunciaServiceImpl implements DenunciaService {
 		}
 		return null;
 	}
-	
+
 	private boolean isDenunciaValida(Denuncia denuncia) {
-		return denuncia != null && denuncia.getDenunciado() != null && denuncia.getDenunciado().getCodigoUsuario() != null 
-				&& denuncia.getDenunciante() != null && denuncia.getDenunciante().getCodigoUsuario() != null
-				&& denuncia.getPublicacao() != null && denuncia.getPublicacao().getCodigo() != null
-				&& usuarioService.buscarPorId(denuncia.getDenunciante().getCodigoUsuario()) != null 
-				&& usuarioService.buscarPorId(denuncia.getDenunciado().getCodigoUsuario()) != null 
-				&& PublicacaoDAO.find(denuncia.getPublicacao().getCodigo()) != null;
+		return denuncia != null && denuncia.getDenunciado() != null
+				&& denuncia.getDenunciado().getCodigoUsuario() != null && denuncia.getDenunciante() != null
+				&& denuncia.getDenunciante().getCodigoUsuario() != null && denuncia.getPublicacao() != null
+				&& denuncia.getPublicacao().getCodigo() != null
+				&& usuarioService.buscarPorId(denuncia.getDenunciante().getCodigoUsuario()) != null
+				&& usuarioService.buscarPorId(denuncia.getDenunciado().getCodigoUsuario()) != null
+				&& publicacaoDAO.find(denuncia.getPublicacao().getCodigo()) != null;
 	}
-	
+
 	@Override
 	public List<Denuncia> getDenuncias() {
 		return denunciaDAO.getDenuncias();
+	}
+
+	@Transactional
+	@Override
+	public boolean aprovarDenuncia(Long codigoDenuncia, Integer tipoAprovacao) {
+		Denuncia denuncia = denunciaDAO.find(codigoDenuncia);
+		if (denuncia != null && denuncia.getStatus() == StatusDenuncia.INICIADA.getValue()) {
+			if (tipoAprovacao.equals(TipoAprovacaoDenuncia.BAN_USUARIO.getValue())) {
+				denuncia.setStatus(StatusDenuncia.APROVADA.getValue());
+				denuncia.getDenunciado().setSituacaoConta(SituacaoConta.BANIDA.getEntity());
+				usuarioService.atualizarUsuario(denuncia.getDenunciado());
+				return true;
+			} else if (tipoAprovacao.equals(TipoAprovacaoDenuncia.BAN_PUBLICACAO.getValue())) {
+				denuncia.setStatus(StatusDenuncia.APROVADA.getValue());
+				denuncia.getPublicacao().setAtiva(false);
+				publicacaoDAO.update(denuncia.getPublicacao());
+				return true;
+			}
+		}
+		return false;
 	}
 }

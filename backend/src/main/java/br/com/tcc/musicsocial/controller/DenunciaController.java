@@ -1,6 +1,7 @@
 package br.com.tcc.musicsocial.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,19 @@ public class DenunciaController {
 	public Response<?> getDenuncias() {
 		try {
 			return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), denunciaService.getDenuncias());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@RequestMapping("/aprovar/{codigoDenuncia}/{tipoAprovacao}")
+	public Response<?> aprovarDenuncia(@PathVariable Long codigoDenuncia, @PathVariable Integer tipoAprovacao) {
+		try {
+			if(denunciaService.aprovarDenuncia(codigoDenuncia, tipoAprovacao)){
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+			}
+			return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);

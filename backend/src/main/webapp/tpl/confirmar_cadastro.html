@@ -1,0 +1,25 @@
+<div class="register-container full-height sm-p-t-30" ng-controller="ConfirmaCadastroCtrl">
+    <div class="container-sm-height full-height">
+        <div class="row row-sm-height">
+            <div class="col-sm-12 col-sm-height col-middle">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png"
+                    width="78" height="22">
+                <h3 translate>CONFIRM_REG.HEADLINE1</h3>
+                <p translate>
+                    <small translate>CONFIRM_REG.HEADLINE2</small>
+                </p>
+                <div class="panel-body text-center">
+                    <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
+                </div>
+                
+                <form id="form-confirm" class="p-t-15" role="form" name="confirm">
+                    <button class="btn btn-primary btn-cons m-t-10" ng-disabled="recuperar.$invalid" ng-click="confirmar()" translate>CONFIRM_REG.CONFIRM</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--data-toggle="modal" data-target="#modalSlideUp" id="btnToggleSlideUpSize"-->
+

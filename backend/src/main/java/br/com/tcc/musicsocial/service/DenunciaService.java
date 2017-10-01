@@ -10,4 +10,6 @@ public interface DenunciaService {
 
 	List<Denuncia> getDenuncias();
 
+	boolean aprovarDenuncia(Long codigoDenuncia, Integer tipoAprovacao);
+
 }

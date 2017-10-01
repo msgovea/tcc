@@ -37,7 +37,7 @@ public class PublicacaoController {
 			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
 	@CrossOrigin
 	@RequestMapping(value = "/get/amigos/{idUsuario}")
 	public Response<?> getPublicacoesDeAmigos(@PathVariable("idUsuario") Integer idUsuario) {
@@ -49,7 +49,7 @@ public class PublicacaoController {
 			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
 	@CrossOrigin
 	@RequestMapping(value = "/get/alta")
 	public Response<?> getPublicacoesEmAlta() {
@@ -67,7 +67,7 @@ public class PublicacaoController {
 	public Response<?> cadastrarPublicacao(@RequestBody Publicacao request) {
 		try {
 			if (publicacaoService.cadastrarPublicacao(request) != null) {
-				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), request.getCodigo());
 			} else {
 				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
 			}
@@ -76,7 +76,7 @@ public class PublicacaoController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
 	@CrossOrigin
 	@RequestMapping("/remover")
 	public Response<?> removerPublicacao(@RequestParam Long codigo) {
@@ -91,18 +91,13 @@ public class PublicacaoController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
 	@CrossOrigin
-	@RequestMapping(
-			value = "/comentar",
-			method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE
-			)
+	@RequestMapping(value = "/comentar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<?> comentarPublicacao(@RequestBody Comentario comentario) {
 		try {
 			if (publicacaoService.comentarPublicacao(comentario)) {
-				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), comentario.getCodigo());
 			} else {
 				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
 			}
@@ -111,7 +106,7 @@ public class PublicacaoController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
 	@CrossOrigin
 	@RequestMapping(value = "/comentarios/listar")
 	public Response<?> listarComentarios(@RequestParam Long codigoPublicacao) {
@@ -123,7 +118,7 @@ public class PublicacaoController {
 			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
 	@CrossOrigin
 	@RequestMapping("/curtir")
 	public Response<?> curtirPublicacao(@RequestBody Curtida curtida) {
@@ -139,16 +134,13 @@ public class PublicacaoController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
-	
+
 	@CrossOrigin
 	@RequestMapping("/comentario/remover/{codigoComentario}")
 	public Response<?> removerComentario(@PathVariable Long codigoComentario) {
 		try {
-			if (publicacaoService.removerComentario(codigoComentario)) {
-				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
-			} else {
-				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
-			}
+			publicacaoService.removerComentario(codigoComentario);
+			return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);

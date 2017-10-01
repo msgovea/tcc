@@ -1,0 +1,35 @@
+<div class="register-container full-height sm-p-t-30" >
+    <div class="container-sm-height full-height">
+        <div class="row row-sm-height">
+            <div class="col-sm-12 col-sm-height col-middle">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+                <h3 translate>RESET.HEADLINE</h3>
+                <form id="form-redefinir" class="p-t-15" role="form" name="redefinir">
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.pass.$invalid && !redefinir.pass.$pristine}">
+                                <label translate>RESET.FORM.PASSWORD</label>
+                                <input type="password" name="pass" placeholder="{{ 'RESET.FORM.PH_PASSWORD' | translate }}"class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password"  ng-change="finished()" required>
+                            </div>
+                            <label class="error" for="pass" ng-show="redefinir.pass.$invalid && !redefinir.pass.$pristine" translate>RESET.FORM.ERROR1</label>
+                            <label class="error" for="pass" ng-show="redefinir.pass.$error.minlength" translate>RESET.FORM.ERROR2</label>
+                            <label class="error" for="pass" ng-show="redefinir.pass.$error.maxlength" translate>RESET.FORM.ERROR4</label>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': redefinir.passequal && !redefinir.cpass.$pristine}">
+                                <label translate>RESET.FORM.CONF_PASSWORD</label>
+                                <input type="password" name="cpass" placeholder="{{ 'RESET.FORM.PH_PASSWORD' | translate }}" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
+                            </div>
+                            <label class="error" for="cpass" ng-show="redefinir.passequal && !redefinir.cpass.$pristine" translate>RESET.FORM.ERROR3</label>
+
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="redefinir.$invalid || redefinir.passequal" ng-click="redefinirSenha(user)" translate>RESET.SEND</button>
+                    <button class="btn btn-success btn-cons m-t-10" type="submit" ui-sref="access.login" translate>RESET.CANCEL</button>    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

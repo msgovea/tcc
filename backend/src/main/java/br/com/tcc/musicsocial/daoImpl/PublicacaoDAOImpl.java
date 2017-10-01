@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.tcc.musicsocial.dao.PublicacaoDAO;
 import br.com.tcc.musicsocial.entity.Publicacao;
+import br.com.tcc.musicsocial.util.SituacaoConta;
 
 @Repository
 public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements PublicacaoDAO {
@@ -19,10 +20,12 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 		hql.append("select p from Publicacao p ");
 		hql.append("where p.usuario.codigoUsuario = :codigo ");
 		hql.append("and p.ativa = :ativa ");
+		hql.append("and p.usuario.situacaoConta.codigoSituacaoConta <> :codigoSituacaoConta ");
 		hql.append("order by p.codigo desc ");
 		Query query = getEntityManager().createQuery(hql.toString());
 		query.setParameter("codigo", idUsuario);
 		query.setParameter("ativa", true);
+		query.setParameter("codigoSituacaoConta", SituacaoConta.BANIDA.getValue());
 		return query.getResultList();
 	}
 	

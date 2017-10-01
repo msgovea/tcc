@@ -1,0 +1,106 @@
+<div class="register-container full-height sm-p-t-30" >
+    <div class="container-sm-height full-height">
+        <div class="row row-sm-height">
+            <div class="col-sm-12 col-sm-height col-middle">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+               <!-- <h3 translate>REGISTER.HEADLINE</h3>--><br></br>
+                <p translate>
+                    <small>REGISTER.SUBTITLE</small>
+                </p>
+                <form id="form-register" class="p-t-15" role="form" name="register">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.name.$invalid && !register.name.$pristine }">
+                                <label translate>REGISTER.FORM.NAME</label>
+                                <input type="text" name="name" placeholder="John Wherley" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.name" required>
+                            </div>
+                            <label class="error" for="name" ng-show="register.name.$error.pattern && !register.name.$pristine" translate> REGISTER.FORM.ERROR9</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.uname.$invalid && !register.uname.$pristine }">
+                                <label translate>REGISTER.FORM.USERNAME</label>
+                                <input type="text" name="uname" placeholder="johnw" class="form-control" ng-model="user.username" required>
+                            </div>
+                            <label class="error" for="uname" ng-show="register.uname.$invalid && !register.uname.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default input-group col-sm-12" ng-class="{ 'has-error': birthdayError}">
+                                <label translate>REGISTER.FORM.BIRTHDAY</label>
+                                <input type="text" class="form-control date" name= "birthday" placeholder="10/10/1995"  ng-model="user.birthday" id="datepicker-component2" ui-jq="datepicker" ui-options="{format: 'dd/mm/yyyy'}" ng-change="validateDate(user.birthday)" required>
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div> 
+                            <label class="error" ng-show="birthdayError" translate>REGISTER.FORM.ERROR11</label>
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.country.$invalid && !register.country.$pristine }">
+                                <label translate>REGISTER.FORM.COUNTRY</label>
+                                <input type="text" name="country" placeholder="United States" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.country" required>
+                            </div>
+                            <label class="error" for="country" ng-show="register.country.$error.pattern && !register.country.$pristine" translate> REGISTER.FORM.ERROR9</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.state.$invalid && !register.state.$pristine }">
+                                <label translate>REGISTER.FORM.STATE</label>
+                                <input type="text" name="state" placeholder="California" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.state" required>
+                            </div>
+                            <label class="error" for="state" ng-show="register.state.$error.pattern && !register.state.$pristine" translate> REGISTER.FORM.ERROR9</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.city.$invalid && !register.city.$pristine }">
+                                <label translate>REGISTER.FORM.CITY</label>
+                                <input type="text" name="city" placeholder="San Francisco" class="form-control" ng-pattern="/^[a-zA-Zà-ú ]+$/" ng-model="user.city" required>
+                            </div>
+                            <label class="error" for="city" ng-show="register.city.$error.pattern && !register.city.$pristine" translate> REGISTER.FORM.ERROR9</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.email.$invalid && !register.email.$pristine }">
+                                <label translate>REGISTER.FORM.EMAIL</label>
+                                <input type="email" name="email" placeholder="john.wherley@email.com" class="form-control" ng-model="user.email" required>
+                            </div>
+                            <label class="error" for="email" ng-show="register.email.$invalid && !register.email.$pristine" translate>REGISTER.FORM.ERROR5</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.pass.$invalid && !register.pass.$pristine }">
+                                <label translate>REGISTER.FORM.PASSWORD</label>
+                                <input type="password" name="pass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-minlength="6" ng-Maxlength = "12" ng-model="user.password" ng-change="finished()" required>
+                            </div>
+                            <label class="error" for="pass" ng-show="register.pass.$invalid && !register.pass.$pristine" translate>REGISTER.FORM.ERROR1</label>
+                            <label class="error" for="pass" ng-show="register.pass.$error.minlength" translate>REGISTER.FORM.ERROR6</label>
+                            <label class="error" for="pass" ng-show="register.pass.$error.maxlength" translate>REGISTER.FORM.ERROR8</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': register.passequal && !register.cpass.$pristine}">
+                                <label translate>REGISTER.FORM.CONF_PASSWORD</label>
+                                <input type="password" name="cpass" placeholder="{{'REGISTER.FORM.PH_PASSWORD' | translate}}" class="form-control" ng-model="user.cpassword" ng-change="finished()" required>
+                            </div>
+                            <label class="error" for="cpass" ng-show="register.passequal && !register.cpass.$pristine" translate>REGISTER.FORM.ERROR7</label>
+
+                        </div>
+                    </div>
+                    <div class="full-height">
+                        <div class="panel-body text-center">
+                            <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="register.$invalid || birthdayError || register.passequal || loading" ng-click="createAccount(user)" translate>REGISTER.SEND</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

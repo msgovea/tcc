@@ -1,0 +1,300 @@
+<div class="social-wrapper" ng-controller="FeedCtrl">
+    <div class="social " data-pages="social" pg-social>
+        <!-- END JUMBOTRON -->
+        <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+            <div class="feed">
+                <!-- START DAY -->
+                <div class="day" data-social="day">
+                    <!--
+                    <div class="card no-border bg-transparent full-width" data-social="item">
+                        <div class="container-fluid p-t-30 p-b-30 ">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="container-xs-height">
+                                        <div class="row-xs-height">
+                                            <div class="social-user-profile col-xs-height text-center col-top">
+                                                <div class="thumbnail-wrapper d48 circular bordered b-white">
+                                                    <img alt="Avatar" width="55" height="55" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar_small2x.jpg" data-src="assets/img/profiles/avatar.jpg" src="assets/img/profiles/avatar.jpg">
+                                                </div>
+                                                <br>
+                                                <i class="fa fa-check-circle text-success fs-16 m-t-10"></i>
+                                            </div>
+                                            <div class="col-xs-height p-l-20">
+                                                <h3 class="no-margin">David Nester</h3>
+                                                <p class="no-margin fs-16">is excited about the new pages design framework</p>
+                                                <p class="hint-text m-t-5 small">San Fransisco Bay | CEO at Pages.inc</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="no-margin fs-16">Hi My Name is David Nester, &amp; heres my new pages user profile page</p>
+                                    <p class="hint-text m-t-5 small">I love reading people's about page especially those who are in the same industry as me.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="m-b-5 small">1,435 Mutual Friends</p>
+                                    <ul class="list-unstyled ">
+                                        <li class="m-r-10">
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                                <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg" alt="Profile Image" src="assets/img/profiles/1.jpg">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                                <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/2x.jpg" data-src="assets/img/profiles/2.jpg" alt="Profile Image" src="assets/img/profiles/2.jpg">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                                <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/3x.jpg" data-src="assets/img/profiles/3.jpg" alt="Profile Image" src="assets/img/profiles/3.jpg">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                                <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" alt="Profile Image" src="assets/img/profiles/4.jpg">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                                <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg" alt="Profile Image" src="assets/img/profiles/5.jpg">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                                <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6.jpg" alt="Profile Image" src="assets/img/profiles/6.jpg">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                                <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/7x.jpg" data-src="assets/img/profiles/7.jpg" alt="Profile Image" src="assets/img/profiles/7.jpg">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="thumbnail-wrapper d32 circular b-white">
+                                                <div class="bg-master text-center text-white"><span>+34</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <br>
+                                    <p class="m-t-5 small">More friends</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!-- END ITEM -->
+                    <div class="card col3 m-t-30 no-border" data-social="item"></div>
+                    <!-- START ITEM -->
+                    <div class="card col2 padding-20" data-social="item">
+                        <form class="simform no-margin" autocomplete="off" data-social="status">
+                            <div class="status-form-inner">
+                                <ol class="questions">
+                                    <li>
+                                        <span>
+                                        <label for="status-q1" translate>FEED.HEADLINE</label>
+                                    </span>
+                                        <input type="text" name="q1" class="form-control" ng-model="feed.q1" />
+                                        <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="feed.q1.$invalid" ng-click="post(feed.q1)" translate>FEED.POST</button>
+                                    </li>
+                                </ol>
+                                <!-- /questions -->
+                                <button class="submit" type="submit">Send answers</button>
+                                <div class="controls">
+                                    <button class="next"></button>
+                                    <div class="progress"></div>
+                                    <span class="number">
+                                    <span class="number-current"></span>
+                                    <span class="number-total"></span>
+                                    </span>
+                                    <span class="error-message"></span>
+                                </div>
+                                <!-- / controls -->
+                            </div>
+                            <!-- /simform-inner -->
+                            <span class="final-message"></span>
+                        </form>
+                        <!-- /simform -->
+                    </div>
+                    <!-- END ITEM -->
+                    <div class="card col-md-4 p-t-5" style="background: #eef0f0;" data-social="item">
+                        <p class="m-b-5 small" translate>FEED.SUGESTOES</p>
+                        <ul class="list-unstyled ">
+                            <li class="m-r-10">
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/1x.jpg" data-src="assets/img/profiles/1.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/1.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/2x.jpg" data-src="assets/img/profiles/2.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/2.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/3x.jpg" data-src="assets/img/profiles/3.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/3.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/4.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/5.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/6.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                    <img width="35" height="35" ui-jq="unveil" data-src-retina="assets/img/profiles/7x.jpg" data-src="assets/img/profiles/7.jpg"
+                                        alt="Profile Image" src="assets/img/profiles/7.jpg">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="thumbnail-wrapper d32 circular b-white">
+                                    <div class="bg-master text-center text-white"><span>+34</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <br>
+                        <p class="m-t-5 small" translate>FEED.MORE_FRIENDS</p>
+                    </div>
+                    <!-- START ITEM -->
+                    <!--<div class="card status col2" data-social="item">
+                        <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+                        </div>
+                        <h5>David Nester updated his status
+                            <span class="hint-text">few seconds ago</span></h5>
+                        <h2>Earned my first salary bonus for the best design of the year award.</h2>
+                        <ul class="reactions">
+                            <li><a href="">5,345 <i class="fa fa-comment-o"></i></a>
+                            </li>
+                            <li><a href="">23K <i class="fa fa-heart-o"></i></a>
+                            </li>
+                        </ul>
+                    </div>-->
+                    <!-- END ITEM -->
+                    <!-- START ITEM -->
+                    <div class="card share col1" data-social="item" ng-repeat="publicacao in publicacoes">
+                        <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+                        </div>
+                        <div class="card-header clearfix">
+                            <div class="user-pic">
+                                <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar.jpg" data-src="assets/img/profiles/avatar.jpg"
+                                    ng-src="assets/img/profiles/avatar.jpg">
+                            </div>
+                            <h5>{{publicacao.usuario.nome}}</h5>
+                            <h6>{{publicacao.dataPublicacao | date}}
+                                <span class="location semi-bold" ng-show="publicacao.usuario.cidade.length"><i class="fa fa-map-marker"></i> {{publicacao.usuario.cidade + ' - ' + publicacao.usuario.estado}}</span>
+                            </h6>
+                        </div>
+                        <div class="card-description">
+                            <p>{{publicacao.conteudo}}</p>
+                        </div>
+                        <div class="card-content" ng-show="publicacao.imagem.length">
+                            <ul class="buttons ">
+                                <li>
+                                    <a href=""><i class="fa fa-expand"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=""><i class="fa fa-heart-o"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <img alt="Social post" ng-src="{{publicacao.imagem}}">
+                        </div>
+                        <div class="card-footer clearfix">
+                            <div class="time" translate>FEED.TIME</div>
+                            <ul class="reactions">
+                                <li><a href="">{{filtrarNumero(20)}} <i class="fa fa-comment-o"></i></a>
+                                </li>
+                                <li><a href="">{{filtrarNumero(349)}} <i class="fa fa-heart-o"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END ITEM -->
+                </div>
+                <!-- END DAY -->
+            </div>
+            <!-- END FEED -->
+        </div>
+        <!-- END CONTAINER FLUID -->
+    </div>
+    <!-- /container -->
+</div>
+
+<div class="modal fade slide-up disable-scroll" id="modalSlideUp" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="FeedCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>GOSTO_MUSICAL.CAD_GOSTOS.HEADLINE</h5>
+                    <p class="p-b-10" translate>GOSTO_MUSICAL.CAD_GOSTOS.SUBTITLE</p>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <div class="checkbox check-primary col-md-4" ng-repeat="gosto in gostos">
+                                        <input type="checkbox" id="checkbox{{gosto.codigo}}" ng-model="gosto.selecionado" />
+                                        <label for="checkbox{{gosto.codigo}}">{{gosto.descricao}}</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="btn btn-primary btn-cons m-t-10" align="center" ng-click="cadastrarGostos()" translate>GOSTO_MUSICAL.CAD_GOSTOS.SEND</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade slide-up disable-scroll" id="modalGostoFavorito" tabindex="-1" role="dialog" aria-hidden="false" ng-controller="FeedCtrl">
+    <div class="modal-dialog ">
+        <div class="modal-content-wrapper">
+            <div class="modal-content">
+                <div class="modal-header clearfix text-left">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+                    </button>
+                    <h5 translate>GOSTO_MUSICAL.CAD_FAVORITO.HEADLINE</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <div class="radio radio-primary" ng-repeat="gostoCadastrado in gostosCadastrados">
+                                        <input type="radio" name="groupName" id="radio{{gostoCadastrado.codigo}}" ng-value="gostoCadastrado.codigo" ng-model="gostoFavorito.favorito"
+                                        />
+                                        <label for="radio{{gostoCadastrado.codigo}}">{{gostoCadastrado.descricao}}</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="btn btn-primary btn-cons m-t-10" align="center" ng-click="cadastrarGostoFavorito()" translate>GOSTO_MUSICAL.CAD_FAVORITO.SEND</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

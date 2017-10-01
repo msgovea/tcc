@@ -1,0 +1,75 @@
+<!-- START PAGE-CONTAINER -->
+<div class="login-wrapper ">
+    <!-- START Login Background Pic Wrapper-->
+    <div class="bg-pic">
+        <!-- START Background Pic-->
+        <img src="assets/img/bg.jpg" data-src="assets/img/bg.jpg" ui-jq="unveil" data-src-retina="assets/img/bg.jpg" alt="" class="lazy">
+        <!-- END Background Pic-->
+        <!-- START Background Caption-->
+
+        <!-- END Background Caption-->
+    </div>
+    <!-- END Login Background Pic Wrapper-->
+    <!-- START Login Right Container-->
+    <div class="login-container bg-white">
+        <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+            <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+            <p class="p-t-35"><label translate>LOGIN.HEADLINE</p>
+            <!-- START Login Form -->
+            <form id="form-login" name="login2" class="p-t-15" role="form">
+                <!-- START Form Control-->
+                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.username.$invalid && !login2.username.$pristine }">
+                    <label translate>LOGIN.FORM.USERNAME</label>
+                    <div class="controls">
+                        <input type="text" name="username" placeholder="john.wherley@email.com" class="form-control" ng-model="user3.username" required>
+                    </div>
+                </div>
+                <label translate class="error" for="username" ng-show="login2.username.$invalid && !login2.username.$pristine" >LOGIN.FORM.ERROR1</label>
+                <!-- END Form Control-->
+                <!-- START Form Control-->
+                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : login2.password.$invalid && !login2.password.$pristine }">
+                    <label translate>LOGIN.FORM.PASSWORD</label>
+                    <div class="controls">
+                        <input type="password" class="form-control" name="password" placeholder="************" ng-model="user3.password" required>
+                    </div>
+                </div>
+                <label translate class="error" for="password" ng-show="login2.password.$invalid && !login2.password.$pristine">LOGIN.FORM.ERROR1</label>
+                
+                <!-- START Form Control-->
+                <div class="row">
+                    <div class="col-md-6 no-padding">
+                        <div class="checkbox">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a translate class="text-info small" ui-sref="access.recuperarSenha">LOGIN.RECOVER</a>
+                    </div>
+                </div>
+                <!-- END Form Control-->
+                <div class="full-height">
+                    <div class="panel-body text-center">
+                        <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
+                    </div>
+                </div>
+                <button translate class="btn btn-primary btn-block m-t-10" type="submit" ng-disabled="login2.$invalid || loading" ng-click="validateLogin(user3)">LOGIN.LOG_IN</button>
+            </form>
+            <hr>
+            <label translate>LOGIN.REGISTER</label>
+            <button translate class="btn btn-success btn-block" ui-sref="access.register">LOGIN.SIGN_UP</button>
+
+        </div>
+        <div class="footer-login col-md-12 text-center panel-footer ">
+            <a translate class="text-info small" ng-click = "changeLanguage ('br')"> <img width="24" height="24"src="assets/img/brasil.png"></a>   
+            <a translate class="text-info small" ng-click = "changeLanguage ('en')"> <img width="22" height="22" src="assets/img/eua.png"></a>
+            <p class="small no-margin pull-left sm-pull-reset">
+                <span class="hint-text">Copyright © 2017</span>
+                <span class="font-montserrat">ur Music</span>.
+                <span class="hint-text" translate>FOOTER.TEXT1</span>
+            </p>
+        </div>
+
+    <!-- END Login Right Container-->
+
+ 
+</div>
+<!-- END PAGE CONTAINER -->

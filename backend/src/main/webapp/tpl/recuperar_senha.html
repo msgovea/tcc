@@ -1,0 +1,30 @@
+<div class="register-container full-height sm-p-t-30" >
+    <div class="container-sm-height full-height">
+        <div class="row row-sm-height">
+            <div class="col-sm-12 col-sm-height col-middle">
+                <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+                <h3 translate>RECOVER.HEADLINE</h3>
+                <p>
+                    <small translate>RECOVER.SUBTITLE</small>
+                </p>
+                <form id="form-recuperar" class="p-t-15" role="form" name="recuperar">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error': recuperar.email.$invalid && !recuperar.email.$pristine }">
+                                <label translate>RECOVER.FORM.EMAIL</label>
+                                <input type="email" name="email" placeholder="john.wherley@email.com" class="form-control" ng-model="user.email" required>
+                            </div>
+                            <label class="error" for="email" ng-show="recuperar.email.$invalid && !recuperar.email.$pristine" translate>RECOVER.FORM.ERROR1</label>
+                        </div>
+                    </div>
+                     <div class="full-height">
+                        <div class="panel-body text-center">
+                            <img class="image-responsive-height demo-mw-50" id="load" ng-show="loading" src="assets/img/demo/progress.svg" alt="Progress">
+                        </div>
+                    </div>
+                    <button translate class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="recuperar.$invalid || loading" ng-click="recuperarSenha(user)">RECOVER.SEND</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

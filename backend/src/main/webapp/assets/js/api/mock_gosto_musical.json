@@ -1,0 +1,45 @@
+{
+    "message":"Sucesso!",
+    "object": [
+        {
+            "codigo": "1",
+            "descricao": "Rock"          
+        },
+         {
+            "codigo": "2",
+            "descricao": "Samba"
+        },
+         {
+            "codigo": "3",
+            "descricao": "Sertanejo"            
+        },
+         {
+            "codigo": "4",
+            "descricao": "MPB"            
+        },
+         {
+            "codigo": "5",
+            "descricao": "Pagode" 
+        },
+           {
+            "codigo": "6",
+            "descricao": "Rap"          
+        },
+         {
+            "codigo": "7",
+            "descricao": "Gospel"
+        },
+         {
+            "codigo": "8",
+            "descricao": "Jazz"            
+        },
+         {
+            "codigo": "9",
+            "descricao": "Reggae"            
+        },
+         {
+            "codigo": "10",
+            "descricao": "Forró" 
+        }  ]}
+
+        
