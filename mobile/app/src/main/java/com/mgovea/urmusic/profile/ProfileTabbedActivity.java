@@ -21,7 +21,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.mgovea.urmusic.async.follow.AsyncFollowUser;
 import com.mgovea.urmusic.async.profile.AsyncProfile;
 import com.mgovea.urmusic.async.profile.AsyncUploadImage;
@@ -290,6 +292,17 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
     @Override
     public void onLoadedImage(boolean bool) {
+
+        try {
+            ImagePipeline imagePipeline = Fresco.getImagePipeline();
+            imagePipeline.clearCaches();
+
+            mImageView.setImageURI(API.URL_IMGS + API.IMG_PERFIL + usuario.getCodigoUsuario() + ".jpg");
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO ERRO CRASH APP
+        }
+
         dismissProgressDialog();
 
         Toast.makeText(this, "SUCESSO", Toast.LENGTH_LONG).show();
