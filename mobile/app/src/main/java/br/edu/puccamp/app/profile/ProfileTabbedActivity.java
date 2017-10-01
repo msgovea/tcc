@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -69,6 +70,9 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+
+    private CoordinatorLayout mainContent;
+
     private ViewPager mViewPager;
     private TextView mTextUserProfileName;
     private TextView mTextUserBio;
@@ -89,6 +93,9 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_tabbed);
+
+        mainContent = (CoordinatorLayout) findViewById(R.id.main_content);
+        mainContent.setVisibility(View.INVISIBLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profile);
         setSupportActionBar(toolbar);
@@ -177,11 +184,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                 }
             }
         }
-
-        byte[] byteArray;
-
-        Bitmap bitmap = null;
-
         try {
             mImageView.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
         }
@@ -191,6 +193,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         mTextUserBio.setText(usuarioPopulaPerfil.getCidade() + " - " + usuarioPopulaPerfil.getEstado());
 
+        mainContent.setVisibility(View.VISIBLE);
     }
 
     @Override

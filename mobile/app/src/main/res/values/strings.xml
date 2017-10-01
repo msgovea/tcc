@@ -231,7 +231,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_profile_tabbed">ProfileTabbedActivity</string>
+    <string name="title_activity_profile_tabbed">User</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="follow">follow</string>
     <string name="edit_profile">Edit Profile</string>
