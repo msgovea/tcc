@@ -86,14 +86,15 @@
                 android:elevation="4dp"
                 android:paddingBottom="8dp">
 
-                <ImageView
+                <TextView
                     android:id="@+id/followers"
-                    android:layout_width="20dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/ic_chat" />
+                    android:gravity="center"
+                    android:text="@string/followers"  />
 
                 <TextView
                     android:id="@+id/qtd_followers"
@@ -105,15 +106,16 @@
                     android:gravity="center"
                     android:text="123032" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/follows"
-                    android:layout_width="20dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginRight="36dp"
-                    android:src="@drawable/ic_alarm"
                     android:layout_alignTop="@+id/qtd_follows"
                     android:layout_toStartOf="@+id/qtd_followers"
-                    android:layout_marginEnd="36dp" />
+                    android:layout_marginEnd="36dp"
+                    android:gravity="center"
+                    android:text="@string/follows" />
 
                 <TextView
                     android:id="@+id/qtd_follows"

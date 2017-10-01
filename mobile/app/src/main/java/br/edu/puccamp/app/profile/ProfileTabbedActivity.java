@@ -54,6 +54,7 @@ import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
 import br.edu.puccamp.app.profile.options.PictureBottomSheetDialogFragment;
 import br.edu.puccamp.app.util.API;
 import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import br.edu.puccamp.app.util.Preferencias;
 
 public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener, AsyncUploadImage.Listener {
 
@@ -123,9 +124,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         mButtonFollow = (Button) findViewById(R.id.btn_follow);
 
-        SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-        Gson gson = new Gson();
-        usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+        Preferencias pref = new Preferencias(this);
+        usuario = pref.getDadosUsuario();
 
         if (idUsuario != usuario.getCodigoUsuario().longValue() && idUsuario != 0) {
             myProfile = false;
@@ -173,8 +173,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         getSupportActionBar().setTitle(usuarioPopulaPerfil.getApelido());
         mTextUserProfileName.setText(usuarioPopulaPerfil.getNome());
 
-        mQtdSeguidores.setText(usuarioPopulaPerfil.getSeguidores().size() + " seguidores");
-        mQtdSeguidos.setText(usuarioPopulaPerfil.getQtdSeguidos() + " seguindo");
+        mQtdSeguidores.setText(usuarioPopulaPerfil.getSeguidores().size() + "");
+        mQtdSeguidos.setText(usuarioPopulaPerfil.getQtdSeguidos().toString());
 
         if (!myProfile) {
             for (Usuario u :
@@ -302,7 +302,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
     @Override
     public void onLoaded(String s) {
-        mButtonFollow.setText(s.equals("INSERIDO") ? "UNFOLLOW" : "FOLLOW");
+        boolean seguiu = s.equals("INSERIDO");
+        mButtonFollow.setText(getString(seguiu ? R.string.unfollow : R.string.follow));
+
+        //TODO REMOVER TEXTO FIXO
+        try {
+            if (seguiu)
+                mQtdSeguidores.setText((Long.valueOf(mQtdSeguidores.getText().toString()) + 1) + "");
+            else
+                mQtdSeguidores.setText((Long.valueOf(mQtdSeguidores.getText().toString()) - 1) + "");
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     /**
