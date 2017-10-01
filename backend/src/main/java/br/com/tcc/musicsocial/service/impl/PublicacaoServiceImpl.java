@@ -17,6 +17,7 @@ import br.com.tcc.musicsocial.dao.PublicacaoDAO;
 import br.com.tcc.musicsocial.entity.Comentario;
 import br.com.tcc.musicsocial.entity.Curtida;
 import br.com.tcc.musicsocial.entity.Publicacao;
+import br.com.tcc.musicsocial.service.FotoService;
 import br.com.tcc.musicsocial.service.PublicacaoService;
 import br.com.tcc.musicsocial.service.UsuarioService;
 
@@ -34,6 +35,9 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private FotoService fotoService;
 
 	@Override
 	public List<Publicacao> getPublicacoes(String idUsuario) {
@@ -47,7 +51,7 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackOn = Exception.class)
 	public Publicacao cadastrarPublicacao(Publicacao publicacao) {
 		if (!isPublicacaoValida(publicacao)) {
 			return null;
@@ -55,7 +59,12 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		publicacao.setDataPublicacao(new Date(Calendar.getInstance().getTimeInMillis()));
 		publicacao.setAtiva(true);
 		publicacao.setImpulsionada(false);
+		publicacao.setTemImagem(false);
 		publicacaoDAO.save(publicacao);
+		if(publicacao.getImagem() != null) {
+			publicacao.setTemImagem(true);
+			fotoService.gravarImagemPublicacao(publicacao.getImagem(), publicacao.getCodigo());
+		}
 		return publicacao;
 	}
 

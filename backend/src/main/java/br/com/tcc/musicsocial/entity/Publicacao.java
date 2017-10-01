@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -31,8 +30,7 @@ public class Publicacao {
 	private String conteudo;
 
 	@Column(name = "PBC_IMAGEM")
-	@Lob
-	private byte[] imagem;
+	private Boolean temImagem;
 
 	@Column(name = "PBC_DATA_PUBLICACAO")
 	private Date dataPublicacao;
@@ -58,6 +56,9 @@ public class Publicacao {
 	@Transient
 	private Integer qtdComentarios;
 	
+	@Transient
+	private byte[] imagem;
+	
 
 	public Long getCodigo() {
 		return codigo;
@@ -75,12 +76,12 @@ public class Publicacao {
 		this.conteudo = conteudo;
 	}
 
-	public byte[] getImagem() {
-		return imagem;
+	public Boolean getTemImagem() {
+		return temImagem;
 	}
 
-	public void setImagem(byte[] imagem) {
-		this.imagem = imagem;
+	public void setTemImagem(Boolean temImagem) {
+		this.temImagem = temImagem;
 	}
 
 	public Date getDataPublicacao() {
@@ -129,6 +130,14 @@ public class Publicacao {
 
 	public void setQtdComentarios(Integer qtdComentarios) {
 		this.qtdComentarios = qtdComentarios;
+	}
+
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 
 }

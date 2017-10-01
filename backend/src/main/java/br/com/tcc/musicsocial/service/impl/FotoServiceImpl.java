@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 
@@ -21,9 +20,18 @@ public class FotoServiceImpl implements FotoService {
 	
 	private final String PERFIL = "perfil\\";
 	
+	private final String PUBLI = "publicacao\\";
+	
 	@Override
 	public boolean gravarImagemPerfilUsuario(byte[] foto, Long idUsuario) {
 		File arquivo = new File(CAMINHO.concat(PERFIL).concat(idUsuario.toString()).concat(".jpg"));
+		return gravarFoto(foto, arquivo, ExtensaoFoto.JPG);
+		
+	}
+	
+	@Override
+	public boolean gravarImagemPublicacao(byte[] foto, Long idPublicacao) {
+		File arquivo = new File(CAMINHO.concat(PUBLI).concat(idPublicacao.toString()).concat(".jpg"));
 		return gravarFoto(foto, arquivo, ExtensaoFoto.JPG);
 		
 	}
@@ -34,10 +42,6 @@ public class FotoServiceImpl implements FotoService {
 				arquivo.createNewFile();
 			}
 			InputStream is = new ByteArrayInputStream(foto);
-			File log = new File(CAMINHO.concat("log.txt"));
-			PrintWriter pw = new PrintWriter(log);
-			pw.println(foto);
-			pw.close();
 			BufferedImage image = ImageIO.read(is);
 			return ImageIO.write(image, extensao.getValor(), arquivo);
 		} catch (IOException e) {
