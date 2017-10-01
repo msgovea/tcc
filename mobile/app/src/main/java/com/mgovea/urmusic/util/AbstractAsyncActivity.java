@@ -74,7 +74,7 @@ public abstract class AbstractAsyncActivity extends AppCompatActivity {
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            builder.setTitle(getString(R.string.error));
+            builder.setTitle(getString(R.string.error_title));
             builder.setMessage(teste);
             builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                 @Override

@@ -9,11 +9,14 @@ public interface API {
     //API
     String URL        = "http://192.198.90.26/";
 
+    String URL_IMGS   = "http://www.urmusic.me:82/";
+    String IMG_PERFIL = "perfil/";
+
     String REGISTER              = "usuario/cadastro";
     String BUSCAR_USUARIO        = "usuario/buscar";
     String BUSCAR_USUARIO_NOME   = "usuario/buscar?nome=";
     String ATUALIZAR_PERFIL      = "usuario/atualizar";
-    String UPLOAD_IMAGEM         = "upload/imagem";
+    String UPLOAD_IMAGEM         = "usuario/perfil/foto";
     String LOGIN                 = "usuario/login";
     String RECOVERY              = "usuario/recuperar";
     String GOSTOS_MUSICAIS       = "usuario/getGostosMusicais";

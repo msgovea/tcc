@@ -24,7 +24,8 @@ import java.net.URL;
 public class AsyncUploadImage extends AsyncTask<ImagemUsuario, String, String> {
 
     public interface Listener {
-        void onLoaded(Object o);
+        void onLoadedImage(boolean bool);
+        void onLoadedError(String o);
     }
 
     private Listener mListener;
@@ -90,19 +91,19 @@ public class AsyncUploadImage extends AsyncTask<ImagemUsuario, String, String> {
            if (response.getMessage().equalsIgnoreCase("Sucesso!")) {
 
                 if (mListener != null) {
-                    mListener.onLoaded(u);
+                    mListener.onLoadedImage(true);
                 }
 
             } else {
                 if (mListener != null) {
-                    mListener.onLoaded("invalid");
+                    mListener.onLoadedError("invalid");
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             if (mListener != null) {
-                mListener.onLoaded(e.toString());
+                mListener.onLoadedError(e.toString());
             }
         }
 

@@ -90,18 +90,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Usuario question = mQuestions.get(position);
 
-        byte[] byteArray;
-
-        Bitmap bitmap = null;
-
-        //TODO MGOVEA IMAGEM QUEBRANDO
         try {
-            holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+            holder.avatar.setImageURI(API.URL_IMGS + API.IMG_PERFIL + question.getCodigoUsuario() + ".jpg");
+        } catch (Exception e) {
+            try {
+                holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+            } catch (Exception e2) {
+                e2.printStackTrace();
+                //TODO ERRO CRASH APP
+            }
         }
-        catch (Exception e) {
-            holder.avatar.setImageDrawable(mContext.getDrawable(R.drawable.ic_account_box_black_24dp));
-        }
-
 
         holder.textAuthorName.setText(question.getNome() + " - (" + question.getApelido() + ")");
         holder.textJobTitle.setText(question.getCidade() + " - " + question.getEstado());

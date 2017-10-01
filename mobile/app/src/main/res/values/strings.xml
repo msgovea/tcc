@@ -7,6 +7,8 @@
 
     <string name="loading">Loading. Please wait...</string>
 
+    <string name="default_notification_channel_id">default_notification</string>
+
     <!-- API related to login -->
     <string name="prompt_email">E-MAIL</string>
     <string name="prompt_password">PASSWORD</string>

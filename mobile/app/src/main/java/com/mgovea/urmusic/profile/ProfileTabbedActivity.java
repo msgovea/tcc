@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mgovea.urmusic.async.follow.AsyncFollowUser;
@@ -165,10 +166,14 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             }
         }
         try {
-            mImageView.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
-        }
-        catch (Exception e) {
-            mImageView.setImageDrawable(getDrawable(R.drawable.ic_account_box_black_24dp));
+            mImageView.setImageURI(API.URL_IMGS + API.IMG_PERFIL + usuarioPopulaPerfil.getCodigoUsuario() + ".jpg");
+        } catch (Exception e) {
+            try {
+                mImageView.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
+            } catch (Exception e2) {
+                e2.printStackTrace();
+                //TODO ERRO CRASH APP
+            }
         }
 
         mTextUserBio.setText(usuarioPopulaPerfil.getCidade() + " - " + usuarioPopulaPerfil.getEstado());
@@ -237,15 +242,18 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             //recupera a imagem do local que foi selecionada
             try {
                 showLoadingProgressDialog();
+                bottomSheetDialogFragment.dismiss();
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
                 //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imagem.compress(Bitmap.CompressFormat.WEBP, 0, stream);
+                imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
                 //Cria um array de bytes da imagem
                 byte[] byteArray = stream.toByteArray();
+
+                Log.e("UPLOAD_IMAGEM", byteArray.length + "");
 
                 ImagemUsuario imagemUsuario = new ImagemUsuario(idUsuario, byteArray);
                 AsyncUploadImage sinc = new AsyncUploadImage(this);
@@ -281,6 +289,14 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     }
 
     @Override
+    public void onLoadedImage(boolean bool) {
+        dismissProgressDialog();
+
+        Toast.makeText(this, "SUCESSO", Toast.LENGTH_LONG).show();
+        Log.i(this.toString(), "SUCESSO IMAGEM PUBLICADA");
+    }
+
+    @Override
     public void onLoaded(String s) {
         boolean seguiu = s.equals("INSERIDO");
         mButtonFollow.setText(getString(seguiu ? R.string.unfollow : R.string.follow));
@@ -291,7 +307,9 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                 mQtdSeguidores.setText((Long.valueOf(mQtdSeguidores.getText().toString()) + 1) + "");
             else
                 mQtdSeguidores.setText((Long.valueOf(mQtdSeguidores.getText().toString()) - 1) + "");
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
