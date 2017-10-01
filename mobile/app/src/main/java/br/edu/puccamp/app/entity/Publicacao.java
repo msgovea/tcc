@@ -24,12 +24,6 @@ public class Publicacao {
 
     private Usuario usuario;
 
-    /* TODO MGOVEA - REMOVER QND WAGNER IMPLEMENTAR */
-
-    private Boolean curtido = false;
-
-    private Long curtidas = Long.valueOf(0);
-
     private ArrayList<Usuario> likes;
 
     private Long qtdComentarios = Long.valueOf(0);
@@ -55,22 +49,6 @@ public class Publicacao {
         }
     }
 
-    public Boolean getCurtido() {
-        return curtido;
-    }
-
-    public void setCurtido(Boolean curtido) {
-        this.curtido = curtido;
-    }
-
-    public Long getCurtidas() {
-        return curtidas;
-    }
-
-    public void setCurtidas(Long curtidas) {
-        this.curtidas = curtidas;
-    }
-
     public Long getQtdComentarios() {
         return qtdComentarios;
     }
@@ -78,8 +56,6 @@ public class Publicacao {
     public void setQtdComentarios(Long qtdComentarios) {
         this.qtdComentarios = qtdComentarios;
     }
-
-    // END TODO MGOVEA - REMOVER QND WAGNER IMPLEMENTAR
 
     public Long getCodigo() {
         return codigo;

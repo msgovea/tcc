@@ -12,7 +12,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.AppBarLayout
@@ -149,14 +149,25 @@
                     android:layout_alignBottom="@id/user_profile_name"
                     />
 
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/location_image_profile"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/user_profile_name"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/map_marker"
+                    android:tint="#827f93" />
+
                 <TextView
                     android:id="@+id/user_profile_short_bio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/user_profile_name"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="3dp"
                     android:layout_marginTop="5dp"
                     android:text="Another profile information"
+                    android:layout_toRightOf="@id/location_image_profile"
                     android:textColor="#fff"
                     android:textSize="10sp" />
 

@@ -35,6 +35,7 @@ import br.edu.puccamp.app.posts.comments.CommentsActivity;
 import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
 import br.edu.puccamp.app.profile.ProfileTabbedActivity;
 import br.edu.puccamp.app.util.API;
+import br.edu.puccamp.app.util.Preferencias;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -43,6 +44,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     private List<Publicacao> mQuestions;
     private Context mContext;
     private Usuario usuario;
+
+    private Preferencias pref;
 
     @Nullable
     private OnItemClickListener listener;
@@ -57,9 +60,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         mContext = context;
         mQuestions = questions;
 
-        SharedPreferences prefs = context.getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-        Gson gson = new Gson();
-        usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+        pref = new Preferencias(mContext);
+        usuario = pref.getDadosUsuario();
     }
 
     @Override
@@ -100,15 +102,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Publicacao question = mQuestions.get(position);
 
-        byte[] byteArray ;
+        byte[] byteArray;
 
         Bitmap bitmap = null;
 
         //TODO IMAGEM OFICIAL
         try {
             holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             holder.avatar.setImageDrawable(mContext.getDrawable(R.drawable.ic_account_box_black_24dp));
         }
         holder.textAuthorName.setText(question.getUsuario().getNome());
@@ -217,39 +218,34 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             Log.e("1", view.getId() + "");
 
             Intent intent;
-            Gson gson = new Gson();
-            SharedPreferences prefs = mContext.getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 
             switch (view.getId()) {
                 case R.id.view_likes:
                     Curtida curtidaPublicacao = new Curtida(
-                            gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class), //usuario
+                            usuario, //usuario
                             getItem(position).getCodigo()); //codigoPublicacao
 
                     AsyncLikePublication sinc = new AsyncLikePublication(this);
                     sinc.execute(curtidaPublicacao);
                     break;
                 case R.id.avatar_publication:
+                    //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
+                    if (view.getContext() instanceof ProfileTabbedActivity) { break; }
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
                     break;
                 case R.id.view_settings:
-                    Log.e("MGOVEAA", "SELECTED " + position);
-                    // TODO 27/08
-
                     Bundle args = new Bundle();
                     args.putLong(API.PUBLICACAO, getItem(position).getCodigo());
                     args.putLong(API.USUARIO, getItem(position).getUsuario().getCodigoUsuario());
                     bottomSheetDialogFragment = new CustomBottomSheetDialogFragment();
                     bottomSheetDialogFragment.setArguments(args);
                     bottomSheetDialogFragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-
-                    Log.e("APÓS - MGOVEAA", "SELECTED " + position);
-
-                    //
                     break;
                 case R.id.user_name_publication:
+                    //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
+                    if (view.getContext() instanceof ProfileTabbedActivity) { break; }
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);

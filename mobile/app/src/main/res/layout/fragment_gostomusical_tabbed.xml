@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Default text"
+            android:text="@string/gosto_nao_cadastrado"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -43,13 +43,13 @@
     </RelativeLayout>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listPosts2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/gosto_musical_list_exibicao"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/favorito"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listPosts2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/favorito"
+            tools:listitem="@layout/gosto_musical_list_exibicao" />
 
     </LinearLayout>
 

@@ -66,6 +66,7 @@ public class MainActivity extends AbstractAsyncActivity {
             selectFragment(homeItem);
         } else {
             super.onBackPressed();
+            //finish();
         }
     }
 

@@ -98,6 +98,7 @@ public class SplashScreen extends Activity {
                     } else {
                         //startActivity(new Intent(SplashScreen.this, ProfileEditActivity.class));
                         startActivity(new Intent(SplashScreen.this, br.edu.puccamp.app.principal.MainActivity.class));
+                        finish();
                     }
 //                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
 //                    startActivity(intent);

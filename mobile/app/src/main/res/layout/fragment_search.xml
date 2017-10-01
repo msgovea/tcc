@@ -30,8 +30,8 @@
             android:id="@+id/list_users"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/user_list" />
-
+            tools:listitem="@layout/user_list"
+            />
 
     </FrameLayout>
 

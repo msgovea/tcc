@@ -31,14 +31,15 @@
     <TextView
         android:id="@+id/user_name_publication"
         android:layout_width="match_parent"
-        android:layout_height="22dp"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@id/avatar_publication"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/avatar_publication"
+        android:maxLines="1"
         android:layout_toLeftOf="@+id/text_date"
-        android:textAlignment="textStart"
         android:layout_toStartOf="@+id/text_date"
         android:text="Carol Bell"
+        android:textAlignment="textStart"
         android:textColor="#827f93"
         android:textSize="18sp"
         android:textStyle="bold" />

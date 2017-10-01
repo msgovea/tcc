@@ -12,6 +12,7 @@
     <string name="loading">Carregando. Aguarde...</string>
     <string name="error_old_password_invalid">A senha antiga não confere</string>
 
+    <string name="gosto_nao_cadastrado">Gosto musical não cadastrado</string>
 
 
     <!-- API related to login -->

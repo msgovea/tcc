@@ -241,6 +241,8 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="title_activity_edit_profile">Edit Profile</string>
 
+    <string name="gosto_nao_cadastrado">Musical Taste Not Registered</string>
+
 
     <!-- API related to Settings -->
 

@@ -147,11 +147,8 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
         try {
 
             List<GostosMusicai> lista = ((Usuario) o).getGostosMusicais();
-            Log.e("RETORNO GOSTO MUSICAL", lista.toString());
-            Log.e("IGUAL", lista.get(0).toString());
-            //gostos = lista;
-//        ArrayAdapter<GostosMusicai> adapter = new InteractiveArrayAdapterList(getActivity(), lista);
-//        listView.setAdapter(adapter);
+//            Log.e("RETORNO GOSTO MUSICAL", lista.toString());
+//            Log.e("IGUAL", lista.get(0).toString());
 
             for (GostosMusicai gosto : lista
                     ) {
@@ -163,6 +160,7 @@ public class GostoMusicalProfileFragment extends Fragment implements AsyncProfil
             listView.setAdapter(mAdapter = new InteractiveArrayAdapterList(getActivity(), lista));
             showProgress(false);
         }catch (Exception e) {
+            showProgress(false);
             e.printStackTrace();
             //TODO MSG ERRO APP QUEBRADO
         }

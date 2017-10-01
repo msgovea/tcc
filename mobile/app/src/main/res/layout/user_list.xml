@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/usuario"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:id="@+id/usuario">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
 
     <View
         android:id="@+id/dividerTop"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="6dp"
         android:background="#E4E6E3" />
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -17,10 +17,10 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_below="@id/dividerTop"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="8dp"
         fresco:actualImageScaleType="focusCrop"
         fresco:roundAsCircle="true"
         fresco:roundWithOverlayColor="@android:color/white" />
@@ -31,7 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/avatar_usuario"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:layout_toEndOf="@id/avatar_usuario"
+        android:maxLines="2"
         android:text="Carol Bell"
         android:textColor="#827f93"
         android:textSize="18sp"
