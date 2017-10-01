@@ -1,4 +1,4 @@
-package br.edu.puccamp.app;
+package com.mgovea.urmusic;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("br.edu.puccamp.app", appContext.getPackageName());
+        assertEquals("com.mgovea.urmusic", appContext.getPackageName());
     }
 }

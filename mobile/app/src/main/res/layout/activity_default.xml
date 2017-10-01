@@ -10,7 +10,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
 
-    tools:context="br.edu.puccamp.app.DefaultActivity">
+    tools:context="com.mgovea.urmusic.DefaultActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

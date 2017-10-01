@@ -1,4 +1,4 @@
-package br.edu.puccamp.app;
+package com.mgovea.urmusic;
 
 import org.junit.Test;
 

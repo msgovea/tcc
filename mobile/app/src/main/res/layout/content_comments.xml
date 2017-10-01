@@ -10,7 +10,7 @@
     android:focusableInTouchMode="true"
     android:background="@android:color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="br.edu.puccamp.app.posts.comments.CommentsActivity"
+    tools:context="com.mgovea.urmusic.posts.comments.CommentsActivity"
     tools:showIn="@layout/activity_comments">
 
     <ProgressBar

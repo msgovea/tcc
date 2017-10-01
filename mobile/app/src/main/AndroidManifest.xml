@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.edu.puccamp.app">
+    package="com.mgovea.urmusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -82,7 +82,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.principal.MainActivity" />
+                android:value="com.mgovea.urmusic.principal.MainActivity" />
         </activity>
         <activity
             android:name=".profile.ProfileTabbedActivity"
@@ -105,7 +105,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.profile.ProfileTabbedActivity" />
+                android:value="com.mgovea.urmusic.profile.ProfileTabbedActivity" />
         </activity>
         <activity
             android:name=".profile.EditPasswordActivity"
@@ -115,7 +115,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.profile.ProfileTabbedActivity" />
+                android:value="com.mgovea.urmusic.profile.ProfileTabbedActivity" />
         </activity>
         <activity
             android:name=".posts.comments.CommentsActivity"
@@ -125,7 +125,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.posts.ExampleActivity" />
+                android:value="com.mgovea.urmusic.posts.ExampleActivity" />
         </activity>
         <activity
             android:name=".TesteActivityStorage"
@@ -138,7 +138,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.puccamp.app.principal.MainActivity" />
+                android:value="com.mgovea.urmusic.principal.MainActivity" />
         </activity>
     </application>
 
