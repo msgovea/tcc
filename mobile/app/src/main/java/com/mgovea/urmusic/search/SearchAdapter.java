@@ -1,40 +1,30 @@
-package br.edu.puccamp.app.search;
+package com.mgovea.urmusic.search;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.posts.Question;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
+import com.mgovea.urmusic.util.API;
 
 import java.util.List;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.publication.AsyncLikePublication;
-import br.edu.puccamp.app.entity.Curtida;
-import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.Question;
-import br.edu.puccamp.app.posts.comments.CommentsActivity;
-import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
-import br.edu.puccamp.app.profile.ProfileTabbedActivity;
-import br.edu.puccamp.app.util.API;
+import com.mgovea.urmusic.R;;
 
 import static android.content.Context.MODE_PRIVATE;
 

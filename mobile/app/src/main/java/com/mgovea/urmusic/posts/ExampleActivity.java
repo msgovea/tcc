@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.posts;
+package com.mgovea.urmusic.posts;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.puccamp.app.R;
+import com.mgovea.urmusic.R;;
 
 public class ExampleActivity extends AppCompatActivity {
 

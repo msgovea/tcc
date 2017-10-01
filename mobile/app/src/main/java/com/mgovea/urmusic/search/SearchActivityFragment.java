@@ -1,13 +1,13 @@
-package br.edu.puccamp.app.search;
+package com.mgovea.urmusic.search;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -20,15 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.mgovea.urmusic.async.search.AsyncSearch;
+import com.mgovea.urmusic.entity.Usuario;
+
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.GostoFavoritoActivity;
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.gosto_musical.AsyncMakeGostoMusical;
-import br.edu.puccamp.app.async.search.AsyncSearch;
-import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.comments.CommentsAdapter;
+import com.mgovea.urmusic.R;;
 
 /**
  * A placeholder fragment containing a simple view.

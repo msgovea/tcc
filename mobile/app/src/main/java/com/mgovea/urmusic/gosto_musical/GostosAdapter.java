@@ -1,4 +1,4 @@
-//package br.edu.puccamp.app.gosto_musical;
+package com.mgovea.urmusic.gosto_musical;//package com.mgovea.urmusic.gosto_musical;
 //
 //import android.content.Context;
 //import android.graphics.drawable.GradientDrawable;
@@ -15,8 +15,8 @@
 //
 //import java.util.List;
 //
-//import br.edu.puccamp.app.R;
-//import br.edu.puccamp.app.posts.Question;
+//import com.mgovea.urmusic.R;;
+//import com.mgovea.urmusic.posts.Question;
 //
 //public class GostosAdapter extends RecyclerView.Adapter<GostosAdapter.ViewHolder> {
 //

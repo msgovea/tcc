@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.entity;
+package com.mgovea.urmusic.entity;
 
 
 public class Response<T> {

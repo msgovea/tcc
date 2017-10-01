@@ -1,60 +1,40 @@
-package br.edu.puccamp.app.profile;
+package com.mgovea.urmusic.profile;
 
-import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.util.Base64;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
+import com.mgovea.urmusic.async.follow.AsyncFollowUser;
+import com.mgovea.urmusic.async.profile.AsyncProfile;
+import com.mgovea.urmusic.async.profile.AsyncUploadImage;
+import com.mgovea.urmusic.entity.Amigo;
+import com.mgovea.urmusic.entity.ImagemUsuario;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.profile.options.PictureBottomSheetDialogFragment;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.AbstractAsyncActivity;
+import com.mgovea.urmusic.util.Preferencias;
 
 import java.io.ByteArrayOutputStream;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.follow.AsyncFollowUser;
-import br.edu.puccamp.app.async.profile.AsyncEditProfile;
-import br.edu.puccamp.app.async.profile.AsyncProfile;
-import br.edu.puccamp.app.async.profile.AsyncUploadImage;
-import br.edu.puccamp.app.entity.Amigo;
-import br.edu.puccamp.app.entity.ImagemUsuario;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
-import br.edu.puccamp.app.profile.options.PictureBottomSheetDialogFragment;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.AbstractAsyncActivity;
-import br.edu.puccamp.app.util.Preferencias;
+import com.mgovea.urmusic.R;;
 
 public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener, AsyncUploadImage.Listener {
 

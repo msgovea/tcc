@@ -1,8 +1,8 @@
-package br.edu.puccamp.app.entity;
+package com.mgovea.urmusic.entity;
+
+import com.mgovea.urmusic.gosto_musical.Gosto;
 
 import java.util.ArrayList;
-
-import br.edu.puccamp.app.gosto_musical.Gosto;
 
 public class ResponseGosto {
 	private String message;

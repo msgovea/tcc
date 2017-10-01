@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.profile;
+package com.mgovea.urmusic.profile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,15 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.profile.AsyncEditProfile;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.AbstractAsyncActivity;
+import com.mgovea.urmusic.util.Hash;
+import com.mgovea.urmusic.util.Validation;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.profile.AsyncEditProfile;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.entity.UsuarioByte;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.AbstractAsyncActivity;
-import br.edu.puccamp.app.util.Hash;
-import br.edu.puccamp.app.util.Validation;
+import com.mgovea.urmusic.R;;
 
 public class EditPasswordActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
 

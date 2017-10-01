@@ -1,6 +1,4 @@
-package br.edu.puccamp.app.entity;
-
-import android.util.Base64;
+package com.mgovea.urmusic.entity;
 
 import java.util.ArrayList;
 import java.util.List;

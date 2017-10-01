@@ -1,11 +1,13 @@
-package br.edu.puccamp.app.async.comments;
+package com.mgovea.urmusic.async.comments;
 
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.mgovea.urmusic.entity.Comentario;
+import com.mgovea.urmusic.entity.ResponseComentarios;
+import com.mgovea.urmusic.util.API;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,12 +16,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.ResponseComentarios;
-import br.edu.puccamp.app.entity.ResponsePublicacoes;
-import br.edu.puccamp.app.util.API;
 
 
 public class AsyncComments extends AsyncTask<String, String, String> {

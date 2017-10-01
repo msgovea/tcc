@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.profile;
+package com.mgovea.urmusic.profile;
 
 
 import android.animation.Animator;
@@ -17,16 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
+import com.mgovea.urmusic.async.publication.AsyncPublication;
+import com.mgovea.urmusic.entity.Publicacao;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.publication.AsyncPublication;
-import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.posts.Question;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
+import com.mgovea.urmusic.R;;
 
 
 /**

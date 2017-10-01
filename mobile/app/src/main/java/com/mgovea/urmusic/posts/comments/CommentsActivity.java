@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.posts.comments;
+package com.mgovea.urmusic.posts.comments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,16 +16,16 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.comments.AsyncComments;
+import com.mgovea.urmusic.async.comments.AsyncMakeComment;
+import com.mgovea.urmusic.entity.Comentario;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.comments.AsyncComments;
-import br.edu.puccamp.app.async.comments.AsyncMakeComment;
-import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.AbstractAsyncActivity;
+import com.mgovea.urmusic.R;;
 
 public class CommentsActivity extends AbstractAsyncActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 

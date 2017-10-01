@@ -1,15 +1,13 @@
-package br.edu.puccamp.app.principal;
+package com.mgovea.urmusic.principal;
 
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -21,17 +19,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.R;
+import com.mgovea.urmusic.TesteLogin;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.listview.AdapterListView;
+import com.mgovea.urmusic.listview.ItemListView;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.Permissao;
 
 import java.util.ArrayList;
-
-import br.edu.puccamp.app.*;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.listview.AdapterListView;
-import br.edu.puccamp.app.listview.ItemListView;
-import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
-import br.edu.puccamp.app.profile.ProfileTabbedActivity;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.Permissao;
 
 import static android.content.Context.MODE_PRIVATE;
 

@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.principal;
+package com.mgovea.urmusic.principal;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,17 +26,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.publication.AsyncFriendsPublication;
+import com.mgovea.urmusic.entity.Publicacao;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.search.SearchActivity;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.search.SearchActivity;
-import br.edu.puccamp.app.async.publication.AsyncFriendsPublication;
-import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.RecyclerItemClickListener;
+import com.mgovea.urmusic.R;;
 
 import static android.content.Context.MODE_PRIVATE;
 

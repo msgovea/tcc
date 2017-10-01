@@ -1,11 +1,12 @@
-package br.edu.puccamp.app.async.publication;
+package com.mgovea.urmusic.async.publication;
 
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.mgovea.urmusic.entity.Response;
+import com.mgovea.urmusic.util.API;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,12 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-
-import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.Response;
-import br.edu.puccamp.app.entity.ResponsePublicacoes;
-import br.edu.puccamp.app.util.API;
 
 
 public class AsyncRemovePublication extends AsyncTask<Long, String, String> {

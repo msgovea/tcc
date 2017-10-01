@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.profile;
+package com.mgovea.urmusic.profile;
 
 
 import android.animation.Animator;
@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.profile.AsyncProfile;
+import com.mgovea.urmusic.entity.GostosMusicai;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.gosto_musical.InteractiveArrayAdapterList;
 
 import java.util.List;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.profile.AsyncProfile;
-import br.edu.puccamp.app.entity.GostosMusicai;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.gosto_musical.InteractiveArrayAdapterList;
+import com.mgovea.urmusic.R;;
 
 
 /**

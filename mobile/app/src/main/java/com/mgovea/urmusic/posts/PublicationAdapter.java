@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.posts;
+package com.mgovea.urmusic.posts;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -12,7 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
-import br.edu.puccamp.app.R;
+import com.mgovea.urmusic.R;;
 
 public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.ViewHolder> {
 

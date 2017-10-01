@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.listview;
+package com.mgovea.urmusic.listview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.R;
+import com.mgovea.urmusic.R;;
 
 /**
  * Created by mgovea on 11/06/2017.

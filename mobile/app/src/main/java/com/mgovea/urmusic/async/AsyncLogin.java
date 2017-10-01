@@ -1,9 +1,12 @@
-package br.edu.puccamp.app.async;
+package com.mgovea.urmusic.async;
 
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.mgovea.urmusic.entity.ResponseUsuario;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.util.API;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -15,10 +18,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import br.edu.puccamp.app.entity.ResponseUsuario;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.util.API;
 
 
 public class AsyncLogin extends AsyncTask<Usuario, String, String> {

@@ -1,7 +1,6 @@
-package br.edu.puccamp.app.posts.options;
+package com.mgovea.urmusic.posts.options;
 
 import android.app.Dialog;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,17 +11,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.Menu;
+import com.mgovea.urmusic.util.Preferencias;
 
 import java.util.ArrayList;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.entity.Comentario;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.Question;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.Menu;
-import br.edu.puccamp.app.util.Preferencias;
+import com.mgovea.urmusic.R;;
 
 /**
  * Created by mgovea on 9/90/2017.

@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.gosto_musical;
+package com.mgovea.urmusic.gosto_musical;
 
 /**
  * Created by mgovea on 04/06/2017.
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.edu.puccamp.app.R;
+import com.mgovea.urmusic.R;;
 
 public class InteractiveArrayAdapterFavorito extends ArrayAdapter<Gosto> {
 

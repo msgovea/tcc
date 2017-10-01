@@ -1,7 +1,6 @@
-package br.edu.puccamp.app.entity;
+package com.mgovea.urmusic.entity;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Created by mgovea on 28/08/2017.

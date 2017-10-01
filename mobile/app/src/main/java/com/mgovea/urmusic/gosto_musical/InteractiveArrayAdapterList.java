@@ -1,31 +1,22 @@
-package br.edu.puccamp.app.gosto_musical;
+package com.mgovea.urmusic.gosto_musical;
 
 /**
  * Created by mgovea on 04/06/2017.
  */
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.mgovea.urmusic.entity.GostosMusicai;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.entity.GostosMusicai;
-import br.edu.puccamp.app.posts.Question;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
+import com.mgovea.urmusic.R;;
 
 public class InteractiveArrayAdapterList extends RecyclerView.Adapter<InteractiveArrayAdapterList.ViewHolder>  {
 

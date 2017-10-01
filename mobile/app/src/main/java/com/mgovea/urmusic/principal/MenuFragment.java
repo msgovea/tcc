@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.principal;
+package com.mgovea.urmusic.principal;
 
 
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import br.edu.puccamp.app.R;
+import com.mgovea.urmusic.R;;
 
 
 /**

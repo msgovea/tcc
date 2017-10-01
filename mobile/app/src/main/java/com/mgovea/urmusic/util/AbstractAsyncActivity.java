@@ -1,11 +1,11 @@
-package br.edu.puccamp.app.util;
+package com.mgovea.urmusic.util;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 
-import br.edu.puccamp.app.R;
+import com.mgovea.urmusic.R;;
 
 /**
  * Created by Mateus on 3/8/2017.

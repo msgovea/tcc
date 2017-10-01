@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.listview;
+package com.mgovea.urmusic.listview;
 
 /**
  * Created by mgovea on 11/06/2017.

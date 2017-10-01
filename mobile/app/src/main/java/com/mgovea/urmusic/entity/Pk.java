@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.entity;
+package com.mgovea.urmusic.entity;
 
 /**
  * Created by mgovea on 8/9/17.

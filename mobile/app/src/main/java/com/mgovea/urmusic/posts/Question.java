@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.posts;
+package com.mgovea.urmusic.posts;
 
 public class Question {
     private String authorName;

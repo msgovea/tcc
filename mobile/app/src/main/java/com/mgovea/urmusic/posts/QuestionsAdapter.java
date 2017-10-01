@@ -1,45 +1,37 @@
-package br.edu.puccamp.app.posts;
+package com.mgovea.urmusic.posts;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
+import com.mgovea.urmusic.async.publication.AsyncLikePublication;
+import com.mgovea.urmusic.entity.Curtida;
+import com.mgovea.urmusic.entity.Publicacao;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.posts.comments.CommentsActivity;
+import com.mgovea.urmusic.posts.options.CustomBottomSheetDialogFragment;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.Preferencias;
 
 import java.util.List;
 import java.util.Random;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.publication.AsyncLikePublication;
-import br.edu.puccamp.app.entity.Curtida;
-import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.comments.CommentsActivity;
-import br.edu.puccamp.app.posts.options.CustomBottomSheetDialogFragment;
-import br.edu.puccamp.app.profile.ProfileTabbedActivity;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.Preferencias;
-
-import static android.content.Context.MODE_PRIVATE;
+import com.mgovea.urmusic.R;;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 

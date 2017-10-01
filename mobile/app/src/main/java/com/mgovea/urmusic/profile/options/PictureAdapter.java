@@ -1,15 +1,10 @@
-package br.edu.puccamp.app.profile.options;
+package com.mgovea.urmusic.profile.options;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,20 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.mgovea.urmusic.posts.Question;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
+import com.mgovea.urmusic.util.Menu;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.profile.AsyncEditProfile;
-import br.edu.puccamp.app.async.profile.AsyncUploadImage;
-import br.edu.puccamp.app.async.publication.AsyncRemovePublication;
-import br.edu.puccamp.app.posts.Question;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.principal.MenuPublicationFragment;
-import br.edu.puccamp.app.profile.ProfileTabbedActivity;
-import br.edu.puccamp.app.profile.PublicationProfileFragment;
-import br.edu.puccamp.app.util.Menu;
+import com.mgovea.urmusic.R;;
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
 

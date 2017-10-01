@@ -1,36 +1,27 @@
-package br.edu.puccamp.app.profile;
+package com.mgovea.urmusic.profile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.profile.AsyncEditProfile;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.AbstractAsyncActivity;
+import com.mgovea.urmusic.util.Validation;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.profile.AsyncEditProfile;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.entity.UsuarioByte;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.AbstractAsyncActivity;
-import br.edu.puccamp.app.util.Validation;
+import com.mgovea.urmusic.R;;
 
 public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncEditProfile.Listener{
 

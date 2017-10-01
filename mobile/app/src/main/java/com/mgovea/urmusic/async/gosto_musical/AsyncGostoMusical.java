@@ -1,10 +1,13 @@
-package br.edu.puccamp.app.async.gosto_musical;
+package com.mgovea.urmusic.async.gosto_musical;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.mgovea.urmusic.entity.ResponseGosto;
+import com.mgovea.urmusic.gosto_musical.Gosto;
+import com.mgovea.urmusic.util.API;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,10 +16,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-import br.edu.puccamp.app.entity.ResponseGosto;
-import br.edu.puccamp.app.gosto_musical.Gosto;
-import br.edu.puccamp.app.util.API;
 
 
 public class AsyncGostoMusical extends AsyncTask<String, String, String> {

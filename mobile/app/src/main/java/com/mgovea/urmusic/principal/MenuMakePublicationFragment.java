@@ -1,4 +1,4 @@
-package br.edu.puccamp.app.principal;
+package com.mgovea.urmusic.principal;
 
 
 import android.animation.Animator;
@@ -21,14 +21,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.publication.AsyncMakePublication;
+import com.mgovea.urmusic.entity.Publicacao;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.MyLayout;
 
-import br.edu.puccamp.app.R;
-import br.edu.puccamp.app.async.publication.AsyncMakePublication;
-import br.edu.puccamp.app.entity.Publicacao;
-import br.edu.puccamp.app.entity.Usuario;
-import br.edu.puccamp.app.posts.QuestionsAdapter;
-import br.edu.puccamp.app.util.API;
-import br.edu.puccamp.app.util.MyLayout;
+import com.mgovea.urmusic.R;;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -52,7 +52,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
     private TextView mButtonPublication;
     private LinearLayout mMakePublication;
 
-    private android.support.design.widget.BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
 
     public static Fragment newInstance(String text, int color) {
@@ -126,7 +126,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
 //            public void onClick(View v) {
 //                prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
 //                prefs.edit().clear().apply();
-//                startActivity(new Intent(DefaultActivity.this, br.edu.puccamp.app.MainActivity.class));
+//                startActivity(new Intent(DefaultActivity.this, com.mgovea.urmusic.MainActivity.class));
 //                finish();
 //            }
 //        });

@@ -1,10 +1,7 @@
-package br.edu.puccamp.app.entity;
+package com.mgovea.urmusic.entity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-
-import br.edu.puccamp.app.gosto_musical.Gosto;
 
 public class Usuario {
 

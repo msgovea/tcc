@@ -1,10 +1,12 @@
-package br.edu.puccamp.app.entity;
+package com.mgovea.urmusic.entity;
 
 /**
  * Created by mgovea on 8/9/17.
  */
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class GostosMusicai {
