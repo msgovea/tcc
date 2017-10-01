@@ -93,12 +93,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         try {
             holder.avatar.setImageURI(API.URL_IMGS + API.IMG_PERFIL + question.getCodigoUsuario() + ".jpg");
         } catch (Exception e) {
-            try {
-                holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
-            } catch (Exception e2) {
-                e2.printStackTrace();
-                //TODO ERRO CRASH APP
-            }
+            e.printStackTrace();
+            //TODO ERRO CRASH APP
         }
 
         holder.textAuthorName.setText(question.getNome() + " - (" + question.getApelido() + ")");

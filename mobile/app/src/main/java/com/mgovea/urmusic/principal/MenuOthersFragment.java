@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageView;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.listview.AdapterListView;
 import com.mgovea.urmusic.listview.ItemListView;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
+import com.mgovea.urmusic.search.SearchActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Permissao;
 
@@ -49,6 +51,9 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
     private ArrayList<ItemListView> itens;
     private AdapterListView adapterListView;
     private Usuario usuario;
+
+    private AppCompatImageView mIcon;
+    private AppCompatImageView mIconSearch;
 
 //    private BottomNavigationView bottomNavigationView;
 
@@ -185,6 +190,14 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
         createListView();
 
         listView.setOnItemClickListener(this);
+
+        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
+        mIconSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
+            }
+        });
     }
 
     @Override

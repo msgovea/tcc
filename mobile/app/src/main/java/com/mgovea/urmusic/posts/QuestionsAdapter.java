@@ -99,12 +99,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         try {
             holder.avatar.setImageURI(API.URL_IMGS + API.IMG_PERFIL + question.getUsuario().getCodigoUsuario() + ".jpg");
         } catch (Exception e) {
-            try {
-                holder.avatar.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=d3b42bf86a3fc19181b84efd9a7a2110&oe=5A293884");
-            } catch (Exception e2) {
-                e2.printStackTrace();
-                //TODO ERRO CRASH APP
-            }
+            e.printStackTrace();
+            //TODO ERRO CRASH APP
         }
 
         Random r = new Random();
@@ -235,7 +231,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     break;
                 case R.id.avatar_publication:
                     //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
-                    if (view.getContext() instanceof ProfileTabbedActivity) { break; }
+                    if (view.getContext() instanceof ProfileTabbedActivity) {
+                        break;
+                    }
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
@@ -250,7 +248,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     break;
                 case R.id.user_name_publication:
                     //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
-                    if (view.getContext() instanceof ProfileTabbedActivity) { break; }
+                    if (view.getContext() instanceof ProfileTabbedActivity) {
+                        break;
+                    }
                     intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
                     intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
                     view.getContext().startActivity(intent);
