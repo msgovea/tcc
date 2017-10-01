@@ -61,9 +61,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.logo)
-                        .setContentTitle("My notification")
-                        .setContentText(remoteMessage.getNotification().getBody());
+                        .setSmallIcon(R.drawable.icon2)
+                        .setContentTitle("My notification *")
+                        .setContentText(remoteMessage.getNotification().getBody() + "*");
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, SearchActivity.class);
 

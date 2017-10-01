@@ -37,7 +37,7 @@ import com.mgovea.urmusic.util.Preferencias;
 
 import java.io.ByteArrayOutputStream;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;
 
 public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener, AsyncUploadImage.Listener {
 
@@ -305,7 +305,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         dismissProgressDialog();
 
-        Toast.makeText(this, "SUCESSO", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.success_update_photo), Toast.LENGTH_LONG).show();
         Log.i(this.toString(), "SUCESSO IMAGEM PUBLICADA");
     }
 

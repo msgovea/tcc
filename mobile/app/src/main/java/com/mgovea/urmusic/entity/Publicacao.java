@@ -9,6 +9,12 @@ public class Publicacao {
         this.conteudo = conteudo;
     }
 
+    public Publicacao(Usuario usuario, String conteudo, byte[] imagem) {
+        this.usuario = usuario;
+        this.conteudo = conteudo;
+        this.imagem = imagem;
+    }
+
     public Publicacao() {
     }
 
@@ -17,6 +23,8 @@ public class Publicacao {
     private String conteudo;
 
     private byte[] imagem;
+
+    private boolean temImagem;
 
     private String dataPublicacao;
 
@@ -27,6 +35,14 @@ public class Publicacao {
     private ArrayList<Usuario> likes;
 
     private Long qtdComentarios = Long.valueOf(0);
+
+    public boolean isTemImagem() {
+        return temImagem;
+    }
+
+    public void setTemImagem(boolean temImagem) {
+        this.temImagem = temImagem;
+    }
 
     public ArrayList<Usuario> getLikes() {
         return likes;

@@ -7,10 +7,11 @@ package com.mgovea.urmusic.util;
 public interface API {
 
     //API
-    String URL        = "http://192.198.90.26/";
+    String URL                  = "http://192.198.90.26/";
 
-    String URL_IMGS   = "http://www.urmusic.me:82/";
-    String IMG_PERFIL = "perfil/";
+    String URL_IMGS             = "http://www.urmusic.me:82/";
+    String IMG_PERFIL           = "perfil/";
+    String IMG_PUBLICACAO       = "publicacao/";
 
     String REGISTER              = "usuario/cadastro";
     String BUSCAR_USUARIO        = "usuario/buscar";

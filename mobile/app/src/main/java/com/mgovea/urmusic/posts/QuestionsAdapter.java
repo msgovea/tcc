@@ -103,9 +103,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             //TODO ERRO CRASH APP
         }
 
-        Random r = new Random();
-        if (r.nextBoolean()) {
-            holder.imgPublication.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t31.0-8/19944619_1569822496381461_679355768551827599_o.jpg?oh=c90476dc9c76683b366221e5a1746d31&oe=5A3C124F");
+        if (question.isTemImagem()) {
+            //holder.imgPublication.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t31.0-8/19944619_1569822496381461_679355768551827599_o.jpg?oh=c90476dc9c76683b366221e5a1746d31&oe=5A3C124F");
+            holder.imgPublication.setImageURI(API.URL_IMGS + API.IMG_PUBLICACAO + question.getCodigo() + ".jpg");
             holder.imgPublication.setVisibility(View.VISIBLE);
         } else {
             holder.imgPublication.setVisibility(View.GONE);

@@ -114,23 +114,24 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
             getActivity().finish();
         } else if (item.getTexto().equals(getString(R.string.language))) {
 
-            String[] permissoesNecessarias = new String[]{
-                    android.Manifest.permission.SEND_SMS,
-                    android.Manifest.permission.READ_PHONE_STATE
-            };
-
-            if (Permissao.validaPermissoes(1, getActivity(), permissoesNecessarias)) {
-
-
-                //TODO MGOVEA - ENVIO SMS
-                SmsManager smsManager = SmsManager.getDefault();
-                try {
-                    smsManager.sendTextMessage("+5519981407342", null, "oi1, teste", null, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                }
-            }
+            //NAO ENVIAR SMS
+//            String[] permissoesNecessarias = new String[]{
+//                    android.Manifest.permission.SEND_SMS,
+//                    android.Manifest.permission.READ_PHONE_STATE
+//            };
+//
+//            if (Permissao.validaPermissoes(1, getActivity(), permissoesNecessarias)) {
+//
+//
+//                //TODO MGOVEA - ENVIO SMS
+//                SmsManager smsManager = SmsManager.getDefault();
+//                try {
+//                    smsManager.sendTextMessage("+5519981407342", null, "oi1, teste", null, null);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//
+//                }
+//            }
 
 
 //            Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);

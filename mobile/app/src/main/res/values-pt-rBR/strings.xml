@@ -175,5 +175,6 @@
     <string name="error_title">Erro desconhecido</string>
     <string name="section_format">Olá mundo da seção: %1$d</string>
     <string name="success">Sucesso</string>
+    <string name="success_update_photo">Imagem de perfil atualizada com sucesso!</string>
 
 </resources>

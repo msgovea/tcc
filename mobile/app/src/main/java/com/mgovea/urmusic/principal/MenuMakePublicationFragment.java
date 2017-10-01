@@ -5,9 +5,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -21,15 +25,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.profile.AsyncUploadImage;
 import com.mgovea.urmusic.async.publication.AsyncMakePublication;
+import com.mgovea.urmusic.entity.ImagemUsuario;
 import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.MyLayout;
 
 import com.mgovea.urmusic.R;;
 
+import java.io.ByteArrayOutputStream;
+
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -48,7 +58,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
     private QuestionsAdapter mAdapter;
     private SharedPreferences prefs;
     private ListView listView;
-    private EditText mTextPublication;
+    protected EditText mTextPublication;
     private TextView mButtonPublication;
     private LinearLayout mMakePublication;
 
@@ -159,19 +169,8 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
         mButtonPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!mTextPublication.getText().toString().trim().equals("")) {
-
-                    Gson gson = new Gson();
-
-                    prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-                    Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
-                    Publicacao publicacao = new Publicacao(usuario, mTextPublication.getText().toString());
-
-                    showProgress(true);
-                    AsyncMakePublication sinc = new AsyncMakePublication(MenuMakePublicationFragment.this);
-                    sinc.execute(publicacao);
-                }
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                getActivity().startActivityForResult(intent, 1);
             }
         });
 
@@ -254,7 +253,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
     @Override
     public void onLoadedPublication(Boolean bool) {
         showProgress(false);
-        //dismissProgressDialog();
+        ((MainActivity)getActivity()).dismissProgressDialog();
         MainActivity i = (MainActivity) getActivity();
         //TODO
         i.openPublication(R.id.menu_publication);

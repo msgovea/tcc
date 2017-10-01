@@ -1,6 +1,10 @@
 package com.mgovea.urmusic.principal;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,9 +16,17 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.mgovea.urmusic.async.profile.AsyncUploadImage;
+import com.mgovea.urmusic.async.publication.AsyncMakePublication;
+import com.mgovea.urmusic.entity.ImagemUsuario;
+import com.mgovea.urmusic.entity.Publicacao;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;
+import com.mgovea.urmusic.util.Preferencias;;import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AbstractAsyncActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
@@ -22,6 +34,8 @@ public class MainActivity extends AbstractAsyncActivity {
     private BottomNavigationView mBottomNav;
 
     private int mSelectedItem;
+
+    private Fragment frag = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +84,7 @@ public class MainActivity extends AbstractAsyncActivity {
     }
 
     private void selectFragment(MenuItem item, String info) {
-        Fragment frag = null;
+
         // init corresponding fragment
         Log.e("RECEBIDO", item.getItemId() + " - " + item.toString());
         switch (item.getItemId()) {
@@ -132,6 +146,61 @@ public class MainActivity extends AbstractAsyncActivity {
         MenuItem selectedItem = mBottomNav.getMenu().findItem(id);
         selectFragment(selectedItem, "done");
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("img", "Imagem selecionada");
+        //Testar processo de retorno dos dados
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+
+            //recuperar local do recurso
+            Uri localImagemSelecionada = data.getData();
+
+            //recupera a imagem do local que foi selecionada
+            try {
+                showLoadingProgressDialog();
+                //bottomSheetDialogFragment.dismiss();
+
+                Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+
+                //comprimir no formato PNG
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+                //Cria um array de bytes da imagem
+                byte[] byteArray = stream.toByteArray();
+
+                Log.e("UPLOAD_IMAGEM", byteArray.length + "");
+
+
+
+                //TODO
+                if (!((MenuMakePublicationFragment)frag).mTextPublication.getText().toString().trim().equals("")) {
+
+                    Preferencias pref = new Preferencias(this);
+                    Usuario usuario = pref.getDadosUsuario();
+                    Publicacao publicacao = new Publicacao(usuario, ((MenuMakePublicationFragment)frag).mTextPublication.getText().toString(), byteArray);
+
+                    showLoadingProgressDialog();
+
+                    AsyncMakePublication sinc = new AsyncMakePublication(((MenuMakePublicationFragment)frag));
+                    sinc.execute(publicacao);
+                }
+
+
+                //TODO EXIBIR BYTE ARRAY BYTE
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//                imageView.setImageBitmap(bitmap);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     protected void teste(){
         mBottomNav.setVisibility(View.GONE);
