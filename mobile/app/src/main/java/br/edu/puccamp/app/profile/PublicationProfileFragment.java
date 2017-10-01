@@ -66,8 +66,13 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
         super.onViewCreated(view, savedInstanceState);
         // retrieve text and color from bundle or savedInstanceState
         if (savedInstanceState == null) {
-            Bundle args = getArguments();
-            idUsuario = args.getLong("ID");
+            try {
+                Bundle args = getArguments();
+                idUsuario = args.getLong("ID");
+            } catch (Exception e) {
+                e.printStackTrace();
+                //TODO MSG ERRO GERAL
+            }
         } else {
             //TODO
         }
@@ -83,30 +88,32 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            idUsuario = getArguments().getLong("ID");
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG CRASH
+        }
+        loadPublication();
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
-        //outState.putString(ARG_TEXT, mText);
-        //outState.putInt(ARG_COLOR, mColor);
+        outState.putLong("ID", idUsuario);
         super.onSaveInstanceState(outState);
     }
 
     private void loadPublication() {
-        showProgress(true);
-        //getContext().showLoadingProgressDialog();
-        Gson gson = new Gson();
-        AsyncPublication sinc = new AsyncPublication(this);
-        sinc.execute(idUsuario.toString());
-    }
-
-    private List<Question> getQuestions(final ArrayList<Publicacao> lista) {
-        return new ArrayList<Question>() {{
-            for (Publicacao item : lista) {
-                add(new Question(item.getUsuario().getNome(),
-                        item.getUsuario().getCidade() + " - " + item.getUsuario().getEstado(),
-                        "https://scontent.fcpq3-1.fna.fbcdn.net/v/t1.0-9/11918928_1012801065406820_5528279907234667073_n.jpg?oh=1afd1268531b58274fd34090bc90d46c&oe=598B0484",
-                        trataData(item.getDataPublicacao()),
-                        item.getConteudo()));
-            }
-        }};
+        try {
+            showProgress(true);
+            AsyncPublication sinc = new AsyncPublication(this);
+            sinc.execute(idUsuario.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO ERRO CRASH APP
+        }
     }
 
     private String trataData(String data) {
@@ -198,7 +205,5 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
              //TODO MSG ERRO APP QUEBRADO
          }
     }
-
-
 
 }
