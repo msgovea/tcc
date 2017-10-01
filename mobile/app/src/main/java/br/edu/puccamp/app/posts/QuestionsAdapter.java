@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -25,6 +26,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.Random;
 
 import br.edu.puccamp.app.R;
 import br.edu.puccamp.app.async.publication.AsyncLikePublication;
@@ -112,6 +114,15 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         } catch (Exception e) {
             holder.avatar.setImageDrawable(mContext.getDrawable(R.drawable.ic_account_box_black_24dp));
         }
+
+        Random r = new Random();
+        if (r.nextBoolean()) {
+            holder.imgPublication.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t31.0-8/19944619_1569822496381461_679355768551827599_o.jpg?oh=c90476dc9c76683b366221e5a1746d31&oe=5A3C124F");
+            holder.imgPublication.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgPublication.setVisibility(View.GONE);
+        }
+
         holder.textAuthorName.setText(question.getUsuario().getNome());
         holder.textJobTitle.setText(question.getUsuario().getCidade() + " - " + question.getUsuario().getEstado());
         holder.textDate.setText(trataData(question.getDataPublicacao()));
@@ -187,6 +198,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         TextView textLikesCount;
         TextView textChatCount;
         SimpleDraweeView avatar;
+        SimpleDraweeView imgPublication;
         private final AppCompatImageView appCompatImageView;
         AppCompatImageView imgFollow;
 
@@ -200,6 +212,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             textLikesCount = (TextView) itemView.findViewById(R.id.text_likes_count);
             textChatCount = (TextView) itemView.findViewById(R.id.text_chat_count);
             avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
+            imgPublication = (SimpleDraweeView) itemView.findViewById(R.id.img_publication);
 
             appCompatImageView = (AppCompatImageView) itemView.findViewById(R.id.view_settings);
             imgFollow = (AppCompatImageView) itemView.findViewById(R.id.view_likes);
