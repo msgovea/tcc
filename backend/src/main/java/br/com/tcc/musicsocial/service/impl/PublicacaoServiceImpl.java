@@ -153,4 +153,15 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		}
 		return false;
 	}
+	
+	@Override
+	@Transactional
+	public Boolean impulsionarPublicacao(Long codigoPublicacao) {
+		Publicacao publicacao = publicacaoDAO.find(codigoPublicacao);
+		if(publicacao != null) {
+			publicacao.setImpulsionada(true);
+			return true;
+		}
+		return false;
+	}
 }

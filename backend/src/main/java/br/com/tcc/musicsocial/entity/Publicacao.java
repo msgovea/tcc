@@ -53,6 +53,9 @@ public class Publicacao {
 	@Column(name = "PBC_IMPULSIONADA")
 	private Boolean impulsionada;
 	
+	@Column(name = "PBC_VIDEO")
+	private String video;
+	
 	@Transient
 	private Integer qtdComentarios;
 	

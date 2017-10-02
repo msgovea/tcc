@@ -146,4 +146,19 @@ public class PublicacaoController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
+	
+	@CrossOrigin
+	@RequestMapping("/impulsionar/{codigoPublicacao}")
+	public Response<?> impulsionarPublicacao(@PathVariable Long codigoPublicacao) {
+		try {
+			if (publicacaoService.impulsionarPublicacao(codigoPublicacao)) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
 }

@@ -226,6 +226,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (usuario != null) {
 			usuario.setQtdSeguidos(usuarioDAO.consultarQtdSeguidores(usuario));
 		}
+		usuario.setCodigoSeguidores();
 		return usuario;
 	}
 	

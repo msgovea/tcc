@@ -1,6 +1,7 @@
 package br.com.tcc.musicsocial.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "USD_USUARIO_DETALHE")
@@ -43,8 +44,11 @@ public class UsuarioDetalhe extends Usuario {
 	}, inverseJoinColumns = {
 		@JoinColumn(name = "AMG_SEGUIDOR")
 	})
-	@JsonIgnoreProperties("seguidores")
+	@JsonIgnore
 	private List<Usuario> seguidores;
+	
+	@Transient
+	private List<Integer> codigoSeguidores;
 	
 	@Transient
 	private Integer qtdSeguidos;
@@ -115,6 +119,18 @@ public class UsuarioDetalhe extends Usuario {
 
 	public void setQtdSeguidos(Integer qtdSeguidos) {
 		this.qtdSeguidos = qtdSeguidos;
+	}
+
+	public List<Integer> getCodigoSeguidores() {
+		return codigoSeguidores;
+	}
+
+	public void setCodigoSeguidores() {
+		List<Integer> codigoSeguidores = new ArrayList<>();
+		for (Usuario usuario : this.seguidores) {
+			codigoSeguidores.add(usuario.getCodigoUsuario());
+		}
+		this.codigoSeguidores = codigoSeguidores;
 	}
 	
 }

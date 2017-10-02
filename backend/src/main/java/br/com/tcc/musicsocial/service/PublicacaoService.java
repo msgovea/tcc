@@ -25,4 +25,6 @@ public interface PublicacaoService {
 	List<Publicacao> getPublicacoesEmAlta();
 
 	Boolean removerComentario(Long codigoComentario);
+
+	Boolean impulsionarPublicacao(Long codigoPublicacao);
 }
