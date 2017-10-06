@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
+import br.com.tcc.musicsocial.dao.AmigosDAO;
 import br.com.tcc.musicsocial.dao.GostoMusicalDAO;
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
+import br.com.tcc.musicsocial.entity.Amigo;
 import br.com.tcc.musicsocial.entity.GostoMusical;
 import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
@@ -21,24 +23,28 @@ import br.com.tcc.musicsocial.entity.UsuarioGostoMusicalPk;
 import br.com.tcc.musicsocial.service.EmailService;
 import br.com.tcc.musicsocial.service.UsuarioService;
 import br.com.tcc.musicsocial.util.GeradorHash;
+import br.com.tcc.musicsocial.util.ReturnType;
 import br.com.tcc.musicsocial.util.SituacaoConta;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
-	
+
 	private static final String ASSUNTO = "Confirmação de Email";
 
 	private static final String HOST = "urmusic.me";
-	
+
 	@Autowired
 	private UsuarioDAO usuarioDAO;
-	
+
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Autowired
 	private GostoMusicalDAO gostoMusicalDAO;
 	
+	@Autowired
+	private AmigosDAO amigosDAO;
+
 	@Override
 	@Transactional
 	public UsuarioDetalhe cadastrarUsuario(UsuarioDetalhe usuario) {
@@ -46,7 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (usuarioBanco != null) {
 			throw new RuntimeException("Usuario já cadastrado!");
 		}
-		
+
 		usuario.setSituacaoConta(SituacaoConta.AGUARDANDO_CONFIRMACAO.getEntity());
 		usuario.setDataInsrt(new Date(Calendar.getInstance().getTimeInMillis()));
 		usuarioDAO.save(usuario);
@@ -64,7 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String montarEmailConfirmacao() {
 		StringBuilder email = new StringBuilder();
 		email.append("Olá %s, <br>");
@@ -73,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		email.append("<a href=\"http://%s/#/access/confirmarCadastro/%s/%s\">Confirmar Cadastro</a> <br>");
 		return email.toString();
 	}
-	
+
 	private String montarEmailRecuperacao() {
 		StringBuilder email = new StringBuilder();
 		email.append("Olá %s, <br>");
@@ -82,12 +88,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		email.append("<a href=\"http://%s/#/access/redefinirSenha/%s/%s\">Redefinir senha</a> <br>");
 		return email.toString();
 	}
-	
+
 	@Override
 	public UsuarioDetalhe efetuarLogin(String email, String senha) {
 		UsuarioDetalhe usuario = usuarioDAO.consultarPorEmail(email);
 		if (usuario != null && usuario.getSenha().equals(senha)) {
-			return usuario;
+			return popularQtdSeguidos(usuario);
 		}
 		return null;
 	}
@@ -99,8 +105,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Integer id = Integer.parseInt(new String(array));
 		UsuarioDetalhe usuario;
 		usuario = usuarioDAO.find(id);
-		
-		if(usuario != null && emailEncoded.equals(GeradorHash.gerarHash(usuario.getEmail()))) {
+
+		if (usuario != null && emailEncoded.equals(GeradorHash.gerarHash(usuario.getEmail()))) {
 			usuario.setSituacaoConta(SituacaoConta.ATIVA.getEntity());
 			return true;
 		}
@@ -123,16 +129,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	@Transactional
 	public Boolean redefinirSenha(String idBase, String emailHash, String senhaHash) {
 		try {
 			Integer idUsuario = Integer.parseInt(new String(Base64Utils.decodeFromString(idBase)));
-		
+
 			UsuarioDetalhe user = usuarioDAO.find(idUsuario);
 			if (user != null && emailHash.equals(GeradorHash.gerarHash(user.getEmail()))) {
 				user.setSenha(senhaHash);
@@ -147,11 +153,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public Boolean cadastrarGostoMusical(Integer codUsuario, List<Integer> codGostosMusicais, Integer favorito) {
-		if(codUsuario == null || codGostosMusicais == null || codGostosMusicais.size() < 1) {
+		if (codUsuario == null || codGostosMusicais == null || codGostosMusicais.size() < 1) {
 			return false;
 		}
-		
-		
+
 		Usuario user = new Usuario();
 		user.setCodigoUsuario(codUsuario);
 		for (Integer codGostoMusical : codGostosMusicais) {
@@ -160,15 +165,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 			gosto.setCodigo(codGostoMusical);
 			ugm.setPk(new UsuarioGostoMusicalPk(gosto, user));
 			ugm.setFavorito(false);
-			if(codGostoMusical.equals(favorito)) {
+			if (codGostoMusical.equals(favorito)) {
 				ugm.setFavorito(true);
 			}
 			gostoMusicalDAO.save(ugm);
 		}
-		
+
 		return true;
 	}
-	
+
 	public List<GostoMusical> getGostos() {
 		return gostoMusicalDAO.findAllGostos();
 	}
@@ -176,21 +181,64 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public UsuarioDetalhe atualizarUsuario(UsuarioDetalhe usuario) {
-		if(usuario.getGostosMusicais() != null && !usuario.getGostosMusicais().isEmpty()) {
+		if (usuario.getGostosMusicais() != null && !usuario.getGostosMusicais().isEmpty()) {
 			for (UsuarioGostoMusical usuarioGosto : usuario.getGostosMusicais()) {
 				usuarioGosto.getPk().setUsuario(usuario);
 			}
 		}
-		return usuarioDAO.update(usuario);
+		return popularQtdSeguidos(usuarioDAO.update(usuario));
 	}
 
 	@Override
 	public UsuarioDetalhe buscarPorId(Integer id) {
-		return usuarioDAO.find(id);
+		return popularQtdSeguidos(usuarioDAO.find(id));
 	}
 
 	@Override
 	public List<UsuarioDetalhe> buscarPorNome(String nome) {
-		return usuarioDAO.consultarPorNome(nome);
+		String nomeDecodificado = new String(Base64Utils.decodeFromString(nome));
+		return populaQtdSeguidos(usuarioDAO.consultarPorNome(nomeDecodificado));
+	}
+	
+	@Override
+	@Transactional
+	public ReturnType seguir(Amigo amigo) {
+		if(isAmigoValid(amigo)) {
+			if(amigosDAO.findByPk(amigo) == null) {
+				amigosDAO.save(amigo);
+				return ReturnType.INSERIDO;
+			} else {
+				amigosDAO.remove(amigo);
+				return ReturnType.REMOVIDO;
+			}
+		}
+		return ReturnType.INVALIDO;
+	}
+
+	private boolean isAmigoValid(Amigo amigo) {
+		return amigo != null && amigo.getSegue() != null && amigo.getSegue().getCodigoUsuario() != null
+				&& amigo.getSeguido() != null && amigo.getSeguido().getCodigoUsuario() != null
+				&& usuarioDAO.find(amigo.getSegue().getCodigoUsuario()) != null
+				&& usuarioDAO.find(amigo.getSeguido().getCodigoUsuario()) != null;
+	}
+	
+	private UsuarioDetalhe popularQtdSeguidos(UsuarioDetalhe usuario) {
+		if (usuario != null) {
+			usuario.setQtdSeguidos(usuarioDAO.consultarQtdSeguidores(usuario));
+		}
+		usuario.setCodigoSeguidores();
+		return usuario;
+	}
+	
+	private List<UsuarioDetalhe> populaQtdSeguidos(List<UsuarioDetalhe> usuarios) {
+		for (UsuarioDetalhe usuario : usuarios) {
+			popularQtdSeguidos(usuario);
+		}
+		return usuarios;
+	}
+	
+	@Override
+	public List<UsuarioDetalhe> amigosSugeridos(Long idUsuario) {
+		return usuarioDAO.amigosSugeridos(idUsuario);
 	}
 }

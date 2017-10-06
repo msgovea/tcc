@@ -7,9 +7,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import br.com.tcc.musicsocial.dao.UsuarioDAO;
+import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
 
 @Repository
@@ -48,4 +48,27 @@ public class UsuarioDAOImpl extends BaseDAOImpl<UsuarioDetalhe> implements Usuar
 		}
 	}
 
+	@Override
+	public Integer consultarQtdSeguidores(Usuario usuario) {
+		String hql = "select count(1) from Amigo a where a.segue.codigoUsuario = :codigo";
+		Query query = getEntityManager().createQuery(hql);
+		query.setParameter("codigo", usuario.getCodigoUsuario());
+		return ((Long) query.getSingleResult()).intValue();
+	}
+	 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UsuarioDetalhe> amigosSugeridos(Long idUsuario) {
+		StringBuilder hql = new StringBuilder();
+		hql.append("select ud from UsuarioDetalhe ud ");
+		hql.append("where ud.codigoUsuario <> :idUsuario ");
+		hql.append("and ud.codigoUsuario not in ");
+		hql.append("(select seg.codigoUsuario from UsuarioDetalhe seg where seg.seguidores.codigoUsuario = :idSeguidor) ");
+		hql.append("order by ud.codigoUsuario desc ");
+		Query query = getEntityManager().createQuery(hql.toString());
+		query.setMaxResults(10);
+		query.setParameter("idUsuario", idUsuario);
+		query.setParameter("idSeguidor", idUsuario);
+		return query.getResultList();
+	}
 }

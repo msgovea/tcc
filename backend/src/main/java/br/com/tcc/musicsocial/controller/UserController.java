@@ -17,17 +17,24 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.tcc.musicsocial.dto.CadastrarGostosMusicaisRequest;
 import br.com.tcc.musicsocial.dto.LoginRequest;
 import br.com.tcc.musicsocial.dto.Response;
+import br.com.tcc.musicsocial.entity.Amigo;
+import br.com.tcc.musicsocial.entity.FotoRequest;
 import br.com.tcc.musicsocial.entity.GostoMusical;
 import br.com.tcc.musicsocial.entity.Usuario;
 import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
+import br.com.tcc.musicsocial.service.FotoService;
 import br.com.tcc.musicsocial.service.UsuarioService;
 import br.com.tcc.musicsocial.util.MessagesEnum;
+import br.com.tcc.musicsocial.util.ReturnType;
 
 @RestController
 public class UserController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private FotoService fotoService;
 
 	@CrossOrigin
 	@RequestMapping(value = "/usuario/cadastro", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
@@ -155,6 +162,7 @@ public class UserController {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/usuario/buscar/{codigo}")
+	@CrossOrigin
 	public Response<?> buscarPorCodigo(@PathVariable("codigo") Integer codigo) {
 		try { 
 			UsuarioDetalhe usuario = usuarioService.buscarPorId(codigo);
@@ -171,12 +179,43 @@ public class UserController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("/usuario/buscar")
+	@CrossOrigin
 	public Response<?> buscarPorNome(@RequestParam String nome) {
 		try { 
 			if (!StringUtils.isEmpty(nome)) {
 				return new Response(MessagesEnum.SUCESSO.getDescricao(), usuarioService.buscarPorNome(nome));
 			} else {
 				return new Response(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping("/usuario/seguir")
+	public Response<?> seguir(@RequestBody Amigo amigo) {
+		try {
+			ReturnType resposta = usuarioService.seguir(amigo);
+			if (resposta != ReturnType.INVALIDO) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), resposta);
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@RequestMapping("/usuario/perfil/foto")
+	public Response<?> salvarFotoPerfil(@RequestBody FotoRequest request) {
+		try {
+			if (fotoService.gravarImagemPerfilUsuario(request.getImagem(), request.getIdUsuario())) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

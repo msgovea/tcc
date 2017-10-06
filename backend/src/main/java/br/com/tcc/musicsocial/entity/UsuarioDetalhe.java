@@ -1,11 +1,19 @@
 package br.com.tcc.musicsocial.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "USD_USUARIO_DETALHE")
@@ -29,6 +37,25 @@ public class UsuarioDetalhe extends Usuario {
 	
 	@Column(name = "USD_PAIS")
 	private String pais;
+	
+	@ManyToMany(targetEntity = Usuario.class)
+	@JoinTable(name = "AMG_AMIGOS", joinColumns = {
+		@JoinColumn(name = "AMG_SEGUIDO")
+	}, inverseJoinColumns = {
+		@JoinColumn(name = "AMG_SEGUIDOR")
+	})
+	@JsonIgnore
+	private List<Usuario> seguidores;
+	
+	@Transient
+	private List<Integer> codigoSeguidores;
+	
+	@Transient
+	private Integer qtdSeguidos;
+	
+	public UsuarioDetalhe() {
+		this.qtdSeguidos = 0;
+	}
 
 	public String getNome() {
 		return nome;
@@ -77,4 +104,33 @@ public class UsuarioDetalhe extends Usuario {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
+
+	public List<Usuario> getSeguidores() {
+		return seguidores;
+	}
+
+	public void setSeguidores(List<Usuario> seguidores) {
+		this.seguidores = seguidores;
+	}
+
+	public Integer getQtdSeguidos() {
+		return qtdSeguidos;
+	}
+
+	public void setQtdSeguidos(Integer qtdSeguidos) {
+		this.qtdSeguidos = qtdSeguidos;
+	}
+
+	public List<Integer> getCodigoSeguidores() {
+		return codigoSeguidores;
+	}
+
+	public void setCodigoSeguidores() {
+		List<Integer> codigoSeguidores = new ArrayList<>();
+		for (Usuario usuario : this.seguidores) {
+			codigoSeguidores.add(usuario.getCodigoUsuario());
+		}
+		this.codigoSeguidores = codigoSeguidores;
+	}
+	
 }
