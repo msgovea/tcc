@@ -114,7 +114,7 @@
         <item>Dezembro</item>
     </string-array>
 
-    <string name="title_activity_teste_login">TesteLoginActivity</string>
+    <string name="title_activity_teste_login">Tela de Login</string>
     <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
     <string name="title_activity_gosto_favorito">Agora, selecione o favorito</string>
     <string name="prompt_publication">Qual a sintonia de hoje?</string>
@@ -145,5 +145,36 @@
 
     <string name="title_activity_profile_edit">Editar Perfil</string>
     <string name="title_activity_edit_password">Editar Senha</string>
+    <string name="action_settings">Configurações</string>
+    <string name="confirm_new_password">Confirme a Nova Senha</string>
+    <string name="default_notification_channel_id">default_notification</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="error_edit_profile">Falha ao editar seu perfil, tente novamente depois</string>
+    <string name="new_password">Nova Senha</string>
+    <string name="pref_title_vibrate">Vibração</string>
+    <string name="pref_title_system_sync_settings">Configurações de sincronização do sistema</string>
+    <string name="pref_title_ringtone">Toque</string>
+    <string name="pref_title_social_recommendations">Habilitar recomendações sociais</string>
+    <string name="pref_title_sync_frequency">Frequência de Sincronização</string>
+    <string name="pref_title_new_message_notifications">Notificação de novas mensagens</string>
+    <string name="pref_title_display_name">Nome de exibição</string>
+    <string name="pref_title_add_friends_to_messages">Adicionar amigos para mensagem</string>
+    <string name="pref_ringtone_silent">Silencioso</string>
+    <string name="pref_header_notifications">Notificações</string>
+    <string name="pref_header_general">Geral</string>
+    <string name="pref_header_data_sync">Dados e Sincronização</string>
+    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_description_social_recommendations">Recomendações de pessoas baseado no histórico de mensagens</string>
+    <string name="title_activity_comments">Comentários</string>
+    <string name="title_activity_edit_profile">Editar Perfil</string>
+    <string name="title_activity_search">Busca</string>
+    <string name="title_activity_profile">Perfil</string>
+    <string name="title_activity_teste_storage">Tela de Armazenamento</string>
+    <string name="update_password">Alterar Senha</string>
+    <string name="update_profile_success">Perfil Atualizado</string>
+    <string name="error_title">Erro desconhecido</string>
+    <string name="section_format">Olá mundo da seção: %1$d</string>
+    <string name="success">Sucesso</string>
+    <string name="success_update_photo">Imagem de perfil atualizada com sucesso!</string>
 
 </resources>

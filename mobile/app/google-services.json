@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:981238017808:android:7164439101d549ee",
+        "mobilesdk_app_id": "1:981238017808:android:b09710edb97ee0ae",
         "android_client_info": {
-          "package_name": "br.edu.puccamp.app"
+          "package_name": "com.mgovea.urmusic"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "981238017808-ba1jkl14jrf3acjmtd6ct9fqqq9ugi7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mgovea.urmusic",
+            "certificate_hash": "ee30df54ff3c4df13ff2455bd7d13eaeddf3207e"
+          }
+        },
         {
           "client_id": "981238017808-50js67s6hhbibakb3ga1odmluljicc2v.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981238017808-50js67s6hhbibakb3ga1odmluljicc2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

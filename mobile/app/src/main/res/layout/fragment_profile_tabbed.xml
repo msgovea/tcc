@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.edu.puccamp.app.profile.ProfileTabbedActivity$PlaceholderFragment">
+    tools:context="com.mgovea.urmusic.profile.ProfileTabbedActivity$PlaceholderFragment">
 
     <ProgressBar
         android:id="@+id/publication_progress_profile"

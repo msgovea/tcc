@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="br.edu.puccamp.app.profile.ProfileTabbedActivity">
+    tools:context="com.mgovea.urmusic.profile.ProfileTabbedActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
@@ -50,7 +50,6 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/user_profile_photo"
-                fresco:placeholderImage="@drawable/icon2"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="15dp"
@@ -60,7 +59,8 @@
                 android:elevation="5dp"
                 android:scaleType="centerCrop"
                 fresco:actualImageScaleType="focusCrop"
-                fresco:roundAsCircle="true" />
+                fresco:roundAsCircle="true"
+                fresco:placeholderImage="@drawable/user" />
 
 
 

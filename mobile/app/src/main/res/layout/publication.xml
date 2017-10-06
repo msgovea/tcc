@@ -105,7 +105,8 @@
                 android:layout_margin="16dp"
                 fresco:actualImageScaleType="focusCrop"
                 fresco:roundAsCircle="true"
-                fresco:roundWithOverlayColor="@android:color/white" />
+                fresco:roundWithOverlayColor="@android:color/white"
+                fresco:placeholderImage="@drawable/user" />
 
             <TextView
                 android:id="@+id/text_name_publication"

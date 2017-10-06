@@ -1,4 +1,4 @@
-<br.edu.puccamp.app.util.MyLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mgovea.urmusic.util.MyLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_make_publication"
     android:layout_width="match_parent"
@@ -90,4 +90,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-</br.edu.puccamp.app.util.MyLayout>
+</com.mgovea.urmusic.util.MyLayout>
