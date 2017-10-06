@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.edu.puccamp.app.profile.GostoMusicalProfileFragment">
+
+    <LinearLayout
+        android:id="@+id/gostos_musicais"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/favorito"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/text_gosto_favorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/gosto_nao_cadastrado"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/gosto_favorito"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_favorito"
+            android:layout_alignTop="@+id/text_gosto_favorito"
+            android:layout_alignBottom="@+id/text_gosto_favorito"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            />
+
+    </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listPosts2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/favorito"
+            tools:listitem="@layout/gosto_musical_list_exibicao" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_gosto_musical"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:visibility="gone" />
+
+</RelativeLayout>

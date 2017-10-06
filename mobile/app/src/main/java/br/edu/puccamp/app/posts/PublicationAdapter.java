@@ -74,13 +74,13 @@ public class PublicationAdapter extends RecyclerView.Adapter<PublicationAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textAuthorName = (TextView) itemView.findViewById(R.id.text_name);
+            textAuthorName = (TextView) itemView.findViewById(R.id.user_name_publication);
             textJobTitle = (TextView) itemView.findViewById(R.id.text_job_title);
             textDate = (TextView) itemView.findViewById(R.id.text_date);
-            textQuestion = (TextView) itemView.findViewById(R.id.text_question);
+            textQuestion = (TextView) itemView.findViewById(R.id.text_publication);
             //firstFilter = (TextView) itemView.findViewById(R.id.filter_first);
             //secondFilter = (TextView) itemView.findViewById(R.id.filter_second);
-            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar);
+            avatar = (SimpleDraweeView) itemView.findViewById(R.id.avatar_publication);
         }
     }
 }

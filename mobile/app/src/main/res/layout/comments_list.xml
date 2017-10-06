@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/avatar_comment"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:roundAsCircle="true"
+        fresco:roundWithOverlayColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/user_name_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/avatar_comment"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/avatar_comment"
+        android:layout_toLeftOf="@+id/text_date"
+        android:layout_toStartOf="@+id/text_date"
+        android:text="Carol Bell"
+        android:textColor="#827f93"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/dividerHome"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/avatar_comment"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#ebebeb" />
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/remove_comment"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_remove_black_24dp"
+        android:tint="#827f93" />
+
+    <TextView
+        android:id="@+id/text_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/avatar_comment"
+        android:layout_margin="16dp"
+        android:text="What is the first step to transform an idea into an actual project? Lorem impsum teste teste teste teste teste"
+        android:textColor="#827f93" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/text_comment"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#ebebeb" />
+
+    <View
+        android:id="@+id/dividerTop"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/divider"
+        android:background="#E4E6E3" />
+
+</RelativeLayout>

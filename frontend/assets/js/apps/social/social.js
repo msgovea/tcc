@@ -9,7 +9,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
 
                 return $http({
                     method: 'POST',
-                    url: 'http://192.198.90.26:82/musicsocial/usuario/atualizar',
+                    url: 'http://192.198.90.26:80/musicsocial/usuario/atualizar',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -52,6 +52,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             return temp;
         }
 
+
         $http.get('http://192.198.90.26:82/musicsocial/usuario/buscar/'+ $stateParams.codUser).success(function(result){
             $scope.lPerUsu = true;
             $scope.userPage = result.object;
@@ -64,6 +65,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             
             console.log($scope.usuCadastrado);
         })
+      
         $http.get('http://192.198.90.26:82/musicsocial/usuario/getGostosMusicais').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
                 $scope.gostosAPI[i] = result.object[i]; 
@@ -74,9 +76,6 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
                 }
             }
         })
-
-       
-
         
         // For demo purposes only. Changes the theme back to pages default when switching the state. 
         $rootScope.$on('$stateChangeSuccess',
@@ -247,12 +246,12 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
             console.log($scope.user.gostosMusicais);*/
 
             $http.post(
-                'http://192.198.90.26:82/musicsocial/usuario/gostosmusicais', 
+                'http://192.198.90.26:80/musicsocial/usuario/gostosmusicais',
                 objeto
             ).success(function(response){
                 if(response.message === 'Sucesso!'){
                     $http.post(
-                        'http://192.198.90.26:82/musicsocial/usuario/login', 
+                        'http://192.198.90.26:80/musicsocial/usuario/login',
                         usuario
                     ).success(function(retorno){
                         if(retorno.message === 'Sucesso!'){

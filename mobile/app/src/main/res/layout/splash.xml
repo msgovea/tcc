@@ -11,10 +11,23 @@
         android:layout_height="match_parent"
         android:src="@drawable/bg1" />
 
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_bg" />
+        android:background="@drawable/gradient_bg" >
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@android:color/white" />
 
     <!--<ImageView-->
         <!--android:id="@+id/imageView2"-->

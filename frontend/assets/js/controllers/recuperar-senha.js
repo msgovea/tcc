@@ -6,7 +6,7 @@ angular.module('app')
     .controller('RecuperarSenhaCtrl', ['$scope', '$state','$filter','$base64', '$http', function($scope, $state, $filter, $base64,$http) {
         $scope.recuperarSenha = function(user){
             $scope.loading = true;
-            $http.get('http://192.198.90.26:82/musicsocial/usuario/recuperar/'+$base64.encode(user.email)).success(function(result){
+            $http.get('http://192.198.90.26:80/musicsocial/usuario/recuperar/'+$base64.encode(user.email)).success(function(result){
                 if (result.message == "Sucesso!") {
                      $('body').pgNotification({
                         style: 'bar',
