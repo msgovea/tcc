@@ -9,4 +9,5 @@ public interface UsuarioDAO extends BaseDAO<UsuarioDetalhe>{
 	UsuarioDetalhe consultarPorEmail(String email);
 	List<UsuarioDetalhe> consultarPorNome(String nome);
 	Integer consultarQtdSeguidores(Usuario usuario);
+	List<UsuarioDetalhe> amigosSugeridos(Long idUsuario);
 }

@@ -236,4 +236,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		return usuarios;
 	}
+	
+	@Override
+	public List<UsuarioDetalhe> amigosSugeridos(Long idUsuario) {
+		return usuarioDAO.amigosSugeridos(idUsuario);
+	}
 }

@@ -1,6 +1,7 @@
 package br.com.tcc.musicsocial.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class DenunciaController {
 	private DenunciaService denunciaService;
 	
 	@RequestMapping("/cadastrar")
+	@CrossOrigin
 	public Response<?> cadastrarDenuncia(@RequestBody Denuncia denuncia) {
 		try {
 			if (denunciaService.denunciarPublicacao(denuncia) != null) {
@@ -33,6 +35,7 @@ public class DenunciaController {
 	}
 	
 	@RequestMapping("/get")
+	@CrossOrigin
 	public Response<?> getDenuncias() {
 		try {
 			return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), denunciaService.getDenuncias());
@@ -43,6 +46,7 @@ public class DenunciaController {
 	}
 	
 	@RequestMapping("/aprovar/{codigoDenuncia}/{tipoAprovacao}")
+	@CrossOrigin
 	public Response<?> aprovarDenuncia(@PathVariable Long codigoDenuncia, @PathVariable Integer tipoAprovacao) {
 		try {
 			if(denunciaService.aprovarDenuncia(codigoDenuncia, tipoAprovacao)){

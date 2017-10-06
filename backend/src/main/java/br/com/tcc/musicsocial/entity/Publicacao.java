@@ -1,6 +1,6 @@
 package br.com.tcc.musicsocial.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -141,6 +141,14 @@ public class Publicacao {
 
 	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
+	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
 	}
 
 }

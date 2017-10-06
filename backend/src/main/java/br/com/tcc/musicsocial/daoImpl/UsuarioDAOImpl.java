@@ -55,4 +55,20 @@ public class UsuarioDAOImpl extends BaseDAOImpl<UsuarioDetalhe> implements Usuar
 		query.setParameter("codigo", usuario.getCodigoUsuario());
 		return ((Long) query.getSingleResult()).intValue();
 	}
+	 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UsuarioDetalhe> amigosSugeridos(Long idUsuario) {
+		StringBuilder hql = new StringBuilder();
+		hql.append("select ud from UsuarioDetalhe ud ");
+		hql.append("where ud.codigoUsuario <> :idUsuario ");
+		hql.append("and ud.codigoUsuario not in ");
+		hql.append("(select seg.codigoUsuario from UsuarioDetalhe seg where seg.seguidores.codigoUsuario = :idSeguidor) ");
+		hql.append("order by ud.codigoUsuario desc ");
+		Query query = getEntityManager().createQuery(hql.toString());
+		query.setMaxResults(10);
+		query.setParameter("idUsuario", idUsuario);
+		query.setParameter("idSeguidor", idUsuario);
+		return query.getResultList();
+	}
 }

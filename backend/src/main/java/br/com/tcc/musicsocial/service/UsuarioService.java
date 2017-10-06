@@ -21,4 +21,5 @@ public interface UsuarioService {
 	UsuarioDetalhe buscarPorId(Integer id);
 	List<UsuarioDetalhe> buscarPorNome(String nome);
 	ReturnType seguir(Amigo amigo);
+	List<UsuarioDetalhe> amigosSugeridos(Long idUsuario);
 }
