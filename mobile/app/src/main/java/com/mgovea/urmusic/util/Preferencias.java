@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.async.profile.AsyncProfile;
 import com.mgovea.urmusic.entity.Usuario;
 
-public class Preferencias {
+public class Preferencias implements AsyncProfile.Listener {
 
     private Context contexto;
     private SharedPreferences preferences;
@@ -25,8 +26,20 @@ public class Preferencias {
         editor.commit();
     }
 
+    public void atualizaUsuario(){
+        AsyncProfile sinc = new AsyncProfile(this);
+        sinc.execute(getDadosUsuario().getCodigoUsuario());
+    }
+
+
     public Usuario getDadosUsuario(){
         return gson.fromJson(preferences.getString(API.USUARIO, null), Usuario.class);
     }
 
+    @Override
+    public void onLoaded(Object o) {
+        if (o.getClass() == Usuario.class) {
+            salvarUsuarioPreferencias((Usuario)o);
+        }
+    }
 }

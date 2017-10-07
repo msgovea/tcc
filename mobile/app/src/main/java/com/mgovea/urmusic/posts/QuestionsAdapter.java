@@ -28,8 +28,12 @@ import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
+import java.util.TimeZone;
 
 import com.mgovea.urmusic.R;;
 
@@ -54,7 +58,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         mContext = context;
         mQuestions = questions;
 
-        pref = new Preferencias(mContext);
+        pref = new Preferencias(context);
         usuario = pref.getDadosUsuario();
     }
 
@@ -75,9 +79,18 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         try {
             String dataFinal;
 
-            String[] partes = data.split("-");
+            Date date = new Date(Long.valueOf(data).longValue());
+            SimpleDateFormat dateFormat;
 
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " + partes[0];
+            if (Locale.getDefault().getLanguage().equals("pt")) {
+                dateFormat = new SimpleDateFormat("dd MMM, h:mm a", Locale.getDefault());
+            } else {
+                dateFormat = new SimpleDateFormat("MMM dd, h:mm a", Locale.getDefault());
+            }
+
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Brazil/East"));
+            dataFinal = dateFormat.format(date);
+            //dataFinal = date.toString();
 
             return dataFinal;
         } catch (Exception e) {
@@ -85,12 +98,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             return data;
         }
     }
-
-    public String theMonth(int month) {
-        String[] monthNames = mContext.getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month - 1];
-    }
-
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {

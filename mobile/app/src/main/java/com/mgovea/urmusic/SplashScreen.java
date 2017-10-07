@@ -16,6 +16,8 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.mgovea.urmusic.principal.MainActivity;
 import com.mgovea.urmusic.util.API;
 import com.crashlytics.android.Crashlytics;
+import com.mgovea.urmusic.util.Preferencias;
+
 import io.fabric.sdk.android.Fabric;
 
 public class SplashScreen extends Activity {
@@ -70,13 +72,15 @@ public class SplashScreen extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-                    if (prefs.getString(API.USUARIO, null) == null) {
+
+                    Preferencias pref = new Preferencias(getApplicationContext());
+                    if (pref.getDadosUsuario() == null) {
                         TaskStackBuilder.create(SplashScreen.this)
                                 .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin.class))
                                 .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
                                 .startActivities();
                     } else {
+                        pref.atualizaUsuario();
                         //startActivity(new Intent(SplashScreen.this, ProfileEditActivity.class));
                         //    throw new RuntimeException("This is a crash");
                         startActivity(new Intent(SplashScreen.this, MainActivity.class));

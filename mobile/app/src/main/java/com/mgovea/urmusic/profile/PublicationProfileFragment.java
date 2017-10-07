@@ -113,25 +113,6 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
         }
     }
 
-    private String trataData(String data) {
-        try {
-            String dataFinal;
-
-            String[] partes = data.split("-");
-
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
-
-            return dataFinal;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-    }
-
-    public String theMonth(int month){
-        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month-1];
-    }
 
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
