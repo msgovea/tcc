@@ -28,6 +28,8 @@ public class Publicacao {
 
     private String dataPublicacao;
 
+    private String video;
+
     private Boolean ativa;
 
     private Usuario usuario;
@@ -63,6 +65,14 @@ public class Publicacao {
                 this.likes.remove(u);
             }
         }
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 
     public Long getQtdComentarios() {

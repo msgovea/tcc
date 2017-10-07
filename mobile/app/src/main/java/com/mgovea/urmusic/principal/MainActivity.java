@@ -188,7 +188,7 @@ public class MainActivity extends AbstractAsyncActivity {
 
 
                 //TODO
-                if (!((MenuMakePublicationFragment)frag).mTextPublication.getText().toString().trim().equals("")) {
+                //if (!((MenuMakePublicationFragment)frag).mTextPublication.getText().toString().trim().equals("")) {
 
                     Preferencias pref = new Preferencias(this);
                     Usuario usuario = pref.getDadosUsuario();
@@ -198,7 +198,7 @@ public class MainActivity extends AbstractAsyncActivity {
 
                     AsyncMakePublication sinc = new AsyncMakePublication(((MenuMakePublicationFragment)frag));
                     sinc.execute(publicacao);
-                }
+                //}
 
 
                 //TODO EXIBIR BYTE ARRAY BYTE

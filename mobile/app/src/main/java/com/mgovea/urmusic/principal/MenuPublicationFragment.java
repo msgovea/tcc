@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.R;
 import com.mgovea.urmusic.async.publication.AsyncFriendsPublication;
 import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
@@ -35,8 +36,6 @@ import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
-
-import com.mgovea.urmusic.R;;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -101,8 +100,11 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 
         loadPublication();
 
-        if (mText != null) Snackbar.make(view, R.string.publication_success, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        if (mText != null) {
+
+            Snackbar.make(view, R.string.publication_success, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
 
         //////// TODO MGOVEA1
 

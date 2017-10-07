@@ -121,7 +121,12 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         holder.textAuthorName.setText(question.getUsuario().getNome());
         holder.textJobTitle.setText(question.getUsuario().getCidade() + " - " + question.getUsuario().getEstado());
         holder.textDate.setText(trataData(question.getDataPublicacao()));
-        holder.textQuestion.setText(question.getConteudo());
+        if (question.getConteudo() == null) {
+            holder.textQuestion.setVisibility(View.GONE);
+        } else {
+            holder.textQuestion.setVisibility(View.VISIBLE);
+            holder.textQuestion.setText(question.getConteudo());
+        }
         holder.textLikesCount.setText(question.getLikes().size() + "");
         holder.textChatCount.setText(question.getQtdComentarios() + " " + mContext.getResources().getString(R.string.response));
 
