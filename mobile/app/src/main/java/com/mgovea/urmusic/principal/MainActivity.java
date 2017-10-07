@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.mgovea.urmusic.async.profile.AsyncUploadImage;
 import com.mgovea.urmusic.async.publication.AsyncMakePublication;
@@ -27,6 +28,8 @@ import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
 import com.mgovea.urmusic.R;
 import com.mgovea.urmusic.util.Preferencias;;import java.io.ByteArrayOutputStream;
+
+import io.fabric.sdk.android.services.common.Crash;
 
 public class MainActivity extends AbstractAsyncActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
@@ -42,7 +45,7 @@ public class MainActivity extends AbstractAsyncActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_x);
 
-
+        logUser();
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.navigation_menu);
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -125,6 +128,14 @@ public class MainActivity extends AbstractAsyncActivity {
             ft.commit();
         }
     }
+
+    private void logUser() {
+        Preferencias pref = new Preferencias(this);
+        Crashlytics.setUserIdentifier(pref.getDadosUsuario().getCodigoUsuario().toString());
+        Crashlytics.setUserEmail(pref.getDadosUsuario().getEmail());
+        Crashlytics.setUserName(pref.getDadosUsuario().getNome());
+    }
+
 
     private void selectFragment(MenuItem item) {
         selectFragment(item, null);

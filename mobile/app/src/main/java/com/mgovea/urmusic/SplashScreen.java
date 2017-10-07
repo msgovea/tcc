@@ -15,6 +15,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.mgovea.urmusic.principal.MainActivity;
 import com.mgovea.urmusic.util.API;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class SplashScreen extends Activity {
 
@@ -76,6 +78,7 @@ public class SplashScreen extends Activity {
                                 .startActivities();
                     } else {
                         //startActivity(new Intent(SplashScreen.this, ProfileEditActivity.class));
+                        //    throw new RuntimeException("This is a crash");
                         startActivity(new Intent(SplashScreen.this, MainActivity.class));
                         finish();
                     }
@@ -84,7 +87,9 @@ public class SplashScreen extends Activity {
                 }
             }
         };
+        Fabric.with(this, new Crashlytics());
         timerThread.start();
+
     }
 
 

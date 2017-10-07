@@ -160,9 +160,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         mQtdSeguidos.setText(usuarioPopulaPerfil.getQtdSeguidos().toString());
 
         if (!myProfile) {
-            for (Usuario u :
-                    usuarioPopulaPerfil.getSeguidores()) {
-                if (u.getCodigoUsuario().equals(usuario.getCodigoUsuario())) {
+            for (Long u : usuarioPopulaPerfil.getSeguidores()) {
+                if (u.equals(usuario.getCodigoUsuario())) {
                     mButtonFollow.setText(getString(R.string.unfollow));
                 }
             }

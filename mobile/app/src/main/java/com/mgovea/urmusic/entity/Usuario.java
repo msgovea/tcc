@@ -25,14 +25,14 @@ public class Usuario {
         this.qtdSeguidos = qtdSeguidos;
     }
 
-    private ArrayList<Usuario> seguidores;
+    private ArrayList<Long> codigoSeguidores;
 
-    public ArrayList<Usuario> getSeguidores() {
-        return this.seguidores;
+    public ArrayList<Long> getSeguidores() {
+        return this.codigoSeguidores;
     }
 
-    public void setSeguidores(ArrayList<Usuario> seguidores) {
-        this.seguidores = seguidores;
+    public void setSeguidores(ArrayList<Long> seguidores) {
+        this.codigoSeguidores = seguidores;
     }
 
     private Long qtdSeguidos;

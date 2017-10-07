@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b93fdc3d712255afd8cbe807c88aba5f6b93eed4"
+            />
+
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
