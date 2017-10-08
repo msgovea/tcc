@@ -1,14 +1,13 @@
 package br.com.tcc.musicsocial.service.impl;
 
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import br.com.tcc.musicsocial.dao.ComentarioDAO;
@@ -40,14 +39,15 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	private FotoService fotoService;
 
 	@Override
-	public List<Publicacao> getPublicacoes(String idUsuario) {
-		Integer id = Integer.parseInt(new String(Base64Utils.decodeFromString(idUsuario)));
-		return populaQtdComentarios(publicacaoDAO.getPublicacoes(id));
+	public List<Publicacao> getPublicacoes(Integer idUsuario) {;
+		return populaQtdComentarios(publicacaoDAO.getPublicacoes(idUsuario));
 	}
 
 	@Override
 	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
-		return populaQtdComentarios(publicacaoDAO.getPublicacoesDeAmigos(idUsuario));
+		List<Publicacao> publicacoes = populaQtdComentarios(publicacaoDAO.getPublicacoesDeAmigos(idUsuario));
+		publicacoes.addAll(getPublicacoes(idUsuario));
+		return publicacoes;
 	}
 
 	@Override

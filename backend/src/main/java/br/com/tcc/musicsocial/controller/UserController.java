@@ -222,4 +222,17 @@ public class UserController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping("/usuario/sugestoes/{idUsuario}")
+	@CrossOrigin
+	public Response<?> sugestoes(@RequestParam Long idUsuario) {
+		try { 
+			return new Response(MessagesEnum.SUCESSO.getDescricao(), usuarioService.amigosSugeridos(idUsuario));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
 }
