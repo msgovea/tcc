@@ -1,5 +1,6 @@
 package com.mgovea.urmusic.posts;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,15 +10,22 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
+import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.mgovea.urmusic.async.publication.AsyncLikePublication;
 import com.mgovea.urmusic.entity.Curtida;
 import com.mgovea.urmusic.entity.Publicacao;
@@ -100,7 +108,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Publicacao question = mQuestions.get(position);
 
         try {
@@ -108,14 +116,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         } catch (Exception e) {
             e.printStackTrace();
             //TODO ERRO CRASH APP
-        }
-
-        if (question.isTemImagem()) {
-            //holder.imgPublication.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t31.0-8/19944619_1569822496381461_679355768551827599_o.jpg?oh=c90476dc9c76683b366221e5a1746d31&oe=5A3C124F");
-            holder.imgPublication.setImageURI(API.URL_IMGS + API.IMG_PUBLICACAO + question.getCodigo() + ".jpg");
-            holder.imgPublication.setVisibility(View.VISIBLE);
-        } else {
-            holder.imgPublication.setVisibility(View.GONE);
         }
 
         holder.textAuthorName.setText(question.getUsuario().getNome());
@@ -142,6 +142,50 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         GradientDrawable drawable1 = new GradientDrawable();
         drawable1.setCornerRadius(1000);
         //holder.secondFilter.setBackgroundDrawable(drawable1);
+
+        if (question.isTemImagem()) {
+            //holder.imgPublication.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t31.0-8/19944619_1569822496381461_679355768551827599_o.jpg?oh=c90476dc9c76683b366221e5a1746d31&oe=5A3C124F");
+            holder.imgPublication.setImageURI(API.URL_IMGS + API.IMG_PUBLICACAO + question.getCodigo() + ".jpg");
+            holder.imgPublication.setVisibility(View.VISIBLE);
+            holder.cardView.setVisibility(View.GONE);
+        } else {
+            holder.imgPublication.setVisibility(View.GONE);
+            if (question.getVideo() == null) {
+                holder.cardView.setVisibility(View.GONE);
+            } else {
+                holder.cardView.setVisibility(View.VISIBLE);
+
+                /* YOUTUBE */
+                final YouTubeThumbnailLoader.OnThumbnailLoadedListener onThumbnailLoadedListener = new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                    @Override
+                    public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+
+                    }
+
+                    @Override
+                    public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                        youTubeThumbnailView.setVisibility(View.VISIBLE);
+                        holder.relativeLayoutOverYouTubeThumbnailView.setVisibility(View.VISIBLE);
+                    }
+                };
+
+                holder.youTubeThumbnailView.initialize("AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", new YouTubeThumbnailView.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
+
+                        youTubeThumbnailLoader.setVideo("ad65dIWfdwI");
+
+                        youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+                        //write something for failure
+                    }
+                });
+                /* YOUTUBE */
+            }
+        }
     }
 
     @Nullable
@@ -202,6 +246,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         private final AppCompatImageView appCompatImageView;
         AppCompatImageView imgFollow;
 
+        /*YOUTUBE*/
+        protected RelativeLayout relativeLayoutOverYouTubeThumbnailView;
+        YouTubeThumbnailView youTubeThumbnailView;
+        protected ImageView playButton;
+
+        protected CardView cardView;
+        /*YOUTUBE*/
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -222,6 +274,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             appCompatImageView.setOnClickListener(this);
             textChatCount.setOnClickListener(this);
             imgFollow.setOnClickListener(this);
+
+
+            /*YOUTUBE*/
+            playButton = (ImageView) itemView.findViewById(R.id.btnYoutube_player);
+            playButton.setOnClickListener(this);
+            relativeLayoutOverYouTubeThumbnailView = (RelativeLayout) itemView.findViewById(R.id.relativeLayout_over_youtube_thumbnail);
+            youTubeThumbnailView = (YouTubeThumbnailView) itemView.findViewById(R.id.youtube_thumbnail);
+
+            cardView = (CardView) itemView.findViewById(R.id.carview);
+            /*YOUTUBE*/
         }
 
         @Override
@@ -271,6 +333,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     intent = new Intent(view.getContext(), CommentsActivity.class);
                     intent.putExtra("idPublicacao", Long.valueOf(getItem(position).getCodigo()));
                     view.getContext().startActivity(intent);
+                    break;
+                case R.id.btnYoutube_player:
+                    intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, "AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", getItem(position).getVideo());
+                    mContext.startActivity(intent);
+                    break;
                 default:
                     Log.e("mgoveaaa", view.getId() + "");
             }

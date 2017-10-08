@@ -24,8 +24,6 @@
             android:scaleType="centerCrop"
             android:visibility="visible" />
 
-
-
         <RelativeLayout
             android:id="@+id/relativeLayout_over_youtube_thumbnail"
             android:layout_width="match_parent"

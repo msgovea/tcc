@@ -32,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
     String[] VideoID = {"ad65dIWfdwI", "nCgQDjiotG0", "P3mAtvs5Elc"};
     String[] Ttitles = {"Video # 1", "Video # 2", "Video # 3"};
     Context ctx;
-    private static String KEY = "Add your authentication key for google";
+    private static String KEY = "AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs";
 
     public RecyclerAdapter(Context context) {
         this.ctx = context;
@@ -68,7 +68,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
                 youTubeThumbnailLoader.setVideo(VideoID[position]);
 
                 youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
-                holder.videosTitleTextView.setText(Ttitles[position]);
             }
 
             @Override
@@ -88,12 +87,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.VideoI
         protected RelativeLayout relativeLayoutOverYouTubeThumbnailView;
         YouTubeThumbnailView youTubeThumbnailView;
         protected ImageView playButton;
-        protected TextView videosTitleTextView;
 
         public VideoInfoHolder(View itemView) {
             super(itemView);
             playButton = (ImageView) itemView.findViewById(R.id.btnYoutube_player);
-            videosTitleTextView = (TextView) itemView.findViewById(R.id.videosTitle_tv);
             playButton.setOnClickListener(this);
             relativeLayoutOverYouTubeThumbnailView = (RelativeLayout) itemView.findViewById(R.id.relativeLayout_over_youtube_thumbnail);
             youTubeThumbnailView = (YouTubeThumbnailView) itemView.findViewById(R.id.youtube_thumbnail);
