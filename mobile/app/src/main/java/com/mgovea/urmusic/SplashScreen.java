@@ -92,7 +92,7 @@ public class SplashScreen extends Activity {
             }
         };
         Fabric.with(this, new Crashlytics());
-        startActivity(new Intent(SplashScreen.this, com.mgovea.urmusic.test.MainActivity.class));
+        startActivity(new Intent(SplashScreen.this, com.mgovea.urmusic.test.Main2Activity.class));
         //timerThread.start();
 
     }

@@ -179,7 +179,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mgovea.urmusic.principal.MainActivity" />
         </activity>
-        <activity android:name=".test.MainActivity"></activity>
+        <activity android:name=".test.MainActivity" />
+        <activity android:name=".test.Main2Activity"></activity>
     </application>
 
 </manifest>
