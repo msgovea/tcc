@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="center"
-                android:src="@android:drawable/btn_plus" />
+                android:src="@drawable/youtube_player" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
