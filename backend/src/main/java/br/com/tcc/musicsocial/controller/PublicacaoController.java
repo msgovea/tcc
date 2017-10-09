@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,9 +30,8 @@ public class PublicacaoController {
 	@RequestMapping(value = "/get/{idUsuario}")
 	public Response<?> getPublicacoes(@PathVariable("idUsuario") String idUsuario) {
 		try {
-			Integer id = Integer.parseInt(new String(Base64Utils.decodeFromString(idUsuario)));
 			return new Response<List<Publicacao>>(MessagesEnum.SUCESSO.getDescricao(),
-					publicacaoService.getPublicacoes(id));
+					publicacaoService.getPublicacoes(idUsuario));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);

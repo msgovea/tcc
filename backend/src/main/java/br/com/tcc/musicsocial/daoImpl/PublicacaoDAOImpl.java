@@ -34,12 +34,13 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
 		StringBuilder hql = new StringBuilder();
 		hql.append("select p from Publicacao p ");
-		hql.append("where p.usuario.codigoUsuario in (select a.seguido.codigoUsuario from Amigo a where a.segue.codigoUsuario = :codigo) ");
+		hql.append("where p.usuario.codigoUsuario in (select a.seguido.codigoUsuario from Amigo a where a.segue.codigoUsuario = :idUsuario) ");
 		hql.append("and p.ativa = :ativa ");
 		hql.append("and p.usuario.situacaoConta.codigoSituacaoConta <> :codigoSituacaoConta ");
+		hql.append("or p.usuario.codigoUsuario = :idUsuario ");
 		hql.append("order by p.codigo desc ");
 		Query query = getEntityManager().createQuery(hql.toString());
-		query.setParameter("codigo", idUsuario);
+		query.setParameter("idUsuario", idUsuario);
 		query.setParameter("ativa", true);
 		query.setParameter("codigoSituacaoConta", SituacaoConta.BANIDA.getValue());
 		return query.getResultList();

@@ -40,8 +40,13 @@ public class UserController {
 	@RequestMapping(value = "/usuario/cadastro", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public @ResponseBody Response<?> cadastrarUsuario(@RequestBody UsuarioDetalhe usuario) {
 		try {
-			return new Response<UsuarioDetalhe>(MessagesEnum.SUCESSO.getDescricao(),
-					usuarioService.cadastrarUsuario(usuario));
+			UsuarioDetalhe usuarioCadastrado = usuarioService.cadastrarUsuario(usuario);
+			if(usuarioCadastrado != null) {
+				return new Response<UsuarioDetalhe>(MessagesEnum.SUCESSO.getDescricao(),
+					usuarioCadastrado);
+			} else {
+				return new Response<UsuarioDetalhe>(MessagesEnum.EMAIL_JA_CADASTRADO.getDescricao());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);

@@ -50,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioDetalhe cadastrarUsuario(UsuarioDetalhe usuario) {
 		UsuarioDetalhe usuarioBanco = usuarioDAO.consultarPorEmail(usuario.getEmail());
 		if (usuarioBanco != null) {
-			throw new RuntimeException("Usuario já cadastrado!");
+			return null;
 		}
 
 		usuario.setSituacaoConta(SituacaoConta.AGUARDANDO_CONFIRMACAO.getEntity());

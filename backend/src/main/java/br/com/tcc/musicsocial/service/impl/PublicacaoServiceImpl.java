@@ -1,13 +1,14 @@
 package br.com.tcc.musicsocial.service.impl;
 
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 import br.com.tcc.musicsocial.dao.ComentarioDAO;
@@ -20,7 +21,7 @@ import br.com.tcc.musicsocial.service.FotoService;
 import br.com.tcc.musicsocial.service.PublicacaoService;
 import br.com.tcc.musicsocial.service.UsuarioService;
 
-@Service
+@Service 
 public class PublicacaoServiceImpl implements PublicacaoService {
 
 	@Autowired
@@ -39,15 +40,14 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	private FotoService fotoService;
 
 	@Override
-	public List<Publicacao> getPublicacoes(Integer idUsuario) {;
-		return populaQtdComentarios(publicacaoDAO.getPublicacoes(idUsuario));
+	public List<Publicacao> getPublicacoes(String idUsuario) {
+		Integer id = Integer.parseInt(new String(Base64Utils.decodeFromString(idUsuario)));
+		return populaQtdComentarios(publicacaoDAO.getPublicacoes(id));
 	}
 
 	@Override
 	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
-		List<Publicacao> publicacoes = populaQtdComentarios(publicacaoDAO.getPublicacoesDeAmigos(idUsuario));
-		publicacoes.addAll(getPublicacoes(idUsuario));
-		return publicacoes;
+		return populaQtdComentarios(publicacaoDAO.getPublicacoesDeAmigos(idUsuario));
 	}
 
 	@Override
