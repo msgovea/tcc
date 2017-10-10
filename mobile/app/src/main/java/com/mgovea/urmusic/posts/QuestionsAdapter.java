@@ -296,12 +296,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
             switch (view.getId()) {
                 case R.id.view_likes:
-                    Curtida curtidaPublicacao = new Curtida(
-                            usuario, //usuario
-                            getItem(position).getCodigo()); //codigoPublicacao
+                    if (!usuario.getCodigoUsuario().equals(getItem(position).getUsuario().getCodigoUsuario())) {
+                        Curtida curtidaPublicacao = new Curtida(
+                                usuario, //usuario
+                                getItem(position).getCodigo()); //codigoPublicacao
 
-                    AsyncLikePublication sinc = new AsyncLikePublication(this);
-                    sinc.execute(curtidaPublicacao);
+                        AsyncLikePublication sinc = new AsyncLikePublication(this);
+                        sinc.execute(curtidaPublicacao);
+                    }
                     break;
                 case R.id.avatar_publication:
                     //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
