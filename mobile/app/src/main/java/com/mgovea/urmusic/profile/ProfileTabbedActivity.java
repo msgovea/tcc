@@ -247,6 +247,9 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
+                //resize
+                imagem = Bitmap.createScaledBitmap(imagem, 120, 120, false);
+
                 //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);

@@ -176,6 +176,8 @@ public class MainActivity extends AbstractAsyncActivity {
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
+                imagem = Bitmap.createScaledBitmap(imagem, 300, 300, false);
+
                 //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -185,11 +187,6 @@ public class MainActivity extends AbstractAsyncActivity {
 
                 Log.e("UPLOAD_IMAGEM", byteArray.length + "");
 
-
-
-                //TODO
-                //if (!((MenuMakePublicationFragment)frag).mTextPublication.getText().toString().trim().equals("")) {
-
                     Preferencias pref = new Preferencias(this);
                     Usuario usuario = pref.getDadosUsuario();
                     Publicacao publicacao = new Publicacao(usuario, ((MenuMakePublicationFragment)frag).mTextPublication.getText().toString(), byteArray);
@@ -198,7 +195,6 @@ public class MainActivity extends AbstractAsyncActivity {
 
                     AsyncMakePublication sinc = new AsyncMakePublication(((MenuMakePublicationFragment)frag));
                     sinc.execute(publicacao);
-                //}
 
 
                 //TODO EXIBIR BYTE ARRAY BYTE
