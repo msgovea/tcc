@@ -20,7 +20,9 @@
             android:title="Tools" />
     </group>
 
-    <item android:title="Communicate">
+    <item
+        android:id="@+id/text_menu_outros"
+        android:title="Outros">
         <menu>
             <item
                 android:id="@+id/nav_share"

@@ -58,10 +58,10 @@ public class MainActivity extends AbstractAsyncActivity {
 
         MenuItem selectedItem;
         if (savedInstanceState != null) {
-            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 2);
+            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 1);
             selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
         } else {
-            selectedItem = mBottomNav.getMenu().getItem(2);
+            selectedItem = mBottomNav.getMenu().getItem(1);
         }
         selectFragment(selectedItem);
     }
@@ -91,10 +91,10 @@ public class MainActivity extends AbstractAsyncActivity {
         // init corresponding fragment
         Log.e("RECEBIDO", item.getItemId() + " - " + item.toString());
         switch (item.getItemId()) {
-            case R.id.menu_home:
-                frag = MenuOthersFragment.newInstance(getString(R.string.account_banned_text),
-                        getColorFromRes(R.color.primary_light));
-                break;
+//            case R.id.menu_home:
+//                frag = MenuOthersFragment.newInstance(getString(R.string.account_banned_text),
+//                        getColorFromRes(R.color.primary_light));
+//                break;
             case R.id.menu_publication:
                 frag = MenuPublicationFragment.newInstance(info,
                         getColorFromRes(R.color.primary_light));

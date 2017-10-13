@@ -31,9 +31,6 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
-            <!--app:layout_scrollFlags="scroll|enterAlways"-->
-
         </android.support.v7.widget.Toolbar>
 
         <RelativeLayout
@@ -183,8 +180,11 @@
             android:layout_height="wrap_content"
             app:layout_collapseMode="pin"
             app:tabMode="fixed"
-            app:layout_scrollFlags="scroll|enterAlways"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <!-- FAZ COM QUE A TAB FIQUE ATIVA -->
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
+
 
     </android.support.design.widget.AppBarLayout>
 

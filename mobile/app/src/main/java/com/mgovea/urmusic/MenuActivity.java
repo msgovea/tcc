@@ -9,6 +9,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -41,6 +42,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -90,7 +92,6 @@ public class MenuActivity extends AbstractAsyncActivity
 
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
-    private SearchView.OnCloseListener closeListener;
     private NavigationView navigationView;
 
     @Override
@@ -111,16 +112,18 @@ public class MenuActivity extends AbstractAsyncActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ProfileTabbedActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        if (navigationView != null) {
-            navigationView.setNavigationItemSelectedListener(this);
+        /* OBTEM VERSÃO DA APLICAÇÃO */
+        try {
+            TextView versionTV = (TextView) findViewById(R.id.version);
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            int verCode = pInfo.versionCode;
+
+            navigationView.getMenu().findItem(R.id.text_menu_outros).setTitle("urMusic v" + version + " - Release: " + verCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO ERROR
         }
 
         //CARREGA DRAWER
@@ -140,10 +143,10 @@ public class MenuActivity extends AbstractAsyncActivity
 
         MenuItem selectedItem;
         if (savedInstanceState != null) {
-            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 2);
+            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 1);
             selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
         } else {
-            selectedItem = mBottomNav.getMenu().getItem(2);
+            selectedItem = mBottomNav.getMenu().getItem(1);
         }
         selectFragment(selectedItem);
 
@@ -188,12 +191,6 @@ public class MenuActivity extends AbstractAsyncActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -223,6 +220,11 @@ public class MenuActivity extends AbstractAsyncActivity
 
                     searchScreen.setVisibility(View.VISIBLE);
                     defaultScreen.setVisibility(View.GONE);
+
+                    InputMethodManager inputMethodManager = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
 
                     AsyncSearch sinc = new AsyncSearch(MenuActivity.this);
                     sinc.execute(query);
@@ -273,17 +275,25 @@ public class MenuActivity extends AbstractAsyncActivity
         imagem.setImageURI(API.URL_IMGS + API.IMG_PERFIL + pref.getDadosUsuario().getCodigoUsuario() + ".jpg");
         tvUser.setText(pref.getDadosUsuario().getNome());
         tvMail.setText(pref.getDadosUsuario().getEmail());
+
+        LinearLayout linearLayout = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.teste);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "oi", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MenuActivity.this, ProfileTabbedActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_view ) {
-            Toast.makeText(this, "bla", Toast.LENGTH_SHORT).show();
-        }
+        Log.e("LOG", item.toString());
+        int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
@@ -321,10 +331,10 @@ public class MenuActivity extends AbstractAsyncActivity
         // init corresponding fragment
         Log.e("RECEBIDO", item.getItemId() + " - " + item.toString());
         switch (item.getItemId()) {
-            case R.id.menu_home:
-                frag = MenuOthersFragment.newInstance(getString(R.string.account_banned_text),
-                        getColorFromRes(R.color.primary_light));
-                break;
+//            case R.id.menu_home:
+//                frag = MenuOthersFragment.newInstance(getString(R.string.account_banned_text),
+//                        getColorFromRes(R.color.primary_light));
+//                break;
             case R.id.menu_publication:
                 frag = MenuPublicationFragment.newInstance(info,
                         getColorFromRes(R.color.primary_light));
