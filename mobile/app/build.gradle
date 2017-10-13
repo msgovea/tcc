@@ -101,6 +101,9 @@ repositories {
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 
+dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
 repositories {
     maven {
         url 'https://maven.fabric.io/public'
