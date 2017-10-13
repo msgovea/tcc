@@ -22,15 +22,6 @@ import io.fabric.sdk.android.Fabric;
 
 public class SplashScreen extends Activity {
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        SharedPreferences prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-//        if (!prefs.getString("usuario", null).isEmpty()) {
-//            startActivity(new Intent(this, DefaultActivity.class));
-//        }
-//
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +40,6 @@ public class SplashScreen extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
-        //END VERSION
-
-        Window window = getWindow();
-        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         //TODO MGOVEA2
 
@@ -83,7 +69,7 @@ public class SplashScreen extends Activity {
                         pref.atualizaUsuario();
                         //startActivity(new Intent(SplashScreen.this, ProfileEditActivity.class));
                         //    throw new RuntimeException("This is a crash");
-                        startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                        startActivity(new Intent(SplashScreen.this, MenuActivity.class));
                         finish();
                     }
 //                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);

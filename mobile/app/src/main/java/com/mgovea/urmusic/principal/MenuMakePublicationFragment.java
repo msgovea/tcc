@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.MenuActivity;
 import com.mgovea.urmusic.async.profile.AsyncUploadImage;
 import com.mgovea.urmusic.async.publication.AsyncMakePublication;
 import com.mgovea.urmusic.entity.ImagemUsuario;
@@ -58,7 +59,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
     private QuestionsAdapter mAdapter;
     private SharedPreferences prefs;
     private ListView listView;
-    protected EditText mTextPublication;
+    public EditText mTextPublication;
     private TextView mButtonPublication;
     private LinearLayout mMakePublication;
 
@@ -92,7 +93,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
             @Override
             public void onShown() {
                 Log.e("FUU","DEU");
-                MainActivity i = (MainActivity) getActivity();
+                MenuActivity i = (MenuActivity) getActivity();
                 //TODO
                 i.teste();
                 listView.setVisibility(View.GONE);
@@ -102,7 +103,7 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
             @Override
             public void onHidden() {
                 Log.e("FUU","DEU naoo");
-                MainActivity i = (MainActivity) getActivity();
+                MenuActivity i = (MenuActivity) getActivity();
                 //TODO
                 i.teste2();
                 listView.setVisibility(View.VISIBLE);
@@ -253,8 +254,8 @@ public class MenuMakePublicationFragment extends Fragment implements AsyncMakePu
     @Override
     public void onLoadedPublication(Boolean bool) {
         showProgress(false);
-        ((MainActivity)getActivity()).dismissProgressDialog();
-        MainActivity i = (MainActivity) getActivity();
+        ((MenuActivity)getActivity()).dismissProgressDialog();
+        MenuActivity i = (MenuActivity) getActivity();
         //TODO
         i.openPublication(R.id.menu_publication);
 

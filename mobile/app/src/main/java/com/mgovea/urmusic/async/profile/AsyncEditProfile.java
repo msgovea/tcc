@@ -50,6 +50,8 @@ public class AsyncEditProfile extends AsyncTask<Usuario, String, String> {
             Gson gson = new Gson();
             String json = gson.toJson(usuario);
 
+            Log.e("ENVIADO",json);
+
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
             writer.write(json);

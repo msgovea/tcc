@@ -26,6 +26,11 @@ public class Preferencias implements AsyncProfile.Listener {
         editor.commit();
     }
 
+    public void removerUsuario(){
+        editor = preferences.edit();
+        editor.clear().apply();
+    }
+
     public void atualizaUsuario(){
         AsyncProfile sinc = new AsyncProfile(this);
         sinc.execute(getDadosUsuario().getCodigoUsuario());

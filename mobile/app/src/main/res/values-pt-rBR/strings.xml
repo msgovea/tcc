@@ -164,4 +164,9 @@
     <string name="success">Sucesso</string>
     <string name="success_update_photo">Imagem de perfil atualizada com sucesso!</string>
 
+
+    <string name="title_activity_menu">urMusic</string>
+
+    <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
+    <string name="navigation_drawer_close">Fechar a gaveta de navegação</string>
 </resources>
