@@ -20,29 +20,29 @@
             android:elevation="4dp"
             android:paddingRight="16dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/title_activity_default"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/textView4"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:text="@string/title_activity_default"-->
+                    <!--android:textColor="@android:color/white"-->
+                    <!--android:textSize="20sp" />-->
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/iconSearch"
-                    android:src="@drawable/ic_search"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:tint="@android:color/white"
-                    android:layout_alignTop="@+id/textView4"
-                    android:layout_alignParentEnd="true" />
+                <!--<android.support.v7.widget.AppCompatImageView-->
+                    <!--android:id="@+id/iconSearch"-->
+                    <!--android:src="@drawable/ic_search"-->
+                    <!--android:layout_width="24dp"-->
+                    <!--android:layout_height="24dp"-->
+                    <!--android:tint="@android:color/white"-->
+                    <!--android:layout_alignTop="@+id/textView4"-->
+                    <!--android:layout_alignParentEnd="true" />-->
 
-            </RelativeLayout>
+            <!--</RelativeLayout>-->
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

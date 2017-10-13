@@ -1,15 +1,20 @@
 package com.mgovea.urmusic;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -19,8 +24,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuInflater;
@@ -33,8 +41,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.mgovea.urmusic.async.publication.AsyncMakePublication;
 import com.mgovea.urmusic.async.search.AsyncSearch;
 import com.mgovea.urmusic.entity.Publicacao;
@@ -43,15 +56,21 @@ import com.mgovea.urmusic.principal.MenuFragment;
 import com.mgovea.urmusic.principal.MenuMakePublicationFragment;
 import com.mgovea.urmusic.principal.MenuOthersFragment;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.search.SearchActivity;
 import com.mgovea.urmusic.search.SearchActivityFragment;
+import com.mgovea.urmusic.search.SearchAdapter;
+import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.Preferencias;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class MenuActivity extends AbstractAsyncActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AsyncSearch.Listener {
 
     private static final String SELECTED_ITEM = "arg_selected_item";
 
@@ -61,15 +80,25 @@ public class MenuActivity extends AbstractAsyncActivity
 
     private Fragment frag = null;
 
+    /**/
+    private LinearLayout searchScreen;
+    private FrameLayout defaultScreen;
+    /**/
+    private RecyclerView mRecyclerView;
+    public View mProgressView;
+    private SearchAdapter mAdapter;
 
-    private AppCompatImageView mIcon;
-    private AppCompatImageView mIconSearch;
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
+    private SearchView.OnCloseListener closeListener;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
         menu();
@@ -80,14 +109,25 @@ public class MenuActivity extends AbstractAsyncActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, ProfileTabbedActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+
+        //CARREGA DRAWER
+        drawer();
         //MAINACTIVITY
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main_x);
 
-        //logUser();
+        logUser();
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.navigation_menu);
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -106,50 +146,27 @@ public class MenuActivity extends AbstractAsyncActivity
             selectedItem = mBottomNav.getMenu().getItem(2);
         }
         selectFragment(selectedItem);
+
+        //  SEARCH
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.list_users);
+        mProgressView = findViewById(R.id.user_progress);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     public void menu() {
-//        mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
-//        mIcon.setOnClickListener(new View.OnClickListener() {
+
+        searchScreen = (LinearLayout) findViewById(R.id.search_screen);
+        defaultScreen = (FrameLayout) findViewById(R.id.container);
+
+//        mIconSearch = (AppCompatImageView) findViewById(R.id.iconSearch);
+//        mIconSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                NotificationCompat.Builder mBuilder =
-//                        new NotificationCompat.Builder(getApplicationContext())
-//                                .setSmallIcon(R.drawable.logo)
-//                                .setContentTitle("My notification")
-//                                .setContentText("Hello World!");
-//                // Creates an explicit intent for an Activity in your app
-//                Intent resultIntent = new Intent(getApplicationContext(), SearchActivity.class);
-//
-//                // The stack builder object will contain an artificial back stack for the
-//                // started Activity.
-//                // This ensures that navigating backward from the Activity leads out of
-//                // your application to the Home screen.
-//                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
-//                // Adds the back stack for the Intent (but not the Intent itself)
-//                stackBuilder.addParentStack(SearchActivity.class);
-//                // Adds the Intent that starts the Activity to the top of the stack
-//                stackBuilder.addNextIntent(resultIntent);
-//                PendingIntent resultPendingIntent =
-//                        stackBuilder.getPendingIntent(
-//                                0,
-//                                PendingIntent.FLAG_UPDATE_CURRENT
-//                        );
-//                mBuilder.setContentIntent(resultPendingIntent);
-//                NotificationManager mNotificationManager =
-//                        (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-//                // mId allows you to update the notification later on.
-//                mNotificationManager.notify(123, mBuilder.build());
+//                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
 //            }
 //        });
-
-        mIconSearch = (AppCompatImageView) findViewById(R.id.iconSearch);
-        mIconSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-            }
-        });
     }
 
     @Override
@@ -158,49 +175,78 @@ public class MenuActivity extends AbstractAsyncActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (searchScreen.getVisibility() == View.VISIBLE) {
+                searchScreen.setVisibility(View.GONE);
+                defaultScreen.setVisibility(View.VISIBLE);
+
+                searchView.onActionViewCollapsed();
+
+            } else {
+                //todo search
+                super.onBackPressed();
+            }
         }
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        return true;
+//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+
+
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+
+           queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+
+                    searchScreen.setVisibility(View.VISIBLE);
+                    defaultScreen.setVisibility(View.GONE);
+
+                    AsyncSearch sinc = new AsyncSearch(MenuActivity.this);
+                    sinc.execute(query);
+                    showProgress(true);
+
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    searchScreen.setVisibility(View.GONE);
+                    defaultScreen.setVisibility(View.VISIBLE);
+
+                    searchView.onActionViewCollapsed();
+                    return false;
+                }
+            });
+        }
+        super.onCreateOptionsMenu(menu);
         return true;
     }
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu_search, menu);
-//        MenuItem searchItem = menu.findItem(R.id.action_search);
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//
-//        if (searchItem != null) {
-//            searchView = (SearchView) searchItem.getActionView();
-//        }
-//        if (searchView != null) {
-//            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//
-//            queryTextListener = new SearchView.OnQueryTextListener() {
-//                @Override
-//                public boolean onQueryTextChange(String newText) {
-//                    Log.i("onQueryTextChange", newText);
-//
-//                    return true;
-//                }
-//                @Override
-//                public boolean onQueryTextSubmit(String query) {
-//                    Log.i("onQueryTextSubmit", query);
-//                    AsyncSearch sinc = new AsyncSearch(SearchActivityFragment.this);
-//                    sinc.execute(query);
-//                    showProgress(true);
-//                    return true;
-//                }
-//            };
-//            searchView.setOnQueryTextListener(queryTextListener);
-//        }
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -217,11 +263,27 @@ public class MenuActivity extends AbstractAsyncActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void drawer() {
+        SimpleDraweeView imagem = (SimpleDraweeView) navigationView.getHeaderView(0).findViewById(R.id.profile_photo_user);
+        TextView tvUser = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_name_user);
+        TextView tvMail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_mail_user);
+
+        Preferencias pref = new Preferencias(this);
+
+        imagem.setImageURI(API.URL_IMGS + API.IMG_PERFIL + pref.getDadosUsuario().getCodigoUsuario() + ".jpg");
+        tvUser.setText(pref.getDadosUsuario().getNome());
+        tvMail.setText(pref.getDadosUsuario().getEmail());
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if (id == R.id.nav_view ) {
+            Toast.makeText(this, "bla", Toast.LENGTH_SHORT).show();
+        }
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
@@ -234,7 +296,11 @@ public class MenuActivity extends AbstractAsyncActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            Preferencias pref = new Preferencias(this);
+            pref.removerUsuario();
 
+            startActivity(new Intent(this, TesteLogin.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -300,7 +366,6 @@ public class MenuActivity extends AbstractAsyncActivity
         Crashlytics.setUserName(pref.getDadosUsuario().getNome());
     }
 
-
     private void selectFragment(MenuItem item) {
         selectFragment(item, null);
     }
@@ -340,7 +405,7 @@ public class MenuActivity extends AbstractAsyncActivity
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
-                imagem = Bitmap.createScaledBitmap(imagem, 300, 300, false);
+                imagem = Bitmap.createScaledBitmap(imagem, 1200, 1200, false);
 
                 //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -380,4 +445,64 @@ public class MenuActivity extends AbstractAsyncActivity
     public void teste2() {
         mBottomNav.setVisibility(View.VISIBLE);
     }
+
+    ///SEARCH
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+                int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView.animate().setDuration(shortAnimTime).alpha(
+                        show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    }
+                });
+
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                mProgressView.animate().setDuration(shortAnimTime).alpha(
+                        show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                    }
+                });
+            } else {
+                // The ViewPropertyAnimator APIs are not available, so simply show
+                // and hide the relevant UI components.
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        }
+        catch (Exception e) {
+            e.getCause();
+        }
+    }
+
+    // ***************************************
+    // Metodos de retorno Async
+    // ***************************************
+
+    @Override
+    public void onLoaded(ArrayList<Usuario> listaUsuarios) {
+        mAdapter = new SearchAdapter(this, listaUsuarios);
+        mRecyclerView.setAdapter(mAdapter);
+
+        showProgress(false);
+    }
+
+    @Override
+    public void onLoadedError(String s) {
+        searchScreen.setVisibility(View.GONE);
+        defaultScreen.setVisibility(View.VISIBLE);
+
+        Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show();
+        //TODO MSG PALOMA
+        Log.e("ERRO GERAL", s);    }
 }
