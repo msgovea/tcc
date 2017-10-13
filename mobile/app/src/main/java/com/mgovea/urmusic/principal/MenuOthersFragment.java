@@ -52,8 +52,6 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
     private AdapterListView adapterListView;
     private Usuario usuario;
 
-    private AppCompatImageView mIcon;
-    private AppCompatImageView mIconSearch;
 
 //    private BottomNavigationView bottomNavigationView;
 
@@ -114,29 +112,6 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
             getActivity().finish();
         } else if (item.getTexto().equals(getString(R.string.language))) {
 
-            //NAO ENVIAR SMS
-//            String[] permissoesNecessarias = new String[]{
-//                    android.Manifest.permission.SEND_SMS,
-//                    android.Manifest.permission.READ_PHONE_STATE
-//            };
-//
-//            if (Permissao.validaPermissoes(1, getActivity(), permissoesNecessarias)) {
-//
-//
-//                //TODO MGOVEA - ENVIO SMS
-//                SmsManager smsManager = SmsManager.getDefault();
-//                try {
-//                    smsManager.sendTextMessage("+5519981407342", null, "oi1, teste", null, null);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//
-//                }
-//            }
-
-
-//            Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
-//            intent.putExtra("idUsuario", Long.valueOf(303));
-//            startActivity(intent);
         } else if (item.getTexto().equals(usuario.getNome())) {
             Intent intent = new Intent(getActivity(), ProfileTabbedActivity.class);
             startActivity(intent);
@@ -192,13 +167,6 @@ public class MenuOthersFragment extends Fragment implements AdapterView.OnItemCl
 
         listView.setOnItemClickListener(this);
 
-        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
-        mIconSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), SearchActivity.class));
-            }
-        });
     }
 
     @Override

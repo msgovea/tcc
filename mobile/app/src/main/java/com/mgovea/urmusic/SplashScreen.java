@@ -83,7 +83,7 @@ public class SplashScreen extends Activity {
                         pref.atualizaUsuario();
                         //startActivity(new Intent(SplashScreen.this, ProfileEditActivity.class));
                         //    throw new RuntimeException("This is a crash");
-                        startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                        startActivity(new Intent(SplashScreen.this, MenuActivity.class));
                         finish();
                     }
 //                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
