@@ -69,7 +69,7 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
     }
 
     public void skip(View v){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
         finish();
     }
 

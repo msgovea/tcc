@@ -141,7 +141,7 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
     public void onLoadedPublication(Boolean bool) {
         if (bool) {
             dismissProgressDialog();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             finish();
         }
         else showErrorMessage();

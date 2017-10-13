@@ -141,7 +141,7 @@ public class TesteLogin extends AbstractAsyncActivity implements AsyncLogin.List
                         if (((Usuario) o).getGostosMusicais().toString().equals("[]"))
                             startActivity(new Intent(this, GostoMusicalActivity.class));
                         else
-                            startActivity(new Intent(this, MainActivity.class));
+                            startActivity(new Intent(this, MenuActivity.class));
                         finish();
 
 

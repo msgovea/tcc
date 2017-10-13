@@ -23,6 +23,7 @@ import com.mgovea.urmusic.principal.MainActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.Hash;
+import com.mgovea.urmusic.util.Menu;
 import com.mgovea.urmusic.util.Validation;
 
 
@@ -167,7 +168,7 @@ public class LoginActivity extends AbstractAsyncActivity implements AsyncLogin.L
                         if (((Usuario) o).getGostosMusicais().toString().equals("[]"))
                             startActivity(new Intent(this, GostoMusicalActivity.class));
                         else
-                            startActivity(new Intent(this, MainActivity.class));
+                            startActivity(new Intent(this, MenuActivity.class));
                         finish();
 
 
