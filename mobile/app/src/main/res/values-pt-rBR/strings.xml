@@ -169,6 +169,7 @@
 
     <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
     <string name="navigation_drawer_close">Fechar a gaveta de navegação</string>
+    <string name="buy_string">Comprar</string>
 
     <string name="feed">Feed</string>
     <string name="feed_high">Feed em Alta</string>
