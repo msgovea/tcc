@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Feed" />
+            android:title="@string/feed" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Feed High" />
+            android:title="@string/feed_high" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Idiomas" />
+            android:title="@string/language" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="@string/tools" />
     </group>
 
     <item
@@ -27,11 +27,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_verified_user_black_24dp"
-                android:title="Terms and Policies" />
+                android:title="@string/terms" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"
-                android:title="Logoff" />
+                android:title="@string/logoff" />
         </menu>
     </item>
 

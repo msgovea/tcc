@@ -176,7 +176,8 @@ public class MainActivity extends AbstractAsyncActivity {
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
-                imagem = Bitmap.createScaledBitmap(imagem, 300, 300, false);
+                //REDIMENSIONAMENTO IMAGEM
+                //imagem = Bitmap.createScaledBitmap(imagem, 300, 300, false);
 
                 //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();

@@ -58,6 +58,7 @@ import com.mgovea.urmusic.principal.MenuFragment;
 import com.mgovea.urmusic.principal.MenuMakePublicationFragment;
 import com.mgovea.urmusic.principal.MenuOthersFragment;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
+import com.mgovea.urmusic.principal.MenuPublicationHighFragment;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.search.SearchActivity;
 import com.mgovea.urmusic.search.SearchActivityFragment;
@@ -141,14 +142,23 @@ public class MenuActivity extends AbstractAsyncActivity
             }
         });
 
+
         MenuItem selectedItem;
         if (savedInstanceState != null) {
             mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 1);
             selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
+            selectFragment(selectedItem);
         } else {
-            selectedItem = mBottomNav.getMenu().getItem(1);
+            //VERIFICA ARGS
+            //SE A TELA FOI ABERTA PELO ATO DE IMPULSIONAMENTO, ABRE A TELA DE PUBLICAÇÕES EM ALTA
+            if (getIntent().getBooleanExtra(API.IMPULSIONAMENTO, false)) {
+                openAlta();
+            } else {
+                selectedItem = mBottomNav.getMenu().getItem(1);
+                selectFragment(selectedItem);
+            }
         }
-        selectFragment(selectedItem);
+        //selectFragment(selectedItem);
 
         //  SEARCH
 
@@ -199,7 +209,6 @@ public class MenuActivity extends AbstractAsyncActivity
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
 
-
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
         }
@@ -207,7 +216,7 @@ public class MenuActivity extends AbstractAsyncActivity
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
 
-           queryTextListener = new SearchView.OnQueryTextListener() {
+            queryTextListener = new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     Log.i("onQueryTextChange", newText);
@@ -280,7 +289,6 @@ public class MenuActivity extends AbstractAsyncActivity
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "oi", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MenuActivity.this, ProfileTabbedActivity.class);
                 startActivity(intent);
             }
@@ -296,11 +304,11 @@ public class MenuActivity extends AbstractAsyncActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            selectFragment(item);
         } else if (id == R.id.nav_gallery) {
-
+            selectFragment(item);
         } else if (id == R.id.nav_slideshow) {
-
+            startActivity(new Intent(this, InAppBillingActivity.class));
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -339,6 +347,15 @@ public class MenuActivity extends AbstractAsyncActivity
                 frag = MenuPublicationFragment.newInstance(info,
                         getColorFromRes(R.color.primary_light));
                 break;
+
+            case R.id.nav_camera:
+                frag = MenuPublicationFragment.newInstance(info,
+                        getColorFromRes(R.color.primary_light));
+                break;
+            case R.id.nav_gallery:
+                frag = MenuPublicationHighFragment.newInstance(info,
+                        getColorFromRes(R.color.primary_light));
+                break;
             case R.id.menu_post:
                 frag = MenuMakePublicationFragment.newInstance(null,
                         getColorFromRes(R.color.primary_light));
@@ -374,6 +391,19 @@ public class MenuActivity extends AbstractAsyncActivity
         Crashlytics.setUserIdentifier(pref.getDadosUsuario().getCodigoUsuario().toString());
         Crashlytics.setUserEmail(pref.getDadosUsuario().getEmail());
         Crashlytics.setUserName(pref.getDadosUsuario().getNome());
+    }
+
+    public void openAlta() {
+        frag = MenuPublicationHighFragment.newInstance(null,
+                getColorFromRes(R.color.primary_light));
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //ft.add(R.id.container, frag, frag.getTag());
+        ft.replace(R.id.container, frag, frag.getTag());
+        ft.commit();
+
+        updateToolbarText(getString(R.string.feed_high)); //TODO TEXT
+
     }
 
     private void selectFragment(MenuItem item) {
@@ -415,7 +445,8 @@ public class MenuActivity extends AbstractAsyncActivity
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
-                imagem = Bitmap.createScaledBitmap(imagem, 1200, 1200, false);
+                //REDIMENSIONA A IMAGEM
+                //imagem = Bitmap.createScaledBitmap(imagem, 1200, 1200, false);
 
                 //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -489,8 +520,7 @@ public class MenuActivity extends AbstractAsyncActivity
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getCause();
         }
     }
@@ -514,5 +544,6 @@ public class MenuActivity extends AbstractAsyncActivity
 
         Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show();
         //TODO MSG PALOMA
-        Log.e("ERRO GERAL", s);    }
+        Log.e("ERRO GERAL", s);
+    }
 }

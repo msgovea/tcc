@@ -194,4 +194,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="buy_string">buy</string>
 
+    <string name="feed">Feed</string>
+    <string name="feed_high">Feed High</string>
+    <string name="tools">Tools</string>
+    <string name="terms">Terms and Policies</string>
+
+
 </resources>

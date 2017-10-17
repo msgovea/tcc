@@ -55,7 +55,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     @Nullable
     private OnItemClickListener listener;
-    private BottomSheetDialogFragment bottomSheetDialogFragment;
+    public static BottomSheetDialogFragment bottomSheetDialogFragment;
 
 
     public interface OnItemClickListener {
@@ -379,4 +379,5 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             }
         }
     }
+
 }

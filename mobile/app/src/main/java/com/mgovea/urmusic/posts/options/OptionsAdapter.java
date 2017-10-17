@@ -1,27 +1,44 @@
 package com.mgovea.urmusic.posts.options;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.mgovea.urmusic.MenuActivity;
+import com.mgovea.urmusic.async.publication.AsyncImpulsionarPublication;
 import com.mgovea.urmusic.async.publication.AsyncRemovePublication;
 import com.mgovea.urmusic.posts.Question;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
+import com.mgovea.urmusic.principal.MenuPublicationHighFragment;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.profile.PublicationProfileFragment;
+import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Menu;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import com.mgovea.urmusic.R;;
 
@@ -115,7 +132,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncRemovePublication.Listener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncRemovePublication.Listener, AsyncImpulsionarPublication.Listener {
 
         TextView mNameOption;
         TextView mSubNameOption;
@@ -148,6 +165,9 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                     }
                     break;
                 case 1:
+                    loading(true);
+                    AsyncImpulsionarPublication sinc = new AsyncImpulsionarPublication(this);
+                    sinc.execute(mIdPublicacao);
                     //IMPULSIONAR
                     break;
             }
@@ -156,9 +176,28 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         }
 
         @Override
+        public void onLoadedImpuls(Boolean bool) {
+            try {
+                ((MenuActivity)mContext).openAlta();
+            } catch (Exception e) {
+                Intent intent = new Intent(mContext, MenuActivity.class);
+                intent.putExtra(API.IMPULSIONAMENTO, true);
+
+                mContext.startActivity(intent);
+            }
+
+            QuestionsAdapter.bottomSheetDialogFragment.dismiss();
+
+            loading(false);
+        }
+
+        @Override
         public void onLoaded(Boolean bool) {
             try {
                 ((QuestionsAdapter) MenuPublicationFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
+            } catch (Exception e) {}
+            try {
+                ((QuestionsAdapter) MenuPublicationHighFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
             } catch (Exception e) {}
             try {
                 ((QuestionsAdapter) PublicationProfileFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
