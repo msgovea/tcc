@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -33,6 +34,7 @@ import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
 import com.mgovea.urmusic.search.SearchActivity;
 import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.Preferencias;
 import com.mgovea.urmusic.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -49,7 +51,6 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
     private String mText;
     private int mColor;
 
-    private View mContent;
     public static RecyclerView mRecyclerView;
     public View mProgressView;
     private QuestionsAdapter mAdapter;
@@ -89,8 +90,16 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
             mColor = savedInstanceState.getInt(ARG_COLOR);
         }
 
-        // initialize views
-        mContent = view.findViewById(R.id.fragment_content);
+        try {
+            Preferencias pref = new Preferencias(getContext());
+            AppBarLayout teste_mgovea = (AppBarLayout) view.findViewById(R.id.appbar_pub);
+            if (!pref.getDadosUsuario().getCodigoUsuario().equals(Long.valueOf(21))) {
+                teste_mgovea.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
