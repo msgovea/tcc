@@ -418,6 +418,26 @@ angular.module('app')
                     }]
                 }
             })
+
+            .state('app.denuncias', {
+                url: '/admin/denuncias',
+                data: {
+                    requireLogin: true
+                },
+                templateUrl: 'tpl/apps/admin/denuncias.html',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                                'dataTables'
+                            ], {
+                                insertBefore: '#lazyload_placeholder'
+                            })
+                            .then(function() {
+                                return $ocLazyLoad.load('assets/js/controllers/denuncias.js');
+                            });
+                    }]
+                }
+            })
             
             //Calendar app
             .state('app.calendar', {

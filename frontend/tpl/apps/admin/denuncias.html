@@ -1,0 +1,126 @@
+<div ng-controller="DenunciasCtrl">
+
+    <!-- START CONTAINER FLUID -->
+    <div class="container-fluid container-fixed-lg bg-white">
+        <!-- START PANEL -->
+        <div class="panel panel-transparent" >
+            <div class="panel-heading">
+                <div class="panel-title">Publicações denunciadas pelos usuários
+                </div>
+                <div class="btn-group pull-right m-b-10">
+                    <button type="button" class="btn btn-default" ng-click="getDenuncias()">Atualizar</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="">Settings</a>
+                        </li>
+                        <li><a href="">Help</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="basicTable" ui-options="options">
+                        <thead>
+                            <tr>
+                                <!-- NOTE * : Inline Style Width For Table Cell is Required as it may differ from user to user 
+                                            Comman Practice Followed
+                                            -->
+                                <th style="width:1%">
+                                    <button class="btn"><i class="pg-trash"></i>
+                                    </button>
+                                </th>
+                                <th style="width:5%">Código</th>
+                                <th style="width:10%">Publicação</th>
+                                <th style="width:15%">Denunciante</th>
+                                <th style="width:15%">Denunciado</th>
+                                <th style="width:25%">Motivo</th>
+                                <th style="width:5%">Status</th>
+                                <th style="width:15%">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="denuncia in denuncias">
+                                <td class="v-align-middle">
+                                    <div class="checkbox ">
+                                        <input type="checkbox" value="3" id="checkbox1" ng-click="selectRow($event)">
+                                        <label for="checkbox1"></label>
+                                    </div>
+                                </td>
+                                <td class="v-align-middle">
+                                    <p>{{denuncia.codigo}}</p>
+                                </td>
+                                <td class="v-align-middle">
+                                    <p><a ng-click="openModal(denuncia.publicacao)">Visualizar</a></p>
+                                </td>
+                                <td class="v-align-middle">
+                                    <p>{{denuncia.denunciante.nome}}</p>
+                                </td>
+                                <td class="v-align-middle">
+                                    <p>{{denuncia.denunciado.nome}}</p>
+                                </td>
+                                <td class="v-align-middle">
+                                    <p>{{denuncia.motivo}}</p>
+                                </td>
+                                <td class="v-align-middle">
+                                    <p>Iniciada</p>
+                                </td>
+                                <td class="v-align-middle">
+                                    <p>{{denuncia.data}}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END PANEL -->
+    </div>
+    <!-- END CONTAINER FLUID -->
+    <div id="meuModal" class="modal slide-up" tabindex="-1" style="width:300px; height:100%; margin: auto;">
+        <div class="card share modal-content" id="publi" data-social="item" style="background:white; margin-top:100px;">
+            
+            <div class="card-header clearfix">
+                <div style="width:250px; float:left;">
+                    <div class="user-pic">
+                        <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar.jpg" data-src="assets/img/profiles/avatar.jpg"
+                            ng-src="assets/img/profiles/avatar.jpg">
+                    </div>
+                    <h5>{{publicacaoModal.usuario.nome}}</h5>
+                    <h6>{{publicacaoModal.dataPublicacao | date}}
+                        <span class="location semi-bold" ng-show="publicacao.usuario.cidade.length"><i class="fa fa-map-marker"></i> {{publicacaoModal.usuario.cidade + ' - ' + publicacaoModal.usuario.estado}}</span>
+                    </h6>
+                </div>
+                <div class="fs-14 pg-close" ng-click="closeModal()" data-toggle="tooltip" title="Fechar" data-container="body"></div>
+            </div>
+            <div class="card-description">
+                <p>{{publicacaoModal.conteudo}}</p>
+            </div>
+            <div class="card-content" ng-show="publicacaoModal.temImagem">
+                <ul class="buttons ">
+                    <li>
+                        <a href=""><i class="fa fa-expand"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-heart-o"></i>
+                        </a>
+                    </li>
+                </ul>
+                <img alt="Social post" ng-src="{{publicacaoModal.urlImg}}">
+            </div>
+            <div class="card-footer clearfix">
+                <div class="time" translate>{{publicacaoModal.dataPublicacao | date}}</div>
+                <ul class="reactions">
+                    <li><a href="">{{filtrarNumero(publicacaoModal.qtdComentarios)}} <i class="fa fa-comment-o"></i></a>
+                    </li>
+                    <li><a href="">{{filtrarNumero(publicacaoModal.likes.length)}} <i class="fa fa-heart-o"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -164,4 +164,9 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		}
 		return false;
 	}
+	
+	@Override
+	public Publicacao getPublicacao(Long idPublicacao) {
+		return publicacaoDAO.getPublicacao(idPublicacao);
+	}
 }

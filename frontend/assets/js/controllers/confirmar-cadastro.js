@@ -6,7 +6,7 @@ angular.module('app')
     .controller('ConfirmaCadastroCtrl', ['$scope', '$state','$http', '$window','$stateParams','$filter', /*'apiGostoMusical',*/ function($scope, $state, $http, $window, $stateParams, $filter /*, apiGostoMusical*/) {
 
         $scope.confirmar = function() {
-            $http.get('http://192.198.90.26:80/musicsocial/usuario/confirmar/' + $stateParams.idUsuario + '/' + $stateParams.emailHash).success(function(data) {
+            $http.get('http://192.198.90.26:80/usuario/confirmar/' + $stateParams.idUsuario + '/' + $stateParams.emailHash).success(function(data) {
                 $scope.loading = true;
                 if(data.message === 'Sucesso!') {
                     $('body').pgNotification({

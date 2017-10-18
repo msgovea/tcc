@@ -9,7 +9,7 @@ angular.module('app').factory('apiRegister', function($http, md5) {
                 var dataNasc = parts[2] + '-' + parts[1] + '-' + parts[0];
                 return $http({
                     method: 'POST',
-                    url: 'http://192.198.90.26:80/musicsocial/usuario/cadastro',
+                    url: 'http://192.198.90.26:80/usuario/cadastro',
                     headers: {
                         'Content-Type': 'application/json'
                     },

@@ -161,4 +161,20 @@ public class PublicacaoController {
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}
+	
+	@CrossOrigin
+	@RequestMapping("/get")
+	public Response<?> getPublicacao(@RequestParam Long idPublicacao) {
+		try {
+			Publicacao publicacao = publicacaoService.getPublicacao(idPublicacao);
+			if (publicacao != null) {
+				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao(), publicacao);
+			} else {
+				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
 }

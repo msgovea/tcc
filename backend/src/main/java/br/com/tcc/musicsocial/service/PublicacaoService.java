@@ -27,4 +27,6 @@ public interface PublicacaoService {
 	Boolean impulsionarPublicacao(Long codigoPublicacao);
 
 	List<Publicacao> getPublicacoes(String idUsuario);
+
+	Publicacao getPublicacao(Long idPublicacao);
 }
