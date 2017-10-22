@@ -50,8 +50,10 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.mgovea.urmusic.async.gosto_musical.AsyncMakeGostoMusical;
 import com.mgovea.urmusic.async.publication.AsyncMakePublication;
 import com.mgovea.urmusic.async.search.AsyncSearch;
+import com.mgovea.urmusic.entity.GostoUsuario;
 import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.principal.MenuFragment;
@@ -59,6 +61,7 @@ import com.mgovea.urmusic.principal.MenuMakePublicationFragment;
 import com.mgovea.urmusic.principal.MenuOthersFragment;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
 import com.mgovea.urmusic.principal.MenuPublicationHighFragment;
+import com.mgovea.urmusic.principal.PostActivity;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.search.SearchActivity;
 import com.mgovea.urmusic.search.SearchActivityFragment;
@@ -113,6 +116,8 @@ public class MenuActivity extends AbstractAsyncActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
+
 
         /* OBTEM VERSÃO DA APLICAÇÃO */
         try {
@@ -166,6 +171,18 @@ public class MenuActivity extends AbstractAsyncActivity
         mProgressView = findViewById(R.id.user_progress);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        if (getIntent().getBooleanExtra(API.PUBLICADO, false)) {
+            openPublication(R.id.menu_publication);
+        }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_menu);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivity.this, PostActivity.class));
+            }
+        });
     }
 
     public void menu() {
@@ -308,7 +325,7 @@ public class MenuActivity extends AbstractAsyncActivity
         } else if (id == R.id.nav_gallery) {
             selectFragment(item);
         } else if (id == R.id.nav_slideshow) {
-            startActivity(new Intent(this, InAppBillingActivity.class));
+
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -402,8 +419,7 @@ public class MenuActivity extends AbstractAsyncActivity
         ft.replace(R.id.container, frag, frag.getTag());
         ft.commit();
 
-        updateToolbarText(getString(R.string.feed_high)); //TODO TEXT
-
+        updateToolbarText(getString(R.string.feed_high));
     }
 
     private void selectFragment(MenuItem item) {
@@ -425,57 +441,6 @@ public class MenuActivity extends AbstractAsyncActivity
         //mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
         MenuItem selectedItem = mBottomNav.getMenu().findItem(id);
         selectFragment(selectedItem, "done");
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Log.d("img", "Imagem selecionada");
-        //Testar processo de retorno dos dados
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-
-            //recuperar local do recurso
-            Uri localImagemSelecionada = data.getData();
-
-            //recupera a imagem do local que foi selecionada
-            try {
-                showLoadingProgressDialog();
-                //bottomSheetDialogFragment.dismiss();
-
-                Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
-
-                //REDIMENSIONA A IMAGEM
-                //imagem = Bitmap.createScaledBitmap(imagem, 1200, 1200, false);
-
-                //comprimir no formato PNG
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-                //Cria um array de bytes da imagem
-                byte[] byteArray = stream.toByteArray();
-
-                Log.e("UPLOAD_IMAGEM", byteArray.length + "");
-
-                Preferencias pref = new Preferencias(this);
-                Usuario usuario = pref.getDadosUsuario();
-                Publicacao publicacao = new Publicacao(usuario, ((MenuMakePublicationFragment) frag).mTextPublication.getText().toString(), byteArray);
-
-                showLoadingProgressDialog();
-
-                AsyncMakePublication sinc = new AsyncMakePublication(((MenuMakePublicationFragment) frag));
-                sinc.execute(publicacao);
-
-
-                //TODO EXIBIR BYTE ARRAY BYTE
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//                imageView.setImageBitmap(bitmap);
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 

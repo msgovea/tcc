@@ -86,9 +86,10 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
         //Preferencias pref = new Preferencias(getContext());
 
+        //TODO MSG PALOMA
         if (pref.getDadosUsuario().getCodigoUsuario().equals(idUsuario)) {
             menu.add(new Menu(1, "Excluir", "Sua publicação será definitivamente removida."));
-            menu.add(new Menu(2, "Impulsionar", "Seu conteúdo para um maior número de usuários!"));
+            menu.add(new Menu(2, getString(R.string.impulsionar), "Seu conteúdo para um maior número de usuários!"));
         } else {
             menu.add(new Menu(3, "Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
         }

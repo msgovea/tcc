@@ -62,6 +62,7 @@
 
         <activity
             android:name=".MenuActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -184,18 +185,29 @@
         <activity
             android:name=".TesteActivityStorage"
             android:label="@string/title_activity_teste_storage"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".search.SearchActivity"
             android:label="@string/title_activity_search"
             android:parentActivityName=".principal.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mgovea.urmusic.principal.MainActivity" />
         </activity>
-        <activity android:name=".test.MainActivity" />
-        <activity android:name=".test.Main2Activity" />
+        <activity android:name=".test.MainActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".test.Main2Activity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".principal.PostActivity"
+            android:label="@string/prompt_post"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

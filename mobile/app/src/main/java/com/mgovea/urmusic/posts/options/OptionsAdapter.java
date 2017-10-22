@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.mgovea.urmusic.InAppBillingActivity;
 import com.mgovea.urmusic.MenuActivity;
 import com.mgovea.urmusic.async.publication.AsyncImpulsionarPublication;
 import com.mgovea.urmusic.async.publication.AsyncRemovePublication;
@@ -165,9 +166,12 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                     }
                     break;
                 case 1:
-                    loading(true);
-                    AsyncImpulsionarPublication sinc = new AsyncImpulsionarPublication(this);
-                    sinc.execute(mIdPublicacao);
+                    //loading(true);
+                    Intent intent = new Intent(mContext, InAppBillingActivity.class);
+                    intent.putExtra(API.PUBLICACAO, mIdPublicacao);
+                    mContext.startActivity(intent);
+                    //AsyncImpulsionarPublication sinc = new AsyncImpulsionarPublication(this);
+                    //sinc.execute(mIdPublicacao);
                     //IMPULSIONAR
                     break;
             }

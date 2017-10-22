@@ -1,18 +1,26 @@
 package com.mgovea.urmusic;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.mgovea.urmusic.async.publication.AsyncImpulsionarPublication;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.util.IabHelper;
 import com.mgovea.urmusic.util.util.IabResult;
 import com.mgovea.urmusic.util.util.Inventory;
 import com.mgovea.urmusic.util.util.Purchase;
 
-public class InAppBillingActivity extends AppCompatActivity {
+public class InAppBillingActivity extends AbstractAsyncActivity implements AsyncImpulsionarPublication.Listener {
 
     private static final String TAG =
             "InAppBilling";
@@ -22,13 +30,18 @@ public class InAppBillingActivity extends AppCompatActivity {
     private Button clickButton;
     private Button buyButton;
 
+    private Long mIdPublicacao;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_app_billing);
 
-        buyButton = (Button)findViewById(R.id.buyButton);
-        clickButton = (Button)findViewById(R.id.clickButton);
+        mIdPublicacao = getIntent().getLongExtra(API.PUBLICACAO, 0);
+
+        buyButton = (Button) findViewById(R.id.buyButton);
+        clickButton = (Button) findViewById(R.id.clickButton);
         clickButton.setEnabled(false);
         String base64EncodedPublicKey =
                 "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmQnPvT6keTTAwXfCpWNNOq5zI9SXRXAmB6REi59AMBl9X24Q7T/u83iYLszg42tpGHIn0rONt5cWGjVpKkBq00j2BWBdiTJVXOL6r+q9HSPUf/r+elaRIh2+2/KyqL/Nf9ULzBEfDliTqxJElYcSxVAHxU625CqQjiGcF436fNYxnUYMOY2kGMQrUmLwtQad9Y+EmjxVdPmCtUIarRq7Ui3fB6wsiM4e4NWyr75ub70K5D9F009rJqwbNvAW8w16jhRDKzuu1OBYqxF2oC82Mcx+dD6DQ7gF0fjJolRuPa4l/h0A2RuRUtULLwL/DMCJsD49gHJzJZurg3MmVMqWbwIDAQAB";
@@ -46,23 +59,39 @@ public class InAppBillingActivity extends AppCompatActivity {
                                            }
                                        }
                                    });
+
+        getSupportActionBar().setTitle(getString(R.string.impulsionar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void buttonClicked (View view)
-    {
+    public void buttonClicked(View view) {
         clickButton.setEnabled(false);
         buyButton.setEnabled(true);
     }
 
     public void buyClick(View view) {
-        mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
-                mPurchaseFinishedListener, "impulsionamento_1");
+        try {
+            mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
+                    mPurchaseFinishedListener, "impulsionamento_1");
+        } catch (Exception e){
+            showErrorMessage();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:break;
+        }
+        return true;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data)
-    {
+                                    Intent data) {
         if (!mHelper.handleActivityResult(requestCode,
                 resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
@@ -72,19 +101,18 @@ public class InAppBillingActivity extends AppCompatActivity {
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
             = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result,
-                                          Purchase purchase)
-        {
+                                          Purchase purchase) {
             if (result.isFailure()) {
                 // Handle error
                 return;
-            }
-            else if (purchase.getSku().equals(ITEM_SKU)) {
+            } else if (purchase.getSku().equals(ITEM_SKU)) {
                 consumeItem();
                 buyButton.setEnabled(false);
             }
 
         }
     };
+
     public void consumeItem() {
         mHelper.queryInventoryAsync(mReceivedInventoryListener);
     }
@@ -109,6 +137,11 @@ public class InAppBillingActivity extends AppCompatActivity {
                                               IabResult result) {
 
                     if (result.isSuccess()) {
+                        if (!mIdPublicacao.equals(0)) {
+                            showLoadingProgressDialog();
+                            AsyncImpulsionarPublication sinc = new AsyncImpulsionarPublication(InAppBillingActivity.this);
+                            sinc.execute(mIdPublicacao);
+                        }
                         clickButton.setEnabled(true);
                     } else {
                         // handle error
@@ -124,4 +157,43 @@ public class InAppBillingActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onLoadedImpuls(Boolean bool) {
+        try {
+            //QuestionsAdapter.bottomSheetDialogFragment.dismiss();
+
+            dismissProgressDialog();
+
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.putExtra(API.IMPULSIONAMENTO, true);
+
+            startActivity(intent);
+        } catch (Exception e) {
+
+        }
+
+
+    }
+
+    @Override
+    public void onLoadedError(String s) {
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.error));
+            builder.setMessage(getString(R.string.error));
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //b.finish();
+                }
+            });
+            builder.setCancelable(false);
+            dismissProgressDialog();
+            builder.show();
+        } catch (Exception e) {
+            dismissProgressDialog();
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
+        }
+    }
 }

@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mgovea.urmusic.MenuActivity;
 import com.mgovea.urmusic.R;
 import com.mgovea.urmusic.async.publication.AsyncFriendsPublication;
 import com.mgovea.urmusic.entity.Publicacao;
@@ -59,6 +60,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 
     private AppCompatImageView mIcon;
     private AppCompatImageView mIconSearch;
+    private AppBarLayout teste_mgovea;
 
     public static Fragment newInstance(String text, int color) {
         Fragment frag = new MenuPublicationFragment();
@@ -92,7 +94,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 
         try {
             Preferencias pref = new Preferencias(getContext());
-            AppBarLayout teste_mgovea = (AppBarLayout) view.findViewById(R.id.appbar_pub);
+            teste_mgovea = (AppBarLayout) view.findViewById(R.id.appbar_pub);
             if (!pref.getDadosUsuario().getCodigoUsuario().equals(Long.valueOf(21))) {
                 teste_mgovea.setVisibility(View.GONE);
             }
@@ -160,6 +162,13 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 //        });
 
         //////// END TODO
+
+        teste_mgovea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().startActivity(new Intent(getContext(), PostActivity.class));
+            }
+        });
     }
 
     @Override

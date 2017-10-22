@@ -40,4 +40,5 @@ public interface API {
     String USUARIO = "USUARIO";
     String PUBLICACAO = "PUBLICAÇÃO";
     String IMPULSIONAMENTO = "IMPULSIONAMENTO";
+    String PUBLICADO = "PUBLICADO";
 }

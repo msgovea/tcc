@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
@@ -27,6 +28,7 @@ import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
 import com.mgovea.urmusic.util.API;
+import com.mgovea.urmusic.util.Preferencias;
 import com.mgovea.urmusic.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -88,6 +90,14 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mProgressView = (View) view.findViewById(R.id.publication_progress);
+
+        Preferencias pref = new Preferencias(getContext());
+
+        AppBarLayout teste_mgovea = (AppBarLayout) view.findViewById(R.id.appbar_pub);
+        if (!pref.getDadosUsuario().getCodigoUsuario().equals(Long.valueOf(21))) {
+            teste_mgovea.setVisibility(View.GONE);
+        }
+
 
         loadPublication();
 
