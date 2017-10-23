@@ -33,6 +33,7 @@ public interface API {
     String REMOVE_PUBLICATION    = "publicacoes/remover?codigo=";
     String FOLLOW_USER           = "usuario/seguir";
     String LIKE_PUBLICATION      = "publicacoes/curtir";
+    String DENUNCIAR             = "denuncia/cadastrar";
 
 
     //SHAREDPREFERENCE

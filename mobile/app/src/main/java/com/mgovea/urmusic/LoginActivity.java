@@ -19,11 +19,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mgovea.urmusic.async.AsyncLogin;
 import com.mgovea.urmusic.entity.Usuario;
-import com.mgovea.urmusic.principal.MainActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.Hash;
-import com.mgovea.urmusic.util.Menu;
 import com.mgovea.urmusic.util.Validation;
 
 

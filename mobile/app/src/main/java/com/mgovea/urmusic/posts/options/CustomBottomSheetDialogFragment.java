@@ -94,7 +94,7 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
             menu.add(new Menu(3, "Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
         }
 
-        mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao);
+        mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao, idUsuario);
         mRecyclerView.setAdapter(mAdapter);
 
     }

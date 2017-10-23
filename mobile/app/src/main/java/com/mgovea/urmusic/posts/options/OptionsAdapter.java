@@ -2,9 +2,12 @@ package com.mgovea.urmusic.posts.options;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.app.VoiceInteractor;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -21,14 +24,20 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mgovea.urmusic.InAppBillingActivity;
 import com.mgovea.urmusic.MenuActivity;
+import com.mgovea.urmusic.async.AsyncDenunciar;
 import com.mgovea.urmusic.async.publication.AsyncImpulsionarPublication;
 import com.mgovea.urmusic.async.publication.AsyncRemovePublication;
+import com.mgovea.urmusic.entity.Denuncia;
+import com.mgovea.urmusic.entity.Publicacao;
+import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.Question;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
@@ -41,11 +50,13 @@ import com.mgovea.urmusic.util.Menu;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;
+import com.mgovea.urmusic.util.Preferencias;;
 
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHolder> {
 
     private Long mIdPublicacao;
+    private Long mIdUsuario;
     private List<Menu> mMenus;
     private Context mContext;
     private ProgressDialog progressDialog;
@@ -58,10 +69,11 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         void onClick(Question question, int position);
     }
 
-    public OptionsAdapter(Context context, List<Menu> questions, Long id) {
+    public OptionsAdapter(Context context, List<Menu> questions, Long id, Long idUsuarioPublicacao) {
         mContext = context;
         mMenus = questions;
         mIdPublicacao = id;
+        mIdUsuario = idUsuarioPublicacao;
     }
 
     @Override
@@ -133,7 +145,9 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AsyncRemovePublication.Listener, AsyncImpulsionarPublication.Listener {
+    class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, AsyncRemovePublication.Listener,
+            AsyncImpulsionarPublication.Listener, AsyncDenunciar.Listener{
 
         TextView mNameOption;
         TextView mSubNameOption;
@@ -162,6 +176,34 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                         AsyncRemovePublication sinc = new AsyncRemovePublication(this);
                         sinc.execute(mIdPublicacao);
                     } else {
+                        final EditText taskEditText = new EditText(mContext);
+                        AlertDialog dialog = new AlertDialog.Builder(mContext)
+                                .setTitle("Denuncia")
+                                .setMessage("O que esta publicação tem de errado?")
+                                .setView(taskEditText)
+                                .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        String task = String.valueOf(taskEditText.getText());
+                                        Toast.makeText(mContext, task, Toast.LENGTH_LONG);
+                                        //
+                                        loading(true);
+
+                                        Denuncia denuncia = new Denuncia();
+                                        Preferencias pref = new Preferencias(mContext);
+
+                                        denuncia.setDenunciante(pref.getDadosUsuario());
+                                        denuncia.setPublicacao(new Publicacao(mIdPublicacao));
+                                        denuncia.setMotivo(task);
+                                        denuncia.setDenunciado(new Usuario(mIdUsuario));
+
+                                        AsyncDenunciar sinc = new AsyncDenunciar(OptionsAdapter.ViewHolder.this);
+                                        sinc.execute(denuncia);
+                                    }
+                                })
+                                .setNegativeButton("Cancelar", null)
+                                .create();
+                        dialog.show();
                         //DENUNCIAR
                     }
                     break;
@@ -182,7 +224,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         @Override
         public void onLoadedImpuls(Boolean bool) {
             try {
-                ((MenuActivity)mContext).openAlta();
+                ((MenuActivity) mContext).openAlta();
             } catch (Exception e) {
                 Intent intent = new Intent(mContext, MenuActivity.class);
                 intent.putExtra(API.IMPULSIONAMENTO, true);
@@ -199,13 +241,16 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         public void onLoaded(Boolean bool) {
             try {
                 ((QuestionsAdapter) MenuPublicationFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
             try {
                 ((QuestionsAdapter) MenuPublicationHighFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
             try {
                 ((QuestionsAdapter) PublicationProfileFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
             loading(false);
         }
@@ -231,6 +276,15 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                 //TODO MSG ERRO APP QUEBRADO
             }
         }
+
+        @Override
+        public void onLoaded(Object o) {
+            loading(false);
+
+            QuestionsAdapter.bottomSheetDialogFragment.dismiss();
+            Toast.makeText(mContext, "DENUNCIADO COM SUCESSO", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 

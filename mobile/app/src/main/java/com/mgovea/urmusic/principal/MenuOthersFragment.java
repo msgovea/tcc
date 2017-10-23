@@ -9,8 +9,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatImageView;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +24,7 @@ import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.listview.AdapterListView;
 import com.mgovea.urmusic.listview.ItemListView;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
-import com.mgovea.urmusic.search.SearchActivity;
 import com.mgovea.urmusic.util.API;
-import com.mgovea.urmusic.util.Permissao;
 
 import java.util.ArrayList;
 

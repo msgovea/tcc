@@ -12,6 +12,10 @@ public class Usuario {
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 
+    public Usuario(Long codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
+    }
+
     public Usuario(String nome, Long codigoUsuario) {
         this.nome = nome;
         this.codigoUsuario = codigoUsuario;
@@ -48,17 +52,6 @@ public class Usuario {
     private SituacaoConta situacaoConta;
 
     private List<GostosMusicai> gostosMusicais;
-//TODO IMAGEM
-//    private String imagemPerfil = null;
-//
-//    public void setImagemPerfil (String imagem) {
-//        this.imagemPerfil = imagem;
-//    }
-//
-//
-//    public String getImagemPerfil () {
-//        return this.imagemPerfil;
-//    }
 
     public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;

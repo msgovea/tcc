@@ -2,19 +2,14 @@ package com.mgovea.urmusic;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.TaskStackBuilder;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.mgovea.urmusic.principal.MainActivity;
-import com.mgovea.urmusic.util.API;
 import com.crashlytics.android.Crashlytics;
 import com.mgovea.urmusic.util.Preferencias;
 

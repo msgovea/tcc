@@ -15,6 +15,10 @@ public class Publicacao {
         this.imagem = imagem;
     }
 
+    public Publicacao(Long codigo) {
+        this.codigo = codigo;
+    }
+
     public Publicacao() {
     }
 

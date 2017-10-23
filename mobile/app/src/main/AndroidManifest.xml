@@ -122,35 +122,14 @@
             android:label="@string/title_activity_gosto_favorito"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".principal.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="adjustPan" />
 
         <!-- android:windowSoftInputMode="adjustResize" -->
-        <activity
-            android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
-            android:parentActivityName=".principal.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mgovea.urmusic.principal.MainActivity" />
-        </activity>
         <activity
             android:name=".profile.ProfileTabbedActivity"
             android:label="@string/title_activity_profile_tabbed"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".profile.ProfileEditActivity"
@@ -187,16 +166,6 @@
             android:label="@string/title_activity_teste_storage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".search.SearchActivity"
-            android:label="@string/title_activity_search"
-            android:parentActivityName=".principal.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mgovea.urmusic.principal.MainActivity" />
-        </activity>
         <activity android:name=".test.MainActivity"
             android:screenOrientation="portrait"
             />

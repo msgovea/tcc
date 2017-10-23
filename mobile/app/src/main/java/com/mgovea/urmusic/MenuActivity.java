@@ -2,43 +2,27 @@ package com.mgovea.urmusic;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.SearchManager;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,37 +34,24 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.mgovea.urmusic.async.gosto_musical.AsyncMakeGostoMusical;
-import com.mgovea.urmusic.async.publication.AsyncMakePublication;
 import com.mgovea.urmusic.async.search.AsyncSearch;
-import com.mgovea.urmusic.entity.GostoUsuario;
-import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.principal.MenuFragment;
-import com.mgovea.urmusic.principal.MenuMakePublicationFragment;
-import com.mgovea.urmusic.principal.MenuOthersFragment;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
 import com.mgovea.urmusic.principal.MenuPublicationHighFragment;
 import com.mgovea.urmusic.principal.PostActivity;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
-import com.mgovea.urmusic.search.SearchActivity;
-import com.mgovea.urmusic.search.SearchActivityFragment;
 import com.mgovea.urmusic.search.SearchAdapter;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.Preferencias;
 
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class MenuActivity extends AbstractAsyncActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncSearch.Listener {
 
     private static final String SELECTED_ITEM = "arg_selected_item";
-
-    private BottomNavigationView mBottomNav;
 
     private int mSelectedItem;
 
@@ -138,20 +109,11 @@ public class MenuActivity extends AbstractAsyncActivity
 
         logUser();
 
-        mBottomNav = (BottomNavigationView) findViewById(R.id.navigation_menu);
-        mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                selectFragment(item);
-                return true;
-            }
-        });
-
 
         MenuItem selectedItem;
         if (savedInstanceState != null) {
-            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 1);
-            selectedItem = mBottomNav.getMenu().findItem(mSelectedItem);
+            mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
+            selectedItem = navigationView.getMenu().findItem(mSelectedItem);
             selectFragment(selectedItem);
         } else {
             //VERIFICA ARGS
@@ -159,7 +121,7 @@ public class MenuActivity extends AbstractAsyncActivity
             if (getIntent().getBooleanExtra(API.IMPULSIONAMENTO, false)) {
                 openAlta();
             } else {
-                selectedItem = mBottomNav.getMenu().getItem(1);
+                selectedItem = navigationView.getMenu().getItem(0);
                 selectFragment(selectedItem);
             }
         }
@@ -173,7 +135,7 @@ public class MenuActivity extends AbstractAsyncActivity
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         if (getIntent().getBooleanExtra(API.PUBLICADO, false)) {
-            openPublication(R.id.menu_publication);
+            openPublication(R.id.nav_camera);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_menu);
@@ -356,10 +318,6 @@ public class MenuActivity extends AbstractAsyncActivity
         // init corresponding fragment
         Log.e("RECEBIDO", item.getItemId() + " - " + item.toString());
         switch (item.getItemId()) {
-//            case R.id.menu_home:
-//                frag = MenuOthersFragment.newInstance(getString(R.string.account_banned_text),
-//                        getColorFromRes(R.color.primary_light));
-//                break;
             case R.id.menu_publication:
                 frag = MenuPublicationFragment.newInstance(info,
                         getColorFromRes(R.color.primary_light));
@@ -373,10 +331,6 @@ public class MenuActivity extends AbstractAsyncActivity
                 frag = MenuPublicationHighFragment.newInstance(info,
                         getColorFromRes(R.color.primary_light));
                 break;
-            case R.id.menu_post:
-                frag = MenuMakePublicationFragment.newInstance(null,
-                        getColorFromRes(R.color.primary_light));
-                break;
 
             default:
                 frag = MenuFragment.newInstance(getString(R.string.account_banned_text),
@@ -386,12 +340,6 @@ public class MenuActivity extends AbstractAsyncActivity
 
         // update selected item
         mSelectedItem = item.getItemId();
-
-        // uncheck the other items.
-        for (int i = 0; i < mBottomNav.getMenu().size(); i++) {
-            MenuItem menuItem = mBottomNav.getMenu().getItem(i);
-            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
-        }
 
         updateToolbarText(item.getTitle());
 
@@ -439,17 +387,8 @@ public class MenuActivity extends AbstractAsyncActivity
 
     public void openPublication(int id) {
         //mSelectedItem = savedInstanceState.getInt(SELECTED_ITEM, 0);
-        MenuItem selectedItem = mBottomNav.getMenu().findItem(id);
+        MenuItem selectedItem = navigationView.getMenu().findItem(id);
         selectFragment(selectedItem, "done");
-    }
-
-
-    public void teste() {
-        mBottomNav.setVisibility(View.GONE);
-    }
-
-    public void teste2() {
-        mBottomNav.setVisibility(View.VISIBLE);
     }
 
     ///SEARCH
