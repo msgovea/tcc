@@ -177,4 +177,11 @@
     <string name="terms">Termos e Politicas</string>
 
     <string name="impulsionar">Impulsionar</string>
+
+    <string name="cancel">Cancelar</string>
+    <string name="denuncia">Denunciar</string>
+    <string name="denuncia_ok">Publicação denunciada com sucesso!</string>
+    <string name="send">Enviar</string>
+    <string name="denuncia_text">O que esta publicação tem de errado?</string>
+
 </resources>

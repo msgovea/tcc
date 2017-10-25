@@ -16,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ActionProvider;
 import android.view.ContextMenu;
@@ -147,7 +148,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, AsyncRemovePublication.Listener,
-            AsyncImpulsionarPublication.Listener, AsyncDenunciar.Listener{
+            AsyncImpulsionarPublication.Listener, AsyncDenunciar.Listener {
 
         TextView mNameOption;
         TextView mSubNameOption;
@@ -178,15 +179,19 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                     } else {
                         final EditText taskEditText = new EditText(mContext);
                         AlertDialog dialog = new AlertDialog.Builder(mContext)
-                                .setTitle("Denuncia")
-                                .setMessage("O que esta publicação tem de errado?")
+                                .setTitle(mContext.getString(R.string.denuncia))
+                                .setMessage(mContext.getString(R.string.denuncia_text))
                                 .setView(taskEditText)
-                                .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                                .setPositiveButton(mContext.getString(R.string.send), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         String task = String.valueOf(taskEditText.getText());
-                                        Toast.makeText(mContext, task, Toast.LENGTH_LONG);
-                                        //
+                                        if (TextUtils.isEmpty(task)) {
+                                            Toast.makeText(mContext, mContext.getString(R.string.error_field_required), Toast.LENGTH_LONG).show();
+                                            //taskEditText.setError(mContext.getString(R.string.error_field_required));
+                                            //taskEditText.requestFocus();
+                                            return;
+                                        }
                                         loading(true);
 
                                         Denuncia denuncia = new Denuncia();
@@ -201,7 +206,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                                         sinc.execute(denuncia);
                                     }
                                 })
-                                .setNegativeButton("Cancelar", null)
+                                .setNegativeButton(mContext.getString(R.string.cancel), null)
                                 .create();
                         dialog.show();
                         //DENUNCIAR
@@ -282,7 +287,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
             loading(false);
 
             QuestionsAdapter.bottomSheetDialogFragment.dismiss();
-            Toast.makeText(mContext, "DENUNCIADO COM SUCESSO", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getString(R.string.denuncia_ok), Toast.LENGTH_LONG).show();
         }
 
     }

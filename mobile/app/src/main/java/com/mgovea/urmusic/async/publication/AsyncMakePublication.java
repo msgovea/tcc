@@ -79,6 +79,9 @@ public class AsyncMakePublication extends AsyncTask<Publicacao, String, String> 
         } catch (IOException | JsonParseException e) {
             e.printStackTrace();
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

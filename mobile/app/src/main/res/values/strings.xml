@@ -201,4 +201,10 @@
 
     <string name="impulsionar">Boost</string>
 
+    <string name="cancel">Cancel</string>
+    <string name="denuncia">Report</string>
+    <string name="denuncia_ok">Publication reported successfully!</string>
+    <string name="send">Send</string>
+    <string name="denuncia_text">What is wrong with this publication?</string>
+
 </resources>

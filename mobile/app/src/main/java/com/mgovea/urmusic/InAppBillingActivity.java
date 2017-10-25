@@ -74,6 +74,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
                     mPurchaseFinishedListener, "impulsionamento_1");
         } catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             showErrorMessage();
         }
     }
