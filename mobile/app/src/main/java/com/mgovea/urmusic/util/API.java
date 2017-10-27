@@ -34,6 +34,7 @@ public interface API {
     String FOLLOW_USER           = "usuario/seguir";
     String LIKE_PUBLICATION      = "publicacoes/curtir";
     String DENUNCIAR             = "denuncia/cadastrar";
+    String ENVIAR_EMAIL          = "email/enviar";
 
 
     //SHAREDPREFERENCE

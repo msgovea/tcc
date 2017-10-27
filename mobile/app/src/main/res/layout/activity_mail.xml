@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InAppBillingActivity">
+    tools:context="com.mgovea.urmusic.MailActivity">
 
     <Button
-        android:id="@+id/buyButton"
-        android:layout_width="0dp"
+        android:id="@+id/bt_enviar_email"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="buyClick"
         android:text="Enviar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/clickButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -29,9 +28,9 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="left"
-        android:hint="gostos musicais"
+        android:hint="conteudo"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/buyButton"
+        app:layout_constraintBottom_toTopOf="@+id/bt_enviar_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_end_email" />
@@ -44,7 +43,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Informações de Impulsionamento" />
+        android:text="Mensagem" />
 
     <EditText
         android:id="@+id/et_end_email"
@@ -54,30 +53,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:ems="10"
-        android:hint="cidade"
+        android:hint="e-mail"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-
-    <Button
-        android:id="@+id/clickButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="buttonClicked"
-        android:text="@string/logoff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_conteudo" />
 </android.support.constraint.ConstraintLayout>
-
-
-
-

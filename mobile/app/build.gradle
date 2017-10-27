@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 def versionMajor = 1
 def versionMinor = 8
-def versionPatch = 1
+def versionPatch = 3
 def versionBuild = Long.valueOf(System.currentTimeMillis().toString().substring(0, 9)).intValue()
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         versionCode versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -103,6 +103,9 @@ apply plugin: 'io.fabric'
 
 dependencies {
     compile 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
 repositories {
     maven {

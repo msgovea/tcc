@@ -52,21 +52,20 @@
             </intent-filter>
         </service>
 
-        <activity android:name="com.mgovea.urmusic.InAppBillingActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".InAppBillingActivity">
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
         <activity
             android:name=".MenuActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".posts.ExampleActivity"
             android:screenOrientation="portrait"
@@ -128,9 +127,7 @@
             android:name=".profile.ProfileTabbedActivity"
             android:label="@string/title_activity_profile_tabbed"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".profile.ProfileEditActivity"
             android:label="@string/title_activity_profile_edit"
@@ -166,18 +163,21 @@
             android:label="@string/title_activity_teste_storage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".test.MainActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".test.Main2Activity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".test.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".test.Main2Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".principal.PostActivity"
             android:label="@string/prompt_post"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".MailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

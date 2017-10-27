@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.mgovea.urmusic.async.AsyncMail;
 import com.mgovea.urmusic.async.search.AsyncSearch;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.principal.MenuFragment;
@@ -287,7 +288,7 @@ public class MenuActivity extends AbstractAsyncActivity
         } else if (id == R.id.nav_gallery) {
             selectFragment(item);
         } else if (id == R.id.nav_slideshow) {
-
+            startActivity(new Intent(this, MailActivity.class));
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
