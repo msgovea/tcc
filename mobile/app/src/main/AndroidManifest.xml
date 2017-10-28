@@ -178,7 +178,7 @@
             android:name=".MailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivityNew"
+            android:name=".register.RegisterActivityNew"
             android:label="@string/title_activity_register_new"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

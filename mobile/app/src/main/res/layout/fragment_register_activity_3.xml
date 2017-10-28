@@ -1,0 +1,67 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_step_3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mgovea.urmusic.register.InfosRegisterFragment3">
+
+
+    <AutoCompleteTextView
+        android:id="@+id/country"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_screen"
+        android:drawablePadding="10dp"
+        android:drawableStart="@mipmap/ic_icon_round"
+        android:hint="@string/prompt_country"
+        android:imeOptions="actionUnspecified"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <AutoCompleteTextView
+        android:id="@+id/state"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_screen"
+        android:drawablePadding="10dp"
+        android:drawableStart="@mipmap/ic_icon_round"
+        android:hint="@string/prompt_state"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/country"
+        app:layout_constraintStart_toStartOf="@+id/country"
+        app:layout_constraintTop_toBottomOf="@+id/country" />
+
+
+    <AutoCompleteTextView
+        android:id="@+id/city"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borda_screen"
+        android:drawablePadding="10dp"
+        android:drawableStart="@mipmap/ic_icon_round"
+        android:hint="@string/prompt_city"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/country"
+        app:layout_constraintStart_toStartOf="@+id/country"
+        app:layout_constraintTop_toBottomOf="@+id/state" />
+
+
+</android.support.constraint.ConstraintLayout>

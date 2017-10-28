@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.crashlytics.android.Crashlytics;
+import com.mgovea.urmusic.register.RegisterActivityNew;
 import com.mgovea.urmusic.util.Preferencias;
 
 import io.fabric.sdk.android.Fabric;
