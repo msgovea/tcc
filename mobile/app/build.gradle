@@ -6,7 +6,7 @@ def versionPatch = 3
 def versionBuild = Long.valueOf(System.currentTimeMillis().toString().substring(0, 9)).intValue()
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         versionCode versionBuild
@@ -14,7 +14,7 @@ android {
 
         applicationId "com.mgovea.urmusic"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
