@@ -40,6 +40,7 @@ public class RegisterActivityNew extends AppCompatActivity {
     int cont = 1;
 
     private FrameLayout mViewPager;
+    private TextView stepRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,9 @@ public class RegisterActivityNew extends AppCompatActivity {
         final ProgressBar p = (ProgressBar) findViewById(R.id.progressBar2);
         p.setProgress(p.getProgress()+(110/3));
 
+        stepRegister = (TextView) findViewById(R.id.step_register);
+        stepRegister.setText(cont + "");
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +67,7 @@ public class RegisterActivityNew extends AppCompatActivity {
                     startActivity(new Intent(getBaseContext(), TesteLogin.class));
                 } else {
                     cont++;
+                    stepRegister.setText(cont + "");
                     selectFragment(cont);
                     p.setProgress(p.getProgress() + (100 / 3));
                 }
@@ -75,6 +80,7 @@ public class RegisterActivityNew extends AppCompatActivity {
             public void onClick(View view) {
                 if (p.getProgress() >= 40) {
                     cont--;
+                    stepRegister.setText(cont + "");
                     selectFragment(cont);
                     p.setProgress(p.getProgress() - (100 / 3));
                 }
