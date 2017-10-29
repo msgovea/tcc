@@ -38,7 +38,7 @@ public class InfosRegisterFragment3 extends Fragment implements AsyncPaises.List
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_activity_3, container, false);
 
-        tvCountry = view.findViewById(R.id.country);
+        tvCountry = (AutoCompleteTextView) view.findViewById(R.id.country);
 
         if (tvCountry.getAdapter() == null) {
             AsyncPaises sinc = new AsyncPaises(this);

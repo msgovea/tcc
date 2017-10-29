@@ -42,6 +42,7 @@ import com.mgovea.urmusic.principal.MenuPublicationFragment;
 import com.mgovea.urmusic.principal.MenuPublicationHighFragment;
 import com.mgovea.urmusic.principal.PostActivity;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
+import com.mgovea.urmusic.register.RegisterActivityNew;
 import com.mgovea.urmusic.search.SearchAdapter;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
@@ -290,7 +291,7 @@ public class MenuActivity extends AbstractAsyncActivity
         } else if (id == R.id.nav_slideshow) {
             startActivity(new Intent(this, MailActivity.class));
         } else if (id == R.id.nav_manage) {
-
+            startActivity(new Intent(this, RegisterActivityNew.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

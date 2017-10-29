@@ -184,6 +184,8 @@
     <string name="send">Enviar</string>
     <string name="denuncia_text">O que esta publicação tem de errado?</string>
 
+    <string name="title_activity_register_new">Cadastro</string>
+
     <string name="next">Continuar</string>
     <string name="back">Voltar</string>
 
