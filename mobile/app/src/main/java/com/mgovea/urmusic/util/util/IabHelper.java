@@ -608,34 +608,38 @@ public class IabHelper {
     public void queryInventoryAsync(final boolean querySkuDetails,
                                final List<String> moreSkus,
                                final QueryInventoryFinishedListener listener) {
-        final Handler handler = new Handler();
-        checkNotDisposed();
-        checkSetupDone("queryInventory");
-        flagStartAsync("refresh inventory");
-        (new Thread(new Runnable() {
-            public void run() {
-                IabResult result = new IabResult(BILLING_RESPONSE_RESULT_OK, "Inventory refresh successful.");
-                Inventory inv = null;
-                try {
-                    inv = queryInventory(querySkuDetails, moreSkus);
-                }
-                catch (IabException ex) {
-                    result = ex.getResult();
-                }
+        try {
+            final Handler handler = new Handler();
 
-                flagEndAsync();
+            checkNotDisposed();
+            checkSetupDone("queryInventory");
+            flagStartAsync("refresh inventory");
+            (new Thread(new Runnable() {
+                public void run() {
+                    IabResult result = new IabResult(BILLING_RESPONSE_RESULT_OK, "Inventory refresh successful.");
+                    Inventory inv = null;
+                    try {
+                        inv = queryInventory(querySkuDetails, moreSkus);
+                    } catch (IabException ex) {
+                        result = ex.getResult();
+                    }
 
-                final IabResult result_f = result;
-                final Inventory inv_f = inv;
-                if (!mDisposed && listener != null) {
-                    handler.post(new Runnable() {
-                        public void run() {
-                            listener.onQueryInventoryFinished(result_f, inv_f);
-                        }
-                    });
+                    flagEndAsync();
+
+                    final IabResult result_f = result;
+                    final Inventory inv_f = inv;
+                    if (!mDisposed && listener != null) {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                listener.onQueryInventoryFinished(result_f, inv_f);
+                            }
+                        });
+                    }
                 }
-            }
-        })).start();
+            })).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void queryInventoryAsync(QueryInventoryFinishedListener listener) {

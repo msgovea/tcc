@@ -34,10 +34,8 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.mgovea.urmusic.async.AsyncMail;
 import com.mgovea.urmusic.async.search.AsyncSearch;
 import com.mgovea.urmusic.entity.Usuario;
-import com.mgovea.urmusic.principal.MenuFragment;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
 import com.mgovea.urmusic.principal.MenuPublicationHighFragment;
 import com.mgovea.urmusic.principal.PostActivity;

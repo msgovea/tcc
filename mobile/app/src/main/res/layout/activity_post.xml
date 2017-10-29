@@ -59,6 +59,11 @@
         android:gravity="center"
         android:visibility="gone" />
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        />
+
 
     <LinearLayout
         android:id="@+id/make_publication"

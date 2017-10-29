@@ -55,7 +55,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
 
                                            if (!result.isSuccess()) {
                                                // Oh noes, there was a problem.
-                                               Log.d(TAG,"Problem setting up in-app billing: " + result);
+                                               Log.d(TAG, "Problem setting up in-app billing: " + result);
                                                return;
                                            }
 
@@ -80,7 +80,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
         try {
             mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
                     mPurchaseFinishedListener, "impulsionamento_1");
-        } catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             showErrorMessage();
         }
@@ -92,7 +92,8 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             case android.R.id.home:
                 onBackPressed();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }
@@ -113,7 +114,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             Log.d(TAG, "Purchase finished: " + result + ", purchase: "
                     + purchase);
             if (result.isFailure()) {
-                Log.d(TAG,"Error purchasing: " + result);
+                Log.d(TAG, "Error purchasing: " + result);
                 return;
             }
 
@@ -139,13 +140,16 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
         public void onQueryInventoryFinished(IabResult result,
                                              Inventory inventory) {
 
-            Log.d(TAG, "Query inventory finished.");
-            if (result.isFailure()) {
-                Log.d(TAG,"Failed to query inventory: " + result);
-                return;
-            }
+            if (mHelper == null) return;
 
-            Log.d(TAG, "Query inventory was successful.");
+            try {
+                Log.d(TAG, "Query inventory finished.");
+                if (result.isFailure()) {
+                    Log.d(TAG, "Failed to query inventory: " + result);
+                    return;
+                }
+
+                Log.d(TAG, "Query inventory was successful.");
 
                 /*
                  * Check for items we own. Notice that for each purchase, we check
@@ -153,26 +157,20 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
                  * verifyDeveloperPayload().
                  */
 
-            // // Check for gas delivery -- if we own gas, we should fill up the
-            // tank immediately
-            Purchase gasPurchase = inventory.getPurchase(ITEM_SKU);
-            if (gasPurchase != null) {
-                Log.d(TAG, "We have IMPULSIONAMENTO. Consuming it.");
-                mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
-                        mConsumeFinishedListener);
-                return;
+                // // Check for gas delivery -- if we own gas, we should fill up the
+                // tank immediately
+                Purchase impPurchase = inventory.getPurchase(ITEM_SKU);
+                if (impPurchase != null) {
+                    Log.d(TAG, "We have IMPULSIONAMENTO. Consuming it.");
+                    Toast.makeText(InAppBillingActivity.this, "We have IMPULSIONAMENTO. Consuming it", Toast.LENGTH_LONG).show();
+                    mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
+                            mConsumeFinishedListener);
+                    return;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-
-
-            if (mHelper == null) return;
-
-            if (result.isFailure()) {
-                // Handle failure
-            } else {
-                mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
-                        mConsumeFinishedListener);
-            }
         }
     };
 
@@ -180,16 +178,19 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             new IabHelper.OnConsumeFinishedListener() {
                 public void onConsumeFinished(Purchase purchase,
                                               IabResult result) {
+                    try {
+                        if (mHelper == null) return;
 
-                    if (mHelper == null) return;
-
-                    if (result.isSuccess()) {
+                        if (result.isSuccess()) {
                             showLoadingProgressDialog();
                             AsyncImpulsionarPublication sinc = new AsyncImpulsionarPublication(InAppBillingActivity.this);
                             sinc.execute(mIdPublicacao);
-                        clickButton.setEnabled(true);
-                    } else {
-                        // handle error
+                            clickButton.setEnabled(true);
+                        } else {
+                            // handle error
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             };
