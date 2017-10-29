@@ -36,6 +36,14 @@ public interface API {
     String DENUNCIAR             = "denuncia/cadastrar";
     String ENVIAR_EMAIL          = "email/enviar";
 
+    String API_PAISES            = "http://api.londrinaweb.com.br/PUC/Paisesv2/0/1000";
+
+    String API_ESTADO            = "http://api.londrinaweb.com.br/PUC/Estados/";
+    String API_ESTADO_F          = "/0/10000";
+
+    String API_CIDADE            = "http://api.londrinaweb.com.br/PUC/Cidades/";
+    String API_CIDADE_F          = "/0/10000'";
+
 
     //SHAREDPREFERENCE
 

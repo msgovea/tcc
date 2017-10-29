@@ -90,10 +90,6 @@
                 android:value=".TesteLogin" />
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".RecoveryActivity"
             android:label="@string/title_recovery_activity"
             android:screenOrientation="portrait">

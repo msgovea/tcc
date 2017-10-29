@@ -6,17 +6,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.mgovea.urmusic.R;
+import com.mgovea.urmusic.async.localizacao.AsyncPaises;
+import com.mgovea.urmusic.entity.Pais;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Mateus on 28/10/2017.
  */
 
-public class InfosRegisterFragment3 extends Fragment {
+public class InfosRegisterFragment3 extends Fragment implements AsyncPaises.Listener {
 
-    View mContent;
+    AutoCompleteTextView tvCountry;
 
     public InfosRegisterFragment3() {
     }
@@ -29,17 +36,36 @@ public class InfosRegisterFragment3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_register_activity_3, container, false);
+        View view = inflater.inflate(R.layout.fragment_register_activity_3, container, false);
+
+        tvCountry = view.findViewById(R.id.country);
+
+        if (tvCountry.getAdapter() == null) {
+            AsyncPaises sinc = new AsyncPaises(this);
+            sinc.execute();
+        }
+
+        return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onLoaded(ArrayList<Pais> paises) {
 
+        List<String> paisesString = new ArrayList<>();
 
-        // initialize views
-        mContent = view.findViewById(R.id.register_step_3);
+        for (Pais pais : paises) {
+            paisesString.add(pais.getPais());
+        }
 
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, paisesString);
+
+        tvCountry.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onLoadedError(String s) {
 
     }
 }

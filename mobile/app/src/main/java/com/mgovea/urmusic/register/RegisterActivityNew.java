@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -59,8 +60,22 @@ public class RegisterActivityNew extends AppCompatActivity {
         stepRegister = (TextView) findViewById(R.id.step_register);
         stepRegister.setText(cont + "");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final Button btBack = (Button) findViewById(R.id.btBack);
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (p.getProgress() >= 40) {
+                    cont--;
+                    if (cont == 1) btBack.setVisibility(View.GONE);
+                    stepRegister.setText(cont + "");
+                    selectFragment(cont);
+                    p.setProgress(p.getProgress() - (100 / 3));
+                }
+            }
+        });
+
+        Button btNext = (Button) findViewById(R.id.btNext);
+        btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (p.getProgress() >= 100) {
@@ -70,22 +85,12 @@ public class RegisterActivityNew extends AppCompatActivity {
                     stepRegister.setText(cont + "");
                     selectFragment(cont);
                     p.setProgress(p.getProgress() + (100 / 3));
+                    btBack.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-        FloatingActionButton fabBack = (FloatingActionButton) findViewById(R.id.fabBack);
-        fabBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (p.getProgress() >= 40) {
-                    cont--;
-                    stepRegister.setText(cont + "");
-                    selectFragment(cont);
-                    p.setProgress(p.getProgress() - (100 / 3));
-                }
-            }
-        });
+        btBack.setVisibility(View.GONE);
 
         getSupportActionBar().setTitle(getString(R.string.title_activity_register));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -93,35 +98,6 @@ public class RegisterActivityNew extends AppCompatActivity {
         selectFragment(cont);
     }
 
-//    private void selectFragment2(int item) {
-//
-//        Log.e("RECEBIDO_FRAGMENT", item + "");
-//        switch (item) {
-//            case 1:
-//                frag = frag1;
-//                break;
-//
-//            case 2:
-//                frag = frag2;
-//                break;
-//
-//            case 3:
-//                frag = frag3;
-//                break;
-//            default:
-//                frag = new Fragment(); //InfosRegisterFragment1.newInstance(3);
-//                break;
-//        }
-//
-//        //updateToolbarText(item.getTitle());
-//
-//        if (frag != null) {
-//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            //ft.add(R.id.container, frag, frag.getTag());
-//            ft.replace(R.id.container, frag, frag.getTag());
-//            ft.commit();
-//        }
-//    }
 
     private void selectFragment(int item) {
 

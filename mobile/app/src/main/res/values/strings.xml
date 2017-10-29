@@ -207,8 +207,9 @@
     <string name="send">Send</string>
     <string name="denuncia_text">What is wrong with this publication?</string>
     <string name="title_activity_register_new">RegisterActivityNew</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
+
+
+    <string name="next">Next</string>
+    <string name="back">Back</string>
 
 </resources>
