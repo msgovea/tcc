@@ -51,12 +51,19 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
         mHelper.startSetup(new
                                    IabHelper.OnIabSetupFinishedListener() {
                                        public void onIabSetupFinished(IabResult result) {
+                                           Log.d(TAG, "Setup finished.");
+
                                            if (!result.isSuccess()) {
-                                               Log.d(TAG, "In-app Billing setup failed: " +
-                                                       result);
-                                           } else {
-                                               Log.d(TAG, "In-app Billing is set up OK");
+                                               // Oh noes, there was a problem.
+                                               Log.d(TAG,"Problem setting up in-app billing: " + result);
+                                               return;
                                            }
+
+                                           // Hooray, IAB is fully set up. Now, let's get an inventory of
+                                           // stuff we own.
+                                           Log.d(TAG, "Setup successful. Querying inventory.");
+                                           mHelper.queryInventoryAsync(mReceivedInventoryListener);
+
                                        }
                                    });
 
@@ -103,14 +110,23 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result,
                                           Purchase purchase) {
+            Log.d(TAG, "Purchase finished: " + result + ", purchase: "
+                    + purchase);
             if (result.isFailure()) {
-                // Handle error
+                Log.d(TAG,"Error purchasing: " + result);
                 return;
-            } else if (purchase.getSku().equals(ITEM_SKU)) {
-                consumeItem();
-                buyButton.setEnabled(false);
             }
 
+            Log.d(TAG, "Purchase successful.");
+
+            if (purchase.getSku().equals(ITEM_SKU)) {
+
+                // remove query inventory method from here and put consumeAsync() directly
+                mHelper.consumeAsync(purchase, mConsumeFinishedListener);
+                consumeItem();
+                buyButton.setEnabled(false);
+
+            }
         }
     };
 
@@ -122,6 +138,34 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             = new IabHelper.QueryInventoryFinishedListener() {
         public void onQueryInventoryFinished(IabResult result,
                                              Inventory inventory) {
+
+            Log.d(TAG, "Query inventory finished.");
+            if (result.isFailure()) {
+                Log.d(TAG,"Failed to query inventory: " + result);
+                return;
+            }
+
+            Log.d(TAG, "Query inventory was successful.");
+
+                /*
+                 * Check for items we own. Notice that for each purchase, we check
+                 * the developer payload to see if it's correct! See
+                 * verifyDeveloperPayload().
+                 */
+
+            // // Check for gas delivery -- if we own gas, we should fill up the
+            // tank immediately
+            Purchase gasPurchase = inventory.getPurchase(ITEM_SKU);
+            if (gasPurchase != null) {
+                Log.d(TAG, "We have IMPULSIONAMENTO. Consuming it.");
+                mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
+                        mConsumeFinishedListener);
+                return;
+            }
+
+
+
+            if (mHelper == null) return;
 
             if (result.isFailure()) {
                 // Handle failure
@@ -137,12 +181,12 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
                 public void onConsumeFinished(Purchase purchase,
                                               IabResult result) {
 
+                    if (mHelper == null) return;
+
                     if (result.isSuccess()) {
-                        if (!mIdPublicacao.equals(0)) {
                             showLoadingProgressDialog();
                             AsyncImpulsionarPublication sinc = new AsyncImpulsionarPublication(InAppBillingActivity.this);
                             sinc.execute(mIdPublicacao);
-                        }
                         clickButton.setEnabled(true);
                     } else {
                         // handle error
