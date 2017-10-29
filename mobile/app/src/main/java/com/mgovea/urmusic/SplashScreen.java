@@ -58,7 +58,7 @@ public class SplashScreen extends Activity {
                     Preferencias pref = new Preferencias(getApplicationContext());
                     if (pref.getDadosUsuario() == null) {
                         TaskStackBuilder.create(SplashScreen.this)
-                                .addNextIntentWithParentStack(new Intent(SplashScreen.this, /*TesteLogin*/RegisterActivityNew.class))
+                                .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin/*RegisterActivityNew*/.class))
                                 .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
                                 .startActivities();
                     } else {

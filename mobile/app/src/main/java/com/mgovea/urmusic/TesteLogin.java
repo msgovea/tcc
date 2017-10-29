@@ -31,7 +31,7 @@ public class TesteLogin extends AbstractAsyncActivity implements AsyncLogin.List
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teste_login);
+        setContentView(R.layout.activity_teste_login2);
 
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
