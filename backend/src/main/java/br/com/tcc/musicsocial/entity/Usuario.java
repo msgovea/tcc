@@ -47,6 +47,9 @@ public class Usuario {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.usuario")
 	private List<UsuarioGostoMusical> gostosMusicais;
+	
+	@Column(name = "USR_TIPO_PERFIL")
+	private Integer tipoPerfil;
 
 	public Integer getCodigoUsuario() {
 		return codigoUsuario;
@@ -103,6 +106,29 @@ public class Usuario {
 	public void setGostosMusicais(List<UsuarioGostoMusical> gostosMusicais) {
 		this.gostosMusicais = gostosMusicais;
 	}
+	
+	public Integer getTipoPerfil() {
+		return tipoPerfil;
+	}
+
+	public void setTipoPerfil(Integer tipoPerfil) {
+		this.tipoPerfil = tipoPerfil;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigoUsuario == null) ? 0 : codigoUsuario.hashCode());
+		result = prime * result + ((dataInsrt == null) ? 0 : dataInsrt.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((gostosMusicais == null) ? 0 : gostosMusicais.hashCode());
+		result = prime * result + ((nivelUsuario == null) ? 0 : nivelUsuario.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((situacaoConta == null) ? 0 : situacaoConta.hashCode());
+		result = prime * result + ((tipoPerfil == null) ? 0 : tipoPerfil.hashCode());
+		return result;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -128,6 +154,11 @@ public class Usuario {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
+		if (gostosMusicais == null) {
+			if (other.gostosMusicais != null)
+				return false;
+		} else if (!gostosMusicais.equals(other.gostosMusicais))
+			return false;
 		if (nivelUsuario == null) {
 			if (other.nivelUsuario != null)
 				return false;
@@ -143,7 +174,13 @@ public class Usuario {
 				return false;
 		} else if (!situacaoConta.equals(other.situacaoConta))
 			return false;
+		if (tipoPerfil == null) {
+			if (other.tipoPerfil != null)
+				return false;
+		} else if (!tipoPerfil.equals(other.tipoPerfil))
+			return false;
 		return true;
 	}
+
 
 }
