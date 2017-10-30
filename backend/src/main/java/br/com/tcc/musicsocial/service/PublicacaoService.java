@@ -29,4 +29,8 @@ public interface PublicacaoService {
 	List<Publicacao> getPublicacoes(String idUsuario);
 
 	Publicacao getPublicacao(Long idPublicacao);
+
+	Publicacao populaQtdComentarios(Publicacao publicacao);
+
+	List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes);
 }

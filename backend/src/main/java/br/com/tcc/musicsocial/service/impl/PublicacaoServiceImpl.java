@@ -124,14 +124,16 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		}
 	}
 
-	private Publicacao populaQtdComentarios(Publicacao publicacao) {
+	@Override
+	public Publicacao populaQtdComentarios(Publicacao publicacao) {
 		if (publicacao != null) {
 			publicacao.setQtdComentarios(publicacaoDAO.consultarQtdComentarios(publicacao));
 		}
 		return publicacao;
 	}
 
-	private List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes) {
+	@Override
+	public List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes) {
 		for (Publicacao publicacao : publicacoes) {
 			populaQtdComentarios(publicacao);
 		}
