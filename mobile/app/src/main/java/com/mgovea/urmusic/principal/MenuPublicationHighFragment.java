@@ -83,7 +83,7 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
         }
 
         // initialize views
-        mContent = view.findViewById(R.id.fragment_content);
+        mContent = view.findViewById(R.id.content);
 
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);

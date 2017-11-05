@@ -333,8 +333,8 @@ public class MenuActivity extends AbstractAsyncActivity
                 break;
 
             default:
-                frag = MenuFragment.newInstance(getString(R.string.account_banned_text),
-                        getColorFromRes(R.color.accent));
+                frag = null;//MenuFragment.newInstance(getString(R.string.account_banned_text),
+                        //getColorFromRes(R.color.accent));
                 break;
         }
 
