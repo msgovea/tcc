@@ -179,8 +179,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             switch (view.getId()) {
 
                 case R.id.remove_comment:
-                    //TODO MGOVEA - MUDAR ORDEM QUANDO API OK
-                    //notifyDataSetChanged();
                     loading(true);
                     AsyncRemoveComments sinc = new AsyncRemoveComments(this);
                     sinc.execute(getItem(position).getCodigo());
@@ -206,7 +204,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             notifyDataSetChanged();
             //TODO PALOMA TEXTO
             Toast.makeText(mContext,
-                    "Comentário removido com sucesso!",
+                    mContext.getString(R.string.remove_comment_success),
                     Toast.LENGTH_LONG)
                     .show();
             //FIM TODO PALOMA
@@ -217,7 +215,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         public void onLoadedError(String s) {
             //TODO PALOMA TEXTO
             Toast.makeText(mContext,
-                    "Erro ao remover comentário!\n" + s,
+                     mContext.getString(R.string.remove_comment_error) + "\n" + s,
                     Toast.LENGTH_SHORT)
                     .show();
             //FIM TODO PALOMA TEXTO

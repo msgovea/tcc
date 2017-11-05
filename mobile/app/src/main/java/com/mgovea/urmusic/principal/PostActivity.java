@@ -152,15 +152,15 @@ public class PostActivity extends AbstractAsyncActivity implements AsyncMakePubl
             public void onClick(View v) {
                 final EditText taskEditText = new EditText(PostActivity.this);
                 AlertDialog dialog = new AlertDialog.Builder(PostActivity.this)
-                        .setTitle(getString(R.string.denuncia))
-                        .setMessage(getString(R.string.denuncia_text))
+                        .setTitle(getString(R.string.youtube_title))
+                        .setMessage(getString(R.string.youtube_content))
                         .setView(taskEditText)
                         .setPositiveButton(getString(R.string.send), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String task = String.valueOf(taskEditText.getText());
                                 if (getYouTubeId(task) == "error") {
-                                    showErrorMessageLink("Link inválido!","O link enviado não é válido! Tente novamente");
+                                    showErrorMessageLink(getString(R.string.invalid_link), getString(R.string.invalid_link_content));
 
                                 } else {
                                     imagePublication.setImageURI("http://www.freepngimg.com/download/youtube/8-2-youtube-transparent.png");

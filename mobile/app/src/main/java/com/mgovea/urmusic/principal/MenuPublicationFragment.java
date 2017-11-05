@@ -72,6 +72,14 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            mAdapter.atualiza();
+        } catch (Exception e) {}
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 

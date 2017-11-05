@@ -47,7 +47,7 @@ import com.mgovea.urmusic.R;;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
-    private List<Publicacao> mQuestions;
+    public static List<Publicacao> mQuestions;
     private Context mContext;
     private Usuario usuario;
 
@@ -205,6 +205,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     public Publicacao getItem(int position) {
         return mQuestions.get(position);
+    }
+
+    public void atualiza(){
+        try {
+            notifyDataSetChanged();
+            notifyAll();
+        } catch (Exception e){}
     }
 
     public void curtir(int position) {

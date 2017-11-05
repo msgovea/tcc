@@ -189,5 +189,16 @@
     <string name="next">Continuar</string>
     <string name="back">Voltar</string>
 
+    <string name="image">Imagem</string>
+    <string name="video">Vídeo</string>
+
+    <string name="invalid_link_content">O link enviado não é válido! Tente novamente</string>
+    <string name="invalid_link">Link inválido</string>
+    <string name="youtube_title">Link Youtube</string>
+    <string name="youtube_content">Cole aqui o link do youtube que deseja publicar</string>
+
+    <string name="comment_success">Comentário publicado com sucesso!</string>
+    <string name="remove_comment_error">Erro ao remover comentário></string>
+    <string name="remove_comment_success">Comentário removido com sucesso</string>
 
 </resources>

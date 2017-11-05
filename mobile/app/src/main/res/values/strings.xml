@@ -208,6 +208,16 @@
     <string name="denuncia_text">What is wrong with this publication?</string>
     <string name="title_activity_register_new">RegisterActivityNew</string>
 
+    <string name="invalid_link">Invalid Link</string>
+    <string name="invalid_link_content">The link not is valid! Try again</string>
+    <string name="youtube_title">Youtube Link</string>
+    <string name="youtube_content">Paste here your youtube link</string>
+    <string name="comment_success">Success to publish the comment!</string>
+    <string name="remove_comment_error">Error removing the comment</string>
+    <string name="remove_comment_success">Success to delete the comment</string>
+
+    <string name="image">Image</string>
+    <string name="video">Video</string>
 
     <string name="next">Next</string>
     <string name="back">Back</string>

@@ -19,7 +19,9 @@ import com.google.gson.Gson;
 import com.mgovea.urmusic.async.comments.AsyncComments;
 import com.mgovea.urmusic.async.comments.AsyncMakeComment;
 import com.mgovea.urmusic.entity.Comentario;
+import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
@@ -167,21 +169,10 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         showProgress(false);
         //dismissProgressDialog();
         try {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setTitle(getString(R.string.error_title));
-            builder.setMessage(getString(R.string.error));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //b.finish();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
+            showErrorMessage();
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO MSG ERRO APP QUEBRADO
+            showErrorMessage(e.getMessage());
         }
     }
 
@@ -191,7 +182,7 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
             comentario.setCodigo(idComentario);
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO MSG ERRO
+            showErrorMessage(e.getMessage());
         }
         mAdapter.addComment(comentario);
         mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
@@ -200,8 +191,14 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         mComentario.setEnabled(true);
         mComentario.setText(null);
 
-        //TODO PALOMA TEXTO
-        Toast.makeText(getApplicationContext(), "Comentário publicado com sucesso!", Toast.LENGTH_SHORT).show();
+        for (Publicacao p: QuestionsAdapter.mQuestions) {
+            if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                p.setQtdComentarios(p.getQtdComentarios() + 1);
+            }
+        }
+
+
+        Toast.makeText(getApplicationContext(), getString(R.string.comment_success), Toast.LENGTH_SHORT).show();
     }
 
 

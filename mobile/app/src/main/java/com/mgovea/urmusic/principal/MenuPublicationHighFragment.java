@@ -62,6 +62,14 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            mAdapter.atualiza();
+        } catch (Exception e) {}
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
