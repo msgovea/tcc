@@ -153,37 +153,46 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             if (question.getVideo() == null) {
                 holder.cardView.setVisibility(View.GONE);
             } else {
-                holder.cardView.setVisibility(View.VISIBLE);
+                try {
+                    // YOUTUBE
 
-                /* YOUTUBE */
-                final YouTubeThumbnailLoader.OnThumbnailLoadedListener onThumbnailLoadedListener = new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
-                    @Override
-                    public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+                    final YouTubeThumbnailLoader.OnThumbnailLoadedListener onThumbnailLoadedListener = new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                        @Override
+                        public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
-                        youTubeThumbnailView.setVisibility(View.VISIBLE);
-                        holder.relativeLayoutOverYouTubeThumbnailView.setVisibility(View.VISIBLE);
-                    }
-                };
+                        @Override
+                        public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                            youTubeThumbnailView.setVisibility(View.VISIBLE);
+                            holder.relativeLayoutOverYouTubeThumbnailView.setVisibility(View.VISIBLE);
+                        }
+                    };
 
-                holder.youTubeThumbnailView.initialize("AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", new YouTubeThumbnailView.OnInitializedListener() {
-                    @Override
-                    public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
+                    holder.youTubeThumbnailView.initialize("AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", new YouTubeThumbnailView.OnInitializedListener() {
+                        @Override
+                        public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
 
-                        youTubeThumbnailLoader.setVideo("ad65dIWfdwI");
+                            try {
+                                youTubeThumbnailLoader.setVideo(question.getVideo());
+                            } catch (Exception e) {
+                                youTubeThumbnailLoader.setVideo("ad65dIWfdwI");
+                            }
+                            youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
+                        }
 
-                        youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
-                    }
+                        @Override
+                        public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+                            //write something for failure
+                        }
+                    });
+                // YOUTUBE
 
-                    @Override
-                    public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
-                        //write something for failure
-                    }
-                });
-                /* YOUTUBE */
+                    holder.cardView.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     }

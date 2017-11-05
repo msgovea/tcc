@@ -16,8 +16,8 @@ public class Preferencias implements AsyncProfile.Listener {
     private Gson gson = new Gson();
 
     public Preferencias(Context contextoParametro){
-        contexto = contextoParametro;
-        preferences = contexto.getSharedPreferences(API.USUARIO, Context.MODE_PRIVATE );
+            contexto = contextoParametro;
+            preferences = contexto.getSharedPreferences(API.USUARIO, Context.MODE_PRIVATE);
     }
 
     public void salvarUsuarioPreferencias(Usuario usuario){
