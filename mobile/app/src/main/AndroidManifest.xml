@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mgovea.urmusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -155,11 +156,6 @@
                 android:value="com.mgovea.urmusic.posts.ExampleActivity" />
         </activity>
         <activity
-            android:name=".TesteActivityStorage"
-            android:label="@string/title_activity_teste_storage"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".test.MainActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -172,7 +168,24 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="r789f.app.goo.gl/cffF"
+                    android:scheme="http"
+                    tools:ignore="AppLinkUrlError" />
+
+                <data
+                    android:host="r789f.app.goo.gl/cffF"
+                    android:scheme="https"
+                    tools:ignore="AppLinkUrlError" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".register.RegisterActivityNew"
             android:label="@string/title_activity_register_new"

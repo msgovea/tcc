@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "981238017808-9k2o2eun6rn0ocg7k2b5noqef31ligb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mgovea.urmusic",
+            "certificate_hash": "599cca44a20fabae5dc3b5a986b50ffd2952b1e8"
+          }
+        },
+        {
+          "client_id": "981238017808-5rrjrq5k3ir309dna7es6rlvn30bb4dt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mgovea.urmusic",
+            "certificate_hash": "01b1f00e8e19e1ffec4688a054446b9eb9810480"
+          }
+        },
+        {
           "client_id": "981238017808-ba1jkl14jrf3acjmtd6ct9fqqq9ugi7b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

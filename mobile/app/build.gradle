@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 def versionMajor = 1
 def versionMinor = 9
-def versionPatch = 1
+def versionPatch = 2
 def versionBuild = Long.valueOf(System.currentTimeMillis().toString().substring(0, 9)).intValue()
 
 android {
@@ -107,6 +107,9 @@ dependencies {
 }
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    implementation 'com.google.firebase:firebase-invites:11.0.4'
 }
 repositories {
     maven {
