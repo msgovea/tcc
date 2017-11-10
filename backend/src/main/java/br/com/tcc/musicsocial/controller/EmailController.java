@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tcc.musicsocial.dto.ContatoDTO;
 import br.com.tcc.musicsocial.dto.Response;
 import br.com.tcc.musicsocial.entity.Email;
 import br.com.tcc.musicsocial.service.EmailService;
@@ -33,6 +34,17 @@ public class EmailController {
 			emailService.enviarEmail(email);
 			return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
 		} catch (Exception e) {
+			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
+		}
+	}
+	
+	@RequestMapping("/contato")
+	public @ResponseBody Response<?> enviarEmailContato(@RequestBody ContatoDTO contato) {
+		try {
+			emailService.enviarEmailContato(contato.getCodRemetente(),contato.getDestinatario(), contato.getTexto());
+			return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
+		} catch (Exception e) {
+			e.printStackTrace();
 			return new Response<Exception>(MessagesEnum.FALHA.getDescricao(), e);
 		}
 	}

@@ -66,7 +66,7 @@ angular.module('app')
             var denuncias = [];
             $scope.denuncias.forEach(function(denuncia) {
                 if(denuncia.selected) {
-                    $http.get('http://192.198.90.26:80/denuncia/aprovar/' + denuncia.codigo + '/' + tipoAprovacao).success(function(result) {
+                    $http.get('http://192.198.90.26:84/denuncia/aprovar/' + denuncia.codigo + '/' + tipoAprovacao).success(function(result) {
 
                         console.log(result.message);
                     });

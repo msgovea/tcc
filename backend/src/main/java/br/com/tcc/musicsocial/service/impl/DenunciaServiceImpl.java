@@ -85,6 +85,7 @@ public class DenunciaServiceImpl implements DenunciaService {
 				return true;
 			} else if (tipoAprovacao.equals(TipoAprovacaoDenuncia.REPROVAR.getValue())) {
 				denuncia.setStatus(StatusDenuncia.REPROVADA.getValue());
+				return true;
 			}
 		}
 		return false;
