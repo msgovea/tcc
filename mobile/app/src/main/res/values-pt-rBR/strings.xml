@@ -178,6 +178,9 @@
 
     <string name="impulsionar">Impulsionar</string>
 
+    <string name="gosto">Gostos Musicais</string>
+    <string name="publi">Publicações</string>
+
     <string name="cancel">Cancelar</string>
     <string name="denuncia">Denunciar</string>
     <string name="denuncia_ok">Publicação denunciada com sucesso!</string>
@@ -200,5 +203,12 @@
     <string name="comment_success">Comentário publicado com sucesso!</string>
     <string name="remove_comment_error">Erro ao remover comentário></string>
     <string name="remove_comment_success">Comentário removido com sucesso</string>
+
+    <string name="text_impuls">Impulsionamento\n\n
+    Você pode impulsionar suas publicações, tendo um maior alcance de usuários.\n
+    \n
+    Selecione o gosto musical a qual deseja focar, ou deixe em branco para todos os gostos.\n
+    \n
+    OBS: O serviço de impulsionamento é cobrado.</string>
 
 </resources>

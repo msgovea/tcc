@@ -99,6 +99,8 @@
 
     <string name="title_activity_teste_login">Login Screen</string>
     <string name="title_activity_gosto_musical">Record your musical taste</string>
+    <string name="gosto">Musical Taste</string>
+    <string name="publi">Publications</string>
     <string name="title_activity_gosto_favorito">Now, sign up for your favorite musical taste</string>
     <string name="prompt_publication">What\'s on your mind?</string>
     <string name="error_gosto_musical">No musical taste selected</string>
@@ -222,4 +224,10 @@
     <string name="next">Next</string>
     <string name="back">Back</string>
 
+    <string name="text_impuls">Boosting\n\n
+    You can boost your publication by having a greater reach of users.\n
+    \n
+    Select the musical taste you want to focus on, or leave it blank for all tastes.\n
+    \n
+    NOTE: The push service is paid.</string>
 </resources>

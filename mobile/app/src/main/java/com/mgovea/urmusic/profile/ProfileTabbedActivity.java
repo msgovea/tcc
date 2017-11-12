@@ -345,9 +345,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             switch (position) {
                 case 0:
                     return PublicationProfileFragment.newInstance(idUsuario);
-//                case 1:
-//                    return GostoMusicalProfileFragment.newInstance(idUsuario);
-                case 2:
+                case 1:
                     return GostoMusicalProfileFragment.newInstance(idUsuario);
             }
             return new Fragment();
@@ -355,19 +353,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "PUBLICAÇÕES";
+                    return getString(R.string.publi);
                 case 1:
-                    return "MUSICAS";
-                case 2:
-                    return "GOSTOS";
+                    return getString(R.string.gosto);
             }
             return null;
         }

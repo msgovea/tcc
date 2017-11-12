@@ -229,7 +229,6 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             if (p.getCodigo().equals(idPublicacao)) {
                 mQuestions.remove(p);
                 notifyDataSetChanged();
-
                 bottomSheetDialogFragment.dismiss();
 
                 //TODO MSG PUBLICACAO REMOVIDA
@@ -241,7 +240,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 return;
             }
         }
-        Log.e("ERROR EXCLUSÃO", "ERRO");
+        notifyDataSetChanged();
     }
 
     @Override

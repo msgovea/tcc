@@ -291,7 +291,7 @@ public class MenuActivity extends AbstractAsyncActivity
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(this, RegisterActivityNew.class));
         } else if (id == R.id.nav_share) {
-
+            startActivity(new Intent(this, ImpulsionamentoActivity.class));
         } else if (id == R.id.nav_send) {
             Preferencias pref = new Preferencias(this);
             pref.removerUsuario();

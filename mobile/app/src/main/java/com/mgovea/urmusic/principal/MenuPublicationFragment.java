@@ -96,9 +96,9 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
         try {
             Preferencias pref = new Preferencias(getContext());
             teste_mgovea = (AppBarLayout) view.findViewById(R.id.appbar_pub);
-            if (!pref.getDadosUsuario().getCodigoUsuario().equals(Long.valueOf(21))) {
+            //if (!pref.getDadosUsuario().getCodigoUsuario().equals(Long.valueOf(21))) {
                 teste_mgovea.setVisibility(View.GONE);
-            }
+            //}
         } catch (Exception e) {
             e.printStackTrace();
         }
