@@ -42,6 +42,8 @@ import java.io.ByteArrayOutputStream;
 
 import com.mgovea.urmusic.R;
 
+import es.dmoral.toasty.Toasty;
+
 public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener, AsyncUploadImage.Listener {
 
     /**
@@ -204,13 +206,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         try {
             switch (usuarioPopulaPerfil.getTipoPerfil()) {
                 case 1: //MUSICO
-                    mAccount.setImageDrawable(getDrawable(R.drawable.ic_music_note_black_24dp));
+                    mAccount.setImageDrawable(getDrawable(R.drawable.profissional));
                     break;
                 case 2: //AMADOR
-                    mAccount.setImageDrawable(getDrawable(R.drawable.ic_heart));
+                    mAccount.setImageDrawable(getDrawable(R.drawable.usr_amador));
                     break;
                 case 3: //PADRAO
-                    mAccount.setImageDrawable(getDrawable(R.drawable.padrao));
+                    mAccount.setImageDrawable(getDrawable(R.drawable.usr_padrao));
+                    break;
+                case 4: //CASA DE EVENTO
+                    mAccount.setImageDrawable(getDrawable(R.drawable.party_ball));
                     break;
                 default:
                     mAccount.setImageDrawable(getDrawable(R.drawable.padrao));
@@ -346,7 +351,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         dismissProgressDialog();
 
-        Toast.makeText(this, getString(R.string.success_update_photo), Toast.LENGTH_LONG).show();
+        Toasty.success(this, getString(R.string.success_update_photo), Toast.LENGTH_LONG, true).show();
         Log.i(this.toString(), "SUCESSO IMAGEM PUBLICADA");
     }
 

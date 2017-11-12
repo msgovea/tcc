@@ -108,6 +108,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         tiposUsuario.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(tiposUsuario);
+        spinner.setSelection(2);
 
     }
 

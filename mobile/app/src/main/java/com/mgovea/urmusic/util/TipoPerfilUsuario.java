@@ -7,7 +7,8 @@ package com.mgovea.urmusic.util;
 public enum TipoPerfilUsuario {
     MUSICO(1),
     AMADOR(2),
-    COMUM(3);
+    COMUM(3),
+    EVENTO(4);
 
     private int value;
 

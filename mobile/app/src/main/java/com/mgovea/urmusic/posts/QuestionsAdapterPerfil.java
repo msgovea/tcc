@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-;
+;import es.dmoral.toasty.Toasty;
 
 public class QuestionsAdapterPerfil extends RecyclerView.Adapter<QuestionsAdapterPerfil.ViewHolder> {
 
@@ -232,10 +232,9 @@ public class QuestionsAdapterPerfil extends RecyclerView.Adapter<QuestionsAdapte
                 notifyDataSetChanged();
                 bottomSheetDialogFragment.dismiss();
 
-                //TODO MSG PUBLICACAO REMOVIDA
-                Toast.makeText(mContext,
+                Toasty.success(mContext,
                         mContext.getString(R.string.remove_publi),
-                        Toast.LENGTH_SHORT)
+                        Toast.LENGTH_SHORT, true)
                         .show();
 
                 try {

@@ -20,6 +20,8 @@ import com.mgovea.urmusic.util.util.IabResult;
 import com.mgovea.urmusic.util.util.Inventory;
 import com.mgovea.urmusic.util.util.Purchase;
 
+import es.dmoral.toasty.Toasty;
+
 public class InAppBillingActivity extends AbstractAsyncActivity implements AsyncImpulsionarPublication.Listener {
 
     private static final String TAG =
@@ -27,10 +29,10 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
     IabHelper mHelper;
     static final String ITEM_SKU = "impulsionamento_1";
 
-    private Button clickButton;
     private Button buyButton;
 
     private Long mIdPublicacao;
+    private Long mIdGostoMusical;
 
 
     @Override
@@ -39,10 +41,9 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
         setContentView(R.layout.activity_in_app_billing);
 
         mIdPublicacao = getIntent().getLongExtra(API.PUBLICACAO, 0);
+        mIdGostoMusical = getIntent().getLongExtra(API.GOSTO, 0);
 
         buyButton = (Button) findViewById(R.id.buyButton);
-        clickButton = (Button) findViewById(R.id.clickButton);
-        clickButton.setEnabled(false);
         String base64EncodedPublicKey =
                 "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmQnPvT6keTTAwXfCpWNNOq5zI9SXRXAmB6REi59AMBl9X24Q7T/u83iYLszg42tpGHIn0rONt5cWGjVpKkBq00j2BWBdiTJVXOL6r+q9HSPUf/r+elaRIh2+2/KyqL/Nf9ULzBEfDliTqxJElYcSxVAHxU625CqQjiGcF436fNYxnUYMOY2kGMQrUmLwtQad9Y+EmjxVdPmCtUIarRq7Ui3fB6wsiM4e4NWyr75ub70K5D9F009rJqwbNvAW8w16jhRDKzuu1OBYqxF2oC82Mcx+dD6DQ7gF0fjJolRuPa4l/h0A2RuRUtULLwL/DMCJsD49gHJzJZurg3MmVMqWbwIDAQAB";
 
@@ -70,18 +71,6 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
         getSupportActionBar().setTitle(getString(R.string.impulsionar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*try {
-            mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
-                    mPurchaseFinishedListener, "impulsionamento_1");
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            showErrorMessage();
-        }*/
-    }
-
-    public void buttonClicked(View view) {
-        clickButton.setEnabled(false);
-        buyButton.setEnabled(true);
     }
 
     public void buyClick(View view) {
@@ -89,7 +78,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
                     mPurchaseFinishedListener, "impulsionamento_1");
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toasty.error(this, e.getMessage(), Toast.LENGTH_LONG, true).show();
             showErrorMessage();
         }
     }
@@ -170,7 +159,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
                 Purchase impPurchase = inventory.getPurchase(ITEM_SKU);
                 if (impPurchase != null) {
                     Log.d(TAG, "We have IMPULSIONAMENTO. Consuming it.");
-                    Toast.makeText(InAppBillingActivity.this, "Você tem um pacote não consumido, utilizando.", Toast.LENGTH_LONG).show();
+                    Toasty.info(InAppBillingActivity.this, "Você tem um pacote não consumido, utilizando...", Toast.LENGTH_LONG, true).show();
                     mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
                             mConsumeFinishedListener);
                     return;
@@ -192,8 +181,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
                         if (result.isSuccess()) {
                             showLoadingProgressDialog();
                             AsyncImpulsionarPublication sinc = new AsyncImpulsionarPublication(InAppBillingActivity.this);
-                            sinc.execute(mIdPublicacao);
-                            clickButton.setEnabled(true);
+                            sinc.execute(mIdPublicacao, mIdGostoMusical);
                         } else {
                             // handle error
                         }

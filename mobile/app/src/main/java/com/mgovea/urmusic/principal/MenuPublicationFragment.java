@@ -194,21 +194,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                //int pos = listView.getPositionForView(view);
-//                    Toast.makeText(getContext(),view.getId()+"",Toast.LENGTH_SHORT).show();
-//
-//                    switch(view.getId())
-//                    {
-//                        case R.id.avatar :
-//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
-//                            break;
-//                        case R.id.view_settings :
-//                            Toast.makeText(getContext(),"AVATAR",Toast.LENGTH_SHORT).show();
-//                            break;
-//                        default:
-//                            onItemClicado(position);
-//                            break;
-//                    }
+
             }
         }));
 
@@ -221,12 +207,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
         }
 
         showProgress(false);
-//        }
-        //dismissProgressDialog();
-    }
 
-    private void onItemClicado(int position) {
-        Toast.makeText(getContext(), "Cliquei no item " + mAdapter.getItem(position).getConteudo(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

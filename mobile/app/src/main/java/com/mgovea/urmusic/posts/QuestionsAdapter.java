@@ -44,7 +44,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;;import es.dmoral.toasty.Toasty;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
@@ -232,9 +232,9 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 notifyDataSetChanged();
                 bottomSheetDialogFragment.dismiss();
 
-                Toast.makeText(mContext,
+                Toasty.success(mContext,
                         mContext.getString(R.string.remove_publi),
-                        Toast.LENGTH_SHORT)
+                        Toast.LENGTH_SHORT, true)
                         .show();
 
                 try {

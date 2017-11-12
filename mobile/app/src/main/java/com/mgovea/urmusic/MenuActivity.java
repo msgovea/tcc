@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
@@ -286,12 +287,8 @@ public class MenuActivity extends AbstractAsyncActivity
             selectFragment(item);
         } else if (id == R.id.nav_gallery) {
             selectFragment(item);
-        } else if (id == R.id.nav_slideshow) {
-            startActivity(new Intent(this, MailActivity.class));
-        } else if (id == R.id.nav_manage) {
-            startActivity(new Intent(this, RegisterActivityNew.class));
         } else if (id == R.id.nav_share) {
-            startActivity(new Intent(this, ImpulsionamentoActivity.class));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/intl/pt-br_br/about/play-terms.html")));
         } else if (id == R.id.nav_send) {
             Preferencias pref = new Preferencias(this);
             pref.removerUsuario();
@@ -446,8 +443,7 @@ public class MenuActivity extends AbstractAsyncActivity
         searchScreen.setVisibility(View.GONE);
         defaultScreen.setVisibility(View.VISIBLE);
 
-        Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show();
-        //TODO MSG PALOMA
+        showErrorMessage();
         Log.e("ERRO GERAL", s);
     }
 }

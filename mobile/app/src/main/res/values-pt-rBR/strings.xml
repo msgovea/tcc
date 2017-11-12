@@ -212,9 +212,10 @@
     OBS: O serviço de impulsionamento é cobrado.</string>
 
     <string-array name="tipo_usuario">
-        <item>Músico</item>
-        <item>Amador</item>
-        <item>Usuário Comum</item>
+        <item>Músico Profissional</item>
+        <item>Músico Amador</item>
+        <item>Usuário</item>
+        <item>Casa de Evento</item>
     </string-array>
     
     <string name="required">Campo obrigatório</string>
@@ -227,5 +228,10 @@
 
     <string name="desc_empty_me">Publique suas novidades musicais para seus amigos =]</string>
     <string name="title_empty_me">Você não tem publicações :(</string>
+    <string name="confirm">Confirmar</string>
+    <string name="message_to">Mensagem para:</string>
+
+    <string name="mail_ok">E-mail enviado com sucesso</string>
+    <string name="content">Escreva aqui sua mensagem...</string>
 
 </resources>

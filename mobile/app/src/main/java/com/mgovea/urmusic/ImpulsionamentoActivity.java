@@ -123,11 +123,6 @@ public class ImpulsionamentoActivity extends AbstractAsyncActivity implements As
         sinc.execute();
     }
 
-    public void skip(View v){
-        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-        finish();
-    }
-
     // ***************************************
     // Metodos de retorno Async
     // ***************************************

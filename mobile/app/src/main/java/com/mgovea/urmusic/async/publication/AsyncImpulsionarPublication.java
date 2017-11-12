@@ -38,7 +38,7 @@ public class AsyncImpulsionarPublication extends AsyncTask<Long, String, String>
 
         try {
 
-            URL url = new URL(API.URL + API.PUBLICATION_IMPULS + n[0]);
+            URL url = new URL(API.URL + API.PUBLICATION_IMPULS + n[0] + "?gostoMusical=" + n[1]);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");

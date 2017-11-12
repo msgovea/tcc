@@ -233,9 +233,10 @@
 
 
     <string-array name="tipo_usuario">
-        <item>Musician</item>
-        <item>Amateur</item>
-        <item>Common User</item>
+        <item>Professional Musician</item>
+        <item>Amateur Musician</item>
+        <item>User</item>
+        <item>Event House</item>
     </string-array>
 
     <string name="required">Required field</string>
@@ -248,5 +249,10 @@
 
     <string name="desc_empty_me">Post your music news to your friends =]</string>
     <string name="title_empty_me">You have no posts :(</string>
+    <string name="confirm">Confirm</string>
+    <string name="message_to">Message to:</string>
+
+    <string name="mail_ok">Email sent successfully</string>
+    <string name="content">Write your message here...</string>
 
 </resources>

@@ -6,12 +6,12 @@ package com.mgovea.urmusic.entity;
 
 public class Email {
 
-    private Long codigoRemetente;
+    private Long codRemetente;
     private String texto;
     private String destinatario;
 
-    public Email(Long codigoRemetente, String texto, String destinatario) {
-        this.codigoRemetente = codigoRemetente;
+    public Email(Long codRemetente, String texto, String destinatario) {
+        this.codRemetente = codRemetente;
         this.texto = texto;
         this.destinatario = destinatario;
     }
@@ -19,12 +19,12 @@ public class Email {
     public Email() {
     }
 
-    public Long getCodigoRemetente() {
-        return codigoRemetente;
+    public Long getCodRemetente() {
+        return codRemetente;
     }
 
-    public void setCodigoRemetente(Long codigoRemetente) {
-        this.codigoRemetente = codigoRemetente;
+    public void setCodRemetente(Long codRemetente) {
+        this.codRemetente = codRemetente;
     }
 
     public String getTexto() {

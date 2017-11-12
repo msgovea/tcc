@@ -29,7 +29,7 @@ import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
 import java.util.ArrayList;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;;import es.dmoral.toasty.Toasty;
 
 public class CommentsActivity extends AbstractAsyncActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 
@@ -218,7 +218,7 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         } catch (Exception e){}
 
 
-        Toast.makeText(getApplicationContext(), getString(R.string.comment_success), Toast.LENGTH_SHORT).show();
+        Toasty.success(getApplicationContext(), getString(R.string.comment_success), Toast.LENGTH_SHORT, true).show();
     }
 
 

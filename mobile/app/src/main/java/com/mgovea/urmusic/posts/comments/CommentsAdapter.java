@@ -27,7 +27,7 @@ import com.mgovea.urmusic.util.Preferencias;
 
 import java.util.List;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;;import es.dmoral.toasty.Toasty;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
@@ -116,10 +116,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 mComments.remove(p);
                 notifyDataSetChanged();
 
-                //TODO MSG PUBLICACAO REMOVIDA
-                Toast.makeText(mContext,
-                        "Comentário removido com sucesso!",
-                        Toast.LENGTH_SHORT)
+                Toasty.success(mContext,
+                        mContext.getString(R.string.remove_comment_success),
+                        Toast.LENGTH_SHORT, true)
                         .show();
 
                 return;
@@ -208,9 +207,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             mComments.remove(position);
             notifyDataSetChanged();
 
-            Toast.makeText(mContext,
+            Toasty.success(mContext,
                     mContext.getString(R.string.remove_comment_success),
-                    Toast.LENGTH_LONG)
+                    Toast.LENGTH_LONG, true)
                     .show();
 
             try {
@@ -241,12 +240,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
         @Override
         public void onLoadedError(String s) {
-            //TODO PALOMA TEXTO
-            Toast.makeText(mContext,
+            Toasty.error(mContext,
                      mContext.getString(R.string.remove_comment_error) + "\n" + s,
-                    Toast.LENGTH_SHORT)
+                    Toast.LENGTH_SHORT, true)
                     .show();
-            //FIM TODO PALOMA TEXTO
             loading(false);
         }
     }

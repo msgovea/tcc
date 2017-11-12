@@ -1,5 +1,6 @@
 package com.mgovea.urmusic;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.view.View;
@@ -28,54 +29,45 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.primary_dark)
                         .buttonsColor(R.color.accent)
-                        .image(R.drawable.icon2)
-                        .title(getString(R.string.intro_title))
-                        .description(getString(R.string.intro_message))
+                        .image(R.drawable.logo_m)
+                        .title("\n" + getString(R.string.intro_title))
+                        .description("\n\n" +getString(R.string.intro_message))
                         .build());
-//                new MessageButtonBehaviour(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        showMessage("We provide solutions to make you love your work");
-//                    }
-//                }, getString(R.string.intro_button)));
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.primary_light)
+                .backgroundColor(R.color.primary_dark)
                 .buttonsColor(R.color.accent)
-                .image(R.drawable.teste3)
-                .title(getString(R.string.intro_title2))
-                .description(getString(R.string.intro_message2))
+                .image(R.drawable.mock_png)
+                .title("\n" + "Amantes da Música")
+                .description("\n\n" +"Dedicado ao público envolvido com a música: músicos profissionais, amadores, donos de casa de evento ou somente quem gosta de ouvi-la.")
                 .build());
+
+        addSlide(new SlideFragmentBuilder()
+                .backgroundColor(R.color.primary_dark)
+                .buttonsColor(R.color.accent)
+                .image(R.drawable.publi_1)
+                .title("\n" + "Interesses")
+                .description("\n\n" + "Baseado no gosto musical de cada usuário, facilitando assim, atingir o público que realmente tem o mesmo interesse por música que você")
+                .build());
+
+        addSlide(new SlideFragmentBuilder()
+                .backgroundColor(R.color.primary_dark)
+                .buttonsColor(R.color.accent)
+                .image(R.drawable.publi_2)
+                .title("\n" + "Individualidade")
+                .description("\n\n" +"Facilidade de conhecer, promover e compartilhar músicas e eventos para um público focado")
+                .build());
+
 
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.primary_dark)
                         .buttonsColor(R.color.accent)
-                        //.possiblePermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
-                        //.neededPermissions(new String[]{android.Manifest.permission.USE_FINGERPRINT})
-                        .image(R.drawable.teste2)
-                        .title(getString(R.string.intro_title3))
-                        .description(getString(R.string.intro_message3))
+                        .image(R.drawable.perfil)
+                        .title("\n" + getString(R.string.intro_title3))
+                        .description("\n\n" + getString(R.string.intro_message3))
                         .build());
-//                new MessageButtonBehaviour(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        showMessage("Try us!");
-//                    }
-//                }, getString(R.string.intro_button2)));
-
-//        addSlide(new SlideFragmentBuilder()
-//                .backgroundColor(R.color.primary_text)
-//                .buttonsColor(R.color.accent)
-//                .title(getString(R.string.intro_title4))
-//                .description(getString(R.string.intro_message4))
-//                .build());
     }
 
-//    @Override
-//    public void onFinish() {
-//        startActivity(new Intent(this, MainActivity.class));
-//        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
-//    }
 
     @Override
     protected void onPause(){

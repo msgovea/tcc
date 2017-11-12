@@ -75,7 +75,7 @@ public class PictureBottomSheetDialogFragment extends BottomSheetDialogFragment 
         */
 
         ArrayList<Menu> menu = new ArrayList<>();
-        menu.add(new Menu(1, "Visualizar", "Visualize sua imagem de perfil"));
+        //menu.add(new Menu(1, "Visualizar", "Visualize sua imagem de perfil"));
         menu.add(new Menu(2, "Alterar", "Altere sua imagem de perfil"));
 
         mAdapter = new PictureAdapter(getContext(), menu, idUsuario);

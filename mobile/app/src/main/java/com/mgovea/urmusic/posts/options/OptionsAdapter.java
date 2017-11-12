@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.mgovea.urmusic.R;
-import com.mgovea.urmusic.util.Preferencias;;
+import com.mgovea.urmusic.util.Preferencias;;import es.dmoral.toasty.Toasty;
 
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHolder> {
 
@@ -190,7 +190,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                                     public void onClick(DialogInterface dialog, int which) {
                                         String task = String.valueOf(taskEditText.getText());
                                         if (TextUtils.isEmpty(task)) {
-                                            Toast.makeText(mContext, mContext.getString(R.string.error_field_required), Toast.LENGTH_LONG).show();
+                                            Toasty.error(mContext, mContext.getString(R.string.error_field_required), Toast.LENGTH_LONG, true).show();
                                             //taskEditText.setError(mContext.getString(R.string.error_field_required));
                                             //taskEditText.requestFocus();
                                             return;
@@ -306,7 +306,8 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
             try {
                 QuestionsAdapterHigh.bottomSheetDialogFragment.dismiss();
             } catch (Exception e) {}
-            Toast.makeText(mContext, mContext.getString(R.string.denuncia_ok), Toast.LENGTH_LONG).show();
+
+            Toasty.success(mContext, mContext.getString(R.string.denuncia_ok), Toast.LENGTH_LONG, true).show();
         }
 
     }

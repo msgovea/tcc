@@ -2,7 +2,6 @@ package com.mgovea.urmusic;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,6 +20,8 @@ import com.mgovea.urmusic.entity.Email;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.Preferencias;
+
+import es.dmoral.toasty.Toasty;
 
 public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Listener {
 
@@ -51,7 +52,7 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
 
 
                             try {
-                                Toast.makeText(MailActivity.this, deepLink.toString(), Toast.LENGTH_SHORT).show();
+                                Toasty.warning(MailActivity.this, deepLink.toString(), Toast.LENGTH_SHORT, true).show();
                             } catch (Exception e ){}
                         }
                     })
@@ -103,7 +104,7 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
         //TODO FIM
 
         email.setTexto(conteudo);
-        email.setCodigoRemetente(pref.getDadosUsuario().getCodigoUsuario());
+        email.setCodRemetente(pref.getDadosUsuario().getCodigoUsuario());
 
         AsyncMail sinc = new AsyncMail(this);
         sinc.execute(email);
@@ -126,11 +127,11 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
     public void onLoaded(String string) {
         if (string.equalsIgnoreCase("true")) {
             dismissProgressDialog();
-            //TODO TEXT
-            Toast.makeText(this, "E-mail enviado com sucesso", Toast.LENGTH_LONG).show();
+            Toasty.success(this, getString(R.string.mail_ok), Toast.LENGTH_LONG, true).show();
+
+            onBackPressed();
         } else {
             showErrorMessage();
-            //TODO MUDAR MENSAGEM DE ERRO PARA ESPECIFICA
         }
     }
 }

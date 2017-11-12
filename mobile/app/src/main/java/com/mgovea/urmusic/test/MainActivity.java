@@ -38,9 +38,6 @@ public class MainActivity extends YouTubeBaseActivity implements YouTubePlayer.O
     public void onInitializationFailure(Provider provider, YouTubeInitializationResult errorReason) {
         if (errorReason.isUserRecoverableError()) {
             errorReason.getErrorDialog(this, RECOVERY_REQUEST).show();
-        } else {
-            //String error = String.format(getString(R.string.error), errorReason.toString());
-            Toast.makeText(this, "bla", Toast.LENGTH_LONG).show();
         }
     }
 

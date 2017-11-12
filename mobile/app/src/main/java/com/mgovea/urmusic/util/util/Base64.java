@@ -169,7 +169,7 @@ public class Base64 {
     private Base64() {
     }
 
-    /* ********  E N C O D I N G   M E T H O D S  ******** */
+    /* ********  E N C O D I N G   logo_m E T H O D S  ******** */
 
     /**
      * Encodes up to three bytes of the array <var>source</var>
@@ -346,7 +346,7 @@ public class Base64 {
     }
 
 
-    /* ********  D E C O D I N G   M E T H O D S  ******** */
+    /* ********  D E C O D I N G   logo_m E T H O D S  ******** */
 
 
     /**
