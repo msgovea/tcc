@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +78,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private ConstraintLayout mLayout;
     private Button mButtonMessage;
 
+    private ImageView mAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +115,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         mLayout = (ConstraintLayout) findViewById(R.id.layout);
         mButtonFollow = (Button) findViewById(R.id.btn_follow);
         mButtonMessage = (Button) findViewById(R.id.btn_mail);
+        mAccount = (ImageView) findViewById(R.id.account);
 
         Preferencias pref = new Preferencias(this);
         usuario = pref.getDadosUsuario();
@@ -196,6 +200,25 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         mTextUserBio.setText(usuarioPopulaPerfil.getCidade() + " - " + usuarioPopulaPerfil.getEstado());
 
         mainContent.setVisibility(View.VISIBLE);
+
+        try {
+            switch (usuarioPopulaPerfil.getTipoPerfil()) {
+                case 1: //MUSICO
+                    mAccount.setImageDrawable(getDrawable(R.drawable.ic_music_note_black_24dp));
+                    break;
+                case 2: //AMADOR
+                    mAccount.setImageDrawable(getDrawable(R.drawable.ic_heart));
+                    break;
+                case 3: //PADRAO
+                    mAccount.setImageDrawable(getDrawable(R.drawable.padrao));
+                    break;
+                default:
+                    mAccount.setImageDrawable(getDrawable(R.drawable.padrao));
+                    break;
+            }
+        } catch (Exception e){
+            mAccount.setImageDrawable(getDrawable(R.drawable.padrao));
+        }
     }
 
     @Override

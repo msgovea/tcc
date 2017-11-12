@@ -160,7 +160,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/verifed_account"
+                    android:id="@+id/account"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_alignBottom="@id/user_profile_name"

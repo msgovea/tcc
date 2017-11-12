@@ -211,4 +211,10 @@
     \n
     OBS: O serviço de impulsionamento é cobrado.</string>
 
+    <string-array name="tipo_usuario">
+        <item>Músico</item>
+        <item>Amador</item>
+        <item>Usuário Comum</item>
+    </string-array>
+
 </resources>

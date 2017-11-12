@@ -53,6 +53,24 @@ public class Usuario {
 
     private List<GostosMusicai> gostosMusicais;
 
+    private Integer tipoPerfil;
+
+    public ArrayList<Long> getCodigoSeguidores() {
+        return codigoSeguidores;
+    }
+
+    public void setCodigoSeguidores(ArrayList<Long> codigoSeguidores) {
+        this.codigoSeguidores = codigoSeguidores;
+    }
+
+    public Integer getTipoPerfil() {
+        return tipoPerfil;
+    }
+
+    public void setTipoPerfil(Integer tipoPerfil) {
+        this.tipoPerfil = tipoPerfil;
+    }
+
     public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;
     }

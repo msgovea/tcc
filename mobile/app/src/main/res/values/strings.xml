@@ -230,4 +230,12 @@
     Select the musical taste you want to focus on, or leave it blank for all tastes.\n
     \n
     NOTE: The push service is paid.</string>
+
+
+    <string-array name="tipo_usuario">
+        <item>Musician</item>
+        <item>Amateur</item>
+        <item>Common User</item>
+    </string-array>
+
 </resources>

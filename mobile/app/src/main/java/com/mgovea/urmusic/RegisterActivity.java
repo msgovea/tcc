@@ -16,7 +16,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mgovea.urmusic.async.AsyncRegister;
 import com.mgovea.urmusic.entity.Usuario;
@@ -41,6 +43,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
     private EditText mCityView;
     private Button mEmailSignInButton;
     private DatePicker mBirthdayDataPickerView;
+    private Spinner spinner;
 
 
     @Override
@@ -93,6 +96,18 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
         textView.setAdapter(adapter);
+
+
+
+        //TODO SPINNER INFOS TIPO USUARIO
+        spinner = (Spinner) findViewById(R.id.tip_usuario);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> tiposUsuario = ArrayAdapter.createFromResource(this,
+                R.array.tipo_usuario, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        tiposUsuario.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(tiposUsuario);
 
     }
 
@@ -149,7 +164,6 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
         }
 
 
-
         if (validation.error) {
             validation.focusView.requestFocus();
         } else {
@@ -167,6 +181,7 @@ public class RegisterActivity extends AbstractAsyncActivity implements AsyncRegi
             usuario.setDataNascimento(mBirthdayDataPickerView.getYear() + "-" +
                     (mBirthdayDataPickerView.getMonth()+1) + "-" +
                     mBirthdayDataPickerView.getDayOfMonth());
+            usuario.setTipoPerfil(Integer.valueOf(spinner.getSelectedItemId() + "")+1);
 
             AsyncRegister sinc = new AsyncRegister(this);
             sinc.execute(usuario);
