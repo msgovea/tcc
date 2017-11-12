@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
     private QuestionsAdapterHigh mAdapter1;
     private SharedPreferences prefs;
     private ListView listView;
+    public static LinearLayout vazio;
 
     public static Fragment newInstance(String text, int color) {
         Fragment frag = new MenuPublicationHighFragment();
@@ -90,6 +92,9 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
             mText = savedInstanceState.getString(ARG_TEXT);
             mColor = savedInstanceState.getInt(ARG_COLOR);
         }
+
+        vazio = (LinearLayout) view.findViewById(R.id.vazio);
+
 
         // initialize views
         mContent = view.findViewById(R.id.content);
@@ -195,6 +200,14 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
 //                    }
             }
         }));
+
+        if (mAdapter1.getItemCount() == 0) {
+            mRecyclerView2.setVisibility(View.GONE);
+            vazio.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView2.setVisibility(View.VISIBLE);
+            vazio.setVisibility(View.GONE);
+        }
 
         showProgress(false);
 //        }

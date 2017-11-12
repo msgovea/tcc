@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -49,10 +50,9 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
     public View mProgressView;
     private QuestionsAdapter mAdapter;
     private SharedPreferences prefs;
-    private ListView listView;
 
-    private AppCompatImageView mIcon;
-    private AppCompatImageView mIconSearch;
+    public static LinearLayout vazio;
+
     private AppBarLayout teste_mgovea;
 
     public static Fragment newInstance(String text, int color) {
@@ -93,6 +93,8 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
             mColor = savedInstanceState.getInt(ARG_COLOR);
         }
 
+        vazio = (LinearLayout) view.findViewById(R.id.vazio);
+
         try {
             Preferencias pref = new Preferencias(getContext());
             teste_mgovea = (AppBarLayout) view.findViewById(R.id.appbar_pub);
@@ -118,51 +120,6 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
                     .setAction("Action", null).show();
         }
 
-        //////// TODO MGOVEA1
-
-//        mIcon = (AppCompatImageView) view.findViewById(R.id.iconAlarm);
-//        mIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NotificationCompat.Builder mBuilder =
-//                        new NotificationCompat.Builder(getActivity())
-//                                .setSmallIcon(R.drawable.logo)
-//                                .setContentTitle("My notification")
-//                                .setContentText("Hello World!");
-//                // Creates an explicit intent for an Activity in your app
-//                Intent resultIntent = new Intent(getActivity(), SearchActivity.class);
-//
-//                // The stack builder object will contain an artificial back stack for the
-//                // started Activity.
-//                // This ensures that navigating backward from the Activity leads out of
-//                // your application to the Home screen.
-//                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-//                // Adds the back stack for the Intent (but not the Intent itself)
-//                stackBuilder.addParentStack(SearchActivity.class);
-//                // Adds the Intent that starts the Activity to the top of the stack
-//                stackBuilder.addNextIntent(resultIntent);
-//                PendingIntent resultPendingIntent =
-//                        stackBuilder.getPendingIntent(
-//                                0,
-//                                PendingIntent.FLAG_UPDATE_CURRENT
-//                        );
-//                mBuilder.setContentIntent(resultPendingIntent);
-//                NotificationManager mNotificationManager =
-//                        (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-//                // mId allows you to update the notification later on.
-//                mNotificationManager.notify(123, mBuilder.build());
-//            }
-//        });
-//
-//        mIconSearch = (AppCompatImageView) view.findViewById(R.id.iconSearch);
-//        mIconSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getContext(), SearchActivity.class));
-//            }
-//        });
-
-        //////// END TODO
 
         teste_mgovea.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,6 +212,14 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
             }
         }));
 
+        if (mAdapter.getItemCount() == 0) {
+            mRecyclerView.setVisibility(View.GONE);
+            vazio.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            vazio.setVisibility(View.GONE);
+        }
+
         showProgress(false);
 //        }
         //dismissProgressDialog();
@@ -262,6 +227,20 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 
     private void onItemClicado(int position) {
         Toast.makeText(getContext(), "Cliquei no item " + mAdapter.getItem(position).getConteudo(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        try {
+            if (mAdapter.getItemCount() == 0) {
+                mRecyclerView.setVisibility(View.GONE);
+                vazio.setVisibility(View.VISIBLE);
+            } else {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                vazio.setVisibility(View.GONE);
+            }
+        }catch (Exception e) {}
     }
 
     @Override

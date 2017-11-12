@@ -238,4 +238,15 @@
         <item>Common User</item>
     </string-array>
 
+    <string name="required">Required field</string>
+    <string name="required_text">Text field is required if image or video is not selected.</string>
+
+    <string name="remove_publi">Publication removed successfully!</string>
+
+    <string name="desc_empty">You can add friends to see how the best music news =]</string>
+    <string name="title_empty">No posts :(</string>
+
+    <string name="desc_empty_me">Post your music news to your friends =]</string>
+    <string name="title_empty_me">You have no posts :(</string>
+
 </resources>

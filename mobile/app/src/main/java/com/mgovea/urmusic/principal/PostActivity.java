@@ -78,39 +78,11 @@ public class PostActivity extends AbstractAsyncActivity implements AsyncMakePubl
         Usuario usuario = pref.getDadosUsuario();
         mPublicacao = new Publicacao(usuario, null);
 
-        //TODO MGOVEA - REMOVER LISTA DE ITENS
-        /*((MyLayout) findViewById(R.id.fragment_make_publication)).setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
-            @Override
-            public void onShown() {
-                Log.e("FUU","DEU");
-                //TODO
-                listView.setVisibility(View.GONE);
-            }
-            @Override
-            public void onHidden() {
-                Log.e("FUU","DEU naoo");
-                //TODO
-                listView.setVisibility(View.VISIBLE);
-            }
-        });*/
-
 
         // initialize views
         mContent = findViewById(R.id.make_publication);
 
         mProgressView = (View) findViewById(R.id.publication_progress);
-
-
-//        mIcon = (AppCompatImageView) findViewById(R.id.iconAlarm);
-//        mIcon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                prefs = getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-//                prefs.edit().clear().apply();
-//                startActivity(new Intent(DefaultActivity.this, com.mgovea.urmusic.MainActivity.class));
-//                finish();
-//            }
-//        });
 
         listView = (ListView) findViewById(R.id.testemgovea);
 
@@ -118,24 +90,6 @@ public class PostActivity extends AbstractAsyncActivity implements AsyncMakePubl
         mTextPublication = (EditText) findViewById(R.id.et_publication);
 
         mMakePublication = (LinearLayout) findViewById(R.id.make_publication);
-
-        //TODO
-
-//        mMakePublication.setOnSoftKeyboardListener(new MyLayout.OnSoftKeyboardListener() {
-//            @Override
-//            public void onShown() {
-//                listView.setVisibility(View.GONE);
-//                //Log.e("FUU","DEU");
-//            }
-//
-//            @Override
-//            public void onHidden() {
-//                listView.setVisibility(View.VISIBLE);
-//                //Log.e("FUU","DEU, MENTIRA DEU BOM");
-//            }
-//        });
-
-        //END TODO
 
         btnImagem = (Button) findViewById(R.id.button_img_pub);
         btnImagem.setOnClickListener(new View.OnClickListener() {
@@ -184,10 +138,15 @@ public class PostActivity extends AbstractAsyncActivity implements AsyncMakePubl
         mButtonPublication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLoadingProgressDialog();
                 mPublicacao.setConteudo(mTextPublication.getText().toString());
-                AsyncMakePublication sinc = new AsyncMakePublication(PostActivity.this);
-                sinc.execute(mPublicacao);
+
+                if (mPublicacao.getVideo() == null && mPublicacao.getImagem() == null && mPublicacao.getConteudo().trim().isEmpty()) {
+                    showErrorMessageLink(getString(R.string.required),getString(R.string.required_text));
+                } else {
+                    showLoadingProgressDialog();
+                    AsyncMakePublication sinc = new AsyncMakePublication(PostActivity.this);
+                    sinc.execute(mPublicacao);
+                }
 
             }
         });

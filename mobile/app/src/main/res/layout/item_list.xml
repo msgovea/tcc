@@ -106,6 +106,8 @@
         android:layout_height="300dp"
         android:layout_alignParentStart="true"
         android:layout_below="@id/text_publication"
+        fresco:placeholderImage="@drawable/loading"
+        fresco:placeholderImageScaleType="center"
         android:textColor="#827f93"
         fresco:actualImageScaleType="focusCrop"
         fresco:roundWithOverlayColor="@android:color/white" />
@@ -182,7 +184,7 @@
         android:layout_below="@id/divider"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_chat"
+        android:src="@drawable/hearth"
         android:tint="#827f93" />
 
     <TextView

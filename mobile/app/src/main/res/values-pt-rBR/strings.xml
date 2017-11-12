@@ -216,5 +216,16 @@
         <item>Amador</item>
         <item>Usuário Comum</item>
     </string-array>
+    
+    <string name="required">Campo obrigatório</string>
+    <string name="required_text">O campo de texto é obrigatório caso não seja selecionado imagem ou vídeo.</string>
+
+    <string name="remove_publi">Publicação removida com sucesso!</string>
+
+    <string name="desc_empty">Você pode adicionar amigos para ver as melhores novidades do ramo musical =]</string>
+    <string name="title_empty">Não há publicações :(</string>
+
+    <string name="desc_empty_me">Publique suas novidades musicais para seus amigos =]</string>
+    <string name="title_empty_me">Você não tem publicações :(</string>
 
 </resources>

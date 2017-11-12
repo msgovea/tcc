@@ -32,6 +32,7 @@ import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.comments.CommentsActivity;
 import com.mgovea.urmusic.posts.options.CustomBottomSheetDialogFragment;
+import com.mgovea.urmusic.principal.MenuPublicationFragment;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
@@ -231,11 +232,20 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 notifyDataSetChanged();
                 bottomSheetDialogFragment.dismiss();
 
-                //TODO MSG PUBLICACAO REMOVIDA
                 Toast.makeText(mContext,
-                        "Publicação removida com sucesso!",
+                        mContext.getString(R.string.remove_publi),
                         Toast.LENGTH_SHORT)
                         .show();
+
+                try {
+                    if (mQuestions.size() == 0) {
+                        MenuPublicationFragment.mRecyclerView.setVisibility(View.GONE);
+                        MenuPublicationFragment.vazio.setVisibility(View.VISIBLE);
+                    } else {
+                        MenuPublicationFragment.mRecyclerView.setVisibility(View.VISIBLE);
+                        MenuPublicationFragment.vazio.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {}
 
                 return;
             }

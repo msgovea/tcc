@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     private int mColor;
 
     public static RecyclerView mRecyclerView1;
+    public static ConstraintLayout vazio;
     public  View mProgressView;
     private QuestionsAdapterPerfil mAdapter2;
     private Long idUsuario;
@@ -76,6 +79,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
             //TODO
         }
 
+        vazio = (ConstraintLayout) view.findViewById(R.id.vazio);
 
         // iniciando recycleview - exibicao das publicacoes
         mRecyclerView1 = (RecyclerView) view.findViewById(R.id.listPosts1);
@@ -160,6 +164,17 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
             mRecyclerView1.setAdapter(mAdapter2 = new QuestionsAdapterPerfil(getContext(), lista));
+
+        try {
+            if (mAdapter2.getItemCount() == 0) {
+                mRecyclerView1.setVisibility(View.GONE);
+                vazio.setVisibility(View.VISIBLE);
+            } else {
+                mRecyclerView1.setVisibility(View.VISIBLE);
+                vazio.setVisibility(View.GONE);
+            }
+        }catch (Exception e) {}
+
             showProgress(false);
     }
 

@@ -70,13 +70,13 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
         getSupportActionBar().setTitle(getString(R.string.impulsionar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        try {
+        /*try {
             mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001,
                     mPurchaseFinishedListener, "impulsionamento_1");
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             showErrorMessage();
-        }
+        }*/
     }
 
     public void buttonClicked(View view) {
@@ -170,7 +170,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
                 Purchase impPurchase = inventory.getPurchase(ITEM_SKU);
                 if (impPurchase != null) {
                     Log.d(TAG, "We have IMPULSIONAMENTO. Consuming it.");
-                    Toast.makeText(InAppBillingActivity.this, "We have IMPULSIONAMENTO. Consuming it", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InAppBillingActivity.this, "Você tem um pacote não consumido, utilizando.", Toast.LENGTH_LONG).show();
                     mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
                             mConsumeFinishedListener);
                     return;
