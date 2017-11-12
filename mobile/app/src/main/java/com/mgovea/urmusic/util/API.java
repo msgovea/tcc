@@ -34,7 +34,7 @@ public interface API {
     String FOLLOW_USER           = "usuario/seguir";
     String LIKE_PUBLICATION      = "publicacoes/curtir";
     String DENUNCIAR             = "denuncia/cadastrar";
-    String ENVIAR_EMAIL          = "email/enviar";
+    String ENVIAR_EMAIL          = "email/contato";
 
     String API_PAISES            = "http://api.londrinaweb.com.br/PUC/Paisesv2/0/1000";
 

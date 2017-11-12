@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 def versionMajor = 1
 def versionMinor = 9
-def versionPatch = 2
+def versionPatch = 3
 def versionBuild = Long.valueOf(System.currentTimeMillis().toString().substring(0, 9)).intValue()
 
 android {

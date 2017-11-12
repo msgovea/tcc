@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.core.ImagePipeline;
+import com.mgovea.urmusic.MailActivity;
 import com.mgovea.urmusic.async.follow.AsyncFollowUser;
 import com.mgovea.urmusic.async.profile.AsyncProfile;
 import com.mgovea.urmusic.async.profile.AsyncUploadImage;
@@ -72,6 +74,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private boolean myProfile;
     private Long idUsuario;
     private Usuario usuarioLoad;
+    private ConstraintLayout mLayout;
+    private Button mButtonMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,21 +109,23 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         // se obtem idUsuario, bate na API e traz as informações do usuário
         idUsuario = getIntent().getLongExtra("idUsuario", 0);
 
+        mLayout = (ConstraintLayout) findViewById(R.id.layout);
         mButtonFollow = (Button) findViewById(R.id.btn_follow);
+        mButtonMessage = (Button) findViewById(R.id.btn_mail);
 
         Preferencias pref = new Preferencias(this);
         usuario = pref.getDadosUsuario();
 
         if (idUsuario != usuario.getCodigoUsuario().longValue() && idUsuario != 0) {
             myProfile = false;
-            mButtonFollow.setVisibility(View.VISIBLE);
+            mLayout.setVisibility(View.VISIBLE);
             showLoadingProgressDialog();
             AsyncProfile sinc = new AsyncProfile(this);
             sinc.execute(idUsuario);
         } else {
             myProfile = true;
             idUsuario = usuario.getCodigoUsuario().longValue();
-            mButtonFollow.setVisibility(View.INVISIBLE);
+            mLayout.setVisibility(View.INVISIBLE);
 
             populaPerfil(usuario);
         }
@@ -132,6 +138,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                 amigo.setSeguido(usuarioLoad);
                 AsyncFollowUser sinc = new AsyncFollowUser(ProfileTabbedActivity.this);
                 sinc.execute(amigo);
+            }
+        });
+
+        mButtonMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileTabbedActivity.this, MailActivity.class);
+                intent.putExtra(API.USUARIO, usuarioLoad.getEmail());
+                intent.putExtra(API.BUSCAR_USUARIO_NOME, usuarioLoad.getNome());
+                startActivity(intent);
             }
         });
 

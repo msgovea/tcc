@@ -105,7 +105,7 @@ public class MenuPublicationFragment extends Fragment implements AsyncFriendsPub
 
 
         // iniciando recycleview - exibicao das publicacoes
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts2);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mProgressView = (View) view.findViewById(R.id.publication_progress);

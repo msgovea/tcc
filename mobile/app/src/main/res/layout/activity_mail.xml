@@ -25,7 +25,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="left"
         android:hint="conteudo"
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bt_enviar_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_end_email" />
+        app:layout_constraintTop_toBottomOf="@+id/name_email" />
 
     <TextView
         android:id="@+id/textView10"
@@ -45,18 +45,19 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="Mensagem" />
 
-    <EditText
-        android:id="@+id/et_end_email"
+    <TextView
+        android:id="@+id/name_email"
+        style="@android:style/Widget.TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="e-mail"
-        android:inputType="textPersonName"
+        android:layout_marginTop="16dp"
+        android:text="@string/prompt_name"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
 </android.support.constraint.ConstraintLayout>

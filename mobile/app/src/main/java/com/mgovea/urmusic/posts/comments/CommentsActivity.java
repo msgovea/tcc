@@ -22,6 +22,8 @@ import com.mgovea.urmusic.entity.Comentario;
 import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.posts.QuestionsAdapterHigh;
+import com.mgovea.urmusic.posts.QuestionsAdapterPerfil;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
@@ -191,11 +193,29 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         mComentario.setEnabled(true);
         mComentario.setText(null);
 
-        for (Publicacao p: QuestionsAdapter.mQuestions) {
-            if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
-                p.setQtdComentarios(p.getQtdComentarios() + 1);
+        try {
+            for (Publicacao p: QuestionsAdapter.mQuestions) {
+                if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                    p.setQtdComentarios(p.getQtdComentarios() + 1);
+                }
             }
-        }
+        } catch (Exception e){}
+
+        try {
+            for (Publicacao p: QuestionsAdapterHigh.mQuestions) {
+                if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                    p.setQtdComentarios(p.getQtdComentarios() + 1);
+                }
+            }
+        } catch (Exception e){}
+
+        try {
+            for (Publicacao p: QuestionsAdapterPerfil.mQuestions) {
+                if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                    p.setQtdComentarios(p.getQtdComentarios() + 1);
+                }
+            }
+        } catch (Exception e){}
 
 
         Toast.makeText(getApplicationContext(), getString(R.string.comment_success), Toast.LENGTH_SHORT).show();

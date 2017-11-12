@@ -6,48 +6,33 @@ package com.mgovea.urmusic.entity;
 
 public class Email {
 
-    private Integer codigoEmail;
-    private String remetente;
-    private String assunto;
-    private String mensagem;
+    private Long codigoRemetente;
+    private String texto;
     private String destinatario;
 
-    public Email(String assunto, String mensagem, String destinatario) {
-        this.assunto = assunto;
-        this.mensagem = mensagem;
+    public Email(Long codigoRemetente, String texto, String destinatario) {
+        this.codigoRemetente = codigoRemetente;
+        this.texto = texto;
         this.destinatario = destinatario;
     }
 
-    public Integer getCodigoEmail() {
-        return codigoEmail;
+    public Email() {
     }
 
-    public void setCodigoEmail(Integer codigoEmail) {
-        this.codigoEmail = codigoEmail;
+    public Long getCodigoRemetente() {
+        return codigoRemetente;
     }
 
-    public String getRemetente() {
-        return remetente;
+    public void setCodigoRemetente(Long codigoRemetente) {
+        this.codigoRemetente = codigoRemetente;
     }
 
-    public void setRemetente(String remetente) {
-        this.remetente = remetente;
+    public String getTexto() {
+        return texto;
     }
 
-    public String getAssunto() {
-        return assunto;
-    }
-
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
-    }
-
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+    public void setTexto(String texto) {
+        this.texto = texto;
     }
 
     public String getDestinatario() {

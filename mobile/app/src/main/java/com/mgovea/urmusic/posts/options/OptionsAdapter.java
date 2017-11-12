@@ -42,6 +42,8 @@ import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.Question;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.posts.QuestionsAdapterHigh;
+import com.mgovea.urmusic.posts.QuestionsAdapterPerfil;
 import com.mgovea.urmusic.principal.MenuPublicationFragment;
 import com.mgovea.urmusic.principal.MenuPublicationHighFragment;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
@@ -238,7 +240,15 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
                 mContext.startActivity(intent);
             }
 
-            QuestionsAdapter.bottomSheetDialogFragment.dismiss();
+            try {
+                QuestionsAdapter.bottomSheetDialogFragment.dismiss();
+            } catch (Exception e) {}
+            try {
+                QuestionsAdapterPerfil.bottomSheetDialogFragment.dismiss();
+            } catch (Exception e) {}
+            try {
+                QuestionsAdapterHigh.bottomSheetDialogFragment.dismiss();
+            } catch (Exception e) {}
 
             loading(false);
         }
@@ -250,11 +260,11 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
             } catch (Exception e) {
             }
             try {
-                ((QuestionsAdapter) MenuPublicationHighFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
+                ((QuestionsAdapterHigh) MenuPublicationHighFragment.mRecyclerView2.getAdapter()).removePublicacaoPorID(mIdPublicacao);
             } catch (Exception e) {
             }
             try {
-                ((QuestionsAdapter) PublicationProfileFragment.mRecyclerView.getAdapter()).removePublicacaoPorID(mIdPublicacao);
+                ((QuestionsAdapterPerfil) PublicationProfileFragment.mRecyclerView1.getAdapter()).removePublicacaoPorID(mIdPublicacao);
             } catch (Exception e) {
             }
 
@@ -287,7 +297,15 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.ViewHold
         public void onLoaded(Object o) {
             loading(false);
 
-            QuestionsAdapter.bottomSheetDialogFragment.dismiss();
+            try {
+                QuestionsAdapter.bottomSheetDialogFragment.dismiss();
+            } catch (Exception e) {}
+            try {
+                QuestionsAdapterPerfil.bottomSheetDialogFragment.dismiss();
+            } catch (Exception e) {}
+            try {
+                QuestionsAdapterHigh.bottomSheetDialogFragment.dismiss();
+            } catch (Exception e) {}
             Toast.makeText(mContext, mContext.getString(R.string.denuncia_ok), Toast.LENGTH_LONG).show();
         }
 

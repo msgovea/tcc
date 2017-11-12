@@ -56,7 +56,7 @@ public class AsyncMail extends AsyncTask<Email, String, String> {
             OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
             writer.write(json);
-            Log.i(null, json);
+            Log.i("EMAIL", json);
             writer.flush();
             writer.close();
             outputStream.close();

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,14 +18,18 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.mgovea.urmusic.async.AsyncMail;
 import com.mgovea.urmusic.entity.Email;
+import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.Preferencias;
 
 public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Listener {
 
     private EditText etConteudo;
-    private EditText etEndEmail;
     private Button btEnviarEmail;
+
+    private TextView mNameEmail;
+
+    Email email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,34 +37,53 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
         setContentView(R.layout.activity_mail);
 
         ///
-        FirebaseDynamicLinks.getInstance()
-                .getDynamicLink(getIntent())
-                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-                    @Override
-                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-                        // Get deep link from result (may be null if no link is found)
-                        Uri deepLink = null;
-                        if (pendingDynamicLinkData != null) {
-                            deepLink = pendingDynamicLinkData.getLink();
+        try {
+            FirebaseDynamicLinks.getInstance()
+                    .getDynamicLink(getIntent())
+                    .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                        @Override
+                        public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                            // Get deep link from result (may be null if no link is found)
+                            Uri deepLink = null;
+                            if (pendingDynamicLinkData != null) {
+                                deepLink = pendingDynamicLinkData.getLink();
+                            }
+
+
+                            try {
+                                Toast.makeText(MailActivity.this, deepLink.toString(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e ){}
                         }
+                    })
+                    .addOnFailureListener(this, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "getDynamicLink:onFailure", e);
+                        }
+                    });
+        } catch (Exception e) {
 
-
-                        Toast.makeText(MailActivity.this, deepLink.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "getDynamicLink:onFailure", e);
-                    }
-                });
+        }
 
         ///
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        email = new Email();
+
+        try {
+            email.setDestinatario(getIntent().getStringExtra(API.USUARIO));
+        } catch (Exception e){
+            showErrorMessage();
+        }
+
+        mNameEmail = (TextView) findViewById(R.id.name_email);
+        try {
+            mNameEmail.setText(getIntent().getStringExtra(API.BUSCAR_USUARIO_NOME));
+        } catch (Exception e){
+            mNameEmail.setText("Usuário");
+        }
         etConteudo = (EditText) findViewById(R.id.et_conteudo);
-        etEndEmail = (EditText) findViewById(R.id.et_end_email);
         btEnviarEmail = (Button) findViewById(R.id.bt_enviar_email);
 
         btEnviarEmail.setOnClickListener(new View.OnClickListener() {
@@ -72,17 +96,17 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
     }
 
     private void enviaEmail() {
-        String endEmail = etEndEmail.getText().toString();
-        String conteudo = etConteudo.getText().toString();
+        String conteudo = etConteudo.getText().toString().replace("\n","<br>");
 
         //TODO REMOVER
         Preferencias pref = new Preferencias(this);
         //TODO FIM
 
-        Email mail = new Email("Nova mensagem de: " + pref.getDadosUsuario().getApelido(), conteudo, endEmail);
+        email.setTexto(conteudo);
+        email.setCodigoRemetente(pref.getDadosUsuario().getCodigoUsuario());
 
         AsyncMail sinc = new AsyncMail(this);
-        sinc.execute(mail);
+        sinc.execute(email);
     }
 
     @Override

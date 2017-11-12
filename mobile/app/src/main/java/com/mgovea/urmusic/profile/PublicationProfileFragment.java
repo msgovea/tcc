@@ -24,7 +24,8 @@ import com.mgovea.urmusic.posts.QuestionsAdapter;
 
 import java.util.ArrayList;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;
+import com.mgovea.urmusic.posts.QuestionsAdapterPerfil;
 
 
 /**
@@ -35,9 +36,9 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     private String mText;
     private int mColor;
 
-    public static RecyclerView mRecyclerView;
+    public static RecyclerView mRecyclerView1;
     public  View mProgressView;
-    private QuestionsAdapter mAdapter;
+    private QuestionsAdapterPerfil mAdapter2;
     private Long idUsuario;
     private ListView listView;
 
@@ -77,8 +78,8 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
 
 
         // iniciando recycleview - exibicao das publicacoes
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView1 = (RecyclerView) view.findViewById(R.id.listPosts1);
+        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mProgressView = (View) view.findViewById(R.id.publication_progress_profile);
 
@@ -123,12 +124,12 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
-                mRecyclerView.animate().setDuration(shortAnimTime).alpha(
+                mRecyclerView1.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView1.animate().setDuration(shortAnimTime).alpha(
                         show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                        mRecyclerView1.setVisibility(show ? View.GONE : View.VISIBLE);
                     }
                 });
 
@@ -144,7 +145,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
                 // The ViewPropertyAnimator APIs are not available, so simply show
                 // and hide the relevant UI components.
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView1.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         }
         catch (Exception e) {
@@ -158,7 +159,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), lista));
+            mRecyclerView1.setAdapter(mAdapter2 = new QuestionsAdapterPerfil(getContext(), lista));
             showProgress(false);
     }
 

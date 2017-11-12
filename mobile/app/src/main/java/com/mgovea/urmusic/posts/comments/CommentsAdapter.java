@@ -16,7 +16,11 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mgovea.urmusic.async.comments.AsyncRemoveComments;
 import com.mgovea.urmusic.entity.Comentario;
+import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.posts.Question;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.posts.QuestionsAdapterHigh;
+import com.mgovea.urmusic.posts.QuestionsAdapterPerfil;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
@@ -200,14 +204,38 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
         @Override
         public void onLoaded(Boolean bool) {
+            Comentario comentario = mComments.get(position);
             mComments.remove(position);
             notifyDataSetChanged();
-            //TODO PALOMA TEXTO
+
             Toast.makeText(mContext,
                     mContext.getString(R.string.remove_comment_success),
                     Toast.LENGTH_LONG)
                     .show();
-            //FIM TODO PALOMA
+
+            try {
+                for (Publicacao p: QuestionsAdapter.mQuestions) {
+                    if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                        p.setQtdComentarios(p.getQtdComentarios() - 1);
+                    }
+                }
+            } catch (Exception e){}
+
+            try {
+                for (Publicacao p: QuestionsAdapterHigh.mQuestions) {
+                    if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                        p.setQtdComentarios(p.getQtdComentarios() - 1);
+                    }
+                }
+            } catch (Exception e){}
+
+            try {
+                for (Publicacao p: QuestionsAdapterPerfil.mQuestions) {
+                    if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                        p.setQtdComentarios(p.getQtdComentarios() - 1);
+                    }
+                }
+            } catch (Exception e){}
             loading(false);
         }
 

@@ -27,6 +27,7 @@ import com.mgovea.urmusic.async.publication.AsyncHighPublication;
 import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.posts.QuestionsAdapterHigh;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
 import com.mgovea.urmusic.util.RecyclerItemClickListener;
@@ -46,9 +47,9 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
     private int mColor;
 
     private View mContent;
-    public static RecyclerView mRecyclerView;
+    public static RecyclerView mRecyclerView2;
     public View mProgressView;
-    private QuestionsAdapter mAdapter;
+    private QuestionsAdapterHigh mAdapter1;
     private SharedPreferences prefs;
     private ListView listView;
 
@@ -65,7 +66,7 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
     public void onResume() {
         super.onResume();
         try {
-            mAdapter.atualiza();
+            mAdapter1.atualiza();
         } catch (Exception e) {}
     }
 
@@ -94,8 +95,8 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
         mContent = view.findViewById(R.id.content);
 
         // iniciando recycleview - exibicao das publicacoes
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView2 = (RecyclerView) view.findViewById(R.id.listPosts2);
+        mRecyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mProgressView = (View) view.findViewById(R.id.publication_progress);
 
@@ -137,12 +138,12 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
-                mRecyclerView.animate().setDuration(shortAnimTime).alpha(
+                mRecyclerView2.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView2.animate().setDuration(shortAnimTime).alpha(
                         show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                        mRecyclerView2.setVisibility(show ? View.GONE : View.VISIBLE);
                     }
                 });
 
@@ -158,7 +159,7 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
                 // The ViewPropertyAnimator APIs are not available, so simply show
                 // and hide the relevant UI components.
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView2.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         } catch (Exception e) {
             e.getCause();
@@ -171,10 +172,10 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-        mAdapter = new QuestionsAdapter(getContext(), lista);
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter1 = new QuestionsAdapterHigh(getContext(), lista);
+        mRecyclerView2.setAdapter(mAdapter1);
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+        mRecyclerView2.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 //int pos = listView.getPositionForView(view);
@@ -201,7 +202,7 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
     }
 
     private void onItemClicado(int position) {
-        Toast.makeText(getContext(), "Cliquei no item " + mAdapter.getItem(position).getConteudo(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Cliquei no item " + mAdapter1.getItem(position).getConteudo(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
