@@ -20,11 +20,9 @@ public interface PublicacaoService {
 
 	List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario);
 
-	List<Publicacao> getPublicacoesEmAlta();
-
 	Boolean removerComentario(Long codigoComentario);
 
-	Boolean impulsionarPublicacao(Long codigoPublicacao);
+	Boolean impulsionarPublicacao(Long codigoPublicacao, Integer gostoMusical);
 
 	List<Publicacao> getPublicacoes(String idUsuario);
 
@@ -33,4 +31,6 @@ public interface PublicacaoService {
 	Publicacao populaQtdComentarios(Publicacao publicacao);
 
 	List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes);
+
+	List<Publicacao> getPublicacoesEmAlta(Integer codUsuario);
 }

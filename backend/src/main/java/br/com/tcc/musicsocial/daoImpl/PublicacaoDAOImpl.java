@@ -71,15 +71,18 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Publicacao> getPublicacoesEmAlta() {
+	public List<Publicacao> getPublicacoesEmAlta(List<Integer> gostos) {
 		StringBuilder hql = new StringBuilder();
 		hql.append("select p from Publicacao p ");
 		hql.append("where p.impulsionada = :impulsionada ");
 		hql.append("and p.ativa = :ativa ");
+		hql.append("and (p.gosto.codigo in (:gostos) ");
+		hql.append("or p.gosto is null) ");
 		hql.append("order by p.codigo desc ");
 		Query query = getEntityManager().createQuery(hql.toString());
 		query.setParameter("impulsionada", true);
 		query.setParameter("ativa", true);
+		query.setParameter("gostos", gostos);
 		return query.getResultList();
 	}
 }

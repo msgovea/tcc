@@ -8,4 +8,6 @@ import br.com.tcc.musicsocial.entity.UsuarioGostoMusical;
 public interface GostoMusicalDAO extends BaseDAO<UsuarioGostoMusical> {
 
 	List<GostoMusical> findAllGostos();
+	
+	GostoMusical findGostoById(Integer idGosto);
 }

@@ -86,8 +86,7 @@
             <div class="card-header clearfix">
                 <div style="width:250px; float:left;">
                     <div class="user-pic">
-                        <img alt="Profile Image" width="33" height="33" ui-jq="unveil" data-src-retina="assets/img/profiles/avatar.jpg" data-src="assets/img/profiles/avatar.jpg"
-                            ng-src="assets/img/profiles/avatar.jpg">
+                        <img alt="Profile Image" width="33" height="33" ui-jq="unveil" src="http://urmusic.me:82/perfil/{{publicacaoModal.usuario.codigoUsuario}}.jpg">
                     </div>
                     <h5>{{publicacaoModal.usuario.nome}}</h5>
                     <h6>{{publicacaoModal.dataPublicacao | date}}
@@ -130,8 +129,11 @@
                     <div class="modal-content" style="max-width: 390px; margin: auto;">
                         <div class="modal-body text-center m-t-20">
                             <h4 class="no-margin p-b-10">Escolha o tipo de aprovação:</h4>  
-                            <button type="button" class="btn btn-primary float-sm-right" ng-click="aprovarDenuncias(1)" data-dismiss="modal">Bloquear usuario</button>
-                            <button type="button" class="btn btn-primary float-sm-left" ng-click="aprovarDenuncias(2)" data-dismiss="modal">Remover publicação</button>
+                            <button type="button" class="btn btn-success float-sm-right" ng-click="aprovarDenuncias(1)" data-dismiss="modal">Bloquear usuario</button>
+                            <button type="button" class="btn btn-success float-sm-left" ng-click="aprovarDenuncias(2)" data-dismiss="modal">Remover publicação</button>
+                            <div class="row m-t-5">
+                                <button type="button" class="btn btn-danger float-sm-left" ng-click="aprovarDenuncias(3)" data-dismiss="modal">Reprovar denuncia</button>
+                            </div>
                         </div>
                     </div>
                 </div>

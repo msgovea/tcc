@@ -15,10 +15,17 @@ angular.module('app')
 
         if(toState.data.requireLogin) {
             function validarAutenticacao() {
+                
                 if ($cookieStore.get('usuario') == undefined){
                    return false;
                 }
-                else {
+                else if(toState.data.requireAdmin) {
+                    if($cookieStore.get('usuario').nivelUsuario.codigoNivel == 3) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
                     return true;
                 }                    
                 //TODO 

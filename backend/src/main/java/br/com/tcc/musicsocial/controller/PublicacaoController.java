@@ -51,11 +51,11 @@ public class PublicacaoController {
 	}
 
 	@CrossOrigin
-	@RequestMapping(value = "/get/alta")
-	public Response<?> getPublicacoesEmAlta() {
+	@RequestMapping(value = "/get/alta/{codUsuario}")
+	public Response<?> getPublicacoesEmAlta(@PathVariable Integer codUsuario) {
 		try {
 			return new Response<List<Publicacao>>(MessagesEnum.SUCESSO.getDescricao(),
-					publicacaoService.getPublicacoesEmAlta());
+					publicacaoService.getPublicacoesEmAlta(codUsuario));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Response<Object>(MessagesEnum.FALHA.getDescricao(), e);
@@ -149,9 +149,9 @@ public class PublicacaoController {
 	
 	@CrossOrigin
 	@RequestMapping("/impulsionar/{codigoPublicacao}")
-	public Response<?> impulsionarPublicacao(@PathVariable Long codigoPublicacao) {
+	public Response<?> impulsionarPublicacao(@PathVariable Long codigoPublicacao, @RequestParam Integer gostoMusical) {
 		try {
-			if (publicacaoService.impulsionarPublicacao(codigoPublicacao)) {
+			if (publicacaoService.impulsionarPublicacao(codigoPublicacao, gostoMusical)) {
 				return new Response<Object>(MessagesEnum.SUCESSO.getDescricao());
 			} else {
 				return new Response<Object>(MessagesEnum.INVALIDO.getDescricao());

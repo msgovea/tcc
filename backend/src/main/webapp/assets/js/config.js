@@ -422,7 +422,8 @@ angular.module('app')
             .state('app.denuncias', {
                 url: '/admin/denuncias',
                 data: {
-                    requireLogin: true
+                    requireLogin: true,
+                    requireAdmin: true
                 },
                 templateUrl: 'tpl/apps/admin/denuncias.html',
                 resolve: {
