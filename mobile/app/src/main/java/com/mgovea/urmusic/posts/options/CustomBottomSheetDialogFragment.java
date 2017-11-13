@@ -76,22 +76,14 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         mRecyclerView = (RecyclerView) contentView.findViewById(R.id.recyclerview_options);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        /*
-        * TODO PALOMA
-        * TEXTOS COM DESCRIÇÃO E SUBDESCRIÇÃO DOS MENUS
-            QUE APARECEM QUANDO SE CLICA NOS 3 PONTINHOS DA PUBLICAÇÃO
-            */
 
         ArrayList<Menu> menu = new ArrayList<>();
 
-        //Preferencias pref = new Preferencias(getContext());
-
-        //TODO MSG PALOMA
         if (pref.getDadosUsuario().getCodigoUsuario().equals(idUsuario)) {
-            menu.add(new Menu(1, "Excluir", "Sua publicação será definitivamente removida."));
-            menu.add(new Menu(2, getString(R.string.impulsionar), "Seu conteúdo para um maior número de usuários!"));
+            menu.add(new Menu(1, getString(R.string.excluir), getString(R.string.excluir_desc)));
+            menu.add(new Menu(2, getString(R.string.impulsionar), getString(R.string.impulsionar_desc)));
         } else {
-            menu.add(new Menu(3, "Denunciar", "Caso o conteúdo seja ofensivo ou impróprio."));
+            menu.add(new Menu(3, getString(R.string.denunciar), getString(R.string.denunciar_desc)));
         }
 
         mAdapter = new OptionsAdapter(getContext(), menu, idPublicacao, idUsuario);

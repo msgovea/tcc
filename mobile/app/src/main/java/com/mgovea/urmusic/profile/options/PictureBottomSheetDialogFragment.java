@@ -68,15 +68,10 @@ public class PictureBottomSheetDialogFragment extends BottomSheetDialogFragment 
         mRecyclerView = (RecyclerView) contentView.findViewById(R.id.recyclerview_options);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        /*
-        * TODO PALOMA
-        * TEXTOS COM DESCRIÇÃO E SUBDESCRIÇÃO DOS MENUS
-        * QUE APARECEM QUANDO SE CLICA NA FOTO DO PROPRIO PERFIL
-        */
 
         ArrayList<Menu> menu = new ArrayList<>();
         //menu.add(new Menu(1, "Visualizar", "Visualize sua imagem de perfil"));
-        menu.add(new Menu(2, "Alterar", "Altere sua imagem de perfil"));
+        menu.add(new Menu(2, getString(R.string.alt_img_perfil), getString(R.string.alt_img_perfil_desc)));
 
         mAdapter = new PictureAdapter(getContext(), menu, idUsuario);
         mRecyclerView.setAdapter(mAdapter);

@@ -2,6 +2,7 @@ package com.mgovea.urmusic.profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -291,10 +292,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
-                //resize
-                //imagem = Bitmap.createScaledBitmap(imagem, 300, 300, false);
-
-                //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
@@ -306,12 +303,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                 ImagemUsuario imagemUsuario = new ImagemUsuario(idUsuario, byteArray);
                 AsyncUploadImage sinc = new AsyncUploadImage(this);
                 sinc.execute(imagemUsuario);
-
-
-                //TODO EXIBIR BYTE ARRAY BYTE
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//                imageView.setImageBitmap(bitmap);
-
 
             } catch (Exception e) {
                 e.printStackTrace();

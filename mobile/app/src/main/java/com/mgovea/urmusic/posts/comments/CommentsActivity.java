@@ -64,19 +64,6 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
 
         enviarComentario();
 
-        //
-//        ArrayList<Comentario> lista = new ArrayList<>();
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//
-//
-//        mAdapter = new CommentsAdapter(this, lista);
-//        mRecyclerView.setAdapter(mAdapter);
-
-        //
-
         loadComments();
     }
 
@@ -118,9 +105,6 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
     }
 
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
@@ -169,7 +153,6 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
     @Override
     public void onLoadedError(String s) {
         showProgress(false);
-        //dismissProgressDialog();
         try {
             showErrorMessage();
         } catch (Exception e) {

@@ -176,8 +176,6 @@
     <string name="tools">Configurações</string>
     <string name="terms">Termos e Politicas</string>
 
-    <string name="impulsionar">Impulsionar</string>
-
     <string name="gosto">Gostos Musicais</string>
     <string name="publi">Publicações</string>
 
@@ -233,5 +231,30 @@
 
     <string name="mail_ok">E-mail enviado com sucesso</string>
     <string name="content">Escreva aqui sua mensagem...</string>
+
+
+    <string name="denunciar">Denunciar</string>
+    <string name="denunciar_desc">Caso o conteúdo seja ofensivo ou impróprio.</string>
+
+    <string name="excluir">Excluir</string>
+    <string name="excluir_desc">Sua publicação será definitivamente removida.</string>
+
+    <string name="impulsionar">Impulsionar</string>
+    <string name="impulsionar_desc">Seu conteúdo para um maior número de usuários!</string>
+
+    <string name="alt_img_perfil">Alterar</string>
+    <string name="alt_img_perfil_desc">Altere sua imagem de perfil</string>
+
+    <string name="info_impul">Informações de Impulsionamento</string>
+
+    <string name="intro_title1">Amantes da Música</string>
+    <string name="intro_desc1">Dedicado ao público envolvido com a música: músicos profissionais, amadores, donos de casa de evento ou somente quem gosta de ouvi-la.</string>
+
+    <string name="intro_title4">Interesses</string>
+    <string name="intro_desc4">Baseado no gosto musical de cada usuário, facilitando assim, atingir o público que realmente tem o mesmo interesse por música que você</string>
+
+    <string name="intro_title5">Individualidade</string>
+    <string name="intro_desc5">Facilidade de conhecer, promover e compartilhar músicas e eventos para um público focado</string>
+
 
 </resources>
