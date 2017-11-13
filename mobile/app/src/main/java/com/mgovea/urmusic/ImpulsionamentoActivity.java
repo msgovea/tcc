@@ -85,7 +85,7 @@ public class ImpulsionamentoActivity extends AbstractAsyncActivity implements As
 
         Intent intent = new Intent(this, InAppBillingActivity.class);
         intent.putExtra(API.PUBLICACAO, mIdPublicacao);
-        intent.putExtra(API.GOSTO, gostoUsuario.getFavorito());
+        intent.putExtra(API.GOSTO, gostoUsuario.getFavorito().longValue());
 
         startActivity(intent);
     }

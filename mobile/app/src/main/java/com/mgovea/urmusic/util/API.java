@@ -24,7 +24,7 @@ public interface API {
     String GOSTOS_MUSICAIS_REGISTER = "usuario/gostosmusicais";
     String PUBLICATION           = "publicacoes/get";
     String PUBLICATION_FRIEND    = "publicacoes/get/amigos";
-    String PUBLICATION_HIGH      = "publicacoes/get/alta";
+    String PUBLICATION_HIGH      = "publicacoes/get/alta/";
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
     String PUBLICATION_IMPULS    = "publicacoes/impulsionar/";
     String COMMENTS_REGISTER     = "publicacoes/comentar";

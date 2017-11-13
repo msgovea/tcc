@@ -1,5 +1,6 @@
 package com.mgovea.urmusic;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -11,6 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appinvite.AppInvite;
+import com.google.android.gms.appinvite.AppInviteInvitationResult;
+import com.google.android.gms.appinvite.AppInviteReferral;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -27,46 +34,15 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
 
     private EditText etConteudo;
     private Button btEnviarEmail;
-
     private TextView mNameEmail;
+    private Email email;
 
-    Email email;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mail);
-
-        ///
-        try {
-            FirebaseDynamicLinks.getInstance()
-                    .getDynamicLink(getIntent())
-                    .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
-                        @Override
-                        public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-                            // Get deep link from result (may be null if no link is found)
-                            Uri deepLink = null;
-                            if (pendingDynamicLinkData != null) {
-                                deepLink = pendingDynamicLinkData.getLink();
-                            }
-
-
-                            try {
-                                Toasty.warning(MailActivity.this, deepLink.toString(), Toast.LENGTH_SHORT, true).show();
-                            } catch (Exception e ){}
-                        }
-                    })
-                    .addOnFailureListener(this, new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "getDynamicLink:onFailure", e);
-                        }
-                    });
-        } catch (Exception e) {
-
-        }
-
-        ///
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -74,14 +50,14 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
 
         try {
             email.setDestinatario(getIntent().getStringExtra(API.USUARIO));
-        } catch (Exception e){
+        } catch (Exception e) {
             showErrorMessage();
         }
 
         mNameEmail = (TextView) findViewById(R.id.name_email);
         try {
             mNameEmail.setText(getIntent().getStringExtra(API.BUSCAR_USUARIO_NOME));
-        } catch (Exception e){
+        } catch (Exception e) {
             mNameEmail.setText("Usuário");
         }
         etConteudo = (EditText) findViewById(R.id.et_conteudo);
@@ -97,7 +73,7 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
     }
 
     private void enviaEmail() {
-        String conteudo = etConteudo.getText().toString().replace("\n","<br>");
+        String conteudo = etConteudo.getText().toString().replace("\n", "<br>");
 
         //TODO REMOVER
         Preferencias pref = new Preferencias(this);
@@ -116,7 +92,8 @@ public class MailActivity extends AbstractAsyncActivity implements AsyncMail.Lis
             case android.R.id.home:
                 onBackPressed();
                 break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }

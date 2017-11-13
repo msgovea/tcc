@@ -160,9 +160,7 @@ public class EditPasswordActivity extends AbstractAsyncActivity implements Async
             }
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO MSG ERRO APP QUEBRADO
         }
-
     }
 
     private void atualizaUsuario(Usuario usuarioAtualizado){

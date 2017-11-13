@@ -51,7 +51,7 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
     public static RecyclerView mRecyclerView2;
     public View mProgressView;
     private QuestionsAdapterHigh mAdapter1;
-    private SharedPreferences prefs;
+    private Preferencias prefs;
     private ListView listView;
     public static LinearLayout vazio;
 
@@ -105,12 +105,8 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
 
         mProgressView = (View) view.findViewById(R.id.publication_progress);
 
-        Preferencias pref = new Preferencias(getContext());
-
         AppBarLayout teste_mgovea = (AppBarLayout) view.findViewById(R.id.appbar_pub);
-        //if (!pref.getDadosUsuario().getCodigoUsuario().equals(Long.valueOf(21))) {
-            teste_mgovea.setVisibility(View.GONE);
-        //}
+        teste_mgovea.setVisibility(View.GONE);
 
 
         loadPublication();
@@ -126,13 +122,11 @@ public class MenuPublicationHighFragment extends Fragment implements AsyncHighPu
 
     private void loadPublication() {
         showProgress(true);
-        //getContext().showLoadingProgressDialog();
-        Gson gson = new Gson();
-        prefs = getContext().getSharedPreferences(API.USUARIO, MODE_PRIVATE);
-        Usuario usuario = gson.fromJson(prefs.getString(API.USUARIO, null), Usuario.class);
+
+        prefs = new Preferencias(getContext());
 
         AsyncHighPublication sinc = new AsyncHighPublication(this);
-        sinc.execute();
+        sinc.execute(prefs.getDadosUsuario().getCodigoUsuario());
     }
 
     private void showProgress(final boolean show) {

@@ -55,12 +55,28 @@
 
         <activity android:name=".InAppBillingActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+        </activity>
+        <activity
+            android:name=".MailActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <data
+                    android:host="r789f.app.goo.gl"
+                    android:scheme="http"
+                    android:pathPrefix="/idLista"
+                    tools:ignore="AppLinkUrlError" />
+
+                <data
+                    android:host="r789f.app.goo.gl"
+                    android:scheme="https"
+                    android:pathPrefix="/idLista"
+                    tools:ignore="AppLinkUrlError" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MenuActivity"
@@ -166,26 +182,7 @@
             android:label="@string/prompt_post"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MailActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="r789f.app.goo.gl/cffF"
-                    android:scheme="http"
-                    tools:ignore="AppLinkUrlError" />
-
-                <data
-                    android:host="r789f.app.goo.gl/cffF"
-                    android:scheme="https"
-                    tools:ignore="AppLinkUrlError" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".register.RegisterActivityNew"
             android:label="@string/title_activity_register_new"

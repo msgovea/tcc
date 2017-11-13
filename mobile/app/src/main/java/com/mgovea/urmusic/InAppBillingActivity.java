@@ -226,7 +226,7 @@ public class InAppBillingActivity extends AbstractAsyncActivity implements Async
             builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //b.finish();
+                    finish();
                 }
             });
             builder.setCancelable(false);

@@ -36,9 +36,11 @@ public class AsyncImpulsionarPublication extends AsyncTask<Long, String, String>
 
         HttpURLConnection urlConnection;
 
+        String gosto = (n[1] == 0)? "" : n[1].toString();
+
         try {
 
-            URL url = new URL(API.URL + API.PUBLICATION_IMPULS + n[0] + "?gostoMusical=" + n[1]);
+            URL url = new URL(API.URL + API.PUBLICATION_IMPULS + n[0] + "?gostoMusical=" + gosto);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");

@@ -19,13 +19,20 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.mgovea.urmusic.async.profile.AsyncProfile;
+import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.register.RegisterActivityNew;
+import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import es.dmoral.toasty.Toasty;
 import io.fabric.sdk.android.Fabric;
 
-public class SplashScreen extends Activity {
+public class SplashScreen extends Activity implements AsyncProfile.Listener {
 
     Uri deepLink = null;
 
@@ -67,10 +74,18 @@ public class SplashScreen extends Activity {
                             if (pendingDynamicLinkData != null) {
                                 deepLink = pendingDynamicLinkData.getLink();
 
+                                try {
+                                    String[] divisao = deepLink.toString().split("/");
+                                    String id = divisao[divisao.length-1];
+
+                                    //Toasty.error(getBaseContext(), id, Toast.LENGTH_LONG, true).show();
+
+                                    AsyncProfile sinc = new AsyncProfile(SplashScreen.this);
+                                    sinc.execute(Long.valueOf(id));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                            try {
-                                Toasty.warning(SplashScreen.this, deepLink.toString(), Toast.LENGTH_SHORT, true).show();
-                            } catch (Exception e ){}
                         }
                     })
                     .addOnFailureListener(this, new OnFailureListener() {
@@ -101,12 +116,10 @@ public class SplashScreen extends Activity {
                     } else {
                         pref.atualizaUsuario();
 
-                        if (deepLink != null) {
-                            startActivity(new Intent(SplashScreen.this, MailActivity.class));
-                        }else {
+                        if (deepLink == null) {
                             startActivity(new Intent(SplashScreen.this, MenuActivity.class));
+                            finish();
                         }
-                        finish();
                     }
                 }
             }
@@ -116,9 +129,23 @@ public class SplashScreen extends Activity {
 
     }
 
+    @Override
+    public void onLoaded(Object o) {
+        if (o.getClass() == Usuario.class) {
+            Usuario usuarioLoad = (Usuario) o;
+            Intent intent = new Intent(SplashScreen.this, MailActivity.class);
+            intent.putExtra(API.USUARIO, usuarioLoad.getEmail());
+            intent.putExtra(API.BUSCAR_USUARIO_NOME, usuarioLoad.getNome());
+            startActivity(intent);
+        } else {
+            Log.e("urMusic", o.toString());
+        }
+        finish();
+    }
+
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         //finish();
     }

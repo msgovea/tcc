@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class AsyncHighPublication extends AsyncTask<Void, String, String> {
+public class AsyncHighPublication extends AsyncTask<Long, String, String> {
 
     public interface Listener {
         void onLoaded(ArrayList<Publicacao> lista);
@@ -33,13 +33,13 @@ public class AsyncHighPublication extends AsyncTask<Void, String, String> {
 
     }
     @Override
-    protected String doInBackground(Void... params) {
+    protected String doInBackground(Long... n) {
 
         HttpURLConnection urlConnection;
 
         try {
 
-            URL url = new URL(API.URL + API.PUBLICATION_HIGH);
+            URL url = new URL(API.URL + API.PUBLICATION_HIGH + n[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");
