@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
-def versionMajor = 1
-def versionMinor = 5
-def versionPatch = 6
+def versionMajor = 2
+def versionMinor = 1
+def versionPatch = 3
 def versionBuild = Long.valueOf(System.currentTimeMillis().toString().substring(0, 9)).intValue()
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         versionCode versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -17,7 +17,9 @@ android {
         targetSdkVersion 25
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -45,6 +47,9 @@ dependencies {
     })
 
 
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     compile 'com.android.support:appcompat-v7:25.2.0'
@@ -57,17 +62,62 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'org.apache.commons:commons-lang3:3.4'
-
+    compile 'com.android.support.constraint:constraint-layout:+'
     compile 'com.google.firebase:firebase-storage:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.firebase:firebase-jobdispatcher:0.8.2'
     compile 'com.google.firebase:firebase-auth:10.0.1'
 
+
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
+
     testCompile 'junit:junit:4.12'
 }
+
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://jitpack.io" }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+    compile 'com.github.varunest:sparkbutton:1.0.5'
+}
+
+dependencies {
+    compile 'com.github.GrenderG:Toasty:1.2.5'
+}
+
 repositories {
     maven {
         url 'https://repo.spring.io/libs-milestone'
     }
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
+
+dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    implementation 'com.google.firebase:firebase-invites:11.0.4'
+}
+repositories {
+    maven {
+        url 'https://maven.fabric.io/public'
+    }
+}

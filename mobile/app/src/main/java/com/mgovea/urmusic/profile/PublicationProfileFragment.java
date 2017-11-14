@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mgovea.urmusic.async.publication.AsyncPublication;
 import com.mgovea.urmusic.entity.Publicacao;
@@ -23,7 +26,8 @@ import com.mgovea.urmusic.posts.QuestionsAdapter;
 
 import java.util.ArrayList;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;
+import com.mgovea.urmusic.posts.QuestionsAdapterPerfil;
 
 
 /**
@@ -34,9 +38,10 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
     private String mText;
     private int mColor;
 
-    public static RecyclerView mRecyclerView;
+    public static RecyclerView mRecyclerView1;
+    public static ConstraintLayout vazio;
     public  View mProgressView;
-    private QuestionsAdapter mAdapter;
+    private QuestionsAdapterPerfil mAdapter2;
     private Long idUsuario;
     private ListView listView;
 
@@ -74,10 +79,11 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
             //TODO
         }
 
+        vazio = (ConstraintLayout) view.findViewById(R.id.vazio);
 
         // iniciando recycleview - exibicao das publicacoes
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listPosts);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView1 = (RecyclerView) view.findViewById(R.id.listPosts1);
+        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         mProgressView = (View) view.findViewById(R.id.publication_progress_profile);
 
@@ -113,25 +119,6 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
         }
     }
 
-    private String trataData(String data) {
-        try {
-            String dataFinal;
-
-            String[] partes = data.split("-");
-
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " +  partes[0];
-
-            return dataFinal;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-    }
-
-    public String theMonth(int month){
-        String[] monthNames = getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month-1];
-    }
 
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -141,12 +128,12 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
-                mRecyclerView.animate().setDuration(shortAnimTime).alpha(
+                mRecyclerView1.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView1.animate().setDuration(shortAnimTime).alpha(
                         show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                        mRecyclerView1.setVisibility(show ? View.GONE : View.VISIBLE);
                     }
                 });
 
@@ -162,7 +149,7 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
                 // The ViewPropertyAnimator APIs are not available, so simply show
                 // and hide the relevant UI components.
                 mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                mRecyclerView.setVisibility(show ? View.GONE : View.VISIBLE);
+                mRecyclerView1.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         }
         catch (Exception e) {
@@ -176,7 +163,18 @@ public class PublicationProfileFragment extends Fragment implements AsyncPublica
 
     @Override
     public void onLoaded(ArrayList<Publicacao> lista) {
-            mRecyclerView.setAdapter(mAdapter = new QuestionsAdapter(getContext(), lista));
+            mRecyclerView1.setAdapter(mAdapter2 = new QuestionsAdapterPerfil(getContext(), lista));
+
+        try {
+            if (mAdapter2.getItemCount() == 0) {
+                mRecyclerView1.setVisibility(View.GONE);
+                vazio.setVisibility(View.VISIBLE);
+            } else {
+                mRecyclerView1.setVisibility(View.VISIBLE);
+                vazio.setVisibility(View.GONE);
+            }
+        }catch (Exception e) {}
+
             showProgress(false);
     }
 

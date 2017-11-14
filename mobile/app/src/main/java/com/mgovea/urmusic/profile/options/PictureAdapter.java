@@ -64,7 +64,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
             case 1:
                 holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_view));
                 break;
-            case 2:
+            case 2://2:
                 holder.mIconOption.setImageDrawable(mContext.getDrawable(R.drawable.ic_edit));
                 break;
             default:
@@ -131,10 +131,10 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
             int position = getAdapterPosition();
 
             switch (position) {
+                //case 0:
+                //     VIEW IMAGE
+                //    break;
                 case 0:
-                    //TODO VIEW IMAGE
-                    break;
-                case 1:
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     ((ProfileTabbedActivity)mContext).startActivityForResult(intent, 1);
                     break;

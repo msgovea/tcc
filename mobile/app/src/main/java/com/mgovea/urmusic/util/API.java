@@ -7,7 +7,7 @@ package com.mgovea.urmusic.util;
 public interface API {
 
     //API
-    String URL                  = "http://192.198.90.26/";
+    String URL                  = "http://192.198.90.26:80/";
 
     String URL_IMGS             = "http://www.urmusic.me:82/";
     String IMG_PERFIL           = "perfil/";
@@ -24,17 +24,32 @@ public interface API {
     String GOSTOS_MUSICAIS_REGISTER = "usuario/gostosmusicais";
     String PUBLICATION           = "publicacoes/get";
     String PUBLICATION_FRIEND    = "publicacoes/get/amigos";
+    String PUBLICATION_HIGH      = "publicacoes/get/alta/";
     String PUBLICATION_REGISTER  = "publicacoes/cadastrar";
+    String PUBLICATION_IMPULS    = "publicacoes/impulsionar/";
     String COMMENTS_REGISTER     = "publicacoes/comentar";
     String COMMENTS              = "publicacoes/comentarios/listar?codigoPublicacao=";
     String REMOVE_COMMENTS       = "publicacoes/comentario/remover/";
     String REMOVE_PUBLICATION    = "publicacoes/remover?codigo=";
     String FOLLOW_USER           = "usuario/seguir";
     String LIKE_PUBLICATION      = "publicacoes/curtir";
+    String DENUNCIAR             = "denuncia/cadastrar";
+    String ENVIAR_EMAIL          = "email/contato";
+
+    String API_PAISES            = "http://api.londrinaweb.com.br/PUC/Paisesv2/0/1000";
+
+    String API_ESTADO            = "http://api.londrinaweb.com.br/PUC/Estados/";
+    String API_ESTADO_F          = "/0/10000";
+
+    String API_CIDADE            = "http://api.londrinaweb.com.br/PUC/Cidades/";
+    String API_CIDADE_F          = "/0/10000'";
 
 
     //SHAREDPREFERENCE
 
     String USUARIO = "USUARIO";
     String PUBLICACAO = "PUBLICAÇÃO";
+    String IMPULSIONAMENTO = "IMPULSIONAMENTO";
+    String PUBLICADO = "PUBLICADO";
+    String GOSTO = "GOSTO";
 }

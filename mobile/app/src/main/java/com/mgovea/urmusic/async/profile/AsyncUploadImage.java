@@ -75,6 +75,9 @@ public class AsyncUploadImage extends AsyncTask<ImagemUsuario, String, String> {
         } catch (IOException | JsonParseException e) {
             e.printStackTrace();
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

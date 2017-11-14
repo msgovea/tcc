@@ -19,13 +19,17 @@ import com.google.gson.Gson;
 import com.mgovea.urmusic.async.comments.AsyncComments;
 import com.mgovea.urmusic.async.comments.AsyncMakeComment;
 import com.mgovea.urmusic.entity.Comentario;
+import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.posts.QuestionsAdapterHigh;
+import com.mgovea.urmusic.posts.QuestionsAdapterPerfil;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
 import java.util.ArrayList;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;;import es.dmoral.toasty.Toasty;
 
 public class CommentsActivity extends AbstractAsyncActivity implements AsyncComments.Listener, AsyncMakeComment.Listener {
 
@@ -59,19 +63,6 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         mProgressView = (View) findViewById(R.id.comments_progress);
 
         enviarComentario();
-
-        //
-//        ArrayList<Comentario> lista = new ArrayList<>();
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//        lista.add(new Comentario(Long.valueOf("1"), Long.valueOf("1"), new Usuario("Usuário", Integer.valueOf("1")), "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."));
-//
-//
-//        mAdapter = new CommentsAdapter(this, lista);
-//        mRecyclerView.setAdapter(mAdapter);
-
-        //
 
         loadComments();
     }
@@ -114,9 +105,6 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
     }
 
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
                 int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
@@ -165,23 +153,11 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
     @Override
     public void onLoadedError(String s) {
         showProgress(false);
-        //dismissProgressDialog();
         try {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setTitle(getString(R.string.error_title));
-            builder.setMessage(getString(R.string.error));
-            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //b.finish();
-                }
-            });
-            builder.setCancelable(false);
-            builder.show();
+            showErrorMessage();
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO MSG ERRO APP QUEBRADO
+            showErrorMessage(e.getMessage());
         }
     }
 
@@ -191,7 +167,7 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
             comentario.setCodigo(idComentario);
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO MSG ERRO
+            showErrorMessage(e.getMessage());
         }
         mAdapter.addComment(comentario);
         mRecyclerView.smoothScrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
@@ -200,8 +176,32 @@ public class CommentsActivity extends AbstractAsyncActivity implements AsyncComm
         mComentario.setEnabled(true);
         mComentario.setText(null);
 
-        //TODO PALOMA TEXTO
-        Toast.makeText(getApplicationContext(), "Comentário publicado com sucesso!", Toast.LENGTH_SHORT).show();
+        try {
+            for (Publicacao p: QuestionsAdapter.mQuestions) {
+                if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                    p.setQtdComentarios(p.getQtdComentarios() + 1);
+                }
+            }
+        } catch (Exception e){}
+
+        try {
+            for (Publicacao p: QuestionsAdapterHigh.mQuestions) {
+                if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                    p.setQtdComentarios(p.getQtdComentarios() + 1);
+                }
+            }
+        } catch (Exception e){}
+
+        try {
+            for (Publicacao p: QuestionsAdapterPerfil.mQuestions) {
+                if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                    p.setQtdComentarios(p.getQtdComentarios() + 1);
+                }
+            }
+        } catch (Exception e){}
+
+
+        Toasty.success(getApplicationContext(), getString(R.string.comment_success), Toast.LENGTH_SHORT, true).show();
     }
 
 

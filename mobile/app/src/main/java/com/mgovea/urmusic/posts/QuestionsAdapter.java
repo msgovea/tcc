@@ -1,5 +1,6 @@
 package com.mgovea.urmusic.posts;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,33 +10,45 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
+import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.mgovea.urmusic.async.publication.AsyncLikePublication;
 import com.mgovea.urmusic.entity.Curtida;
 import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.comments.CommentsActivity;
 import com.mgovea.urmusic.posts.options.CustomBottomSheetDialogFragment;
+import com.mgovea.urmusic.principal.MenuPublicationFragment;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
+import java.util.TimeZone;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;;import es.dmoral.toasty.Toasty;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.ViewHolder> {
 
-    private List<Publicacao> mQuestions;
+    public static List<Publicacao> mQuestions;
     private Context mContext;
     private Usuario usuario;
 
@@ -43,7 +56,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     @Nullable
     private OnItemClickListener listener;
-    private BottomSheetDialogFragment bottomSheetDialogFragment;
+    public static BottomSheetDialogFragment bottomSheetDialogFragment;
 
 
     public interface OnItemClickListener {
@@ -54,7 +67,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         mContext = context;
         mQuestions = questions;
 
-        pref = new Preferencias(mContext);
+        pref = new Preferencias(context);
         usuario = pref.getDadosUsuario();
     }
 
@@ -75,9 +88,18 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         try {
             String dataFinal;
 
-            String[] partes = data.split("-");
+            Date date = new Date(Long.valueOf(data).longValue());
+            SimpleDateFormat dateFormat;
 
-            dataFinal = partes[2] + " " + theMonth(Integer.parseInt(partes[1])) + " " + partes[0];
+            if (Locale.getDefault().getLanguage().equals("pt")) {
+                dateFormat = new SimpleDateFormat("dd MMM, h:mm a", Locale.getDefault());
+            } else {
+                dateFormat = new SimpleDateFormat("MMM dd, h:mm a", Locale.getDefault());
+            }
+
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Brazil/East"));
+            dataFinal = dateFormat.format(date);
+            //dataFinal = date.toString();
 
             return dataFinal;
         } catch (Exception e) {
@@ -86,14 +108,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         }
     }
 
-    public String theMonth(int month) {
-        String[] monthNames = mContext.getResources().getStringArray(R.array.month); //{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month - 1];
-    }
-
-
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Publicacao question = mQuestions.get(position);
 
         try {
@@ -103,18 +119,15 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             //TODO ERRO CRASH APP
         }
 
-        if (question.isTemImagem()) {
-            //holder.imgPublication.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t31.0-8/19944619_1569822496381461_679355768551827599_o.jpg?oh=c90476dc9c76683b366221e5a1746d31&oe=5A3C124F");
-            holder.imgPublication.setImageURI(API.URL_IMGS + API.IMG_PUBLICACAO + question.getCodigo() + ".jpg");
-            holder.imgPublication.setVisibility(View.VISIBLE);
-        } else {
-            holder.imgPublication.setVisibility(View.GONE);
-        }
-
         holder.textAuthorName.setText(question.getUsuario().getNome());
         holder.textJobTitle.setText(question.getUsuario().getCidade() + " - " + question.getUsuario().getEstado());
         holder.textDate.setText(trataData(question.getDataPublicacao()));
-        holder.textQuestion.setText(question.getConteudo());
+        if (question.getConteudo() == null) {
+            holder.textQuestion.setVisibility(View.GONE);
+        } else {
+            holder.textQuestion.setVisibility(View.VISIBLE);
+            holder.textQuestion.setText(question.getConteudo());
+        }
         holder.textLikesCount.setText(question.getLikes().size() + "");
         holder.textChatCount.setText(question.getQtdComentarios() + " " + mContext.getResources().getString(R.string.response));
 
@@ -130,6 +143,59 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         GradientDrawable drawable1 = new GradientDrawable();
         drawable1.setCornerRadius(1000);
         //holder.secondFilter.setBackgroundDrawable(drawable1);
+
+        if (question.isTemImagem()) {
+            //holder.imgPublication.setImageURI("https://scontent.fcpq3-1.fna.fbcdn.net/v/t31.0-8/19944619_1569822496381461_679355768551827599_o.jpg?oh=c90476dc9c76683b366221e5a1746d31&oe=5A3C124F");
+            holder.imgPublication.setImageURI(API.URL_IMGS + API.IMG_PUBLICACAO + question.getCodigo() + ".jpg");
+            holder.imgPublication.setVisibility(View.VISIBLE);
+            holder.cardView.setVisibility(View.GONE);
+        } else {
+            holder.imgPublication.setVisibility(View.GONE);
+            if (question.getVideo() == null) {
+                holder.cardView.setVisibility(View.GONE);
+            } else {
+                try {
+                    // YOUTUBE
+
+                    final YouTubeThumbnailLoader.OnThumbnailLoadedListener onThumbnailLoadedListener = new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                        @Override
+                        public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+
+                        }
+
+                        @Override
+                        public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                            youTubeThumbnailView.setVisibility(View.VISIBLE);
+                            holder.relativeLayoutOverYouTubeThumbnailView.setVisibility(View.VISIBLE);
+                        }
+                    };
+
+                    holder.youTubeThumbnailView.initialize("AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", new YouTubeThumbnailView.OnInitializedListener() {
+                        @Override
+                        public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
+
+                            try {
+                                youTubeThumbnailLoader.setVideo(question.getVideo());
+                            } catch (Exception e) {
+                                youTubeThumbnailLoader.setVideo("ad65dIWfdwI");
+                            }
+                            youTubeThumbnailLoader.setOnThumbnailLoadedListener(onThumbnailLoadedListener);
+                        }
+
+                        @Override
+                        public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+                            //write something for failure
+                        }
+                    });
+                // YOUTUBE
+
+                    holder.cardView.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
     }
 
     @Nullable
@@ -140,6 +206,13 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
     public Publicacao getItem(int position) {
         return mQuestions.get(position);
+    }
+
+    public void atualiza(){
+        try {
+            notifyDataSetChanged();
+            notifyAll();
+        } catch (Exception e){}
     }
 
     public void curtir(int position) {
@@ -157,19 +230,27 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             if (p.getCodigo().equals(idPublicacao)) {
                 mQuestions.remove(p);
                 notifyDataSetChanged();
-
                 bottomSheetDialogFragment.dismiss();
 
-                //TODO MSG PUBLICACAO REMOVIDA
-                Toast.makeText(mContext,
-                        "Publicação removida com sucesso!",
-                        Toast.LENGTH_SHORT)
+                Toasty.success(mContext,
+                        mContext.getString(R.string.remove_publi),
+                        Toast.LENGTH_SHORT, true)
                         .show();
+
+                try {
+                    if (mQuestions.size() == 0) {
+                        MenuPublicationFragment.mRecyclerView.setVisibility(View.GONE);
+                        MenuPublicationFragment.vazio.setVisibility(View.VISIBLE);
+                    } else {
+                        MenuPublicationFragment.mRecyclerView.setVisibility(View.VISIBLE);
+                        MenuPublicationFragment.vazio.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {}
 
                 return;
             }
         }
-        Log.e("ERROR EXCLUSÃO", "ERRO");
+        notifyDataSetChanged();
     }
 
     @Override
@@ -189,6 +270,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
         SimpleDraweeView imgPublication;
         private final AppCompatImageView appCompatImageView;
         AppCompatImageView imgFollow;
+
+        /*YOUTUBE*/
+        protected RelativeLayout relativeLayoutOverYouTubeThumbnailView;
+        YouTubeThumbnailView youTubeThumbnailView;
+        protected ImageView playButton;
+
+        protected CardView cardView;
+        /*YOUTUBE*/
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -210,6 +299,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             appCompatImageView.setOnClickListener(this);
             textChatCount.setOnClickListener(this);
             imgFollow.setOnClickListener(this);
+
+
+            /*YOUTUBE*/
+            playButton = (ImageView) itemView.findViewById(R.id.btnYoutube_player);
+            playButton.setOnClickListener(this);
+            relativeLayoutOverYouTubeThumbnailView = (RelativeLayout) itemView.findViewById(R.id.relativeLayout_over_youtube_thumbnail);
+            youTubeThumbnailView = (YouTubeThumbnailView) itemView.findViewById(R.id.youtube_thumbnail);
+
+            cardView = (CardView) itemView.findViewById(R.id.carview);
+            /*YOUTUBE*/
         }
 
         @Override
@@ -222,12 +321,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
             switch (view.getId()) {
                 case R.id.view_likes:
-                    Curtida curtidaPublicacao = new Curtida(
-                            usuario, //usuario
-                            getItem(position).getCodigo()); //codigoPublicacao
+                    if (!usuario.getCodigoUsuario().equals(getItem(position).getUsuario().getCodigoUsuario())) {
+                        Curtida curtidaPublicacao = new Curtida(
+                                usuario, //usuario
+                                getItem(position).getCodigo()); //codigoPublicacao
 
-                    AsyncLikePublication sinc = new AsyncLikePublication(this);
-                    sinc.execute(curtidaPublicacao);
+                        AsyncLikePublication sinc = new AsyncLikePublication(this);
+                        sinc.execute(curtidaPublicacao);
+                    }
                     break;
                 case R.id.avatar_publication:
                     //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
@@ -259,6 +360,11 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                     intent = new Intent(view.getContext(), CommentsActivity.class);
                     intent.putExtra("idPublicacao", Long.valueOf(getItem(position).getCodigo()));
                     view.getContext().startActivity(intent);
+                    break;
+                case R.id.btnYoutube_player:
+                    intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, "AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", getItem(position).getVideo());
+                    mContext.startActivity(intent);
+                    break;
                 default:
                     Log.e("mgoveaaa", view.getId() + "");
             }
@@ -298,4 +404,5 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             }
         }
     }
+
 }

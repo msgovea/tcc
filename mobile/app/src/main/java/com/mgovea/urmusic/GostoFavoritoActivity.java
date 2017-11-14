@@ -18,7 +18,6 @@ import com.mgovea.urmusic.entity.GostoUsuario;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.gosto_musical.Gosto;
 import com.mgovea.urmusic.gosto_musical.InteractiveArrayAdapterFavorito;
-import com.mgovea.urmusic.principal.MainActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
@@ -141,7 +140,7 @@ public class GostoFavoritoActivity extends AbstractAsyncActivity implements Asyn
     public void onLoadedPublication(Boolean bool) {
         if (bool) {
             dismissProgressDialog();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             finish();
         }
         else showErrorMessage();

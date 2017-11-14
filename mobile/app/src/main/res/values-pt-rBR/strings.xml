@@ -99,20 +99,7 @@
         <item>Marcar amigos</item>
     </string-array>
 
-    <string-array name="month">
-        <item>Janeiro</item>
-        <item>Fevereiro</item>
-        <item>Março</item>
-        <item>Abril</item>
-        <item>Maio</item>
-        <item>Junho</item>
-        <item>Julho</item>
-        <item>Agosto</item>
-        <item>Setembro</item>
-        <item>Outubro</item>
-        <item>Novembro</item>
-        <item>Dezembro</item>
-    </string-array>
+
 
     <string name="title_activity_teste_login">Tela de Login</string>
     <string name="title_activity_gosto_musical">Cadastre seu gosto musical</string>
@@ -176,5 +163,98 @@
     <string name="section_format">Olá mundo da seção: %1$d</string>
     <string name="success">Sucesso</string>
     <string name="success_update_photo">Imagem de perfil atualizada com sucesso!</string>
+
+
+    <string name="title_activity_menu">urMusic</string>
+
+    <string name="navigation_drawer_open">Abrir a gaveta de navegação</string>
+    <string name="navigation_drawer_close">Fechar a gaveta de navegação</string>
+    <string name="buy_string">Comprar</string>
+
+    <string name="feed">Feed</string>
+    <string name="feed_high">Feed em Alta</string>
+    <string name="tools">Configurações</string>
+    <string name="terms">Termos e Politicas</string>
+
+    <string name="gosto">Gostos Musicais</string>
+    <string name="publi">Publicações</string>
+
+    <string name="cancel">Cancelar</string>
+    <string name="denuncia">Denunciar</string>
+    <string name="denuncia_ok">Publicação denunciada com sucesso!</string>
+    <string name="send">Enviar</string>
+    <string name="denuncia_text">O que esta publicação tem de errado?</string>
+
+    <string name="title_activity_register_new">Cadastro</string>
+
+    <string name="next">Continuar</string>
+    <string name="back">Voltar</string>
+
+    <string name="image">Imagem</string>
+    <string name="video">Vídeo</string>
+
+    <string name="invalid_link_content">O link enviado não é válido! Tente novamente</string>
+    <string name="invalid_link">Link inválido</string>
+    <string name="youtube_title">Link Youtube</string>
+    <string name="youtube_content">Cole aqui o link do youtube que deseja publicar</string>
+
+    <string name="comment_success">Comentário publicado com sucesso!</string>
+    <string name="remove_comment_error">Erro ao remover comentário></string>
+    <string name="remove_comment_success">Comentário removido com sucesso</string>
+
+    <string name="text_impuls">Impulsionamento\n\n
+    Você pode impulsionar suas publicações, tendo um maior alcance de usuários.\n
+    \n
+    Selecione o gosto musical a qual deseja focar, ou deixe em branco para todos os gostos.\n
+    \n
+    OBS: O serviço de impulsionamento é cobrado.</string>
+
+    <string-array name="tipo_usuario">
+        <item>Músico Profissional</item>
+        <item>Músico Amador</item>
+        <item>Usuário</item>
+        <item>Casa de Evento</item>
+    </string-array>
+    
+    <string name="required">Campo obrigatório</string>
+    <string name="required_text">O campo de texto é obrigatório caso não seja selecionado imagem ou vídeo.</string>
+
+    <string name="remove_publi">Publicação removida com sucesso!</string>
+
+    <string name="desc_empty">Você pode adicionar amigos para ver as melhores novidades do ramo musical =]</string>
+    <string name="title_empty">Não há publicações :(</string>
+
+    <string name="desc_empty_me">Publique suas novidades musicais para seus amigos =]</string>
+    <string name="title_empty_me">Você não tem publicações :(</string>
+    <string name="confirm">Confirmar</string>
+    <string name="message_to">Mensagem para:</string>
+
+    <string name="mail_ok">E-mail enviado com sucesso</string>
+    <string name="content">Escreva aqui sua mensagem...</string>
+
+
+    <string name="denunciar">Denunciar</string>
+    <string name="denunciar_desc">Caso o conteúdo seja ofensivo ou impróprio.</string>
+
+    <string name="excluir">Excluir</string>
+    <string name="excluir_desc">Sua publicação será definitivamente removida.</string>
+
+    <string name="impulsionar">Impulsionar</string>
+    <string name="impulsionar_desc">Seu conteúdo para um maior número de usuários!</string>
+
+    <string name="alt_img_perfil">Alterar</string>
+    <string name="alt_img_perfil_desc">Altere sua imagem de perfil</string>
+
+    <string name="info_impul">Informações de Impulsionamento</string>
+
+    <string name="intro_title1">Amantes da Música</string>
+    <string name="intro_desc1">Dedicado ao público envolvido com a música: músicos profissionais, amadores, donos de casa de evento ou somente quem gosta de ouvi-la.</string>
+
+    <string name="intro_title4">Interesses</string>
+    <string name="intro_desc4">Baseado no gosto musical de cada usuário, facilitando assim, atingir o público que realmente tem o mesmo interesse por música que você</string>
+
+    <string name="intro_title5">Individualidade</string>
+    <string name="intro_desc5">Facilidade de conhecer, promover e compartilhar músicas e eventos para um público focado</string>
+
 
 </resources>

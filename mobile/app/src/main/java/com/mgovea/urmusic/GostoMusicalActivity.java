@@ -12,7 +12,6 @@ import android.widget.ListView;
 import com.mgovea.urmusic.async.gosto_musical.AsyncGostoMusical;
 import com.mgovea.urmusic.gosto_musical.Gosto;
 import com.mgovea.urmusic.gosto_musical.InteractiveArrayAdapter;
-import com.mgovea.urmusic.principal.MainActivity;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class GostoMusicalActivity extends AbstractAsyncActivity implements Async
     }
 
     public void skip(View v){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
         finish();
     }
 

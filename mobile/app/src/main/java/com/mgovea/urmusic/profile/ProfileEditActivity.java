@@ -36,6 +36,7 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
 
     private SharedPreferences prefs;
     private Usuario usuario;
+    private Usuario usuarioAtt;
 
 
 
@@ -63,8 +64,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 attempUpdate();
             }
 
@@ -115,14 +114,17 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
     }
 
     private void updateProfile() {
+        //usuarioAtt = new Usuario();
+        //usuarioAtt.setCodigoUsuario(usuario.getCodigoUsuario());
+        usuario.setEmail(usuario.getEmail());
         usuario.setNome(etName.getText().toString());
         usuario.setApelido(etUsername.getText().toString());
         usuario.setPais(etCountry.getText().toString());
         usuario.setEstado(etState.getText().toString());
         usuario.setCidade(etCity.getText().toString());
-        usuario.setDataNascimento(dpBirthday.getYear() + "-" +
+        /*usuarioAtt.setDataNascimento(dpBirthday.getYear() + "-" +
                 (dpBirthday.getMonth() + 1) + "-" +
-                dpBirthday.getDayOfMonth());
+                dpBirthday.getDayOfMonth());*/
 
 
         showLoadingProgressDialog();

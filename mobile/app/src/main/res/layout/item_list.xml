@@ -12,18 +12,18 @@
         android:background="#E4E6E3" />
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/avatar_publication"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@id/dividerTop"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        fresco:actualImageScaleType="focusCrop"
-        fresco:roundAsCircle="true"
-        fresco:roundWithOverlayColor="@android:color/white"
-        fresco:placeholderImage="@drawable/user" />
+    android:id="@+id/avatar_publication"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_marginBottom="10dp"
+    android:layout_below="@id/dividerTop"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="16dp"
+    fresco:actualImageScaleType="focusCrop"
+    fresco:roundAsCircle="true"
+    fresco:roundWithOverlayColor="@android:color/white"
+    fresco:placeholderImage="@drawable/user" />
 
     <!--fresco:actualImageScaleType="focusCrop"
         fresco:roundAsCircle="true"
@@ -106,16 +106,52 @@
         android:layout_height="300dp"
         android:layout_alignParentStart="true"
         android:layout_below="@id/text_publication"
+        fresco:placeholderImage="@drawable/loading"
+        fresco:placeholderImageScaleType="center"
         android:textColor="#827f93"
         fresco:actualImageScaleType="focusCrop"
         fresco:roundWithOverlayColor="@android:color/white" />
 
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/carview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/img_publication"
+        android:clickable="true"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="0dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardUseCompatPadding="true">
+
+
+        <com.google.android.youtube.player.YouTubeThumbnailView
+            android:id="@+id/youtube_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout_over_youtube_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/btnYoutube_player"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/youtube_player" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/img_publication"
+        android:layout_below="@id/carview"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="#ebebeb" />
@@ -148,7 +184,7 @@
         android:layout_below="@id/divider"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_chat"
+        android:src="@drawable/hearth"
         android:tint="#827f93" />
 
     <TextView

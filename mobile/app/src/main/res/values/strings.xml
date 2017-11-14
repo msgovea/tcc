@@ -96,23 +96,11 @@
         <item>Mark Friends</item>
     </string-array>
 
-    <string-array name="month">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
 
     <string name="title_activity_teste_login">Login Screen</string>
     <string name="title_activity_gosto_musical">Record your musical taste</string>
+    <string name="gosto">Musical Taste</string>
+    <string name="publi">Publications</string>
     <string name="title_activity_gosto_favorito">Now, sign up for your favorite musical taste</string>
     <string name="prompt_publication">What\'s on your mind?</string>
     <string name="error_gosto_musical">No musical taste selected</string>
@@ -196,9 +184,97 @@
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="title_activity_comments">Comments</string>
-    <string name="comment_input">Escreva um comentário...</string>
+    <string name="comment_input">Write a comment...</string>
     <string name="title_activity_teste_storage">Storage Screen</string>
     <string name="title_activity_search">Search</string>
     <string name="success_update_photo">Profile image updated successfully!</string>
+
+
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="buy_string">buy</string>
+
+    <string name="feed">Feed</string>
+    <string name="feed_high">Feed High</string>
+    <string name="tools">Tools</string>
+    <string name="terms">Terms and Policies</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="denuncia">Report</string>
+    <string name="denuncia_ok">Publication reported successfully!</string>
+    <string name="send">Send</string>
+    <string name="denuncia_text">What is wrong with this publication?</string>
+    <string name="title_activity_register_new">RegisterActivityNew</string>
+
+    <string name="invalid_link">Invalid Link</string>
+    <string name="invalid_link_content">The link not is valid! Try again</string>
+    <string name="youtube_title">Youtube Link</string>
+    <string name="youtube_content">Paste here your youtube link</string>
+    <string name="comment_success">Success to publish the comment!</string>
+    <string name="remove_comment_error">Error removing the comment</string>
+    <string name="remove_comment_success">Success to delete the comment</string>
+
+    <string name="image">Image</string>
+    <string name="video">Video</string>
+
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+
+    <string name="text_impuls">Boosting\n\n
+    You can boost your publication by having a greater reach of users.\n
+    \n
+    Select the musical taste you want to focus on, or leave it blank for all tastes.\n
+    \n
+    NOTE: The push service is paid.</string>
+
+
+    <string-array name="tipo_usuario">
+        <item>Professional Musician</item>
+        <item>Amateur Musician</item>
+        <item>User</item>
+        <item>Event House</item>
+    </string-array>
+
+    <string name="required">Required field</string>
+    <string name="required_text">Text field is required if image or video is not selected.</string>
+
+    <string name="remove_publi">Publication removed successfully!</string>
+
+    <string name="desc_empty">You can add friends to see how the best music news =]</string>
+    <string name="title_empty">No posts :(</string>
+
+    <string name="desc_empty_me">Post your music news to your friends =]</string>
+    <string name="title_empty_me">You have no posts :(</string>
+    <string name="confirm">Confirm</string>
+    <string name="message_to">Message to:</string>
+
+    <string name="mail_ok">Email sent successfully</string>
+    <string name="content">Write your message here...</string>
+
+    <string name="denunciar">Report</string>
+    <string name="denunciar_desc">If the content is offensive or inappropriate.</string>
+
+    <string name="excluir">Delete</string>
+    <string name="excluir_desc">Your post will definitely be removed.</string>
+
+    <string name="impulsionar">Boost</string>
+    <string name="impulsionar_desc">Your content for a greater number of users!</string>
+
+    <string name="alt_img_perfil">Change</string>
+    <string name="alt_img_perfil_desc">Change your profile picture</string>
+
+    <string name="info_impul">Boost Information</string>
+
+    <string name="intro_title1">Music Lovers</string>
+    <string name="intro_desc1">Dedicated to the audience involved with music: professional musicians, amateurs, event house owners or just anyone who likes to listen to it.</string>
+
+    <string name="intro_title4">Interest</string>
+    <string name="intro_desc4">Based on the musical taste of each user, thus facilitating, reach the audience that really has the same interest for music that you</string>
+
+    <string name="intro_title5">Individuality</string>
+    <string name="intro_desc5">Ease of knowing, promoting and sharing music and events for a focused audience</string>
+
 
 </resources>

@@ -89,4 +89,23 @@ public abstract class AbstractAsyncActivity extends AppCompatActivity {
             //TODO MSG ERRO APP QUEBRADO
         }
     }
+
+    public void showErrorMessageLink(String title, String message){
+        try {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle(title);
+            builder.setMessage(message);
+            builder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            builder.setCancelable(false);
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO MSG ERRO APP QUEBRADO
+        }
+    }
 }

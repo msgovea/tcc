@@ -115,9 +115,7 @@ public class SearchActivityFragment extends Fragment implements AsyncSearch.List
     @Override
     public void onLoadedError(String s) {
         Toast.makeText(getContext(), "Erro", Toast.LENGTH_SHORT).show();
-        //TODO MSG PALOMA
-        Log.e("ERRO GERAL", s);    }
-
+    }
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in

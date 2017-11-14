@@ -1,51 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mgovea.urmusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/urmusic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b93fdc3d712255afd8cbe807c88aba5f6b93eed4" />
 
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-     See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--
+     Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notifications_black_24dp" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/accent" />
 
         <!-- [START firebase_service] -->
-        <service
-            android:name=".firebase.MyFirebaseMessagingService">
+        <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
-        <service
-            android:name=".firebase.MyFirebaseInstanceIDService">
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
-        <service android:name=".firebase.MyJobService"
+        <service
+            android:name=".firebase.MyJobService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
 
+        <activity android:name=".InAppBillingActivity">
 
+        </activity>
+        <activity
+            android:name=".MailActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="r789f.app.goo.gl"
+                    android:scheme="http"
+                    android:pathPrefix="/idLista"
+                    tools:ignore="AppLinkUrlError" />
+
+                <data
+                    android:host="r789f.app.goo.gl"
+                    android:scheme="https"
+                    android:pathPrefix="/idLista"
+                    tools:ignore="AppLinkUrlError" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".posts.ExampleActivity"
             android:screenOrientation="portrait"
@@ -69,10 +108,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TesteLogin" />
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".RecoveryActivity"
             android:label="@string/title_recovery_activity"
@@ -101,36 +136,13 @@
             android:label="@string/title_activity_gosto_favorito"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".principal.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2"
-            android:windowSoftInputMode="adjustPan" />
 
         <!-- android:windowSoftInputMode="adjustResize" -->
-        <activity
-            android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
-            android:parentActivityName=".principal.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mgovea.urmusic.principal.MainActivity" />
-        </activity>
         <activity
             android:name=".profile.ProfileTabbedActivity"
             android:label="@string/title_activity_profile_tabbed"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".profile.ProfileEditActivity"
             android:label="@string/title_activity_profile_edit"
@@ -162,18 +174,27 @@
                 android:value="com.mgovea.urmusic.posts.ExampleActivity" />
         </activity>
         <activity
-            android:name=".TesteActivityStorage"
-            android:label="@string/title_activity_teste_storage"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".test.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".search.SearchActivity"
-            android:label="@string/title_activity_search"
-            android:parentActivityName=".principal.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mgovea.urmusic.principal.MainActivity" />
-        </activity>
+            android:name=".test.Main2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".principal.PostActivity"
+            android:label="@string/prompt_post"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".register.RegisterActivityNew"
+            android:label="@string/title_activity_register_new"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ImpulsionamentoActivity"
+            android:label="@string/impulsionar"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

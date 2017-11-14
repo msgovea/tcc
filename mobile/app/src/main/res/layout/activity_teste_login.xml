@@ -104,7 +104,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="340dp"
-            android:background="@color/primary"
+            android:background="@drawable/borda_back"
             android:text="@string/action_sign_up"
             android:textAllCaps="true"
             android:textColor="#fff"

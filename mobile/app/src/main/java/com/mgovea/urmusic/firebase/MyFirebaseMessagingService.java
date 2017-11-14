@@ -31,9 +31,9 @@ import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.mgovea.urmusic.MenuActivity;
 import com.mgovea.urmusic.R;
-import com.mgovea.urmusic.principal.MainActivity;
-import com.mgovea.urmusic.search.SearchActivity;
+import com.mgovea.urmusic.SplashScreen;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -65,7 +65,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setContentTitle("My notification *")
                         .setContentText(remoteMessage.getNotification().getBody() + "*");
         // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, SearchActivity.class);
+        Intent resultIntent = new Intent(this, SplashScreen.class);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -73,7 +73,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(SearchActivity.class);
+        stackBuilder.addParentStack(SplashScreen.class);
         // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
@@ -144,7 +144,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

@@ -2,9 +2,11 @@ package com.mgovea.urmusic.profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -18,12 +20,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.core.ImagePipeline;
+import com.mgovea.urmusic.MailActivity;
 import com.mgovea.urmusic.async.follow.AsyncFollowUser;
 import com.mgovea.urmusic.async.profile.AsyncProfile;
 import com.mgovea.urmusic.async.profile.AsyncUploadImage;
@@ -38,6 +42,8 @@ import com.mgovea.urmusic.util.Preferencias;
 import java.io.ByteArrayOutputStream;
 
 import com.mgovea.urmusic.R;
+
+import es.dmoral.toasty.Toasty;
 
 public class ProfileTabbedActivity extends AbstractAsyncActivity implements AsyncProfile.Listener, AsyncFollowUser.Listener, AsyncUploadImage.Listener {
 
@@ -72,6 +78,10 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
     private boolean myProfile;
     private Long idUsuario;
     private Usuario usuarioLoad;
+    private ConstraintLayout mLayout;
+    private Button mButtonMessage;
+
+    private ImageView mAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,21 +115,24 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         // se obtem idUsuario, bate na API e traz as informações do usuário
         idUsuario = getIntent().getLongExtra("idUsuario", 0);
 
+        mLayout = (ConstraintLayout) findViewById(R.id.layout);
         mButtonFollow = (Button) findViewById(R.id.btn_follow);
+        mButtonMessage = (Button) findViewById(R.id.btn_mail);
+        mAccount = (ImageView) findViewById(R.id.account);
 
         Preferencias pref = new Preferencias(this);
         usuario = pref.getDadosUsuario();
 
         if (idUsuario != usuario.getCodigoUsuario().longValue() && idUsuario != 0) {
             myProfile = false;
-            mButtonFollow.setVisibility(View.VISIBLE);
+            mLayout.setVisibility(View.VISIBLE);
             showLoadingProgressDialog();
             AsyncProfile sinc = new AsyncProfile(this);
             sinc.execute(idUsuario);
         } else {
             myProfile = true;
             idUsuario = usuario.getCodigoUsuario().longValue();
-            mButtonFollow.setVisibility(View.INVISIBLE);
+            mLayout.setVisibility(View.INVISIBLE);
 
             populaPerfil(usuario);
         }
@@ -132,6 +145,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                 amigo.setSeguido(usuarioLoad);
                 AsyncFollowUser sinc = new AsyncFollowUser(ProfileTabbedActivity.this);
                 sinc.execute(amigo);
+            }
+        });
+
+        mButtonMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileTabbedActivity.this, MailActivity.class);
+                intent.putExtra(API.USUARIO, usuarioLoad.getEmail());
+                intent.putExtra(API.BUSCAR_USUARIO_NOME, usuarioLoad.getNome());
+                startActivity(intent);
             }
         });
 
@@ -160,9 +183,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         mQtdSeguidos.setText(usuarioPopulaPerfil.getQtdSeguidos().toString());
 
         if (!myProfile) {
-            for (Usuario u :
-                    usuarioPopulaPerfil.getSeguidores()) {
-                if (u.getCodigoUsuario().equals(usuario.getCodigoUsuario())) {
+            for (Long u : usuarioPopulaPerfil.getSeguidores()) {
+                if (u.equals(usuario.getCodigoUsuario())) {
                     mButtonFollow.setText(getString(R.string.unfollow));
                 }
             }
@@ -181,6 +203,28 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         mTextUserBio.setText(usuarioPopulaPerfil.getCidade() + " - " + usuarioPopulaPerfil.getEstado());
 
         mainContent.setVisibility(View.VISIBLE);
+
+        try {
+            switch (usuarioPopulaPerfil.getTipoPerfil()) {
+                case 1: //MUSICO
+                    mAccount.setImageDrawable(getDrawable(R.drawable.profissional));
+                    break;
+                case 2: //AMADOR
+                    mAccount.setImageDrawable(getDrawable(R.drawable.usr_amador));
+                    break;
+                case 3: //PADRAO
+                    mAccount.setImageDrawable(getDrawable(R.drawable.usr_padrao));
+                    break;
+                case 4: //CASA DE EVENTO
+                    mAccount.setImageDrawable(getDrawable(R.drawable.party_ball));
+                    break;
+                default:
+                    mAccount.setImageDrawable(getDrawable(R.drawable.padrao));
+                    break;
+            }
+        } catch (Exception e){
+            mAccount.setImageDrawable(getDrawable(R.drawable.padrao));
+        }
     }
 
     @Override
@@ -248,7 +292,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
                 Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
 
-                //comprimir no formato PNG
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 imagem.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
@@ -260,12 +303,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                 ImagemUsuario imagemUsuario = new ImagemUsuario(idUsuario, byteArray);
                 AsyncUploadImage sinc = new AsyncUploadImage(this);
                 sinc.execute(imagemUsuario);
-
-
-                //TODO EXIBIR BYTE ARRAY BYTE
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//                imageView.setImageBitmap(bitmap);
-
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -305,7 +342,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         dismissProgressDialog();
 
-        Toast.makeText(this, getString(R.string.success_update_photo), Toast.LENGTH_LONG).show();
+        Toasty.success(this, getString(R.string.success_update_photo), Toast.LENGTH_LONG, true).show();
         Log.i(this.toString(), "SUCESSO IMAGEM PUBLICADA");
     }
 
@@ -343,9 +380,7 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             switch (position) {
                 case 0:
                     return PublicationProfileFragment.newInstance(idUsuario);
-//                case 1:
-//                    return GostoMusicalProfileFragment.newInstance(idUsuario);
-                case 2:
+                case 1:
                     return GostoMusicalProfileFragment.newInstance(idUsuario);
             }
             return new Fragment();
@@ -353,19 +388,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "PUBLICAÇÕES";
+                    return getString(R.string.publi);
                 case 1:
-                    return "MUSICAS";
-                case 2:
-                    return "GOSTOS";
+                    return getString(R.string.gosto);
             }
             return null;
         }

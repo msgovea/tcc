@@ -16,14 +16,18 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mgovea.urmusic.async.comments.AsyncRemoveComments;
 import com.mgovea.urmusic.entity.Comentario;
+import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.posts.Question;
+import com.mgovea.urmusic.posts.QuestionsAdapter;
+import com.mgovea.urmusic.posts.QuestionsAdapterHigh;
+import com.mgovea.urmusic.posts.QuestionsAdapterPerfil;
 import com.mgovea.urmusic.profile.ProfileTabbedActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
 
 import java.util.List;
 
-import com.mgovea.urmusic.R;;
+import com.mgovea.urmusic.R;;import es.dmoral.toasty.Toasty;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
@@ -112,10 +116,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 mComments.remove(p);
                 notifyDataSetChanged();
 
-                //TODO MSG PUBLICACAO REMOVIDA
-                Toast.makeText(mContext,
-                        "Comentário removido com sucesso!",
-                        Toast.LENGTH_SHORT)
+                Toasty.success(mContext,
+                        mContext.getString(R.string.remove_comment_success),
+                        Toast.LENGTH_SHORT, true)
                         .show();
 
                 return;
@@ -179,8 +182,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             switch (view.getId()) {
 
                 case R.id.remove_comment:
-                    //TODO MGOVEA - MUDAR ORDEM QUANDO API OK
-                    //notifyDataSetChanged();
                     loading(true);
                     AsyncRemoveComments sinc = new AsyncRemoveComments(this);
                     sinc.execute(getItem(position).getCodigo());
@@ -202,25 +203,47 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
         @Override
         public void onLoaded(Boolean bool) {
+            Comentario comentario = mComments.get(position);
             mComments.remove(position);
             notifyDataSetChanged();
-            //TODO PALOMA TEXTO
-            Toast.makeText(mContext,
-                    "Comentário removido com sucesso!",
-                    Toast.LENGTH_LONG)
+
+            Toasty.success(mContext,
+                    mContext.getString(R.string.remove_comment_success),
+                    Toast.LENGTH_LONG, true)
                     .show();
-            //FIM TODO PALOMA
+
+            try {
+                for (Publicacao p: QuestionsAdapter.mQuestions) {
+                    if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                        p.setQtdComentarios(p.getQtdComentarios() - 1);
+                    }
+                }
+            } catch (Exception e){}
+
+            try {
+                for (Publicacao p: QuestionsAdapterHigh.mQuestions) {
+                    if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                        p.setQtdComentarios(p.getQtdComentarios() - 1);
+                    }
+                }
+            } catch (Exception e){}
+
+            try {
+                for (Publicacao p: QuestionsAdapterPerfil.mQuestions) {
+                    if (p.getCodigo().equals(comentario.getCodigoPublicacao())){
+                        p.setQtdComentarios(p.getQtdComentarios() - 1);
+                    }
+                }
+            } catch (Exception e){}
             loading(false);
         }
 
         @Override
         public void onLoadedError(String s) {
-            //TODO PALOMA TEXTO
-            Toast.makeText(mContext,
-                    "Erro ao remover comentário!\n" + s,
-                    Toast.LENGTH_SHORT)
+            Toasty.error(mContext,
+                     mContext.getString(R.string.remove_comment_error) + "\n" + s,
+                    Toast.LENGTH_SHORT, true)
                     .show();
-            //FIM TODO PALOMA TEXTO
             loading(false);
         }
     }

@@ -71,6 +71,7 @@ public class AsyncRemovePublication extends AsyncTask<Long, String, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
+            Log.e("Teste", result);
             Gson publicacaoGson = new Gson();
             Response<Object> response = publicacaoGson.fromJson(result, Response.class);
 

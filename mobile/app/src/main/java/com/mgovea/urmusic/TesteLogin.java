@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mgovea.urmusic.async.AsyncLogin;
 import com.mgovea.urmusic.entity.Usuario;
-import com.mgovea.urmusic.principal.MainActivity;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
 import com.mgovea.urmusic.util.Hash;
@@ -32,7 +31,7 @@ public class TesteLogin extends AbstractAsyncActivity implements AsyncLogin.List
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teste_login);
+        setContentView(R.layout.activity_teste_login2);
 
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -141,7 +140,7 @@ public class TesteLogin extends AbstractAsyncActivity implements AsyncLogin.List
                         if (((Usuario) o).getGostosMusicais().toString().equals("[]"))
                             startActivity(new Intent(this, GostoMusicalActivity.class));
                         else
-                            startActivity(new Intent(this, MainActivity.class));
+                            startActivity(new Intent(this, MenuActivity.class));
                         finish();
 
 

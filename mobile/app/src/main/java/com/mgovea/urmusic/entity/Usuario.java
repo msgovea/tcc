@@ -12,6 +12,10 @@ public class Usuario {
         nivelUsuario.setCodigoNivel(Integer.valueOf(1));
     }
 
+    public Usuario(Long codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
+    }
+
     public Usuario(String nome, Long codigoUsuario) {
         this.nome = nome;
         this.codigoUsuario = codigoUsuario;
@@ -25,14 +29,14 @@ public class Usuario {
         this.qtdSeguidos = qtdSeguidos;
     }
 
-    private ArrayList<Usuario> seguidores;
+    private ArrayList<Long> codigoSeguidores;
 
-    public ArrayList<Usuario> getSeguidores() {
-        return this.seguidores;
+    public ArrayList<Long> getSeguidores() {
+        return this.codigoSeguidores;
     }
 
-    public void setSeguidores(ArrayList<Usuario> seguidores) {
-        this.seguidores = seguidores;
+    public void setSeguidores(ArrayList<Long> seguidores) {
+        this.codigoSeguidores = seguidores;
     }
 
     private Long qtdSeguidos;
@@ -48,17 +52,24 @@ public class Usuario {
     private SituacaoConta situacaoConta;
 
     private List<GostosMusicai> gostosMusicais;
-//TODO IMAGEM
-//    private String imagemPerfil = null;
-//
-//    public void setImagemPerfil (String imagem) {
-//        this.imagemPerfil = imagem;
-//    }
-//
-//
-//    public String getImagemPerfil () {
-//        return this.imagemPerfil;
-//    }
+
+    private Integer tipoPerfil;
+
+    public ArrayList<Long> getCodigoSeguidores() {
+        return codigoSeguidores;
+    }
+
+    public void setCodigoSeguidores(ArrayList<Long> codigoSeguidores) {
+        this.codigoSeguidores = codigoSeguidores;
+    }
+
+    public Integer getTipoPerfil() {
+        return tipoPerfil;
+    }
+
+    public void setTipoPerfil(Integer tipoPerfil) {
+        this.tipoPerfil = tipoPerfil;
+    }
 
     public List<GostosMusicai> getGostosMusicais() {
         return gostosMusicais;

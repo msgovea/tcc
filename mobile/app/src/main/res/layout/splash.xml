@@ -9,7 +9,14 @@
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg1" />
+        android:src="@drawable/bg" />
+
+
+    <ImageView
+        android:id="@+id/logo_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo" />
 
 
     <FrameLayout

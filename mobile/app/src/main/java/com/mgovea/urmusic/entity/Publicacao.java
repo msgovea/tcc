@@ -15,6 +15,10 @@ public class Publicacao {
         this.imagem = imagem;
     }
 
+    public Publicacao(Long codigo) {
+        this.codigo = codigo;
+    }
+
     public Publicacao() {
     }
 
@@ -27,6 +31,8 @@ public class Publicacao {
     private boolean temImagem;
 
     private String dataPublicacao;
+
+    private String video;
 
     private Boolean ativa;
 
@@ -63,6 +69,14 @@ public class Publicacao {
                 this.likes.remove(u);
             }
         }
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 
     public Long getQtdComentarios() {

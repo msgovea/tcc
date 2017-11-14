@@ -39,9 +39,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/borda_back"
                 android:text="@string/action_recovery"
-                android:background="@color/primary_light"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white" />
 
 
         </LinearLayout>
