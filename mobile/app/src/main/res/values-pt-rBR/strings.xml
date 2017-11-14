@@ -3,7 +3,7 @@
 
     <string name="title_activity_register">Cadastro</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_recovery_activity">Recuperação de conta</string>
+    <string name="title_recovery_activity">Recuperação de Conta</string>
     <string name="follow">Seguir</string>
     <string name="unfollow">Deixar de seguir</string>
 
@@ -248,13 +248,13 @@
     <string name="info_impul">Informações de Impulsionamento</string>
 
     <string name="intro_title1">Amantes da Música</string>
-    <string name="intro_desc1">Dedicado ao público envolvido com a música: músicos profissionais, amadores, donos de casa de evento ou somente quem gosta de ouvi-la.</string>
+    <string name="intro_desc1">Dedicada ao público envolvido com a música: músicos profissionais, amadores, donos de casa de eventos ou somente quem gosta de ouvi-la.</string>
 
     <string name="intro_title4">Interesses</string>
-    <string name="intro_desc4">Baseado no gosto musical de cada usuário, facilitando assim, atingir o público que realmente tem o mesmo interesse por música que você</string>
+    <string name="intro_desc4">Baseada no gosto musical de cada usuário, facilitando assim, atingir o público que realmente tem o mesmo interesse por música que você.</string>
 
     <string name="intro_title5">Individualidade</string>
-    <string name="intro_desc5">Facilidade de conhecer, promover e compartilhar músicas e eventos para um público focado</string>
+    <string name="intro_desc5">Facilidade de conhecer, promover e compartilhar músicas e eventos para um público focado.</string>
 
 
 </resources>
