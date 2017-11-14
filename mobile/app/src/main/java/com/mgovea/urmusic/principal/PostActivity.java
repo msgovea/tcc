@@ -8,15 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,22 +17,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mgovea.urmusic.MenuActivity;
 import com.mgovea.urmusic.R;
-import com.mgovea.urmusic.async.AsyncDenunciar;
 import com.mgovea.urmusic.async.publication.AsyncMakePublication;
-import com.mgovea.urmusic.entity.Denuncia;
 import com.mgovea.urmusic.entity.Publicacao;
 import com.mgovea.urmusic.entity.Usuario;
 import com.mgovea.urmusic.posts.QuestionsAdapter;
-import com.mgovea.urmusic.posts.options.OptionsAdapter;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.AbstractAsyncActivity;
-import com.mgovea.urmusic.util.MyLayout;
 import com.mgovea.urmusic.util.Preferencias;
 
 import java.io.ByteArrayOutputStream;
@@ -50,8 +35,6 @@ import java.util.regex.Pattern;
 ;
 
 public class PostActivity extends AbstractAsyncActivity implements AsyncMakePublication.Listener {
-    private static final String ARG_TEXT = "arg_text";
-    private static final String ARG_COLOR = "arg_color";
 
     private View mContent;
 

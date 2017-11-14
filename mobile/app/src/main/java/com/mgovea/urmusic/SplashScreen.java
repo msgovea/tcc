@@ -35,6 +35,7 @@ import io.fabric.sdk.android.Fabric;
 public class SplashScreen extends Activity implements AsyncProfile.Listener {
 
     Uri deepLink = null;
+    private String id = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +75,17 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
                             if (pendingDynamicLinkData != null) {
                                 deepLink = pendingDynamicLinkData.getLink();
 
-                                try {
-                                    String[] divisao = deepLink.toString().split("/");
-                                    String id = divisao[divisao.length-1];
+                                if (deepLink.toString().contains("idLista")) {
+                                    try {
+                                        String[] divisao = deepLink.toString().split("/");
+                                        id = divisao[divisao.length - 1];
 
-                                    //Toasty.error(getBaseContext(), id, Toast.LENGTH_LONG, true).show();
+                                        //Toasty.error(getBaseContext(), id, Toast.LENGTH_LONG, true).show();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
 
-                                    AsyncProfile sinc = new AsyncProfile(SplashScreen.this);
-                                    sinc.execute(Long.valueOf(id));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
                                 }
                             }
                         }
@@ -116,9 +118,12 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
                     } else {
                         pref.atualizaUsuario();
 
-                        if (deepLink == null) {
+                        if (deepLink == null || id == null) {
                             startActivity(new Intent(SplashScreen.this, MenuActivity.class));
                             finish();
+                        } else {
+                            AsyncProfile sinc = new AsyncProfile(SplashScreen.this);
+                            sinc.execute(Long.valueOf(id));
                         }
                     }
                 }
