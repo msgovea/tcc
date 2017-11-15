@@ -124,7 +124,7 @@
     <string name="intro_title2">Cadastre-se</string>
     <string name="intro_title3">Público Focado</string>
     <string name="esqueceu_sua_senha">Esqueceu sua senha?</string>
-    <string name="precisando_de_uma_conta">Precisando de uma conta?</string>
+    <string name="precisando_de_uma_conta">Cadastre-se</string>
 
 
     <string name="response">comentários</string>
@@ -159,7 +159,7 @@
     <string name="title_activity_profile">Perfil</string>
     <string name="title_activity_teste_storage">Tela de Armazenamento</string>
     <string name="update_password">Alterar Senha</string>
-    <string name="update_profile_success">Perfil Atualizado</string>
+    <string name="update_profile_success">Informações de cadastro atualizadas com sucesso!</string>
     <string name="error_title">Erro desconhecido</string>
     <string name="section_format">Olá mundo da seção: %1$d</string>
     <string name="success">Sucesso</string>
@@ -203,12 +203,9 @@
     <string name="remove_comment_error">Erro ao remover comentário></string>
     <string name="remove_comment_success">Comentário removido com sucesso</string>
 
-    <string name="text_impuls">Impulsionamento\n\n
-    Você pode impulsionar suas publicações, tendo um maior alcance de usuários.\n
-    \n
-    Selecione o gosto musical a qual deseja focar, ou deixe em branco para todos os gostos.\n
-    \n
-    OBS: O serviço de impulsionamento é cobrado.</string>
+    <string name="text_impuls">Você pode impulsionar suas publicações, tendo um maior alcance de usuários.\n
+    \nSelecione o gosto musical a qual deseja focar, ou deixe em branco para todos os gostos.\n
+    \nOBS: O serviço de impulsionamento é cobrado.</string>
 
     <string-array name="tipo_usuario">
         <item>Músico Profissional</item>

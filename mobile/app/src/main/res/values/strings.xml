@@ -122,7 +122,7 @@
     <!--<string name="intro_button">IntroButton1</string>-->
     <!--<string name="intro_button2">IntroButton2</string>-->
     <string name="esqueceu_sua_senha">Forgot your password?</string>
-    <string name="precisando_de_uma_conta">Need an account?</string>
+    <string name="precisando_de_uma_conta">Register</string>
 
     <string name="old_password">Current password</string>
 
@@ -222,12 +222,9 @@
     <string name="next">Next</string>
     <string name="back">Back</string>
 
-    <string name="text_impuls">Boosting\n\n
-    You can boost your publication by having a greater reach of users.\n
-    \n
-    Select the musical taste you want to focus on, or leave it blank for all tastes.\n
-    \n
-    NOTE: The push service is paid.</string>
+    <string name="text_impuls">You can boost your publication by having a greater reach of users.\n
+    \nSelect the musical taste you want to focus on, or leave it blank for all tastes.\n
+    \nNOTE: The push service is paid.</string>
 
 
     <string-array name="tipo_usuario">

@@ -30,7 +30,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
     private EditText etCountry;
     private EditText etState;
     private EditText etCity;
-    private DatePicker dpBirthday;
 
     private Button btnEditProfile;
 
@@ -56,8 +55,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         etCountry  = (EditText) findViewById(R.id.et_country);
         etState    = (EditText) findViewById(R.id.et_state);
         etCity     = (EditText) findViewById(R.id.et_city);
-        dpBirthday = (DatePicker) findViewById(R.id.dp_birthday);
-        dpBirthday.setMaxDate(new Date().getTime());
 
 
         btnEditProfile = (Button) findViewById(R.id.btn_edit_profile);
@@ -105,12 +102,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         etCountry.setText(usuario.getPais());
         etState.setText(usuario.getEstado());
         etCity.setText(usuario.getCidade());
-        String[] partes = usuario.getDataNascimento().split("-");
-        Log.e("MATEUS", partes[0]);
-        Log.e("MATEUS", partes[1]);
-        Log.e("MATEUS", partes[2]);
-
-        dpBirthday.updateDate(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
     }
 
     private void updateProfile() {
@@ -122,10 +113,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         usuario.setPais(etCountry.getText().toString());
         usuario.setEstado(etState.getText().toString());
         usuario.setCidade(etCity.getText().toString());
-        /*usuarioAtt.setDataNascimento(dpBirthday.getYear() + "-" +
-                (dpBirthday.getMonth() + 1) + "-" +
-                dpBirthday.getDayOfMonth());*/
-
 
         showLoadingProgressDialog();
 
@@ -191,7 +178,6 @@ public class ProfileEditActivity extends AbstractAsyncActivity implements AsyncE
         etState.setText(usuarioAtualizado.getEstado());
         etCity.setText(usuarioAtualizado.getCidade());
         String[] partes = usuarioAtualizado.getDataNascimento().split("-");
-        dpBirthday.updateDate(Integer.parseInt(partes[2]), Integer.parseInt(partes[1]), Integer.parseInt(partes[0]));
 
     }
 

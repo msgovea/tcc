@@ -232,7 +232,8 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         super.onResume();
 
         if (idUsuario == usuario.getCodigoUsuario().longValue() || idUsuario == 0) {
-            populaPerfil(usuario);
+            Preferencias preferencias = new Preferencias(this);
+            populaPerfil(preferencias.getDadosUsuario());
         }
     }
 

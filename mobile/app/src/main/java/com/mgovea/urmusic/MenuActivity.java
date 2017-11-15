@@ -181,6 +181,13 @@ public class MenuActivity extends AbstractAsyncActivity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //atualiza informações do drawer
+        drawer();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -118,6 +118,8 @@ public class EditPasswordActivity extends AbstractAsyncActivity implements Async
                 etOldPassword.setError(getString(R.string.error_old_password_invalid));
                 validation.focusView = (validation.focusView == null) ? etOldPassword : validation.focusView;
                 validation.error = true;
+
+                validation.focusView.requestFocus();
             }
 
         }

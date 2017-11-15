@@ -142,33 +142,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tvCity" />
 
 
-    <TextView
-        android:id="@+id/tvBirthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/prompt_birthday"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_city" />
-
-
-    <DatePicker
-        android:id="@+id/dp_birthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"
-        app:layout_constraintBottom_toTopOf="@+id/btn_edit_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthday"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/btn_edit_profile"
         android:layout_width="match_parent"
