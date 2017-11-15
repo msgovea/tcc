@@ -294,7 +294,7 @@ angular.module('app')
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/app/feed');
+                .otherwise('/app/admin/denuncias');
 
             $stateProvider
 

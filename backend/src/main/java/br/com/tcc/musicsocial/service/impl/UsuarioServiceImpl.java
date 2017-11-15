@@ -182,6 +182,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public UsuarioDetalhe atualizarUsuario(UsuarioDetalhe usuario) {
 		if (usuario.getGostosMusicais() != null && !usuario.getGostosMusicais().isEmpty()) {
+			usuario.setDataNascimento(Date.valueOf(usuario.getDataNascimento().toLocalDate().plusDays(1)));
 			for (UsuarioGostoMusical usuarioGosto : usuario.getGostosMusicais()) {
 				usuarioGosto.getPk().setUsuario(usuario);
 			}
@@ -192,6 +193,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public UsuarioDetalhe buscarPorId(Integer id) {
 		return popularQtdSeguidos(usuarioDAO.find(id));
+	}
+	
+	@Override
+	public UsuarioDetalhe buscarPorEmail(String email) {
+		return popularQtdSeguidos(usuarioDAO.consultarPorEmail(email));
 	}
 
 	@Override

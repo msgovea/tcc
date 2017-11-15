@@ -22,37 +22,34 @@ public class UsuarioDetalhe extends Usuario {
 
 	@Column(name = "USD_NOME")
 	private String nome;
-	
+
 	@Column(name = "USD_NICKNAME")
 	private String apelido;
 
 	@Column(name = "USD_DATA_NASC")
 	private Date dataNascimento;
-	
+
 	@Column(name = "USD_CIDADE")
 	private String cidade;
-	
+
 	@Column(name = "USD_ESTADO")
 	private String estado;
-	
+
 	@Column(name = "USD_PAIS")
 	private String pais;
-	
+
 	@ManyToMany(targetEntity = Usuario.class)
-	@JoinTable(name = "AMG_AMIGOS", joinColumns = {
-		@JoinColumn(name = "AMG_SEGUIDO")
-	}, inverseJoinColumns = {
-		@JoinColumn(name = "AMG_SEGUIDOR")
-	})
+	@JoinTable(name = "AMG_AMIGOS", joinColumns = { @JoinColumn(name = "AMG_SEGUIDO") }, inverseJoinColumns = {
+			@JoinColumn(name = "AMG_SEGUIDOR") })
 	@JsonIgnore
 	private List<Usuario> seguidores;
-	
+
 	@Transient
 	private List<Integer> codigoSeguidores;
-	
+
 	@Transient
 	private Integer qtdSeguidos;
-	
+
 	public UsuarioDetalhe() {
 		this.qtdSeguidos = 0;
 	}
@@ -127,10 +124,12 @@ public class UsuarioDetalhe extends Usuario {
 
 	public void setCodigoSeguidores() {
 		List<Integer> codigoSeguidores = new ArrayList<>();
-		for (Usuario usuario : this.seguidores) {
-			codigoSeguidores.add(usuario.getCodigoUsuario());
+		if (this.seguidores != null) {
+			for (Usuario usuario : this.seguidores) {
+				codigoSeguidores.add(usuario.getCodigoUsuario());
+			}
 		}
 		this.codigoSeguidores = codigoSeguidores;
 	}
-	
+
 }
