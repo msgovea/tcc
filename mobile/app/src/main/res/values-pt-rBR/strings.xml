@@ -66,6 +66,7 @@
 
     <string name="register_confirm_account">Conta cadastrada! Confirme sua conta no e-mail recebido</string>
     <string name="conta_confirmada">Conta confirmada com sucesso!\n Você já pode logar!</string>
+    <string name="senha_redefinida">Sua senha foi redefinida com sucesso!\n Você já pode logar!</string>
     <string name="recovery_account">Seu link de recuperação de senha foi enviado ao seu e-mail</string>
 
     <string name="necessary_confirmation">Confirme sua conta</string>

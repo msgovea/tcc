@@ -272,6 +272,7 @@
 
     <string name="intro_title5">Individuality</string>
     <string name="intro_desc5">Ease of knowing, promoting and sharing music and events for a focused audience</string>
+    <string name="senha_redefinida">Your password has been successfully reset! \nYou can already log in!</string>
 
 
 </resources>
