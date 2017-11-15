@@ -111,10 +111,22 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
 
                     Preferencias pref = new Preferencias(getApplicationContext());
                     if (pref.getDadosUsuario() == null) {
-                        TaskStackBuilder.create(SplashScreen.this)
-                                .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin/*RegisterActivityNew*/.class))
-                                .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
-                                .startActivities();
+                        if (deepLink != null) {
+                            if (deepLink.toString().contains("confirmar")) {
+                                startActivity(new Intent(SplashScreen.this, TesteLogin/*RegisterActivityNew*/.class));
+                                Toasty.success(SplashScreen.this, getString(R.string.conta_confirmada), Toast.LENGTH_LONG, true).show();
+                            } else {
+                                TaskStackBuilder.create(SplashScreen.this)
+                                        .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin/*RegisterActivityNew*/.class))
+                                        .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
+                                        .startActivities();
+                            }
+                        } else {
+                            TaskStackBuilder.create(SplashScreen.this)
+                                    .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin/*RegisterActivityNew*/.class))
+                                    .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
+                                    .startActivities();
+                        }
                     } else {
                         pref.atualizaUsuario();
 

@@ -96,7 +96,7 @@
         <item>Mark Friends</item>
     </string-array>
 
-
+    <string name="conta_confirmada">Account confirmed successfully!\nYou can already log in!</string>
     <string name="title_activity_teste_login">Login Screen</string>
     <string name="title_activity_gosto_musical">Record your musical taste</string>
     <string name="gosto">Musical Taste</string>

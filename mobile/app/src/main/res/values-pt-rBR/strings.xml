@@ -65,6 +65,7 @@
     <string name="success_recovery_account_text">Recuperação de conta enviada no e-mail cadastrado</string>
 
     <string name="register_confirm_account">Conta cadastrada! Confirme sua conta no e-mail recebido</string>
+    <string name="conta_confirmada">Conta confirmada com sucesso!\n Você já pode logar!</string>
     <string name="recovery_account">Seu link de recuperação de senha foi enviado ao seu e-mail</string>
 
     <string name="necessary_confirmation">Confirme sua conta</string>
