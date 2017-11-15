@@ -83,7 +83,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private String montarEmailRecuperacao() {
 		StringBuilder email = new StringBuilder();
 		email.append("Olá %s, <br>");
-		email.append("Sua solicitação de recuperacao de senha foi realizada com sucesso! ");
+		email.append("Sua solicitação de recuperação de senha foi realizada com sucesso! ");
 		email.append("Altere sua senha clicando no link abaixo. <br>");
 		email.append("<a href=\"http://%s/#/access/redefinirSenha/%s/%s\">Redefinir senha</a> <br>");
 		return email.toString();
@@ -187,6 +187,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 				usuarioGosto.getPk().setUsuario(usuario);
 			}
 		}
+		usuario.setSeguidores(usuarioDAO.find(usuario.getCodigoUsuario()).getSeguidores());
 		return popularQtdSeguidos(usuarioDAO.update(usuario));
 	}
 

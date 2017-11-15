@@ -39,8 +39,8 @@ public class UsuarioDetalhe extends Usuario {
 	private String pais;
 
 	@ManyToMany(targetEntity = Usuario.class)
-	@JoinTable(name = "AMG_AMIGOS", joinColumns = { @JoinColumn(name = "AMG_SEGUIDO") }, inverseJoinColumns = {
-			@JoinColumn(name = "AMG_SEGUIDOR") })
+	@JoinTable(name = "AMG_AMIGOS", joinColumns = { @JoinColumn(name = "AMG_SEGUIDO", updatable = false) }, inverseJoinColumns = {
+			@JoinColumn(name = "AMG_SEGUIDOR", updatable = false) })
 	@JsonIgnore
 	private List<Usuario> seguidores;
 
