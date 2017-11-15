@@ -1,5 +1,7 @@
 package com.mgovea.urmusic.entity;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class Publicacao {
@@ -63,11 +65,15 @@ public class Publicacao {
     }
 
     public void removeLike(Usuario usuario) {
-        for (Usuario u :
-                this.likes) {
-            if (u.getCodigoUsuario() == usuario.getCodigoUsuario()) {
-                this.likes.remove(u);
+        try {
+            for (int i = 0; i < this.likes.size(); i++) {
+                Usuario u = this.likes.get(i);
+                if (u.getCodigoUsuario().longValue() == usuario.getCodigoUsuario().longValue()) {
+                    this.likes.remove(i);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

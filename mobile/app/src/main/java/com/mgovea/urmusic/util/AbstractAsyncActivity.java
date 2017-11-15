@@ -41,6 +41,8 @@ public abstract class AbstractAsyncActivity extends AppCompatActivity {
         }
 
         progressDialog.setMessage(message);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
         progressDialog.show();
     }
 

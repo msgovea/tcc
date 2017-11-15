@@ -216,13 +216,17 @@ public class QuestionsAdapterHigh extends RecyclerView.Adapter<QuestionsAdapterH
     }
 
     public void curtir(int position) {
-        mQuestions.get(position).addLike(usuario);
-        notifyDataSetChanged();
+        try {
+            mQuestions.get(position).addLike(usuario);
+            notifyDataSetChanged();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     public void descurtir(int position) {
-        mQuestions.get(position).removeLike(usuario);
-        notifyDataSetChanged();
+        try {
+            mQuestions.get(position).removeLike(usuario);
+            notifyDataSetChanged();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     public void removePublicacaoPorID(Long idPublicacao) {
@@ -321,14 +325,16 @@ public class QuestionsAdapterHigh extends RecyclerView.Adapter<QuestionsAdapterH
 
             switch (view.getId()) {
                 case R.id.view_likes:
-                    if (!usuario.getCodigoUsuario().equals(getItem(position).getUsuario().getCodigoUsuario())) {
-                        Curtida curtidaPublicacao = new Curtida(
-                                usuario, //usuario
-                                getItem(position).getCodigo()); //codigoPublicacao
+                    try {
+                        if (!usuario.getCodigoUsuario().equals(getItem(position).getUsuario().getCodigoUsuario())) {
+                            Curtida curtidaPublicacao = new Curtida(
+                                    usuario, //usuario
+                                    getItem(position).getCodigo()); //codigoPublicacao
 
-                        AsyncLikePublication sinc = new AsyncLikePublication(this);
-                        sinc.execute(curtidaPublicacao);
-                    }
+                            AsyncLikePublication sinc = new AsyncLikePublication(this);
+                            sinc.execute(curtidaPublicacao);
+                        }
+                    } catch (Exception e) { e.printStackTrace(); }
                     break;
                 case R.id.avatar_publication:
                     //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO

@@ -133,7 +133,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_vazio));
         for (Usuario u : question.getLikes()) {
-            if (u.getCodigoUsuario().equals(usuario.getCodigoUsuario())) {
+            if (u.getCodigoUsuario().longValue() == usuario.getCodigoUsuario().longValue()) {
                 holder.imgFollow.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_like_cheio));
             }
         }
@@ -216,13 +216,17 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
     }
 
     public void curtir(int position) {
-        mQuestions.get(position).addLike(usuario);
-        notifyDataSetChanged();
+        try {
+            mQuestions.get(position).addLike(usuario);
+            notifyDataSetChanged();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     public void descurtir(int position) {
-        mQuestions.get(position).removeLike(usuario);
-        notifyDataSetChanged();
+        try {
+            mQuestions.get(position).removeLike(usuario);
+            notifyDataSetChanged();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     public void removePublicacaoPorID(Long idPublicacao) {
@@ -313,60 +317,67 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         @Override
         public void onClick(View view) {
-            int position = getAdapterPosition();
+            try {
+                int position = getAdapterPosition();
 
-            Log.e("1", view.getId() + "");
 
-            Intent intent;
+                Log.e("1", view.getId() + "");
 
-            switch (view.getId()) {
-                case R.id.view_likes:
-                    if (!usuario.getCodigoUsuario().equals(getItem(position).getUsuario().getCodigoUsuario())) {
-                        Curtida curtidaPublicacao = new Curtida(
-                                usuario, //usuario
-                                getItem(position).getCodigo()); //codigoPublicacao
+                Intent intent;
 
-                        AsyncLikePublication sinc = new AsyncLikePublication(this);
-                        sinc.execute(curtidaPublicacao);
-                    }
-                    break;
-                case R.id.avatar_publication:
-                    //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
-                    if (view.getContext() instanceof ProfileTabbedActivity) {
+                switch (view.getId()) {
+                    case R.id.view_likes:
+                        try {
+                            if (!usuario.getCodigoUsuario().equals(getItem(position).getUsuario().getCodigoUsuario())) {
+                                Curtida curtidaPublicacao = new Curtida(
+                                        usuario, //usuario
+                                        getItem(position).getCodigo()); //codigoPublicacao
+
+                                AsyncLikePublication sinc = new AsyncLikePublication(this);
+                                sinc.execute(curtidaPublicacao);
+                            }
+                        } catch (Exception e) { e.printStackTrace(); }
                         break;
-                    }
-                    intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
-                    intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
-                    view.getContext().startActivity(intent);
-                    break;
-                case R.id.view_settings:
-                    Bundle args = new Bundle();
-                    args.putLong(API.PUBLICACAO, getItem(position).getCodigo());
-                    args.putLong(API.USUARIO, getItem(position).getUsuario().getCodigoUsuario());
-                    bottomSheetDialogFragment = new CustomBottomSheetDialogFragment();
-                    bottomSheetDialogFragment.setArguments(args);
-                    bottomSheetDialogFragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-                    break;
-                case R.id.user_name_publication:
-                    //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
-                    if (view.getContext() instanceof ProfileTabbedActivity) {
+                    case R.id.avatar_publication:
+                        //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
+                        if (view.getContext() instanceof ProfileTabbedActivity) {
+                            break;
+                        }
+                        intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
+                        intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
+                        view.getContext().startActivity(intent);
                         break;
-                    }
-                    intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
-                    intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
-                    view.getContext().startActivity(intent);
-                    break;
-                case R.id.text_chat_count:
-                    intent = new Intent(view.getContext(), CommentsActivity.class);
-                    intent.putExtra("idPublicacao", Long.valueOf(getItem(position).getCodigo()));
-                    view.getContext().startActivity(intent);
-                    break;
-                case R.id.btnYoutube_player:
-                    intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, "AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", getItem(position).getVideo());
-                    mContext.startActivity(intent);
-                    break;
-                default:
-                    Log.e("mgoveaaa", view.getId() + "");
+                    case R.id.view_settings:
+                        Bundle args = new Bundle();
+                        args.putLong(API.PUBLICACAO, getItem(position).getCodigo());
+                        args.putLong(API.USUARIO, getItem(position).getUsuario().getCodigoUsuario());
+                        bottomSheetDialogFragment = new CustomBottomSheetDialogFragment();
+                        bottomSheetDialogFragment.setArguments(args);
+                        bottomSheetDialogFragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                        break;
+                    case R.id.user_name_publication:
+                        //SE JÁ ESTA NO PERFIL, NÃO ABRE DE NOVO
+                        if (view.getContext() instanceof ProfileTabbedActivity) {
+                            break;
+                        }
+                        intent = new Intent(view.getContext(), ProfileTabbedActivity.class);
+                        intent.putExtra("idUsuario", Long.valueOf(getItem(position).getUsuario().getCodigoUsuario()));
+                        view.getContext().startActivity(intent);
+                        break;
+                    case R.id.text_chat_count:
+                        intent = new Intent(view.getContext(), CommentsActivity.class);
+                        intent.putExtra("idPublicacao", Long.valueOf(getItem(position).getCodigo()));
+                        view.getContext().startActivity(intent);
+                        break;
+                    case R.id.btnYoutube_player:
+                        intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, "AIzaSyAcY1bGc9apDHV5hprJ0HA1-2ttIHPNOrs", getItem(position).getVideo());
+                        mContext.startActivity(intent);
+                        break;
+                    default:
+                        Log.e("mgoveaaa", view.getId() + "");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
