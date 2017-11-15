@@ -126,16 +126,16 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         if (idUsuario != usuario.getCodigoUsuario().longValue() && idUsuario != 0) {
             myProfile = false;
             mLayout.setVisibility(View.VISIBLE);
-            showLoadingProgressDialog();
-            AsyncProfile sinc = new AsyncProfile(this);
-            sinc.execute(idUsuario);
         } else {
             myProfile = true;
             idUsuario = usuario.getCodigoUsuario().longValue();
             mLayout.setVisibility(View.INVISIBLE);
 
-            populaPerfil(usuario);
+            //populaPerfil(usuario);
         }
+        showLoadingProgressDialog();
+        AsyncProfile sinc = new AsyncProfile(this);
+        sinc.execute(idUsuario);
 
         mButtonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,8 +167,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
                     bottomSheetDialogFragment = new PictureBottomSheetDialogFragment();
                     bottomSheetDialogFragment.setArguments(args);
                     bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
-                } else {
-                    //TODO VIEW IMAGE
                 }
             }
         });
@@ -318,6 +316,12 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         if (o.getClass() == Usuario.class) {
             usuarioLoad = (Usuario) o;
             populaPerfil(usuarioLoad);
+
+            if (usuarioLoad.getCodigoUsuario().longValue() == usuario.getCodigoUsuario().longValue()) {
+                Preferencias preferencias = new Preferencias(this);
+                preferencias.salvarUsuarioPreferencias(usuarioLoad);
+                usuario = usuarioLoad;
+            }
         } else {
             showErrorMessage();
         }
@@ -338,7 +342,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
             mImageView.setImageURI(API.URL_IMGS + API.IMG_PERFIL + usuario.getCodigoUsuario() + ".jpg");
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO ERRO CRASH APP
         }
 
         dismissProgressDialog();
@@ -352,7 +355,6 @@ public class ProfileTabbedActivity extends AbstractAsyncActivity implements Asyn
         boolean seguiu = s.equals("INSERIDO");
         mButtonFollow.setText(getString(seguiu ? R.string.unfollow : R.string.follow));
 
-        //TODO REMOVER TEXTO FIXO
         try {
             if (seguiu)
                 mQtdSeguidores.setText((Long.valueOf(mQtdSeguidores.getText().toString()) + 1) + "");
