@@ -12,22 +12,17 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.mgovea.urmusic.async.profile.AsyncProfile;
 import com.mgovea.urmusic.entity.Usuario;
-import com.mgovea.urmusic.profile.ProfileTabbedActivity;
-import com.mgovea.urmusic.register.RegisterActivityNew;
 import com.mgovea.urmusic.util.API;
 import com.mgovea.urmusic.util.Preferencias;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import es.dmoral.toasty.Toasty;
 import io.fabric.sdk.android.Fabric;
@@ -36,6 +31,8 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
 
     Uri deepLink = null;
     private String id = null;
+
+    Boolean isFim = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +52,13 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
             e.printStackTrace();
         }
 
-        //TODO MGOVEA2
-
         ImagePipelineConfig config = ImagePipelineConfig
                 .newBuilder(this)
                 .setDownsampleEnabled(true)
                 .build();
         Fresco.initialize(this, config);
 
-        //END TODO
-
+        Fabric.with(this, new Crashlytics());
 
         try {
             FirebaseDynamicLinks.getInstance()
@@ -84,9 +78,16 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                } else {
-
+                                } else if (deepLink.toString().contains("confirmar")) {
+                                    Toasty.success(SplashScreen.this, getString(R.string.conta_confirmada), Toast.LENGTH_LONG, true).show();
+                                    startActivity(new Intent(SplashScreen.this, TesteLogin.class));
+                                    isFim = true;
+                                } else if (deepLink.toString().contains("redefinir")) {
+                                    Toasty.success(SplashScreen.this, getString(R.string.senha_redefinida), Toast.LENGTH_LONG, true).show();
+                                    startActivity(new Intent(SplashScreen.this, TesteLogin.class));
+                                    isFim = true;
                                 }
+
                             }
                         }
                     })
@@ -97,7 +98,7 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
                         }
                     });
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
 
@@ -108,44 +109,31 @@ public class SplashScreen extends Activity implements AsyncProfile.Listener {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-
-                    Preferencias pref = new Preferencias(getApplicationContext());
-                    if (pref.getDadosUsuario() == null) {
-                        if (deepLink != null) {
-                            if (deepLink.toString().contains("confirmar")) {
-                                startActivity(new Intent(SplashScreen.this, TesteLogin.class));
-                                Toasty.success(SplashScreen.this, getString(R.string.conta_confirmada), Toast.LENGTH_LONG, true).show();
-                            } else if (deepLink.toString().contains("redefinir")) {
-                                startActivity(new Intent(SplashScreen.this, TesteLogin.class));
-                                Toasty.success(SplashScreen.this, getString(R.string.conta_confirmada), Toast.LENGTH_LONG, true).show();
-                            } else {
-                                TaskStackBuilder.create(SplashScreen.this)
-                                        .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin/*RegisterActivityNew*/.class))
-                                        .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
-                                        .startActivities();
-                            }
-                        } else {
+                    if (!isFim) {
+                        Preferencias pref = new Preferencias(getApplicationContext());
+                        if (pref.getDadosUsuario() == null) {
                             TaskStackBuilder.create(SplashScreen.this)
                                     .addNextIntentWithParentStack(new Intent(SplashScreen.this, TesteLogin/*RegisterActivityNew*/.class))
                                     .addNextIntent(new Intent(SplashScreen.this, IntroActivity.class))
                                     .startActivities();
-                        }
-                    } else {
-                        pref.atualizaUsuario();
 
-                        if (deepLink == null || id == null) {
-                            startActivity(new Intent(SplashScreen.this, MenuActivity.class));
-                            finish();
                         } else {
-                            AsyncProfile sinc = new AsyncProfile(SplashScreen.this);
-                            sinc.execute(Long.valueOf(id));
+                            pref.atualizaUsuario();
+
+                            if (deepLink == null || id == null) {
+                                startActivity(new Intent(SplashScreen.this, MenuActivity.class));
+                                finish();
+                            } else {
+                                AsyncProfile sinc = new AsyncProfile(SplashScreen.this);
+                                sinc.execute(Long.valueOf(id));
+                            }
                         }
                     }
                 }
             }
         };
-        Fabric.with(this, new Crashlytics());
         timerThread.start();
+
 
     }
 
