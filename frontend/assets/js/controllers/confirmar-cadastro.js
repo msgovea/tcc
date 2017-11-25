@@ -6,7 +6,7 @@ angular.module('app')
     .controller('ConfirmaCadastroCtrl', ['$scope', '$state','$http', '$window','$stateParams','$filter', /*'apiGostoMusical',*/ function($scope, $state, $http, $window, $stateParams, $filter /*, apiGostoMusical*/) {
 
         $scope.confirmar = function() {
-            $http.get('http://192.198.90.26:80/musicsocial/usuario/confirmar/' + $stateParams.idUsuario + '/' + $stateParams.emailHash).success(function(data) {
+            $http.get('http://192.198.90.26:80/usuario/confirmar/' + $stateParams.idUsuario + '/' + $stateParams.emailHash).success(function(data) {
                 $scope.loading = true;
                 if(data.message === 'Sucesso!') {
                     $('body').pgNotification({
@@ -19,7 +19,7 @@ angular.module('app')
                         type: 'success',
                         thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
                     }).show();
-                     $state.go('access.login');
+                    $window.location.href = "https://r789f.app.goo.gl/?link=http://www.urmusic.me/?confirmar&apn=com.mgovea.urmusic";
                 }
                 else{
                     $scope.confirm.$invalid = true;

@@ -50,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UsuarioDetalhe cadastrarUsuario(UsuarioDetalhe usuario) {
 		UsuarioDetalhe usuarioBanco = usuarioDAO.consultarPorEmail(usuario.getEmail());
 		if (usuarioBanco != null) {
-			throw new RuntimeException("Usuario já cadastrado!");
+			return null;
 		}
 
 		usuario.setSituacaoConta(SituacaoConta.AGUARDANDO_CONFIRMACAO.getEntity());
@@ -83,7 +83,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private String montarEmailRecuperacao() {
 		StringBuilder email = new StringBuilder();
 		email.append("Olá %s, <br>");
-		email.append("Sua solicitação de recuperacao de senha foi realizada com sucesso! ");
+		email.append("Sua solicitação de recuperação de senha foi realizada com sucesso! ");
 		email.append("Altere sua senha clicando no link abaixo. <br>");
 		email.append("<a href=\"http://%s/#/access/redefinirSenha/%s/%s\">Redefinir senha</a> <br>");
 		return email.toString();
@@ -182,16 +182,23 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public UsuarioDetalhe atualizarUsuario(UsuarioDetalhe usuario) {
 		if (usuario.getGostosMusicais() != null && !usuario.getGostosMusicais().isEmpty()) {
+			usuario.setDataNascimento(Date.valueOf(usuario.getDataNascimento().toLocalDate().plusDays(1)));
 			for (UsuarioGostoMusical usuarioGosto : usuario.getGostosMusicais()) {
 				usuarioGosto.getPk().setUsuario(usuario);
 			}
 		}
+		usuario.setSeguidores(usuarioDAO.find(usuario.getCodigoUsuario()).getSeguidores());
 		return popularQtdSeguidos(usuarioDAO.update(usuario));
 	}
 
 	@Override
 	public UsuarioDetalhe buscarPorId(Integer id) {
 		return popularQtdSeguidos(usuarioDAO.find(id));
+	}
+	
+	@Override
+	public UsuarioDetalhe buscarPorEmail(String email) {
+		return popularQtdSeguidos(usuarioDAO.consultarPorEmail(email));
 	}
 
 	@Override

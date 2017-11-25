@@ -17,7 +17,7 @@ angular.module('app')
             var senhaHash = md5.createHash(user.password);
             
             $scope.loading = true;
-            $http.get('http://192.198.90.26:80/musicsocial/usuario/redefinir/'+idBase+'/'+emailHash+'/'+senhaHash).success(function(result){
+            $http.get('http://192.198.90.26:80/usuario/redefinir/'+idBase+'/'+emailHash+'/'+senhaHash).success(function(result){
                 if (result.message == "Sucesso!") {
                     $('body').pgNotification({
                         style: 'bar',
@@ -28,7 +28,7 @@ angular.module('app')
                         type: 'success',
                         thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
                     }).show(); 
-                    $state.go('access.login');   
+                    $window.location.href = "https://r789f.app.goo.gl/?link=http://www.urmusic.me/?redefinir&apn=com.mgovea.urmusic";
                 }              
             });
     

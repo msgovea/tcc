@@ -41,6 +41,14 @@ public class SituacaoConta {
 		this.tipo = tipo;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigoSituacaoConta == null) ? 0 : codigoSituacaoConta.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -55,6 +63,11 @@ public class SituacaoConta {
 			if (other.codigoSituacaoConta != null)
 				return false;
 		} else if (!codigoSituacaoConta.equals(other.codigoSituacaoConta))
+			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
 			return false;
 		return true;
 	}

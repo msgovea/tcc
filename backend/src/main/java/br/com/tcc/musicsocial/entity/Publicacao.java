@@ -56,6 +56,10 @@ public class Publicacao {
 	@Column(name = "PBC_VIDEO")
 	private String video;
 	
+	@ManyToOne
+	@JoinColumn(name = "PBC_GOSTO", nullable = true)
+	private GostoMusical gosto;
+	
 	@Transient
 	private Integer qtdComentarios;
 	
@@ -149,6 +153,14 @@ public class Publicacao {
 
 	public void setVideo(String video) {
 		this.video = video;
+	}
+
+	public GostoMusical getGosto() {
+		return gosto;
+	}
+
+	public void setGosto(GostoMusical gosto) {
+		this.gosto = gosto;
 	}
 
 }

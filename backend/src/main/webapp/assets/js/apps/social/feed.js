@@ -59,7 +59,7 @@ angular.module('app')
                 publi.conteudo = publicacao;
 
                 $http.post(
-                    'http://192.198.90.26:80/publicacoes/cadastrar', 
+                    'http://192.198.90.26:80/publicacoes/cadastrar',
                     publi            
                 ).success(function (response) {
                     if(response.message === 'Sucesso!'){
@@ -109,12 +109,12 @@ angular.module('app')
             objeto.favorito =  $scope.gostoFavorito.favorito;
 
             $http.post(
-                'http://192.198.90.26:80/usuario/gostosmusicais', 
+                'http://192.198.90.26:80/usuario/gostosmusicais',
                 objeto
             ).success(function(response){
                 if(response.message === 'Sucesso!'){
                     $http.post(
-                        'http://192.198.90.26:80/usuario/login', 
+                        'http://192.198.90.26:80/usuario/login',
                         usuario
                     ).success(function(retorno){
                         if(retorno.message === 'Sucesso!'){

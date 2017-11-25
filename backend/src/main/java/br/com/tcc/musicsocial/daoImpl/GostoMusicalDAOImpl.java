@@ -15,4 +15,9 @@ public class GostoMusicalDAOImpl extends BaseDAOImpl<UsuarioGostoMusical> implem
 	public List<GostoMusical> findAllGostos() {
 		return getEntityManager().createQuery("from GostoMusical").getResultList();
 	}
+
+	@Override
+	public GostoMusical findGostoById(Integer idGosto) {
+		return (GostoMusical) getEntityManager().createQuery("from GostoMusical where codigo = :codigo").setParameter("codigo", idGosto).getSingleResult();
+	}
 }

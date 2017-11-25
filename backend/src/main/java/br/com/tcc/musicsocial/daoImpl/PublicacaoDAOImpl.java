@@ -29,17 +29,35 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 		return query.getResultList();
 	}
 	
+	@Override
+	public Publicacao getPublicacao(Long idPublicacao) {
+		StringBuilder hql = new StringBuilder();
+		hql.append("select p from Publicacao p ");
+		hql.append("where p.codigo = :codigo ");
+		hql.append("and p.ativa = :ativa ");
+		hql.append("and p.usuario.situacaoConta.codigoSituacaoConta <> :codigoSituacaoConta ");
+		hql.append("order by p.codigo desc ");
+		Query query = getEntityManager().createQuery(hql.toString());
+		query.setParameter("codigo", idPublicacao);
+		query.setParameter("ativa", true);
+		query.setParameter("codigoSituacaoConta", SituacaoConta.BANIDA.getValue());
+		return (Publicacao) query.getSingleResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario) {
 		StringBuilder hql = new StringBuilder();
 		hql.append("select p from Publicacao p ");
-		hql.append("where p.usuario.codigoUsuario in (select a.seguido.codigoUsuario from Amigo a where a.segue.codigoUsuario = :codigo) ");
+		hql.append("where (p.usuario.codigoUsuario in (select a.seguido.codigoUsuario from Amigo a where a.segue.codigoUsuario = :idUsuario) ");
+		hql.append("or p.usuario.codigoUsuario = :idUsuario) ");
 		hql.append("and p.ativa = :ativa ");
+		hql.append("and p.usuario.situacaoConta.codigoSituacaoConta <> :codigoSituacaoConta ");
 		hql.append("order by p.codigo desc ");
 		Query query = getEntityManager().createQuery(hql.toString());
-		query.setParameter("codigo", idUsuario);
+		query.setParameter("idUsuario", idUsuario);
 		query.setParameter("ativa", true);
+		query.setParameter("codigoSituacaoConta", SituacaoConta.BANIDA.getValue());
 		return query.getResultList();
 	}
 	
@@ -53,15 +71,18 @@ public class PublicacaoDAOImpl extends BaseDAOImpl<Publicacao> implements Public
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Publicacao> getPublicacoesEmAlta() {
+	public List<Publicacao> getPublicacoesEmAlta(List<Integer> gostos) {
 		StringBuilder hql = new StringBuilder();
 		hql.append("select p from Publicacao p ");
 		hql.append("where p.impulsionada = :impulsionada ");
 		hql.append("and p.ativa = :ativa ");
+		hql.append("and (p.gosto.codigo in (:gostos) ");
+		hql.append("or p.gosto is null) ");
 		hql.append("order by p.codigo desc ");
 		Query query = getEntityManager().createQuery(hql.toString());
 		query.setParameter("impulsionada", true);
 		query.setParameter("ativa", true);
+		query.setParameter("gostos", gostos);
 		return query.getResultList();
 	}
 }

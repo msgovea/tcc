@@ -8,8 +8,6 @@ import br.com.tcc.musicsocial.entity.Publicacao;
 
 public interface PublicacaoService {
 
-	List<Publicacao> getPublicacoes(String idUsuario);
-	
 	Publicacao cadastrarPublicacao(Publicacao publicacao);
 	
 	Boolean removerPublicacao(Long codigo);
@@ -22,9 +20,17 @@ public interface PublicacaoService {
 
 	List<Publicacao> getPublicacoesDeAmigos(Integer idUsuario);
 
-	List<Publicacao> getPublicacoesEmAlta();
-
 	Boolean removerComentario(Long codigoComentario);
 
-	Boolean impulsionarPublicacao(Long codigoPublicacao);
+	Boolean impulsionarPublicacao(Long codigoPublicacao, Integer gostoMusical);
+
+	List<Publicacao> getPublicacoes(String idUsuario);
+
+	Publicacao getPublicacao(Long idPublicacao);
+
+	Publicacao populaQtdComentarios(Publicacao publicacao);
+
+	List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes);
+
+	List<Publicacao> getPublicacoesEmAlta(Integer codUsuario);
 }

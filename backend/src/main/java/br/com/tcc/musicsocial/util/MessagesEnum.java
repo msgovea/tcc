@@ -3,7 +3,8 @@ package br.com.tcc.musicsocial.util;
 public enum MessagesEnum {
 	SUCESSO("Sucesso!"),
 	INVALIDO("Invalido!"),
-	FALHA("Falha!");
+	FALHA("Falha!"),
+	EMAIL_JA_CADASTRADO("Email ja cadastrado");
 	
 	private String descricao;
 

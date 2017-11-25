@@ -294,9 +294,25 @@ angular.module('app')
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/app/feed');
+                .otherwise('/hotsite');
 
             $stateProvider
+
+
+                .state('hotsite', {
+                    url: "/hotsite",
+                    templateUrl: 'tpl/apps/hotsite.html',
+                    controller: 'HotsiteCtrl',
+                    data: {
+                        requireLogin: false,
+                        requireAdmin: false
+                    },
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load('assets/js/apps/hotsite.js');
+                        }]
+                    }
+                })
 
                 .state('app', {
                     abstract: true,
@@ -308,7 +324,7 @@ angular.module('app')
                     },
                     templateUrl: "tpl/app.html"
                 })
-                
+
                 .state('app.dashboard', {
                     url: "/dashboard",
                     templateUrl: "tpl/dashboard.html",
@@ -414,6 +430,27 @@ angular.module('app')
                                     'pages/js/pages.social.min.js',
                                     'assets/js/apps/social/feed.js'
                                 ])
+                            });
+                    }]
+                }
+            })
+
+            .state('app.denuncias', {
+                url: '/admin/denuncias',
+                data: {
+                    requireLogin: true,
+                    requireAdmin: true
+                },
+                templateUrl: 'tpl/apps/admin/denuncias.html',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                                'dataTables'
+                            ], {
+                                insertBefore: '#lazyload_placeholder'
+                            })
+                            .then(function() {
+                                return $ocLazyLoad.load('assets/js/controllers/denuncias.js');
                             });
                     }]
                 }

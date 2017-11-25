@@ -8,4 +8,6 @@ public interface EmailService {
 	void enviarEmail(String assunto, String destinatario, String texto) throws MessagingException;
 	
 	void enviarEmail(Email email) throws MessagingException;
+
+	void enviarEmailContato(Integer codRemetente, String destinatario, String texto) throws MessagingException;
 }

@@ -42,6 +42,15 @@ public class NivelUsuario {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigoNivel == null) ? 0 : codigoNivel.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -55,7 +64,12 @@ public class NivelUsuario {
 				return false;
 		} else if (!codigoNivel.equals(other.codigoNivel))
 			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
 		return true;
 	}
-	
+
 }

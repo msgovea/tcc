@@ -9,7 +9,7 @@ angular.module('app').factory('apiSalvarEdic', function($http) {
 
                 return $http({
                     method: 'POST',
-                    url: 'http://192.198.90.26:82/musicsocial/usuario/atualizar',
+                    url: 'http://192.198.90.26:82/usuario/atualizar',
                     headers: {
                         'Content-Type': 'application/json'
                     },

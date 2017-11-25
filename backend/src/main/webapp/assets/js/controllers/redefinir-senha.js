@@ -28,7 +28,7 @@ angular.module('app')
                         type: 'success',
                         thumbnail: '<img width="40" height="40" style="display: inline-block;" src="" ui-jq="unveil"  alt="">'
                     }).show(); 
-                    $state.go('access.login');   
+                    $window.location.href = "https://r789f.app.goo.gl/?link=http://www.urmusic.me/?redefinir&apn=com.mgovea.urmusic";
                 }              
             });
     

@@ -62,7 +62,7 @@ angular.module('app')
 
                         case 1: //conta ativa
                             $cookieStore.put('usuario', result.data.object);
-                            $state.go('app.feed');
+                            $state.go('app.denuncias');
                             break;
 
                         case 2: //conta inativa

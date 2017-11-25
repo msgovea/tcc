@@ -8,7 +8,7 @@ angular.module('app')
             getApi: function(user, post) {
                 return $http({
                     method: 'POST',
-                    url: 'http://192.198.90.26:80/musicsocial/publicacoes/cadastrar',
+                    url: 'http://192.198.90.26:80/publicacoes/cadastrar',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -34,7 +34,7 @@ angular.module('app')
                 $scope.app.layout.theme = 'pages/css/pages.css';
             });
 
-        $http.get('http://192.198.90.26:80/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
+        $http.get('http://192.198.90.26:80/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
             $scope.publicacoes = data.object;
         }); 
         
@@ -59,11 +59,11 @@ angular.module('app')
                 publi.conteudo = publicacao;
 
                 $http.post(
-                    'http://192.198.90.26:80/musicsocial/publicacoes/cadastrar',
+                    'http://192.198.90.26:80/publicacoes/cadastrar',
                     publi            
                 ).success(function (response) {
                     if(response.message === 'Sucesso!'){
-                        /*$http.get('http://192.198.90.26:80/musicsocial/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
+                        /*$http.get('http://192.198.90.26:80/publicacoes/get/'+$base64.encode($cookieStore.get('usuario').codigoUsuario)).success(function(data){
                             $scope.publicacoes = data.object;
                             console.log(data.object);
                         });*/
@@ -85,7 +85,7 @@ angular.module('app')
         $rootScope.gostosCadastrados = [];
         $scope.gostoFavorito = {favorito: null};
 
-        $http.get('http://192.198.90.26:80/musicsocial/usuario/getGostosMusicais').success(function(result) {
+        $http.get('http://192.198.90.26:80/usuario/getGostosMusicais').success(function(result) {
             for(var i = 0; i < result.object.length; i++){
                 $scope.gostos[i] = result.object[i]; 
             }
@@ -109,12 +109,12 @@ angular.module('app')
             objeto.favorito =  $scope.gostoFavorito.favorito;
 
             $http.post(
-                'http://192.198.90.26:80/musicsocial/usuario/gostosmusicais',
+                'http://192.198.90.26:80/usuario/gostosmusicais',
                 objeto
             ).success(function(response){
                 if(response.message === 'Sucesso!'){
                     $http.post(
-                        'http://192.198.90.26:80/musicsocial/usuario/login',
+                        'http://192.198.90.26:80/usuario/login',
                         usuario
                     ).success(function(retorno){
                         if(retorno.message === 'Sucesso!'){

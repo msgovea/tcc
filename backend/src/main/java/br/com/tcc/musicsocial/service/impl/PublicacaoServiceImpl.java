@@ -1,7 +1,8 @@
 package br.com.tcc.musicsocial.service.impl;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,15 +14,19 @@ import org.springframework.util.StringUtils;
 
 import br.com.tcc.musicsocial.dao.ComentarioDAO;
 import br.com.tcc.musicsocial.dao.CurtidasDAO;
+import br.com.tcc.musicsocial.dao.GostoMusicalDAO;
 import br.com.tcc.musicsocial.dao.PublicacaoDAO;
 import br.com.tcc.musicsocial.entity.Comentario;
 import br.com.tcc.musicsocial.entity.Curtida;
+import br.com.tcc.musicsocial.entity.GostoMusical;
 import br.com.tcc.musicsocial.entity.Publicacao;
+import br.com.tcc.musicsocial.entity.UsuarioDetalhe;
+import br.com.tcc.musicsocial.entity.UsuarioGostoMusical;
 import br.com.tcc.musicsocial.service.FotoService;
 import br.com.tcc.musicsocial.service.PublicacaoService;
 import br.com.tcc.musicsocial.service.UsuarioService;
 
-@Service
+@Service 
 public class PublicacaoServiceImpl implements PublicacaoService {
 
 	@Autowired
@@ -38,6 +43,9 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	
 	@Autowired
 	private FotoService fotoService;
+	
+	@Autowired
+	private GostoMusicalDAO gostoMusicalDAO;
 
 	@Override
 	public List<Publicacao> getPublicacoes(String idUsuario) {
@@ -124,14 +132,16 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 		}
 	}
 
-	private Publicacao populaQtdComentarios(Publicacao publicacao) {
+	@Override
+	public Publicacao populaQtdComentarios(Publicacao publicacao) {
 		if (publicacao != null) {
 			publicacao.setQtdComentarios(publicacaoDAO.consultarQtdComentarios(publicacao));
 		}
 		return publicacao;
 	}
 
-	private List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes) {
+	@Override
+	public List<Publicacao> populaQtdComentarios(List<Publicacao> publicacoes) {
 		for (Publicacao publicacao : publicacoes) {
 			populaQtdComentarios(publicacao);
 		}
@@ -139,8 +149,14 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	}
 
 	@Override
-	public List<Publicacao> getPublicacoesEmAlta() {
-		return populaQtdComentarios(publicacaoDAO.getPublicacoesEmAlta());
+	public List<Publicacao> getPublicacoesEmAlta(Integer codUsuario) {
+		UsuarioDetalhe usuario = usuarioService.buscarPorId(codUsuario);
+		List<Integer> gostos = new ArrayList<>();
+		gostos.add(0);
+		for(UsuarioGostoMusical usuarioGosto : usuario.getGostosMusicais()) {
+			gostos.add(usuarioGosto.getPk().getGostoMusical().getCodigo());
+		}
+		return populaQtdComentarios(publicacaoDAO.getPublicacoesEmAlta(gostos));
 	}
 
 	@Override
@@ -156,12 +172,21 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 	
 	@Override
 	@Transactional
-	public Boolean impulsionarPublicacao(Long codigoPublicacao) {
+	public Boolean impulsionarPublicacao(Long codigoPublicacao, Integer gostoMusical) {
 		Publicacao publicacao = publicacaoDAO.find(codigoPublicacao);
 		if(publicacao != null) {
+			if(gostoMusical != null) {
+				GostoMusical gosto = gostoMusicalDAO.findGostoById(gostoMusical);
+				publicacao.setGosto(gosto);
+			}
 			publicacao.setImpulsionada(true);
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public Publicacao getPublicacao(Long idPublicacao) {
+		return publicacaoDAO.getPublicacao(idPublicacao);
 	}
 }
