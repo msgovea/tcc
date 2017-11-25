@@ -66,9 +66,10 @@ angular.module('app')
             var denuncias = [];
             $scope.denuncias.forEach(function(denuncia) {
                 if(denuncia.selected) {
-                    $http.get('http://192.198.90.26:80/denuncia/aprovar/' + denuncia.codigo + '/' + tipoAprovacao).success(function(result) {
-
-                        console.log(result.message);
+                    var url = 'http://192.198.90.26:80/denuncia/aprovar/' + denuncia.codigo + '/' + tipoAprovacao;
+                    $http.get(url).success(function(result) {
+                        //console.log(result.message + 'http://192.198.90.26:80/denuncia/aprovar/' + denuncia.codigo + '/' + tipoAprovacao);
+                        $scope.getDenuncias();
                     });
                 }
             }, this);

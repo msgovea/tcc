@@ -294,9 +294,25 @@ angular.module('app')
 
         function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $urlRouterProvider
-                .otherwise('/app/admin/denuncias');
+                .otherwise('/hotsite');
 
             $stateProvider
+
+
+                .state('hotsite', {
+                    url: "/hotsite",
+                    templateUrl: 'tpl/apps/hotsite.html',
+                    controller: 'HotsiteCtrl',
+                    data: {
+                        requireLogin: false,
+                        requireAdmin: false
+                    },
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load('assets/js/apps/hotsite.js');
+                        }]
+                    }
+                })
 
                 .state('app', {
                     abstract: true,
@@ -308,7 +324,7 @@ angular.module('app')
                     },
                     templateUrl: "tpl/app.html"
                 })
-                
+
                 .state('app.dashboard', {
                     url: "/dashboard",
                     templateUrl: "tpl/dashboard.html",
